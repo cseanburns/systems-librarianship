@@ -7,10 +7,6 @@ Helpful documentation and demos:
 - [Koha on Debian][kohaDebian]
 - [Install Koha on Google Cloud Platform][youtubeKoha]
 
-[kohails]:https://koha-community.org/
-[kohaDebian]:https://wiki.koha-community.org/wiki/Koha_on_Debian
-[youtubeKoha]:https://www.youtube.com/watch?v=mzUop9R4sKc
-
 ## Pre-setup
 
 ```
@@ -41,6 +37,8 @@ wget -qO - https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor -o /us
 apt-get update
 apt-get install koha-common
 nano /etc/koha/koha-sites.conf
+# add:
+# INTRAPORT="8080"
 sudo apt-get install mysql-server
 mysqladmin -u root password bibliolib1
 a2enmod rewrite
@@ -48,6 +46,8 @@ a2enmod cgi
 systemctl restart apache2
 koha-create --create-db bibliolib
 nano /etc/apache2/ports.conf 
+# add:
+# Listen: 8080
 systemctl restart apache2
 a2dissite 000-default
 a2enmod deflate
@@ -69,3 +69,8 @@ Be sure to follow instructions.
 ```
 http://IP-ADDRESS:8080
 ```
+
+[kohails]:https://koha-community.org/
+[kohaDebian]:https://wiki.koha-community.org/wiki/Koha_on_Debian
+[youtubeKoha]:https://www.youtube.com/watch?v=mzUop9R4sKc
+
