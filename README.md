@@ -9,7 +9,6 @@ using [mdbook][mdBook].
 
 The resulting output is hosted on my website at:
 
-[https://cseanburns.net/WWW/systems-librarianship]
-(https://cseanburns.net/WWW/systems-librarianship)
+[https://cseanburns.net/WWW/systems-librarianship](https://cseanburns.net/WWW/systems-librarianship)
 
 [mdBook]:https://cseanburns.net/WWW/ERM-book/
