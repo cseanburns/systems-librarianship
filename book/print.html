@@ -171,7 +171,7 @@ computers in general;</li>
 machines;</li>
 <li>how to manage projects using Git and GitHub;</li>
 <li>how to create a LAMP server, websites, and create a
-barebones OPAC;</li>
+bare bones OPAC;</li>
 <li>how to install and configure content management systems,
 and;</li>
 <li>how to install and configure an integrated library
@@ -204,14 +204,15 @@ systems librarianship.
 For example,
 this book does not cover software coding nor
 managerial duties, like issuing
-requests for proposals for software products.
+requests for proposals for software products,
+or budgeting.
 It is designed as an entry level course in
 the technical aspects of systems librarianship,
 and it is meant to go hand-in-hand with 
 other courses taught in our program.
 That includes my course on
 <a href="https://cseanburns.net/WWW/ERM-book/">electronic resource management</a>
-but also other courses that my colleague teach.</p>
+but also other courses that my colleagues teach.</p>
 <p>The book will start off as a series of transcripts, and
 over time,
 my hope is to build it out to a full fledged textbook
@@ -221,7 +222,1090 @@ I am using <a href="https://github.com/rust-lang/mdBook">mdBook</a> to build thi
 licensed under the <a href="https://github.com/cseanburns/systems_librarianship/blob/master/LICENSE">GNU GPL v3.0</a>.
 Feel free to fork it on <a href="https://github.com/cseanburns/systems_librarianship">GitHub</a> and
 modify it for your own needs.</p>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="install-the-koha-ils"><a class="header" href="#install-the-koha-ils">Install the Koha ILS</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="history-of-unix-and-linux"><a class="header" href="#history-of-unix-and-linux">History of Unix and Linux</a></h1>
+<p>An outline of the history of Unix and Linux.</p>
+<h2 id="location-bell-labs-part-of-att-new-jersey-late-1960s-through-early-1970s"><a class="header" href="#location-bell-labs-part-of-att-new-jersey-late-1960s-through-early-1970s">Location: Bell Labs, part of AT&amp;T (New Jersey), late 1960s through early 1970s</a></h2>
+<ul>
+<li>Starts with an operating system called Multics.</li>
+<li>Multics was a time sharing system
+<ul>
+<li>That is, more than one person could use it at once.</li>
+</ul>
+</li>
+<li>But Multics had issues and was slowly abandoned</li>
+<li><a href="http://cs.bell-labs.co/who/ken/">Ken Thompson</a> found an old PDP-7. Started to write UNIX.
+<ul>
+<li>The <a href="https://en.wikipedia.org/wiki/Ed_(text_editor)">ed</a> line editor was written.</li>
+<li>Pronounced e.d. but generally sounded out.</li>
+</ul>
+</li>
+<li>This version of UNIX would later be referred to as <em>Research Unix</em></li>
+<li><a href="https://www.bell-labs.com/usr/dmr/www/">Dennis Ritchie</a>, the creator of the C programming language,
+joined Thompson's efforts.</li>
+</ul>
+<h2 id="location-berkeley-ca-university-of-california-berkeley-early-to-mid-1970s"><a class="header" href="#location-berkeley-ca-university-of-california-berkeley-early-to-mid-1970s">Location: Berkeley, CA (University of California, Berkeley), early to mid 1970s</a></h2>
+<ul>
+<li>The code for UNIX was not 'free software'
+but low cost and easily shared.</li>
+<li>Ken Thompson visited Berkeley and helped install <a href="https://en.wikipedia.org/wiki/Berkeley_Software_Distribution">Version 6 of UNIX</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Bill_Joy">Bill Joy</a> and others contributed heavily
+<ul>
+<li>Joy created the <a href="https://sites.google.com/a/bostic.com/keithbostic/vi/">vi</a> text editor,
+a descendant of the popular <a href="https://www.vim.org/">Vim</a> editor,
+many other important programs, and was a co-founder of Sun Microsystems</li>
+</ul>
+</li>
+<li>This installation of UNIX would eventually become known
+as the Berkeley Software Distribution, or BSD.</li>
+</ul>
+<h2 id="att"><a class="header" href="#att">AT&amp;T</a></h2>
+<ul>
+<li>Until its breakup in 1984,
+AT&amp;T was not allowed to profit off patents
+that were not directly related to its telecommunications businesses.</li>
+<li>This agreement with the US government helped
+protect the company from monopolistic charges,
+and as a result, they could not commercialize UNIX.</li>
+<li>This changed after the breakup.
+System V UNIX became the standard bearer of commercial UNIX.</li>
+</ul>
+<h2 id="location-boston-ma-mit-early-1980s-through-early-1990s"><a class="header" href="#location-boston-ma-mit-early-1980s-through-early-1990s">Location: Boston, MA (MIT), early 1980s through early 1990s</a></h2>
+<ul>
+<li>In the late 1970s, <a href="https://en.wikipedia.org/wiki/Richard_Stallman">Richard Stallman</a> noticed
+that software began to become commercialized.
+<ul>
+<li>As a result, hardware vendors stopped sharing
+the code they developed to make their hardware work.</li>
+</ul>
+</li>
+<li>Software code became eligible for copyright protection with
+the Copyright Act of 1976</li>
+<li>Stallman, who thrived in a <em>hacker culture</em>,
+began to battle against this turn of events.</li>
+<li>Stallman created the <a href="https://www.gnu.org/gnu/gnu.html">GNU project</a>,
+the free software philosophy, GNU Emacs,
+a popular and important text editor,
+and he wrote many other programs.</li>
+<li>The GNU project is an attempt to create a completely
+<strong>free software</strong> operating system,
+that was Unix-like, called GNU.</li>
+<li>By the early 1990s, Stallman and others had developed
+all the utilities needed to have a full operating system,
+except for a kernel, which they called <a href="https://www.gnu.org/software/hurd/">GNU Hurd</a>.</li>
+<li>This included the Bash shell, written by <a href="https://opuslogica.com/">Brian Fox</a>.</li>
+<li>The GNU philosophy includes several propositions
+that define free software:</li>
+</ul>
+<blockquote>
+<p>The four freedoms, per GNU Project:
+0. The freedom to run the program as you wish,
+for any purpose (freedom 0).</p>
+<ol>
+<li>The freedom to study how the program works,
+and change it so it does your computing as you wish (freedom 1).
+Access to the source code is a precondition for this.</li>
+<li>The freedom to redistribute copies so you can help others (freedom 2).</li>
+<li>The freedom to distribute copies of your modified
+versions to others (freedom 3).
+By doing this you can give the whole community a chance
+to benefit from your changes.
+Access to the source code is a precondition for this.</li>
+</ol>
+</blockquote>
+<p><a href="https://www.gnu.org/philosophy/free-sw.html">The Four Freedoms</a></p>
+<h2 id="the-unix-wars-and-the-lawsuit-late-1980s-through-the-early-1990s"><a class="header" href="#the-unix-wars-and-the-lawsuit-late-1980s-through-the-early-1990s">The Unix wars and the lawsuit, late 1980s through the early 1990s</a></h2>
+<ul>
+<li>AT&amp;T, after its breakup, began to commercialize Unix,
+and differences in AT&amp;T Unix and BSD Unix arose.</li>
+<li>The former was aimed at commercialization,
+and the latter aimed at researchers and academics.</li>
+<li>UNIX Systems Laboratories, Inc. (USL, part of AT&amp;T)
+sued Berkeley Software Design, Inc.
+(BSDi, part of the University of California, Berkeley)
+for copyright and trademark violations.</li>
+<li>USL ultimately lost the case,
+but the lawsuit delayed adoption of BSD Unix.</li>
+</ul>
+<h2 id="linux-linus-torvalds-university-of-helsinki-finland-early-1990s"><a class="header" href="#linux-linus-torvalds-university-of-helsinki-finland-early-1990s">Linux, Linus Torvalds, University of Helsinki, Finland, early 1990s</a></h2>
+<ul>
+<li>On August 25, 1991, <a href="https://www.cs.helsinki.fi/u/torvalds/">Linus Torvalds</a>
+announced that he had started working on a <strong>free</strong>
+operating system kernel for the 386 CPU architecture
+and for his specific hardware.</li>
+<li>This <a href="https://www.kernel.org/">kernel</a> would later be named <strong>Linux</strong>.</li>
+<li>Linux technically refers only to the kernel.
+<ul>
+<li>An operating system kernel handles startup,
+devices, memory, resources, etc.</li>
+<li>A kernel does not provide user land utilities---the
+kinds of software they people use when using computers.</li>
+</ul>
+</li>
+<li>Torvalds' motivation was to learn about OS development
+but also to have access to a Unix-like system.
+<ul>
+<li>He already had access to an Unix-like system
+called <a href="https://www.minix3.org/">MINIX</a>,
+but MINIX had technical and copyright restrictions.</li>
+</ul>
+</li>
+<li>Torvalds has stated that if a BSD or
+if GNU Hurd operating system were available,
+then he may not have created the Linux kernel.</li>
+<li>But Torvalds and others took the GNU utilities
+and created what is now called Linux or GNU/Linux.</li>
+</ul>
+<h2 id="distributions-early-1990s-through-today"><a class="header" href="#distributions-early-1990s-through-today">Distributions, early 1990s through today</a></h2>
+<ul>
+<li>Soon after the Linux development,
+people would create their own Linux and
+GNU based operating systems and would distribute them.</li>
+<li>As such, these Linux operating systems became 
+referred to as <em>distributions</em>.</li>
+<li>The two oldest distributions that are still in 
+active development include:
+<ul>
+<li><a href="http://www.slackware.com/">Slackware</a></li>
+<li><a href="https://www.debian.org/">Debian</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="short-history-of-bsd-1970s-through-today"><a class="header" href="#short-history-of-bsd-1970s-through-today">Short History of BSD, 1970s through today</a></h2>
+<ul>
+<li>Unix version numbers 1-6 eventually led to BSD 1-4.</li>
+<li>At BSD 4.3, all versions had some AT&amp;T code.
+<ul>
+<li>Desire to remove this code led to BSD Net/1.</li>
+</ul>
+</li>
+<li>All AT&amp;T code was removed by BSD Net/2.</li>
+<li>BSD Net/2 was ported to the Intel 386 processor.
+<ul>
+<li>This became 386BSD and was made available in 1992,
+a year after the Linux kernel was released.</li>
+</ul>
+</li>
+<li>386BSD split into two projects:
+<ul>
+<li><a href="https://www.netbsd.org/">NetBSD</a></li>
+<li><a href="https://www.freebsd.org/">FreeBSD</a></li>
+</ul>
+</li>
+<li>NetBSD split into another project: <a href="https://www.openbsd.org/">OpenBSD</a>.</li>
+<li>All three of these BSDs are still in active development.</li>
+<li>From a bird's eye point of view, they each have different focuses:
+<ul>
+<li>NetBSD focuses on portability (MacOS, NASA)</li>
+<li>FreeBSD focuses on wide applicability 
+(WhatsApp, Netflix, PlayStation 4, MacOS)</li>
+<li>OpenBSD focuses on security 
+(has contributed a number of very important applications)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>MacOS is based on <a href="http://www.puredarwin.org/">Darwin</a>,
+is <a href="https://www.opengroup.org/membership/forums/platform/unix">technically UNIX</a>, and is
+partly based on FreeBSD with some code
+coming from the other BSDs.
+See <a href="https://apple.stackexchange.com/questions/401832/why-is-macos-often-referred-to-as-darwin">Why is macOS often referred to as 'Darwin'?</a>
+for a short history.</p>
+</blockquote>
+<h2 id="short-history-of-gnu-1980s-through-today"><a class="header" href="#short-history-of-gnu-1980s-through-today">Short History of GNU, 1980s through today</a></h2>
+<ul>
+<li>The GNU Hurd is still under active development,
+but it's the pre-production state.</li>
+<li>The last release was 0.9 on December 2016.</li>
+<li>A complete OS based on the GNU Hurd can be downloaded and ran.
+For example: <a href="https://www.debian.org/ports/hurd/">Debian GNU/Hurd</a></li>
+</ul>
+<h2 id="free-and-open-source-licenses"><a class="header" href="#free-and-open-source-licenses">Free and Open Source Licenses</a></h2>
+<p>In the free software and open source landscape,
+there are several important free and/or open source
+licenses that are used.
+The two biggest software licenses are
+based on the software used by GNU/Linux
+and the software based on the BSDs.
+They each take very different approaches to free
+and/or open source software.
+The biggest difference is this:</p>
+<ul>
+<li>Software based on software licensed under the GPL
+must also be licensed under the GPL.
+This is referred to as <a href="https://www.gnu.org/licenses/copyleft.en.html">copyleft</a> software,
+and the idea is to propagate free software.
+<ul>
+<li><a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License (GPL)</a></li>
+</ul>
+</li>
+<li>Software based on software licensed under the BSD
+license may be closed source and
+primarily must only attribute the original source code and author.
+<ul>
+<li><a href="https://opensource.org/licenses/BSD-3-Clause">BSD License</a></li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-linux"><a class="header" href="#what-is-linux">What is Linux?</a></h1>
+<h2 id="the-linux-kernel"><a class="header" href="#the-linux-kernel">The Linux Kernel</a></h2>
+<p>Technically, <a href="https://kernel.org/">Linux is a kernel</a>, and
+a kernel is a part of an operating system that
+oversees CPU activity like multitasking, as well as networking,
+memory management, device management, file systems, and more.
+The kernel alone does not make an operating system.
+It needs user land applications and programs,
+the kind we use on a daily basis, to form a whole,
+as well as ways for these user land utilities to
+interact with the kernel.</p>
+<h2 id="linux-and-gnu"><a class="header" href="#linux-and-gnu">Linux and GNU</a></h2>
+<p>The earliest versions of the Linux kernel were combined
+with tools, utilities, and programs from the <a href="https://www.gnu.org/software/software.html">GNU project</a>
+to form a complete operating system,
+without necessarily a graphical user interface.
+This association continues to this day.
+Additional non-GNU, but
+free and open source programs under different licenses,
+have been added to form a more functional and user friendly system.
+However, since the Linux kernel needs user land applications
+to form an operating system, and
+since user land applications from GNU cannot work without a kernel,
+some argue that the operating system
+should be called <a href="https://en.wikipedia.org/wiki/GNU/Linux_naming_controversy">GNU/Linux</a>
+and not just Linux.
+This has not gained wide acceptance, though.
+Regardless, credit is due to both camps for their contribution,
+as well as many others who have made substantial contributions
+to the operating system.</p>
+<h2 id="linux-uses"><a class="header" href="#linux-uses">Linux Uses</a></h2>
+<p>We are using Linux as a server in this course, which
+means we will use Linux to provide various services.
+Our first focus is to learn to use Linux itself, but
+by the end of the course,
+we will also learn how to provide web and database services.
+Linux can be used to provide <a href="https://en.wikipedia.org/wiki/Server_(computing)">other services</a> that
+we won't cover in this course, such as:</p>
+<ul>
+<li>file servers</li>
+<li>mail servers</li>
+<li>print servers</li>
+<li>game servers</li>
+<li>computing servers</li>
+</ul>
+<p>Although it's a small overall percentage,
+many people use Linux as their main
+desktop/laptop operating system.
+I belong in this camp.
+Linux has been my main OS since the early 2000s.
+While our work on the Linux server means that we will
+almost entirely work on the command line,
+this does not mean that my Linux
+desktop environment is all command line.
+In fact, there are many graphical user environments,
+often called <a href="https://en.wikipedia.org/wiki/Desktop_environment">desktop environments</a>,
+available to Linux users.
+Since I'm currently using the Ubuntu Desktop distribution,
+my default desktop environment is called <a href="https://www.gnome.org/">Gnome</a>.
+<a href="https://kde.org/">KDE</a> is another popular desktop environment, but
+there are many other attractive and useful ones.
+And it's easy to install and switch between
+multiple ones on the same OS.</p>
+<p>Linux has become quite a pervasive operating system.
+Linux powers the hundreds of the
+fastest supercomputers in the world.
+It, or other Unix-like operating systems,
+are the foundation of most web servers.
+The Linux kernel also forms the basis of the Android
+operating system and of Chrome OS.
+The only place where Linux does not dominate is
+in the desktop/laptop space.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-systems-administration"><a class="header" href="#what-is-systems-administration">What is Systems Administration?</a></h1>
+<h2 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h2>
+<p>What is systems administration or
+who is a systems administrator (or <strong>sysadmin</strong>)?
+Let's start off with some definitions provided by
+the <a href="https://www.nist.gov/">National Institute of Standards and Technology</a>:</p>
+<blockquote>
+<p>An individual, group, or organization responsible for setting up and
+maintaining a system or specific system elements, implements approved secure
+baseline configurations, incorporates secure configuration settings for IT
+products, and conducts/assists with configuration monitoring activities as
+needed.</p>
+</blockquote>
+<p>Or:</p>
+<blockquote>
+<p>Individual or group responsible for overseeing the day-to-day operability of a
+computer system or network. This position normally carries special privileges
+including access to the protection state and software of a system.</p>
+</blockquote>
+<p>See: <a href="https://csrc.nist.gov/glossary/term/system_administrator">Systems Administrator @NIST</a></p>
+<h2 id="specialized-positions"><a class="header" href="#specialized-positions">Specialized Positions</a></h2>
+<p>In addition to the above definitions,
+which broadly define the role,
+there are a number of related or specialized positions.
+We'll touch on the first three in this course:</p>
+<ul>
+<li>Web server administrator:
+<ul>
+<li>&quot;web server administrators are system architects responsible for the
+overall design, implementation, and maintenance of Web servers. They may or
+may not be responsible for Web content, which is traditionally the
+responsibility of the Webmaster (<a href="https://csrc.nist.gov/glossary/term/web_server_administrator">Web Server Administrator&quot;
+@NIST</a>).</li>
+</ul>
+</li>
+<li>Database administrator:
+<ul>
+<li>like web admins, and to paraphrase above, database administrators are system
+architects responsible for the overall design, implementation, and
+maintenance of database management systems. </li>
+</ul>
+</li>
+<li>Network administrator:
+<ul>
+<li>&quot;a person who manages a network within an organization. Responsibilities
+include network security, installing new applications, distributing software
+upgrades, monitoring daily activity, enforcing licensing agreements,
+developing a storage management program, and providing for routine backups&quot;
+(<a href="https://csrc.nist.gov/glossary/term/network_administrator">Network Administrator @NIST</a>).</li>
+</ul>
+</li>
+<li>Mail server administrator:
+<ul>
+<li>&quot;mail server administrators are system architects responsible for the
+overall design and implementation of mail servers&quot; (<a href="https://csrc.nist.gov/glossary/term/mail_server_administrator">Mail Server
+Administrators @NIST</a>).</li>
+</ul>
+</li>
+</ul>
+<p>Depending on where a system administrator works,
+they may specialize in any of the above administrative areas, or
+if they work for a small organization,
+all of the above duties may be rolled into one position.
+Some of the positions have evolved quite a bit over the last
+couple of decades.
+For example, it wasn't too long ago when organizations would
+operate their own mail servers, but
+this has largely been outsourced to third-party providers,
+such as Google (via Gmail) and Microsoft (via Outlook).
+People are still needed to work with these
+third-party email providers, but
+the nature of the work is different than operating
+independent mail servers.</p>
+<h2 id="certifications"><a class="header" href="#certifications">Certifications</a></h2>
+<p>It's not always necessary to get certified
+as a systems administrator to get work as one, but
+there might be cases where it is necessary; for example,
+in government positions or in large corporations.
+It also might be the case that you can get work
+as an entry level systems administrator and
+then pursue certification with
+the support of your organization.</p>
+<p>Some common starting certifications are:</p>
+<ul>
+<li><a href="https://www.redhat.com/en/services/certification/rhcsa">Red Hat Certified System Administrator (RHCSA)</a></li>
+<li><a href="https://www.comptia.org/certifications/server">CompTIA Server+</a></li>
+<li><a href="https://www.comptia.org/certifications/a">CompTIA A+</a></li>
+</ul>
+<p>Plus, Google offers, via <a href="https://www.coursera.org/">Coursera</a>, a
+beginners <a href="https://www.coursera.org/professional-certificates/google-it-support">Google IT Support Professional Certificate</a>
+that may be helpful.</p>
+<h2 id="associations"><a class="header" href="#associations">Associations</a></h2>
+<p>Getting involved in associations and related
+organizations is a great way to learn and
+to connect with others in the field.
+Here are few ways to connect.</p>
+<p><a href="https://lopsa.org/AboutLOPSA">LOPSA</a>, or
+The League of Professional System Administrators,
+is a non-profit association that seeks to advance
+the field and membership is free for students.</p>
+<p><a href="https://www.acm.org/">ACM</a>, or the Association for Computing Machinery,
+has a number of relevant
+<a href="https://www.acm.org/special-interest-groups/alphabetical-listing">special interest groups (SIGs)</a>
+that might be beneficial to systems administrators. </p>
+<p><a href="http://www.npa.org/">NPA</a>, or the Network Professional Association,
+is an organization that &quot;supports IT/Network 
+professionals.&quot;</p>
+<h2 id="codes-of-ethics"><a class="header" href="#codes-of-ethics">Codes of Ethics</a></h2>
+<p>Systems administrators manage computer systems
+that contain a lot of data about us and
+this raises privacy and competency issues,
+which is why some have created code of ethics statements.
+Both LOPSA and NPA have created such statements
+that are well worth reviewing and discussing.</p>
+<ul>
+<li>LOPSA: <a href="https://lopsa.org/CodeOfEthics">Code of Ethics</a></li>
+<li>NPA: <a href="https://www.npa.org/public/about_codeofethics.cfm">Code of Ethics</a></li>
+</ul>
+<h2 id="keeping-up"><a class="header" href="#keeping-up">Keeping Up</a></h2>
+<p>Technology changes fast.
+In fact, even though I teach this course
+about every year,
+I need to revise the
+course each time, sometimes substantially,
+to reflect changes that have developed
+over short periods of time.
+It's also your responsibility,
+as sysadmins,
+to keep up, too.</p>
+<p>I therefore suggest that you continue your
+education by reading and practicing.
+For example, there are lots of books on 
+systems administration.
+<a href="https://www.npa.org/public/about_codeofethics.cfm">O'Reilly</a> continually
+publishes on the topic.
+RedHat,
+the makers of the Red Hat Linux distribution,
+and sponsors of <a href="https://www.linuxjournal.com/">Fedora Linux</a> and
+<a href="https://centos.org/">CentOS Linux</a>,
+provides the <a href="https://www.redhat.com/sysadmin/">Enable Sysadmin</a> site,
+with new articles each day,
+authored by systems administrators,
+on the field.
+Opensource.com, also supported by Red Hat,
+<a href="https://opensource.com/tags/sysadmin">publishes articles on systems administration</a>.
+<a href="https://www.redhat.com/en/command-line-heroes">Command Line Heroes</a> is a fun and
+informative podcast on technology and
+sysadmin related topics.
+<a href="https://www.linuxjournal.com/">Linux Journal</a> publishes great articles
+on Linux related topics.</p>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>In this section I provided definitions of systems administrators
+and also the related or more specialized positions,
+such as database administrator, network administrator,
+and others.</p>
+<p>I provided links to various certifications you might
+pursue as a systems administrator, and
+links to associations that might benefit you and your career.</p>
+<p>Technology manages so much of our daily lives, and
+computer systems store lots of data about us.
+Since systems administrators manage these systems,
+they hold a great amount of responsibility
+to protect them and our data.
+Therefore, I provided links to two code of ethics
+statements that we will discuss.</p>
+<p>It's also important to keep up with the technology,
+which changes fast.
+The work of a systems administrator is much different
+today than it was ten or twenty years ago, and
+that surely indicates that it could be much different in
+another ten to twenty years.
+If we don't keep up,
+we won't be of much use to the people we serve.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-systems-librarianship"><a class="header" href="#what-is-systems-librarianship">What is Systems Librarianship</a></h1>
+<h2 id="introduction-2"><a class="header" href="#introduction-2">Introduction</a></h2>
+<p>Of course, let's begin with the question,
+what is systems librarianship?
+Normally we might go to the literature
+to answer a question like this.
+Indeed, the literature is helpful,
+but it's sparse.
+The <a href="https://libguides.uky.edu/803">LISTA</a> database only
+returns 131 results
+with a 45 year coverage
+for a search using the thesauri term
+<strong>SYSTEMS Librarians</strong>.
+I can get more results if I expand
+the search query, but
+then I get less relevant results, and
+the main idea is the same:
+this is an understudied area of
+librarianship.</p>
+<p>It's been that way for a while.
+<a href="https://doi.org/10.1300/J111v09n04_06">Susan K. Martin</a>
+wrote the following over 35 years ago:</p>
+<blockquote>
+<p>Of the specialist positions that exist in libraries, none
+is as underexamined as those of the systems
+librarians---the people who identify the needs of the
+library for automated systems, cause these systems to be
+implemented, and analyze the operations of the library (p.
+57).</p>
+</blockquote>
+<p>Perhaps as a result of this
+underexamination,
+sometimes there is confusion around
+the requirements and skills needed in
+this area of librarianship.
+Martin (1988) captured this tension
+when she wrote the following in 1988,
+which is still true today:</p>
+<blockquote>
+<p>Over the years the library world has argued whether
+systems librarians should be librarians who have learned
+information technologies, or computer experts who have
+learned about libraries (p. 61).</p>
+</blockquote>
+<p>The argument is partly
+a matter of jurisdiction.
+<a href="https://www.proquest.com/docview/220452054/abstract/A48FC30B10D94886PQ/1?accountid=11836">Abbott (1998)</a>,
+writing on librarianship in the sociology of professions,
+illustrated how:</p>
+<blockquote>
+<p>The future of librarianship thus hinges on what happens to
+the perpetually changing work of the profession in its
+three contexts: the context of larger social and culture
+forces, the context of other competing occupations, and
+the context of competing organizations and commodities. To
+these complex contextual forces, any profession responds
+with varying policies and internal changes (pp. 434-5).</p>
+</blockquote>
+<p>Essentially, Abbott means that professions,
+like librarianship,
+are always changing.
+The mechanisms for that change are
+structural and cultural <a href="https://www.jstor.org/stable/40664150">(Abbott, 2010)</a>,
+but a changing profession means that
+its &quot;link of jurisdiction&quot;
+(Abbott, 1998, p. 435) changes, too.
+It not only changes, but
+professions constantly compete with each
+other over to adopt new areas
+of jurisdiction.
+So when we ask,
+as Martin (1998) did,
+whether librarians should learn
+information technologies or whether
+computer experts should learn libraries,
+I find myself thinking the prior is
+more important for libraries
+and their patrons.
+It means that librarians are expanding
+their jurisdiction by also becoming
+computer experts rather than
+computer experts expanding theirs.</p>
+<p>That leads us to the next questions:
+what does it mean to be a computer
+expert for a systems librarian?
+What does a systems librarians need
+to do and know?</p>
+<p>The answer is that it is a mix.
+Some part of the work involves
+systems administration, but
+that has broad meanings, and
+systems librarianship is more specific.
+Or, it has a more specific domain:
+the domain of libraries and librarianship.</p>
+<p>A systems librarian might thus be considered
+a library systems administrator.
+Under this view, they need to be someone
+who knows about libraries,
+how libraries work,
+what they do,
+about their patrons,
+what their values are,
+and then use that knowledge to build
+the infrastructure to support that.</p>
+<p>Given this, and the technologies involved,
+such work requires constant learning.
+<a href="https://doi.org/10.1108/07378830310494445">Jordan (2003)</a> 
+identified three areas of learning:</p>
+<ul>
+<li>pre-service education in library schools</li>
+<li>on the job training</li>
+<li>professional development in the form of workshops,
+courses, and conferences (p. 273)</li>
+</ul>
+<p>Pre-service, formal education is a small part
+of any professional's career,
+regardless if that profession is
+in medicine, law, or librarianship.
+Thus the goal of pre-service
+education is to prepare people
+to adapt and grow in their fields.
+Jordan (2003) wrote that:</p>
+<blockquote>
+<p>While formal training is undoubtedly important, the
+ability to learn new technologies independently lies at
+the foundation of systems librarians' professional life,
+because they often have to use technologies, or make
+planning decisions about specific technologies, before
+they become common enough to be the subject of formal
+training sessions (p. 273).</p>
+</blockquote>
+<p>Even though Jordan's article
+is 20 years old and
+the technology has changed a lot,
+the basic duties of the systems librarian
+remain the same
+(Fu, 2014; <a href="https://rowman.com/ISBN/9781538107133/Systems-Librarianship-A-Practical-Guide-for-Librarians">Gonzales, 2020</a>).
+<a href="https://www.worldcat.org/title/1038159656">Wilson (1998)</a>,
+as cited in Jordan (2003),
+refers to a list of the
+&quot;typical responsibilities of systems librarians.&quot;
+These responsibilities look different today,
+because the technology is different,
+but conceptually,
+they're the same as they were then.
+In fact, this work will focus
+on a subset of this list that includes:</p>
+<ul>
+<li>integrated library system management</li>
+<li>server management</li>
+<li>documentation</li>
+<li>technology exploration and evaluation (Jordan, 2003, p. 274)</li>
+</ul>
+<p>Gonzales (2020) highlights these and
+more current areas that include:</p>
+<ul>
+<li>content management systems</li>
+<li>electronic resource management systems</li>
+<li>website redesign</li>
+<li>help and support</li>
+</ul>
+<p>Other items on Jordan's (2003) list are
+still relevant, but
+due to various constraints,
+this work will not cover the following
+areas:</p>
+<ul>
+<li>network design and management</li>
+<li>desktop computing</li>
+<li>application development</li>
+<li>planning and budget</li>
+<li>specification and purchasing</li>
+<li>miscellaneous technology support</li>
+<li>technical risk management (p. 274)</li>
+</ul>
+<p>In short,
+this work specifically focuses on
+a few of the bigger technical aspects of
+systems librarianship.
+Other works (or courses) and
+other sources will provide learning
+opportunities on the more
+managerial and administrative functions
+of systems librarianship and librarianship, in general.</p>
+<blockquote>
+<p>If you are interested in learning
+more about network design and administration,
+then I encourage you to read my chapters on
+<a href="https://cseanburns.net/WWW/linux-systems-admin/19-networking-tcpip.html">Networking and TCP/IP</a> and
+<a href="https://cseanburns.net/WWW/linux-systems-admin/20-dns-domain-names.html">DNS and Domain Names</a> in my
+book on
+<a href="https://cseanburns.net/WWW/linux-systems-admin/">Systems Administration with Linux</a>.</p>
+<p>If you are interested in learning about
+application development,
+then you can pursue courses in a variety
+of programming languages,
+such as R, Python, JavaScript, and PHP,
+as well as courses on relational databases,
+such as MySQL or PostgreSQL, and so forth.</p>
+</blockquote>
+<p>As Jordan (2003) identified,
+there is a lack of formalized training
+in systems librarianship in LIS schools.
+This is as true today as it was in 2003.
+This course was created to address the
+lack of that training.
+However, it can only be a start.
+Technology is constantly changing, and
+that means we must always embrace more
+informal learning opportunities.
+LIS programs are only two or so years
+long (if attending full time), but
+our careers, hopefully, will span decades.
+So all this course can ever be
+is just a starting point.</p>
+<p>It is a big start, though.
+This course should lay a strong foundation for
+self-growth and self-education
+in the variety of technologies
+that we will learn and use here.
+Although separate areas of librarianship,
+my work (and course) on
+<a href="https://cseanburns.net/WWW/ERM-book/">electronic resource management</a>
+complement this one in many ways.
+For example, this work supports several
+parts of the technology section in the
+<a href="https://www.nasig.org/Competencies-Eresources">NASIG Core Competencies for Electronic Resources
+Librarians</a>.
+It is no coincidence these two areas of
+librarianship often overlap or are
+assumed in a single librarian position.</p>
+<h2 id="cloud-computing"><a class="header" href="#cloud-computing">Cloud Computing</a></h2>
+<p>Lastly, I want to mention cloud computing.
+This has become a major area of change in
+the last decade or so.
+It used to be more common for librarians
+to install their integrated library system software
+and store their bibliographic data on their premises.
+In the last ten years,
+there has been more migration to the cloud,
+which means that both the integrated library system
+software and the bibliographic data are stored off-site.
+<a href="https://doi.org/10.1108/10650751311294528">Liu &amp; Cai (2013)</a> highlight the beginning
+of this trend toward cloud computing
+that continues to play a large role in
+systems librarianship <a href="https://doi.org/10.1108/DLP-03-2021-0022">(Naveed et al., 2021)</a>.
+As Liu and Cai note:</p>
+<blockquote>
+<p>Systems librarians used to make their livings by managing
+hosted library systems. This situation is silently
+changing with the library systems moving onto the cloud
+(p. 26).</p>
+</blockquote>
+<p>This trend has changed some aspects of
+systems librarianship.
+It means that systems librarians,
+while still a technical area of librarianship,
+need to work more closely with the vendors
+who themselves are hosting library systems.
+However, the trend does not erase all
+locally hosted solutions.
+Many libraries and other information agencies
+continue to support local collections and
+will either host those locally or work
+to get the bibliographic information for those
+collections ingested into their cloud-based
+integrated library systems.</p>
+<h2 id="conclusion-1"><a class="header" href="#conclusion-1">Conclusion</a></h2>
+<p>The remainder of the course
+will be more technical and
+will prepare you to work and understand the
+systems that support the modern library.
+We will cover a lot, too!
+We will begin with setting up
+virtual machine instances on Google Cloud.
+We will use a distribution of the Linux
+operating system for these virtual machines.
+We will then learn the basics of the
+Linux command line.
+Next, we will learn how to use
+the version control system called <code>git</code>.
+We will use <code>git</code> to document our work flows and
+push that documentation to <a href="https://github.com">GitHub.com</a>.
+On our Linux servers,
+we will create a web server out of
+what is called a LAMP stack,
+which stands for
+Linux, Apache, MySQL, and PHP.
+We will use the web server
+to setup a basic website and
+a bare bones OPAC.
+(I'll provide the code for this.)
+Then we will learn how to install
+and setup two content management systems:
+Wordpress and Omeka.
+Lastly, we will spend the final
+two weeks of the semester
+installing and setting up the
+open source <a href="https://koha-community.org/">Koha ILS</a>.</p>
+<p>Let's get started!</p>
+<h2 id="references"><a class="header" href="#references">References</a></h2>
+<p>Abbott, A. (1998). Professionalism and the future of
+librarianship. Library Trends, 46(3), 430–443.
+<a href="https://www.proquest.com/docview/220452054/abstract/A48FC30B10D94886PQ/1?accountid=11836">https://www.proquest.com/docview/220452054/abstract/A48FC30B10D94886PQ/1?accountid=11836</a></p>
+<p>Abbott, A. (2010). Varieties of ignorance. <em>The American
+Sociologist, 41</em>(2), 174–189.
+<a href="https://www.jstor.org/stable/40664150">https://www.jstor.org/stable/40664150</a></p>
+<p>Gonzales, B. M. (2020). Systems librarianship: A practical
+guide for librarians. Rowman &amp; Littlefield Publishers.
+<a href="https://rowman.com/ISBN/9781538107133/Systems-Librarianship-A-Practical-Guide-for-Librarians">https://rowman.com/ISBN/9781538107133/Systems-Librarianship-A-Practical-Guide-for-Librarians</a></p>
+<p>Fu, P. (2014). Supporting the next-generation ILS: The
+changing roles of systems librarians. <em>Journal of Library
+Innovation, 5</em>(1), 30–42.</p>
+<p>Jordan, M. (2003). The self‐education of systems librarians.
+Library Hi Tech, 21(3), 273–279.
+<a href="https://doi.org/10.1108/07378830310494445">https://doi.org/10.1108/07378830310494445</a></p>
+<p>Liu, W., &amp; Cai, H. (Heather). (2013). Embracing the shift to
+cloud computing: Knowledge and skills for systems
+librarians. OCLC Systems &amp; Services: International Digital
+Library Perspectives, 29(1), 22–29.
+<a href="https://doi.org/10.1108/10650751311294528">https://doi.org/10.1108/10650751311294528</a></p>
+<p>Martin, S. K. (1988). The role of the systems librarian.
+<em>Journal of Library Administration, 9</em>(4), 57–68.
+<a href="https://doi.org/10.1300/J111v09n04_06">https://doi.org/10.1300/J111v09n04_06</a></p>
+<p>Naveed, M. A., Siddique, N., &amp; Mahmood, K. (2021).
+Development and validation of core technology competencies
+for systems librarian. <em>Digital Library Perspectives, 38</em>(2),
+189–204.
+<a href="https://doi.org/10.1108/DLP-03-2021-0022">https://doi.org/10.1108/DLP-03-2021-0022</a></p>
+<p>Ratledge, D., &amp; Sproles, C. (2017). An analysis of the
+changing role of systems librarians. Library Hi Tech, 35(2),
+303–311.
+<a href="https://doi.org/10.1108/LHT-08-2016-0092">https://doi.org/10.1108/LHT-08-2016-0092</a></p>
+<p>Wilson, T. C. (1998). Systems librarian: Desinging roles,
+defining skills. American Library Association.
+<a href="https://www.worldcat.org/title/1038159656">https://www.worldcat.org/title/1038159656</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-google-cloud-gcloud"><a class="header" href="#using-google-cloud-gcloud">Using Google Cloud (gcloud)</a></h1>
+<p>This section introduces us to <a href="https://cloud.google.com">Google Cloud</a> (gcloud).
+We will use this platform to create virtual
+instances of the Ubuntu Server Linux operating system.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-gcloud-for-virtual-machines"><a class="header" href="#using-gcloud-for-virtual-machines">Using gcloud for Virtual Machines</a></h1>
+<h2 id="virtual-machines"><a class="header" href="#virtual-machines">Virtual Machines</a></h2>
+<p>Our goal in this section 
+is to create a <strong>virtual machine (VM)</strong> <em>instance</em>.
+A VM is basically a virtualized operating system
+that runs on a host operating system.
+That host operating system may also be Linux,
+but it could be Windows or macOS.
+In short,
+when we use virtual machines,
+it means instead of installing an operating system
+(like Linux, macOS, Windows, etc) on a physical machine,
+we use virtual machine software to mimic the process.
+The virtual machine, thus, runs on top of our main OS.
+It's like an app, where the app is a fully functioning
+operating system.</p>
+<p>In my Linux Systems Administration course,
+we used to use <a href="https://www.virtualbox.org/">VirtualBox</a> to create
+virtual machines with Linux as the virtual operating system.
+This worked despite whether you or I were running
+Windows, macOS, or Linux as our main operating systems.
+VirtualBox is freely available virtualization software,
+and using it let students and myself
+run Linux as a server
+on our own desktops and laptops without changing
+the underlying OS on those machines
+(e.g., Windows, macOS).</p>
+<p>However, even though we virtualize an operating
+system when we run a VM,
+the underlying operating system and CPU architecture
+is still important.
+When Apple, Inc launched their new M1 
+(ARM-based) chip in 2020,
+it created problems for running non ARM-based operating
+systems as virtual machines (i.e., x86_64 chips).</p>
+<p>Fortunately, we are able to solve that issue
+using a third-party virtualization platform.
+In this course, that means we're going to use gcloud (via Google),
+but there are other options available that you 
+can explore on your own.</p>
+<h2 id="google-cloud--gcloud"><a class="header" href="#google-cloud--gcloud">Google Cloud / gcloud</a></h2>
+<h3 id="google-account"><a class="header" href="#google-account">Google Account</a></h3>
+<p>We need to have a Google account to get started with gcloud.
+I imagine most of you already have a Google account,
+but if not, go ahead and create one at <a href="https://www.google.com">https://www.google.com</a>.</p>
+<h3 id="google-cloud-gcloud-project"><a class="header" href="#google-cloud-gcloud-project">Google Cloud (gcloud) Project</a></h3>
+<p>Next, you need to use gcloud
+to create a Google Cloud project.
+Once you've created that project,
+you can enable billing for that project,
+and then install the gcloud software 
+on your local machine.</p>
+<p>Follow <strong>Step 1</strong> at the top of the 
+<strong><a href="https://cloud.google.com/sdk/docs/install-sdk">Install the gcloud CLI</a></strong> page
+to in create a new project.
+Also, review the page on
+<a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#gcloud">creating and managing projects</a>.</p>
+<p>When you create your project, you can name it anything,
+but try to name it something to do with this course.
+E.g., I am using the name <strong>sysadmin-418</strong>.
+<strong>Avoid using spaces when naming your project.</strong></p>
+<p>Then click on the <strong>Create</strong> button,
+and leave the organization field set to <strong>No Organization</strong>.</p>
+<h3 id="google-billing"><a class="header" href="#google-billing">Google Billing</a></h3>
+<p>The second thing to do is to set up
+a billing account for your gcloud project.
+This does mean there is a cost associated
+with this product, but
+the good news is that our bills by the end of the semester should
+only amount to a few dollars, at most.
+<strong><a href="https://cloud.google.com/sdk/docs/install-sdk">Follow Step 2</a></strong> to enable
+billing for your new project.
+See also the page on how to
+<strong><a href="https://cloud.google.com/billing/docs/how-to/manage-billing-account">create, modify, or close your self-serve Cloud Billing account</a></strong></p>
+<h3 id="install-the-latest-gcloud-cli-version"><a class="header" href="#install-the-latest-gcloud-cli-version">Install the latest gcloud CLI version</a></h3>
+<p>After you have set up billing,
+the next step is to install gcloud on your local machines. 
+The <strong><a href="https://cloud.google.com/sdk/docs/install-sdk">Install the gcloud CLI</a></strong> page
+provides instructions for different operating systems.</p>
+<p>There are installation instructions
+for macOS, Windows, Chromebooks, and various Linux distributions.
+Follow these instructions closely for the operating system
+that you're using.
+Note that for macOS,
+you have to choose among three different CPU/chip
+architectures.
+If you have an older macOS machine (before November 2020 or so),
+it's likely that you'll select <strong>macOS 64-bit (x86_64)</strong>.
+If you have a newer macOS machine,
+then it's likely you'll have to select <strong>macOS 64-bit (arm64, Apple M1
+silicon).</strong>
+It's unlikely that any of you are using a 32-bit macOS operating system.
+If you're not sure which macOS system you have,
+then let me know and I can help you determine the appropriate platform.
+Alternatively, follow these instructions to find your processor information:</p>
+<ul>
+<li>click on the Apple menu</li>
+<li>choose <strong>About This Mac</strong></li>
+<li>locate the <strong>Processor</strong> or <strong>Chip</strong> information</li>
+</ul>
+<p>After you have downloaded the gcloud CLI
+for your particular OS and CPU architecture,
+you will need to open a command prompt/terminal
+on your machines to complete the instructions
+the describe how to install the gcloud CLI.
+macOS uses the Terminal app,
+which can located using Spotlight.
+Windows user can use Command.exe,
+which can be located by search also.</p>
+<p>Windows users will download a regular <strong>.exe</strong> file,
+but macOS users will download a <strong>.tar.gz</strong> file.
+Since macOS is Unix, you can use the <code>mv</code> command to 
+move that file to your <code>$HOME</code> directory.
+Then you extract it there using the <code>tar</code> command,
+and once extracted
+you can change to the directory that it
+creates with the <code>cd</code> command.
+For example, if you are downloading the X86_64 version
+of the gcloud CLI, then you would run the following commands:</p>
+<pre><code>mv google-cloud-cli-392.0.0-darwin-x86_64.tar.gz $HOME
+tar -xzf google-cloud-cli-392.0.0-darwin-x86_64.tar.gz
+cd google-cloud-sdk
+</code></pre>
+<p>Modify the above commands, as appropriate,
+if you're using the M1 version
+of the gcloud CLI.</p>
+<h3 id="initializing-the-gcloud-cli"><a class="header" href="#initializing-the-gcloud-cli">Initializing the gcloud CLI</a></h3>
+<p>Once you have downloaded and installed
+the gcloud CLI program,
+you need to initialize it on your local machine.
+Scroll down on the <a href="https://cloud.google.com/sdk/docs/install-sdk">install page</a>
+to the section titled
+<strong>Initializing the gcloud CLI</strong>.
+In your terminal/command prompt,
+run the initialization command,
+per the instructions at the above page:</p>
+<pre><code>gcloud init
+</code></pre>
+<p>And continue to follow the above instructions.</p>
+<h2 id="gcloud-vm-instance"><a class="header" href="#gcloud-vm-instance">gcloud VM Instance</a></h2>
+<p>Once you've initialized gcloud,
+log into <a href="https://console.cloud.google.com/">Google Cloud Console</a>,
+which should take you to the Dashboard page.</p>
+<p>Our first goal is to create a <strong>virtual machine (VM)</strong> <em>instance</em>.
+As a reminder,
+a VM is basically a virtualized operating system.
+That means instead of installing an operating system
+(like Linux, macOS, Windows, etc) on a physical machine,
+software is used to mimic the process. </p>
+<p>gcloud offers a number of Linux-based operating systems
+to create VMs.
+We're going to use the Ubuntu operating system
+and specifically the Ubuntu 20.04 LTS version.</p>
+<blockquote>
+<p>Ubuntu is a Linux distribution.
+A new version of Ubuntu is released every six months.
+The 20.04 signifies that this is the April 2020 version.
+LTS signifies <strong>Long Term Support</strong>.
+LTS versions are released every two years,
+and Canonical LTD,
+the owners of Ubuntu,
+provide standard support for LTS versions for five years.</p>
+<p>LTS versions of Ubuntu are also more stable.
+Non-LTS versions of Ubuntu only receive nine months of standard support,
+and generally apply cutting edge technology,
+which is not always desirable for server operating systems.
+Each version of Ubuntu has a code name.
+20.04 has the code name <strong>Focal Fossa</strong>.
+You can see a list of versions, code names, release dates,
+and more on Ubuntu's <a href="https://wiki.ubuntu.com/Releases">Releases</a> page.</p>
+</blockquote>
+<p>We will create our VM using the gcloud console.
+To do so, follow these steps:</p>
+<ul>
+<li>Click the <strong>Select from</strong> drop-down list.</li>
+<li>In the window, select the project that you created earlier.</li>
+<li>Next, click on <strong>Create a VM</strong>.</li>
+<li>Provide a name for your <strong>instance</strong>.
+<ul>
+<li>E.g., I chose <strong>syslib-2023</strong> (no spaces) </li>
+</ul>
+</li>
+<li>Under the <strong>Series</strong> dropdown box, make sure <strong>E2</strong> is selected.</li>
+<li>Under the <strong>Machine type</strong> dropdown box, select <strong>e2-micro (2 vCPU, 1 GB memory)</strong>
+<ul>
+<li>This is the lowest cost virtual machine and perfect for our needs.</li>
+</ul>
+</li>
+<li>Under <strong>Boot disk</strong>, click on the <strong>Change</strong> button.</li>
+<li>In the window, select <strong>Ubuntu</strong> from the <strong>Operating system</strong> dropdown box.</li>
+<li>Select <strong>Ubuntu 20.04 LTS x86/64</strong></li>
+<li>Leave <strong>Boot disk type</strong> be set to <strong>Balanced persistant disk</strong></li>
+<li>Disk size should be set to <strong>10 GB</strong>.</li>
+<li>Click on the <strong>Select</strong> button.</li>
+<li>Check the <strong>Allow HTTP Traffic</strong> button</li>
+<li>Finally, click on the <strong>Create</strong> button to create your VM instance.</li>
+</ul>
+<h2 id="connect-to-our-vm"><a class="header" href="#connect-to-our-vm">Connect to our VM</a></h2>
+<p>After the new VM machine has been created,
+we need to connect to it via the command line.
+macOS users will connect to it via their Terminal.app.
+Windows users can connect to it via their command prompt.</p>
+<p>Unlike our past <code>ssh</code> sessions,
+we use a slightly different <code>ssh</code> command
+to connect to our VMs.
+The syntax follows this pattern:</p>
+<pre><code>gcloud compute ssh --zone &quot;zone-info&quot; &quot;name-info&quot; --project &quot;project-id&quot;
+</code></pre>
+<p>The values in the double quotes in the above command
+can be located in your Google Cloud console and
+in your VM instances section.</p>
+<h2 id="update-our-ubuntu-vm"><a class="header" href="#update-our-ubuntu-vm">Update our Ubuntu VM</a></h2>
+<p>The VM will include a recently updated version of Ubuntu 20.04,
+but it may not be completely updated.
+Thus the first thing we need to do is update our machines.
+On Ubuntu, we'll use the following two commands,
+which you should run also:</p>
+<pre><code>sudo apt update
+sudo apt -y upgrade
+</code></pre>
+<p>Then type <code>exit</code> to logout and quit the connection to the remote server.</p>
+<pre><code>exit
+</code></pre>
+<h2 id="snapshots"><a class="header" href="#snapshots">Snapshots</a></h2>
+<p>Lastly, we have installed a pristine version of Ubuntu,
+but it's likely that we will mess something up 
+as we work on our systems.
+Or it could be that our systems may become compromised
+at some point.
+Therefore, we want to create a snapshot of our newly
+installed Ubuntu server.
+This will allow us to restore our server if something
+goes wrong later.</p>
+<p>To get started:</p>
+<ol>
+<li>
+<p>In the left hand navigation panel, click on <strong>Snapshots</strong>.</p>
+</li>
+<li>
+<p>At the top of the page, click on <strong>Create Snapshot</strong>.</p>
+</li>
+<li>
+<p>Provide a name for your snapshot: e.g., <strong>ubuntu-1</strong>.</p>
+</li>
+<li>
+<p>Provide a description of your snapshot: e.g.,</p>
+<p>This is a new install of Ubuntu 20.04.</p>
+</li>
+<li>
+<p>Choose your <strong>Source disk</strong>.</p>
+</li>
+<li>
+<p>Choose a <strong>Location</strong> to store your snapshot.</p>
+<ul>
+<li>To avoid extra charges, choose <strong>Regional</strong>.</li>
+<li>From the dropdown box, select the same location (zone-info) your VM has</li>
+</ul>
+</li>
+<li>
+<p>Click on <strong>Create</strong></p>
+</li>
+</ol>
+<p><strong><p style="color:red">Please monitor your billing for this to avoid costs
+that you do not want to incur.</p></strong></p>
+<h2 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h2>
+<p>Congratulations!
+You have just completed your first installation of a Linux server.</p>
+<p>To summarize,
+in this section,
+you learned about and created a VM with gcloud.
+This is a lot! 
+After this course is completed,
+you will be able to fire up a virtual machine
+on short notice and deploy websites and more.</p>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="install-the-koha-ils"><a class="header" href="#install-the-koha-ils">Install the Koha ILS</a></h1>
 <p>Preliminary notes on setting up <a href="https://koha-community.org/">Koha ILS</a> on Google Cloud.</p>
 <p>Helpful documentation and demos:</p>
 <ul>

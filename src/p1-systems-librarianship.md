@@ -65,14 +65,15 @@ systems librarianship.
 For example,
 this book does not cover software coding nor
 managerial duties, like issuing
-requests for proposals for software products.
+requests for proposals for software products,
+or budgeting.
 It is designed as an entry level course in
 the technical aspects of systems librarianship,
 and it is meant to go hand-in-hand with 
 other courses taught in our program.
 That includes my course on
 [electronic resource management][ermbook]
-but also other courses that my colleague teach.
+but also other courses that my colleagues teach.
 
 The book will start off as a series of transcripts, and
 over time,
