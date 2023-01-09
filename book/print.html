@@ -1090,7 +1090,7 @@ Also, review the page on
 <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#gcloud">creating and managing projects</a>.</p>
 <p>When you create your project, you can name it anything,
 but try to name it something to do with this course.
-E.g., I am using the name <strong>sysadmin-418</strong>.
+E.g., I am using the name <strong>syslib-2023</strong>.
 <strong>Avoid using spaces when naming your project.</strong></p>
 <p>Then click on the <strong>Create</strong> button,
 and leave the organization field set to <strong>No Organization</strong>.</p>
@@ -1150,7 +1150,11 @@ you can change to the directory that it
 creates with the <code>cd</code> command.
 For example, if you are downloading the X86_64 version
 of the gcloud CLI, then you would run the following commands:</p>
-<pre><code>mv google-cloud-cli-392.0.0-darwin-x86_64.tar.gz $HOME
+<p>For macOS users, this assumes the <strong>.tar.gz</strong> file
+was downloaded to your default Downloads folder:</p>
+<pre><code>cd ~/Downloads/
+mv google-cloud-cli-392.0.0-darwin-x86_64.tar.gz ~/
+cd ~/
 tar -xzf google-cloud-cli-392.0.0-darwin-x86_64.tar.gz
 cd google-cloud-sdk
 </code></pre>
@@ -1158,6 +1162,9 @@ cd google-cloud-sdk
 if you're using the M1 version
 of the gcloud CLI.</p>
 <h3 id="initializing-the-gcloud-cli"><a class="header" href="#initializing-the-gcloud-cli">Initializing the gcloud CLI</a></h3>
+<p><strong>Please follow the instructions
+from the Google Cloud documentation
+for your operating system.</strong></p>
 <p>Once you have downloaded and installed
 the gcloud CLI program,
 you need to initialize it on your local machine.
@@ -1228,13 +1235,16 @@ To do so, follow these steps:</p>
 <li>Check the <strong>Allow HTTP Traffic</strong> button</li>
 <li>Finally, click on the <strong>Create</strong> button to create your VM instance.</li>
 </ul>
+<blockquote>
+<p>Later in the semester when we install Koha, we will need
+to create a virtual machine with more CPUs and memory.</p>
+</blockquote>
 <h2 id="connect-to-our-vm"><a class="header" href="#connect-to-our-vm">Connect to our VM</a></h2>
 <p>After the new VM machine has been created,
 we need to connect to it via the command line.
 macOS users will connect to it via their Terminal.app.
 Windows users can connect to it via their command prompt.</p>
-<p>Unlike our past <code>ssh</code> sessions,
-we use a slightly different <code>ssh</code> command
+<p>We use a <code>ssh</code> command
 to connect to our VMs.
 The syntax follows this pattern:</p>
 <pre><code>gcloud compute ssh --zone &quot;zone-info&quot; &quot;name-info&quot; --project &quot;project-id&quot;

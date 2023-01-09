@@ -69,7 +69,7 @@ Also, review the page on
 
 When you create your project, you can name it anything,
 but try to name it something to do with this course.
-E.g., I am using the name **sysadmin-418**.
+E.g., I am using the name **syslib-2023**.
 **Avoid using spaces when naming your project.**
 
 Then click on the **Create** button,
@@ -137,8 +137,13 @@ creates with the ``cd`` command.
 For example, if you are downloading the X86_64 version
 of the gcloud CLI, then you would run the following commands:
 
+For macOS users, this assumes the **.tar.gz** file
+was downloaded to your default Downloads folder:
+
 ```
-mv google-cloud-cli-392.0.0-darwin-x86_64.tar.gz $HOME
+cd ~/Downloads/
+mv google-cloud-cli-392.0.0-darwin-x86_64.tar.gz ~/
+cd ~/
 tar -xzf google-cloud-cli-392.0.0-darwin-x86_64.tar.gz
 cd google-cloud-sdk
 ```
@@ -148,6 +153,10 @@ if you're using the M1 version
 of the gcloud CLI.
 
 ### Initializing the gcloud CLI
+
+**Please follow the instructions
+from the Google Cloud documentation
+for your operating system.**
 
 Once you have downloaded and installed
 the gcloud CLI program,
@@ -221,6 +230,9 @@ To do so, follow these steps:
 - Check the **Allow HTTP Traffic** button
 - Finally, click on the **Create** button to create your VM instance.
 
+> Later in the semester when we install Koha, we will need
+> to create a virtual machine with more CPUs and memory.
+
 ## Connect to our VM
 
 After the new VM machine has been created,
@@ -228,8 +240,7 @@ we need to connect to it via the command line.
 macOS users will connect to it via their Terminal.app.
 Windows users can connect to it via their command prompt.
 
-Unlike our past ``ssh`` sessions,
-we use a slightly different ``ssh`` command
+We use a ``ssh`` command
 to connect to our VMs.
 The syntax follows this pattern:
 
