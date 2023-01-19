@@ -184,7 +184,7 @@ when we want the computer to perform
 some specific action.
 This means that we have to memorize
 some common instructions in order to
-user our systems.
+use our systems.
 This is not necessarily difficult because
 many of the most common instructions,
 or <em>commands</em>,
@@ -198,7 +198,8 @@ We will not cover programming
 in this work or course,
 but know that all the commands
 that we will learn can be put
-in a text file, made into an executable,
+in a text file,
+made into an executable file,
 and run like a program.
 This makes text-based interaction
 rather powerful.</p>
@@ -290,18 +291,19 @@ For example, our home directories on
 Linux will be located at the following PATH:</p>
 <pre><code>/home
 </code></pre>
+<p>That PATH begins at root <code>/</code> and ends at <code>home</code>.</p>
 <p>It is a little different for Windows users.
 Since Windows is not Unix-like,
 it uses a different filesystem hierarchy.
 Many Windows users might be familiar with
-the basics, such as the C: drive for the
-main storage device or the D: drive for
+the basics, such as the <strong>C:</strong> drive for the
+main storage device or the <strong>D:</strong> drive for
 an added USB stick.
 As such, the Windows operating system
 uses multiple root directories (C:, D:, E:, etc.)
 I encourage you to read the following article on
 <a href="https://www.redhat.com/sysadmin/linux-filesystem-windows">A quick introduction to the Linux filesystem for Windows users</a>.
-The article is published by Red Hat,
+The article is published by <em>Red Hat</em>,
 which makes its own distribution of Linux.</p>
 <p>In short, learning the Linux filesystem
 requires adopting a new mental model
@@ -311,7 +313,7 @@ Like learning the basic commands,
 it's not too hard,
 but it may take time and practice
 before it sticks.
-To help learn it, though,
+To help learn it,
 I wrote an additional program that
 will let you practice navigating around
 the Linux filesystem and making some
@@ -320,7 +322,7 @@ The program is called
 <a href="https://github.com/cseanburns/learn-the-commandline/blob/main/learn-the-filesystem">learn-the-filesystem</a>.
 Before you use this program,
 I would like to encourage you to read
-another Red Hat article on
+another <em>Red Hat</em> article on
 <a href="https://www.redhat.com/sysadmin/navigating-filesystem-linux-terminal">Navigating your filesystem in the Linux terminal</a>.
 It includes sections that my program will cover
 that include:</p>
@@ -331,6 +333,50 @@ that include:</p>
 <li>navigating directories</li>
 <li>absolute paths</li>
 </ul>
+<h2 id="bash-the-bourne-again-shell"><a class="header" href="#bash-the-bourne-again-shell">Bash: The Bourne Again Shell</a></h2>
+<p>I should point out that the
+command line interface that we
+are using on our Linux servers
+is provided by a <a href="https://en.wikipedia.org/wiki/Unix_shell">shell</a>.
+A shell is &quot;both an interactive
+command language and a scripting
+language&quot; (see link above).
+We will use the shell strictly
+as a <a href="https://en.wikipedia.org/wiki/Command_language">command language</a>,
+but if you're interested someday,
+I'd encourage you to explore Bash
+as a <a href="https://en.wikipedia.org/wiki/Scripting_language">scripting language</a>
+(I personally script in Bash quite a lot).
+There are a variety of shells
+available for Linux and other Unix-like
+operating systems, but
+the most popular one and
+the one we will be using is called
+<a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a>.</p>
+<p>Bash is an acronym for the
+<em>Bourne Again Shell</em> because it's
+based on the original Unix shell
+called the Bourne shell,
+written by
+<a href="https://en.wikipedia.org/wiki/Stephen_R._Bourne">Stephen Bourne</a>.
+Bash itself was written by
+<a href="https://en.wikipedia.org/wiki/Brian_Fox_(computer_programmer)">Brian Fox</a>.</p>
+<p>I think it's important to know
+the history of the technologies
+that we use, and
+Bash has a super interesting
+history that pre-exists Linux.
+Therefore, I highly encourage you
+listen to the
+<a href="https://www.redhat.com/en/command-line-heroes">Command Line Heroes</a> episode titled
+<a href="https://www.redhat.com/en/command-line-heroes/season-3/heroes-in-a-bash-shell">Heroes in a Bash Shell</a>,
+narrated by
+<a href="https://saron.io/">Saron Yitbarek</a>.
+The episode recounts Brian Fox's
+history with the Bash shell
+while he worked for the
+<a href="https://en.wikipedia.org/wiki/Free_Software_Foundation">Free Software Foundation</a>
+in the 1980s.</p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>We will spend the next few weeks
 practicing these commands and

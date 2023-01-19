@@ -41,7 +41,7 @@ when we want the computer to perform
 some specific action.
 This means that we have to memorize
 some common instructions in order to
-user our systems.
+use our systems.
 This is not necessarily difficult because
 many of the most common instructions,
 or *commands*,
@@ -56,7 +56,8 @@ We will not cover programming
 in this work or course,
 but know that all the commands
 that we will learn can be put
-in a text file, made into an executable,
+in a text file,
+made into an executable file,
 and run like a program.
 This makes text-based interaction
 rather powerful.
@@ -161,18 +162,20 @@ Linux will be located at the following PATH:
 /home
 ```
 
+That PATH begins at root ``/`` and ends at ``home``.
+
 It is a little different for Windows users.
 Since Windows is not Unix-like,
 it uses a different filesystem hierarchy.
 Many Windows users might be familiar with
-the basics, such as the C: drive for the
-main storage device or the D: drive for
+the basics, such as the **C:** drive for the
+main storage device or the **D:** drive for
 an added USB stick.
 As such, the Windows operating system
 uses multiple root directories (C:, D:, E:, etc.)
 I encourage you to read the following article on
 [A quick introduction to the Linux filesystem for Windows users][quickWindows].
-The article is published by Red Hat,
+The article is published by *Red Hat*,
 which makes its own distribution of Linux.
 
 In short, learning the Linux filesystem
@@ -183,7 +186,7 @@ Like learning the basic commands,
 it's not too hard,
 but it may take time and practice
 before it sticks.
-To help learn it, though,
+To help learn it,
 I wrote an additional program that
 will let you practice navigating around
 the Linux filesystem and making some
@@ -192,7 +195,7 @@ The program is called
 [learn-the-filesystem][learnthefilesystem].
 Before you use this program,
 I would like to encourage you to read
-another Red Hat article on
+another *Red Hat* article on
 [Navigating your filesystem in the Linux terminal][navLinux].
 It includes sections that my program will cover
 that include:
@@ -202,6 +205,54 @@ that include:
 - closing a folder
 - navigating directories
 - absolute paths
+
+## Bash: The Bourne Again Shell
+
+I should point out that the
+command line interface that we
+are using on our Linux servers
+is provided by a [shell][unixshell].
+A shell is "both an interactive
+command language and a scripting
+language" (see link above).
+We will use the shell strictly
+as a [command language][comlanguage],
+but if you're interested someday,
+I'd encourage you to explore Bash
+as a [scripting language][scripting]
+(I personally script in Bash quite a lot).
+There are a variety of shells
+available for Linux and other Unix-like
+operating systems, but
+the most popular one and
+the one we will be using is called
+[Bash][bashshell].
+
+Bash is an acronym for the
+*Bourne Again Shell* because it's
+based on the original Unix shell
+called the Bourne shell,
+written by
+[Stephen Bourne][stephenbourne].
+Bash itself was written by
+[Brian Fox][bfox].
+
+I think it's important to know
+the history of the technologies
+that we use, and
+Bash has a super interesting
+history that pre-exists Linux.
+Therefore, I highly encourage you
+listen to the
+[Command Line Heroes][clh] episode titled
+[Heroes in a Bash Shell][bashheroes],
+narrated by
+[Saron Yitbarek][syitbarek].
+The episode recounts Brian Fox's
+history with the Bash shell
+while he worked for the
+[Free Software Foundation][fsf]
+in the 1980s.
 
 ## Conclusion
 
@@ -231,11 +282,19 @@ Dourish, P. (2001). *Where the Action Is: The Foundations of
 Embodied Interaction*. MIT Press.
 [https://doi.org/10.7551/mitpress/7221.001.0001][dourish2001]
 
-
-
+[bashheroes]:https://www.redhat.com/en/command-line-heroes/season-3/heroes-in-a-bash-shell
+[bashshell]:https://en.wikipedia.org/wiki/Bash_(Unix_shell)
+[bfox]:https://en.wikipedia.org/wiki/Brian_Fox_(computer_programmer)
+[clh]:https://www.redhat.com/en/command-line-heroes
+[comlanguage]:https://en.wikipedia.org/wiki/Command_language
 [dourish2001]:https://doi.org/10.7551/mitpress/7221.001.0001
 [flashcards]:https://github.com/cseanburns/learn-the-commandline/blob/main/flashcards
+[fsf]:https://en.wikipedia.org/wiki/Free_Software_Foundation
 [learnthecli]:https://github.com/cseanburns/learn-the-commandline/blob/main/learn-the-cli
 [learnthefilesystem]:https://github.com/cseanburns/learn-the-commandline/blob/main/learn-the-filesystem
 [navLinux]:https://www.redhat.com/sysadmin/navigating-filesystem-linux-terminal
 [quickWindows]:https://www.redhat.com/sysadmin/linux-filesystem-windows
+[scripting]:https://en.wikipedia.org/wiki/Scripting_language
+[stephenbourne]:https://en.wikipedia.org/wiki/Stephen_R._Bourne
+[syitbarek]:https://saron.io/
+[unixshell]:https://en.wikipedia.org/wiki/Unix_shell
