@@ -42,7 +42,7 @@ at least not remotely as well
 as command line interfaces do.
 Working on the command line,
 becuase it is a text-based environment,
-in what is know as a [shell][shell],
+in what is known as a [shell][shell],
 is a reproducible process.
 That is not as easily true in a GUI.
 
