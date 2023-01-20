@@ -218,10 +218,11 @@ available are for very specific purposes.
 I'd estimate
 that despite having used the Linux
 command line for over 20 years,
-that I've barely used 20% of them, and
+I've barely used 20% of them, and
 I might be stretching my estimate.</p>
-<p>The commands that I'll ask you to learn
-and practice include the following:</p>
+<p>The first set of commands that
+I'll ask you to learn and
+practice include the following:</p>
 <pre><code>list files and directories.................. ls
 print name of current/working directory..... pwd
 create a new directory...................... mkdir
@@ -235,8 +236,10 @@ move or rename a file or directory.......... mv
 remove or delete a file or directory........ rm
 </code></pre>
 <p>You will practice these commands using
-the following program that I wrote
-called <a href="https://github.com/cseanburns/learn-the-commandline/blob/main/learn-the-cli">learn-the-cli</a>.</p>
+the program that I wrote
+called <a href="https://github.com/cseanburns/learn-the-commandline/blob/main/learn-the-cli">learn-the-cli</a>
+(I will show you how to install
+this and the other programs shortly).</p>
 <p>I also developed a <a href="https://github.com/cseanburns/learn-the-commandline/blob/main/flashcards">flashcards</a>
 program that will help you learn an
 additional fifteen commands.
@@ -248,7 +251,9 @@ as we proceed through the semester.
 In the meantime,
 I'll ask that you periodically run
 the <code>flashcards</code> program to
-familiarize yourself with these commands.</p>
+familiarize yourself with these commands,
+which includes the ones in the list above
+but also a few additional ones.</p>
 <h2 id="the-filesystem"><a class="header" href="#the-filesystem">The Filesystem</a></h2>
 <p>In addition to the various commands
 that I'll ask you to learn,
@@ -304,7 +309,7 @@ uses multiple root directories (C:, D:, E:, etc.)
 I encourage you to read the following article on
 <a href="https://www.redhat.com/sysadmin/linux-filesystem-windows">A quick introduction to the Linux filesystem for Windows users</a>.
 The article is published by <em>Red Hat</em>,
-which makes its own distribution of Linux.</p>
+which makes its own Linux distribution.</p>
 <p>In short, learning the Linux filesystem
 requires adopting a new mental model
 about how the operating system organizes
@@ -396,6 +401,47 @@ specific directory in our
 executable PATH.
 This will allow us to run them
 simply by typing their names.</p>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<p>To install my practice programs,
+login to your Linux virtual instances, and
+run the following commands.
+You will learn more about these commands shortly.</p>
+<p>First, let's take a look at the contents
+of your home directory
+(the default directory you're in when
+you connect to your virtual machine):</p>
+<pre><code>ls
+</code></pre>
+<p>Most likely,
+nothing will be listed.</p>
+<p>Now let's retrieve the programs
+using the <code>git</code> command:</p>
+<pre><code>git clone https://github.com/cseanburns/learn-the-commandline.git
+</code></pre>
+<p>Run the <code>ls</code> command again, and
+you'll see a new directory called
+<code>learn-the-commandline</code>:</p>
+<p><code>ls</code></p>
+<p>Next, copy the programs to an executable path:</p>
+<pre><code>sudo cp learn-the-commandline/* /usr/local/bin
+</code></pre>
+<p>Run the first program and
+work through it in order to learn
+some of the basic commands:</p>
+<pre><code>learn-the-cli
+</code></pre>
+<p>When ready,
+run the second program in order
+to learn about the Linux filesystem:</p>
+<pre><code>learn-the-filesystem
+</code></pre>
+<p>Finally, periodically run the
+<code>flashcards</code> program to refresh your
+memory of the basic commands, plus
+some other commands that you'll learn
+about soon:</p>
+<pre><code>flashcards
+</code></pre>
 <h2 id="references"><a class="header" href="#references">References</a></h2>
 <p>Dourish, P. (2001). <em>Where the Action Is: The Foundations of
 Embodied Interaction</em>. MIT Press.

@@ -78,11 +78,12 @@ available are for very specific purposes.
 I'd estimate
 that despite having used the Linux
 command line for over 20 years,
-that I've barely used 20% of them, and
+I've barely used 20% of them, and
 I might be stretching my estimate.
 
-The commands that I'll ask you to learn
-and practice include the following:
+The first set of commands that
+I'll ask you to learn and
+practice include the following:
 
 ```
 list files and directories.................. ls
@@ -99,8 +100,10 @@ remove or delete a file or directory........ rm
 ```
 
 You will practice these commands using
-the following program that I wrote
-called [learn-the-cli][learnthecli].
+the program that I wrote
+called [learn-the-cli][learnthecli]
+(I will show you how to install
+this and the other programs shortly).
 
 I also developed a [flashcards][flashcards]
 program that will help you learn an
@@ -113,7 +116,9 @@ as we proceed through the semester.
 In the meantime,
 I'll ask that you periodically run
 the ``flashcards`` program to
-familiarize yourself with these commands.
+familiarize yourself with these commands,
+which includes the ones in the list above
+but also a few additional ones.
 
 ## The Filesystem
 
@@ -176,7 +181,7 @@ uses multiple root directories (C:, D:, E:, etc.)
 I encourage you to read the following article on
 [A quick introduction to the Linux filesystem for Windows users][quickWindows].
 The article is published by *Red Hat*,
-which makes its own distribution of Linux.
+which makes its own Linux distribution.
 
 In short, learning the Linux filesystem
 requires adopting a new mental model
@@ -275,6 +280,72 @@ specific directory in our
 executable PATH.
 This will allow us to run them
 simply by typing their names.
+
+## Installation
+
+To install my practice programs,
+login to your Linux virtual instances, and
+run the following commands.
+You will learn more about these commands shortly.
+
+First, let's take a look at the contents
+of your home directory
+(the default directory you're in when
+you connect to your virtual machine):
+
+```
+ls
+```
+
+Most likely,
+nothing will be listed.
+
+Now let's retrieve the programs
+using the ``git`` command:
+
+```
+git clone https://github.com/cseanburns/learn-the-commandline.git
+```
+
+Run the ``ls`` command again, and
+you'll see a new directory called
+``learn-the-commandline``:
+
+``
+ls
+``
+
+Next, copy the programs to an executable path:
+
+```
+sudo cp learn-the-commandline/* /usr/local/bin
+```
+
+Run the first program and
+work through it in order to learn
+some of the basic commands:
+
+```
+learn-the-cli
+```
+
+When ready,
+run the second program in order
+to learn about the Linux filesystem:
+
+```
+learn-the-filesystem
+```
+
+Finally, periodically run the
+``flashcards`` program to refresh your
+memory of the basic commands, plus
+some other commands that you'll learn
+about soon:
+
+```
+flashcards
+```
 
 ## References
 
