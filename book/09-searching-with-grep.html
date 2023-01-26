@@ -145,7 +145,368 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="searching-with-grep"><a class="header" href="#searching-with-grep">Searching with grep</a></h1>
+<p>We have available some powerful utilities and programs
+to process, manipulate, and analyze text files.
+In this section, we will focus on the <code>grep</code> utility,
+which offers some advanced methods for searching
+the contents of text files.</p>
+<h2 id="grep"><a class="header" href="#grep">Grep</a></h2>
+<p>The <code>grep</code> command is one of my most often used commands.
+Basically, <code>grep</code> &quot;prints lines that match patterns&quot;
+(see <code>man grep</code>).
+In other words, it's search, and
+it's super powerful.</p>
+<p><code>grep</code> works line by line.
+So when we use it to search a file for a <strong>string</strong> of text,
+it will return the whole line that matches the string.
+This <strong>line by line</strong> idea is part of the history of
+Unix-like operating systems,
+and it's important to remember that most utilities
+and programs that we use on the commandline
+are line oriented.</p>
+<blockquote>
+<p>&quot;A string is any series of characters that are interpreted
+literally by a script. For example, 'hello world' and 'LKJH019283'
+are both examples of strings.&quot; -- <a href="https://www.computerhope.com/jargon/s/string.htm">Computer Hope</a>.
+More generally, it's the literal characters that we type. It's data.</p>
+</blockquote>
+<p>To visualize how <code>grep</code> works,
+let's consider a file called
+<strong>operating-systems.csv</strong> with content
+as seen below:</p>
+<pre><code>OS, License, Year
+Chrome OS, Proprietary, 2009
+FreeBSD, BSD, 1993
+Linux, GPL, 1991
+macOS, Proprietary, 2001
+Windows NT, Proprietary, 1993
+Android, Apache, 2008
+</code></pre>
+<p>We can use <code>grep</code> to search for anything
+in that file.
+Let's start with a search for the string <strong>Chrome</strong>.
+Notice that even though the string <strong>Chrome</strong> only appears once,
+and in one part of a line,
+<code>grep</code> returns the entire line.</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep &quot;Chrome&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Chrome OS, Proprietary, 2009
+</code></pre>
+<p>Be aware that, by default, <code>grep</code> is case-sensitive,
+which means a search for the string <strong>chrome</strong>,
+with a lower case <strong>c</strong>,
+would return no results.
+Fortunately, <code>grep</code> has an <code>-i</code> option,
+which means to ignore the case of the search string.
+In the following examples,
+<code>grep</code> returns nothing in the first search
+since we do not capitalize the string <strong>chrome</strong>.
+However, adding the <code>-i</code> option results in success:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep &quot;chrome&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<p>None.</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -i &quot;chrome&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Chrome OS, Proprietary, 2009
+</code></pre>
+<p>We can also search for lines
+that <strong>do not</strong> match our string 
+using the <code>-v</code> option.
+We can combine that with the <code>-i</code>
+option to ignore the string's case.
+Therefore, in the following example,
+all lines that do not contain the
+string <strong>chrome</strong> are returned:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -vi &quot;chrome&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>FreeBSD, BSD, 1993
+Linux, GPL, 1991
+iOS, Proprietary, 2007
+macOS, Proprietary, 2001
+Windows NT, Proprietary, 1993
+Android, Apache, 2008
+</code></pre>
+<p>Sometimes data files,
+like spreadsheets,
+contain header columns in the
+first row.
+We can use <code>grep</code> to remove
+the first line of a file by
+inverting our search and select
+all lines not matching
+&quot;OS&quot; at the start of a line.
+Here the carat key <code>^</code> is
+a <strong>regex</strong> indicating the
+start of a line.
+Again, this <code>grep</code> command returns
+all lines that do not match the
+string <strong>os</strong> at the start of a line,
+ignoring case:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -vi &quot;^os&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Chrome OS, Proprietary, 2009
+FreeBSD, BSD, 1993
+Linux, GPL, 1991
+iOS, Proprietary, 2007
+macOS, Proprietary, 2001
+Windows NT, Proprietary, 1993
+Android, Apache, 2008
+</code></pre>
+<p>Alternatively, since we know that
+the string <strong>Year</strong> comes
+at the end of the first line,
+we can use <code>grep</code> to invert search for that.
+Here the dollar sign key <code>$</code>
+is a <strong>regex</strong> indicating the
+end of a line.
+Like the above,
+this <code>grep</code> command returns all lines that
+do not match the string <strong>year</strong>
+at the end of a line,
+ignoring case.
+The result,
+in this specific instance,
+is exactly the same as the last command:</p>
+<p><strong>Command</strong>:</p>
+<pre><code>grep -vi &quot;year$&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Chrome OS, Proprietary, 2009
+FreeBSD, BSD, 1993
+Linux, GPL, 1991
+iOS, Proprietary, 2007
+macOS, Proprietary, 2001
+Windows NT, Proprietary, 1993
+Android, Apache, 2008
+</code></pre>
+<p>The <code>man grep</code> page lists other options,
+but a couple of other good ones include:</p>
+<p>Get a count of the matching lines with the <code>-c</code> option:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -ic &quot;proprietary&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>4
+</code></pre>
+<p>Print only the match and
+not the whole line with the <code>-o</code> option:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -io &quot;proprietary&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Proprietary
+Proprietary
+Proprietary
+Proprietary
+</code></pre>
+<p>We can simulate a Boolean OR search, and
+print lines matching one or both strings
+using the <code>-E</code> option.
+We separate the strings with a vertical bar <code>|</code>.
+This is similar to a Boolean OR search
+since there's at least one match in the following string,
+there is at least one result.</p>
+<p>Here is an example where only one string
+returns a true value:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -Ei &quot;(bsd|atari)&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>FreeBSD, BSD, 1993
+</code></pre>
+<p>Here's an example where both strings evaluate to true:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -Ei &quot;(bsd|gpl)&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>FreeBSD, BSD, 1993
+Linux, GPL, 1991
+</code></pre>
+<p>By default, <code>grep</code> will return results where the
+string appears within a larger word,
+like <strong>OS</strong> in <strong>macOS</strong>.</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -i &quot;os&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>OS, License, Year
+Chrome OS, Proprietary, 2009
+iOS, Proprietary, 2007
+macOS, Proprietary, 2001
+</code></pre>
+<p>However, we might want to limit results so that
+we only return results where <strong>OS</strong> is a complete word.
+To do that, we can surround the string with
+special characters:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -i &quot;\&lt;os\&gt;&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>OS, License, Year
+Chrome OS, Proprietary, 2009
+</code></pre>
+<p>Sometimes I find it hard to remember
+the backslash and angle bracket combinations
+because they're too much alike HTML syntax but
+not exactly like HTML syntax.
+Fortunately, <code>grep</code> has a <code>-w</code> option
+to match whole words:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -wi &quot;os&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>OS, License, Year
+Chrome OS, Proprietary, 2009
+</code></pre>
+<p>Sometimes we want the context for a result;
+that is,
+we might want to print lines that surround our matches.
+For example, print the matching line plus the two lines
+after the matching line using the <code>-A NUM</code> option:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -i &quot;linux&quot; -A2 operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Linux, GPL, 1991
+macOS, Proprietary, 2001
+Windows NT, Proprietary, 1993
+</code></pre>
+<p>Or, print the matching line plus the two lines
+before the matching line using the <code>-B NUM</code> option:</p>
+<p><strong>Command</strong></p>
+<pre><code>grep -i &quot;linux&quot; -B2 operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Chrome OS, Proprietary, 2009
+FreeBSD, BSD, 1993
+Linux, GPL, 1991
+
+</code></pre>
+<p>We can combine many of the variations.
+Here I search for the whole word <strong>BSD</strong>,
+case insensitive, and
+print the line before and the line after
+the match:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -iw -C1 &quot;bsd&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Chrome OS, Proprietary, 2009
+FreeBSD, BSD, 1993
+Linux, GPL, 1991
+</code></pre>
+<p>We can use another option to
+stop returning results after some
+number of hits.
+Here I use <code>grep</code> to return
+search for the string &quot;proprietary&quot;
+and stop after the first hit:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -i -m1 &quot;proprietary&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Chrome OS, Proprietary, 2009
+</code></pre>
+<p>We can add the <code>-n</code> option to
+instruct <code>grep</code> to tell us what
+line number for each hit.
+Below we see that the string
+&quot;proprietary&quot; is found on lines
+2, 5, and 6.</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -in &quot;proprietary&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>2:Chrome OS, Proprietary, 2009
+5:macOS, Proprietary, 2001
+6:Windows NT, Proprietary, 1993
+</code></pre>
+<p>We can use <code>grep</code> to search for
+patterns in strings instead of literal words.
+Here we use what's called <strong>character classes</strong>
+and <strong>repetition</strong> to search for five letter words:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -Eiw &quot;[a-z]{5}&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Linux, GPL, 1991
+macOS, Proprietary, 2001
+</code></pre>
+<p>Or four letter numbers:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -Eiw &quot;[0-9]{4}&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Chrome OS, Proprietary, 2009
+FreeBSD, BSD, 1993
+Linux, GPL, 1991
+macOS, Proprietary, 2001
+Windows NT, Proprietary, 1993
+Android, Apache, 2008
+</code></pre>
+<p><code>grep</code> can also search for words that
+begin with some letter and end with some letter
+and with a specified number of letters between.
+Here we search for words that start with <strong>m</strong>,
+end with <strong>s</strong>, and have three letters in the middle:</p>
+<p><strong>Command:</strong></p>
+<pre><code>grep -Eiw &quot;m.{3}s&quot; operating-systems.csv
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>macOS, Proprietary, 2001
+</code></pre>
+<h2 id="practice"><a class="header" href="#practice">Practice</a></h2>
+<p>Here let's practice looking at the <strong>auth.log</strong> file.
+This file records all attempts to login to the system:</p>
+<p>First, we change directory to <code>/var/log</code>.</p>
+<p>Second, we use <code>less</code> to peruse the <strong>auth.log</strong> file.</p>
+<p>Third, we do a simple <code>grep</code> search for the string
+<strong>invalid user</strong> and
+pipe that through another grep command
+that examines IP addresses.</p>
+<p>Fourth, we do another simple search for a longer
+string and pipe that through other commands to
+sort the data.</p>
+<pre><code>cd /var/log
+less auth.log
+grep -E &quot;session opened for user (sean|root)&quot; auth.log | less
+grep &quot;invalid user&quot; auth.log | grep -Eo &quot;[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}&quot; | sort | uniq -c | sort
+grep &quot;Connection closed by invalid user&quot; auth.log | cut -d&quot; &quot; -f11 | sort | uniq -c | sort |less
+grep &quot;Connection closed by invalid user&quot; auth.log | cut -d&quot; &quot; -f11 | sort | uniq -c | sort -r |less
+</code></pre>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p><code>grep</code> is very powerful, and
+there are more options listed in its <code>man</code> page.</p>
+<blockquote>
+<p>Note that I enclose my search strings in double quotes.
+For example: <code>grep &quot;search string&quot; filename.txt</code>
+It's not always required to enclose a search string
+in double quotes,
+but it's good practice because
+if your string contains more than one word or
+empty spaces, the search will fail.</p>
+</blockquote>
+<p>The Linux (and other Unix-like OSes) command line
+offers a lot of utilities to examine data.
+It's fun to learn and practice these.
+Despite this, you do not have to become
+an advanced <code>grep</code> user.
+For most cases,
+simple <code>grep</code> searches work well.</p>
+<p>If you want to learn more,
+there are many <code>grep</code> tutorials on the web.</p>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

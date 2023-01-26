@@ -145,7 +145,250 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="text-editors"><a class="header" href="#text-editors">Text editors</a></h1>
+<p>As we learn more about
+how to work on the command line,
+we will acquire the need to write
+in plain text or edit
+configuration files.
+Most configuration files for Linux
+applications exist
+in the <code>/etc</code> directory,
+and are regular text files.
+For example,
+later in the semester
+we will install the
+<a href="https://httpd.apache.org/">Apache Web Server</a>, and
+we will need to edit
+Apache's configuration
+files in the process.</p>
+<p>In order to edit and save text files, 
+we need a text editor.
+Programmers use text editors
+to write programs,
+but because programmers 
+often work in
+graphical user environments,
+they may often use 
+graphical text editors or graphical
+<a href="https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated Development Environments (IDEs)</a>. 
+It might be that if you work
+in systems librarianship,
+that you will often use
+a graphical text editor,
+but knowing something about
+how to use command line-based
+editors can be helpful.</p>
+<h2 id="what-is-a-plain-text"><a class="header" href="#what-is-a-plain-text">What is a Plain Text?</a></h2>
+<p>Plain text is the most basic
+way to store human-readable textual information.
+Whenever we use a word processor program,
+like Microsoft Office,
+we are creating a complex series
+of files that instruct the Office application
+how to display the contents of the file as
+well as how the contents are formatted
+and arranged.
+This can easily be illustrated by
+using an archive manager to extract
+the contents of a <strong>.docx</strong> file.
+Upon examination,
+most of the files in a single <strong>.docx</strong>
+file are plain text that are
+marked up in XML.
+The files are packaged as a <strong>.docx</strong>
+file and then rendered by an application,
+commonly Microsoft Word,
+but any application
+that can read <strong>.docx</strong> files will do.</p>
+<p>A plain text file only contains
+<a href="https://www.rapidtables.com/code/text/ascii-table.html">plain text</a>.
+Its only arrangement is from top
+to bottom.
+It does not allow for any kind of
+additional formatting,
+and it does not include media.
+It is the closest thing the digital
+has to output produced by a typewriter, but
+a <a href="https://www.youtube.com/watch?v=jxkygWI-Wfs">typewriter that's connected to the internet</a>.</p>
+<p>A lot of content is written in plain text.
+For example, HTML is written in plain text
+and the web browser uses the HTML markup to
+render how a page will look.</p>
+<pre><code>&lt;p&gt;This is using a HTML paragraph tag.
+The web browser would normally render this like
+the other paragraphs on this page.
+However, it's written in a code block,
+which allows us to display the HTML tags
+and appear as if it's real source code.&lt;/p&gt;
+</code></pre>
+<p>The rendered result is not plain text but HTML,
+just like the rendered result of all those
+XML files in a <strong>.docx</strong> file are not
+plain text but a <strong>.docx</strong> file.
+Softare is written in plain text files
+because programming languages cannot
+evaluate content that is not just text.
+Those of you who have learned how to
+use the R programming language wrote
+your R code in plain text likely using
+the RStudio IDE.
+For our purposes,
+we need plain text files to
+modify configuration files for
+the various programs that we will
+install later.</p>
+<h2 id="why-edit-in-plain-text"><a class="header" href="#why-edit-in-plain-text">Why Edit in Plain Text</a></h2>
+<p>Most of the time when we configure software,
+we might do it, for example,
+by using our mouse to find the settings
+menu in some application that we are using.
+All that does, for the most part,
+is make changes to some text file somewhere.
+We will have to be more direct since
+we are working on the command line only.
+That is, the kind of settings configurations we
+will do will require editing a variety
+of plain text files that the programs
+will use to modify how they work.
+Often the settings for programs can only
+be modified by editing their plain text
+configuration files.</p>
+<p>We will also soon be working with Git and GitHub.
+These will also require us to use plain text.
+More on that in a couple of chapters.</p>
+<h2 id="nano"><a class="header" href="#nano"><code>nano</code></a></h2>
+<p>The <a href="https://www.nano-editor.org/"><code>nano</code></a> text editor
+is one of the user-friendliest
+of the text editors available on
+the Linux command line, but
+it still requires some adjustment
+as a new command line user.
+The friendliest thing about
+<code>nano</code> is that it is modeless,
+which is what you're
+already accustomed to using.
+This means <code>nano</code> can be used
+to enter and manipulate text
+without changing to
+insert or command mode.
+It is also friendly because,
+like many graphical text editors
+and software,
+it uses control keys
+to perform its operations.</p>
+<blockquote>
+<p>A modal text editor has modes such as insert mode or
+command mode. In insert mode, the user types text as
+anyone would in any kind of editor or word processor. The
+user switches to command mode to perform operations on the
+text, such as find and replace, saving, cutting and
+pasting but cannot insert text as they would in insert
+mode. Switching between modes usually involves pressing
+some specific keys. In Vim and ed(1), my text editors of
+choice, the user starts in command mode and switches to
+insert mode by pressing the letter <strong>i</strong> or the letter
+<strong>a</strong>. The user may switch back to command mode by
+pressing the <strong>Esc</strong> key in Vim or by pressing the period
+in a new line in ed(1).</p>
+</blockquote>
+<p>The tricky part to learning <code>nano</code> is that
+the control keys are assigned
+to different keystroke combinations
+than what
+many graphical editors
+(or word processors) use
+by convention today.
+For example,
+instead of Ctrl-c or Cmd-c to copy text,
+in <code>nano</code> you press the <code>M-6</code> key
+(press <code>Alt, Cmd, or Esc key</code>
+and <code>6</code>) to copy.
+Then to paste,
+you press <code>Ctrl-u</code> instead
+of the more common <code>Ctrl-v</code>.
+Fortunately, <code>nano</code> lists
+the shortcuts at the bottom
+of the screen.</p>
+<p>The shortcuts listed
+need some explanation, though.
+The carat mark is shorthand
+for the keyboard's <strong>Control (Ctrl)</strong> key.
+Therefore to <strong>Save As</strong> a file,
+we <strong>write</strong> out the file
+by pressing <code>Ctrl-o</code>
+(although <code>Ctrl-s</code> will work, too).
+The <strong>M-</strong> key is also important,
+and depending on your keyboard
+configuration,
+it may correspond to your
+<code>Alt, Cmd, or Esc</code> keys.
+To search for text,
+you press <code>^W</code>,
+If your goal is to copy,
+then press <strong>M-6</strong>
+to copy a line.
+Move to where you want
+to paste the text,
+and press <strong>Ctrl-u</strong>
+to paste.</p>
+<p>We can start <code>nano</code> simply
+by typing <code>nano</code> on the command line.
+This will open a new, unsaved file
+with no content.
+Alternatively, we can start <code>nano</code>
+by specifying a file name after typing <code>nano</code>.
+For example, if I want to open a file
+called <strong>example.txt</strong>,
+then I type the following command:</p>
+<pre><code>nano example.txt
+</code></pre>
+<p>If the file doesn't exist,
+this will create it.
+If it does exit, then
+the above command will open it.</p>
+<p>One of the other tricky things about <code>nano</code>
+is that the <em>menu bar</em>
+(really just a crib sheet, so to speak)
+is at the bottom of
+the screen instead of at the top,
+which is where we are mostly accustomed to
+finding it these days.
+Also, the <code>nano</code> program does not provide
+pop up dialog boxes.
+Instead, all messages from <code>nano</code>,
+like what to name a file when we save it,
+appear at the bottom of the screen.</p>
+<p>Lastly, <code>nano</code> also uses distinct terminology
+for some of its functions.
+The most important function to remember
+is the <strong>Write Out</strong> function,
+which means to save.</p>
+<p>For the purposes of this class,
+that's all you really
+need to know about <code>nano</code>.
+Use it and get comfortable writing in it.
+Some quick tips:</p>
+<ol>
+<li><code>nano file.txt</code> will open and display the file named <strong>file.txt</strong>.</li>
+<li><code>nano</code> by itself will open to an empty page.</li>
+<li>Save a file by pressing <code>Ctrl-o</code>.</li>
+<li>Quit and save by pressing <code>Ctrl-x</code>.</li>
+<li>Be sure to follow the prompts at the bottom of the screen.</li>
+</ol>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>In the prior lesson,
+we learned how to use the
+Bash interactive shell.
+We will continue to do that,
+but in the meantime,
+in this lesson,
+we begin to learn how to use
+a command line text editor, <code>nano</code>.
+We will use <code>nano</code> to edit
+configuration files and publish
+text to GitHub.</p>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
