@@ -2303,6 +2303,280 @@ simple <code>grep</code> searches work well.</p>
 <p>If you want to learn more,
 there are many <code>grep</code> tutorials on the web.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="managing-software"><a class="header" href="#managing-software">Managing Software</a></h1>
+<h2 id="introduction-4"><a class="header" href="#introduction-4">Introduction</a></h2>
+<p>Most Linux distributions use
+what's called a <strong>package manager</strong> to
+handle the installation, upgrades, and
+uninstalls of the software on a system.
+The Ubuntu distribution uses a
+package manager called <code>dpkg</code> and
+a front-end called <code>apt</code>
+(advanced package tool).
+We will use <code>apt</code> to install,
+update, and remove software
+from our servers.</p>
+<h2 id="sudo"><a class="header" href="#sudo"><code>sudo</code></a></h2>
+<p>In order to do the above tasks,
+we will need to use
+the <code>sudo</code> command.
+The <code>sudo</code> command allows us to
+&quot;execute a command as another user&quot;
+(see <code>man sudo</code>).
+If we have multiple users on a system,
+and if we have their passwords,
+then we could use <code>sudo</code> to run
+commands as if we were logged into
+their accounts.</p>
+<p>However, the main use of <code>sudo</code>
+is to execute a command as the <strong>root</strong> user.
+The root user is the <strong>superuser</strong> account
+and as such,
+this user can perform administrative tasks
+that regular users cannot.
+For security purposes,
+regular accounts may not add, remove, or
+update software on a system, nor
+may they modify most files or directories
+outside their home directories.
+Using <code>sudo</code> allows regular users to
+perform maintenance tasks on our systems
+by executing commands as the root user.
+Some consider this safer than logging
+in as the root user.</p>
+<p>Not all regular users can use
+the <code>sudo</code> command.
+On regular Ubuntu distributions,
+users must belong to the <strong>sudo</strong> group
+in order to run the <code>sudo</code> command.
+The <code>groups</code> command will return
+a list of groups that your account belongs to.
+On the Ubuntu version used by the
+Google Cloud Platform (GCP),
+the group of interest is called <strong>google-sudoers</strong>.
+The difference between the <strong>sudo</strong> group
+on regular Ubuntu distributions and
+the GCP version is that regular users in the
+<strong>google-sudoers</strong> group are not prompted for
+their password.</p>
+<p>Down the line,
+we will need to use the <code>sudo</code> command
+to modify files, create directories, and
+perform other maintenance tasks needed to
+install and manage software.
+In this lesson, we will use <code>sudo</code> along
+with the <code>apt</code> commands to update our
+systems and install software.</p>
+<h3 id="sudo-syntax"><a class="header" href="#sudo-syntax"><code>sudo</code> syntax</a></h3>
+<p>The <code>sudo</code> command is simple to use.
+When necessary,
+we use <code>sudo</code> by pre-pending it to
+the regular commands that we have already
+learned.
+In our home directories, for example,
+we don't need to use <code>sudo</code> to
+create a new directory with the <code>mkdir</code>
+command.
+Instead we just type
+<code>mkdir data</code> to create a new
+directory/folder called <strong>data</strong>.
+But outside our home directory,
+for example, in the directory
+<strong>/usr/local/bin</strong>.
+We need to use <code>sudo</code> to do such things.
+(This is why I used the <code>sudo</code> command
+when I showed you how to copy the
+<strong>Learn the Commandline</strong> programs to
+<strong>/usr/local/bin</strong>.)
+If I want to create a <strong>data</strong> directory
+in <strong>/usr/local/bin</strong>, then
+I have to use sudo at the beginning of
+my command:</p>
+<pre><code>cd /usr/local/bin
+sudo mkdir data
+</code></pre>
+<p>Or, without changing to that directory,
+I can just specify the full path:</p>
+<pre><code>sudo mkdir /usr/local/bin/data
+</code></pre>
+<p>Or if I want to create a file in
+some other directory outside my
+home directory, then
+I have to use sudo there, too:</p>
+<pre><code>cd /etc
+sudo touch data.csv
+</code></pre>
+<p>Or, without changing to that directory,
+I can specify the full path:</p>
+<pre><code>sudo touch /etc/data.csv
+</code></pre>
+<h2 id="apt"><a class="header" href="#apt">apt</a></h2>
+<p>We will use <code>sudo</code> in the above
+ways soon enough, but for now,
+we will use <code>sudo</code> to install,
+update, and uninstall software on
+our systems.</p>
+<p>Next I'll demonstrate the <code>apt</code>
+commands that we'll need.</p>
+<h3 id="sudo-apt-update"><a class="header" href="#sudo-apt-update"><code>sudo apt update</code></a></h3>
+<p>Your system keeps a record of
+what software is installed on your
+system and their version numbers.
+The <code>sudo apt update</code> command
+updates that list and compares
+the update to what's installed.
+That is, if you have a piece of
+software called <strong>acme1.1</strong> on your system,
+and <strong>acme1.2</strong> is available, then
+running <code>sudo apt update</code> will
+let you know that you can upgrade to
+<strong>acme1.2</strong>.
+It's good practice to run <code>sudo apt update</code>
+before installing or upgrading your system
+because this lets your system upgrade to
+the most recent version of what you want
+to install.</p>
+<p>In short, this command is simply:</p>
+<pre><code>sudo apt update
+</code></pre>
+<h3 id="sudo-apt-upgrade"><a class="header" href="#sudo-apt-upgrade"><code>sudo apt upgrade</code></a></h3>
+<p>Once your list of software has been updated,
+you can <strong>upgrade</strong> with the <code>sudo apt upgrade</code>
+command if there are any upgrades.
+When you run this command, and if
+there are any upgrades,
+you will be prompted to proceed.
+You can press <strong>Y</strong> to proceed, or
+<strong>N</strong> to cancel.</p>
+<p>This command is simply:</p>
+<pre><code>sudo apt upgrade
+</code></pre>
+<h3 id="apt-search"><a class="header" href="#apt-search"><code>apt search</code></a></h3>
+<p>If you want to install a piece
+of software, then
+you have to install it using its
+package name.
+Sometimes that means we have to
+search for the name of the package.
+This is one of the <code>apt</code> commands
+that does not require the use of <code>sudo</code>.
+<code>sudo</code> is not required because
+<code>apt search</code> does not modify the system.
+It simply helps you search for a package name.</p>
+<p>For example, the <code>man</code> pages provide
+helpful documentation about how to use
+the commands on our systems, but
+the <code>man</code> pages can also be dense and
+not straightforward.</p>
+<p>Fortunately, there's an application called
+<code>tldr</code> that is a community-driven application
+that provides simple help pages and examples
+of how to use some of the most commonly used
+commands.</p>
+<p>To search for the <code>tldr</code> package,
+we execute the following command:</p>
+<pre><code>apt search tldr
+</code></pre>
+<p>This returns a list of results that
+match the search query.
+One of those results is the <code>tldr</code> package,
+which is simply named <strong>tldr</strong>.
+Not all packages are simply named,
+which is why we need to search for the
+specific name.</p>
+<blockquote>
+<p>Note that sometimes when we search for a package, the list
+of results is quite long. In those cases, pipe the above
+command through the <code>less</code> pager to page through the
+results: <code>apt search &lt;packagename&gt; | less</code></p>
+</blockquote>
+<h2 id="apt-show"><a class="header" href="#apt-show"><code>apt show</code></a></h2>
+<p>If we want more specific information
+about the package,
+we can use the <code>apt show</code> command
+along with the package name.
+Therefore, to get more information
+about the <code>tldr</code> application,
+we execute the following command:</p>
+<pre><code>apt show tldr
+</code></pre>
+<p>This will return a fuller description
+of the package (usually), as well
+as the URL to the application's website,
+plus other details.
+We do not need to use <code>sudo</code> here
+because we are not modifying the system.
+We are only retrieving information.</p>
+<h2 id="sudo-apt-install"><a class="header" href="#sudo-apt-install"><code>sudo apt install</code></a></h2>
+<p>To install the <code>tldr</code> application,
+we use the <code>sudo apt install</code> command
+along with the package name.
+We want to make sure that the name of the
+package is exactly what was returned from
+the <code>apt search</code> command.
+In the <code>tldr</code> case,
+it's pretty straightforward, and to install:</p>
+<pre><code>sudo apt install tldr
+</code></pre>
+<h2 id="sudo-apt-remove"><a class="header" href="#sudo-apt-remove"><code>sudo apt remove</code></a></h2>
+<p>In order to remove a package,
+we use the <code>sudo apt remove</code>
+command.
+I like to add the <code>--purge</code> option
+because this also removes system configuration
+files that I probably do not need.
+That is, some applications
+install configuration files (configs).
+Configs are files that set application preferences
+in the <strong>/etc</strong> directory.
+Adding <code>--purge</code> will remove those configs.</p>
+<p>To remove a package and
+its system configuration files (if any),
+we run the above command with the package name.</p>
+<pre><code>sudo apt --purge remove tldr
+</code></pre>
+<p>Some configs are stored in your home directory.
+Generally only end user applications install
+configs in our home directories.
+The <code>--purge</code> option will not remove those configs;
+instead, we have to remove them manually if we want.</p>
+<h3 id="sudo-apt-autoremove"><a class="header" href="#sudo-apt-autoremove"><code>sudo apt autoremove</code></a></h3>
+<p>One of the great things about <code>dpkg</code> and <code>apt</code>
+is that it installs and handles software
+<strong>dependencies</strong> really well.
+Dependencies are other software that software
+depends upon to run.
+That is, few computer applications are self-contained, and
+they often require other technology.
+When we uninstall (or remove) applications,
+the package manager does not auto uninstall those
+dependencies that were installed with it.
+We use the autoremove command to uninstall those:</p>
+<pre><code>sudo apt autoremove
+</code></pre>
+<h3 id="sudo-apt-clean"><a class="header" href="#sudo-apt-clean"><code>sudo apt clean</code></a></h3>
+<p>When we install packages,
+some files are installed with them.
+The <code>sudo apt clean</code> removes those
+extra files and frees up disk space.
+It's a simple command:</p>
+<pre><code>sudo apt clean
+</code></pre>
+<h2 id="conclusion-6"><a class="header" href="#conclusion-6">Conclusion</a></h2>
+<p>The <code>apt</code> command makes it quite easy
+to manage software on our systems.
+We will use this command to install more
+complicated software later.
+Here's a list of commands we covered:</p>
+<ul>
+<li><code>sudo apt update</code></li>
+<li><code>sudo apt upgrade</code></li>
+<li><code>apt search</code></li>
+<li><code>apt show</code></li>
+<li><code>sudo apt install</code></li>
+<li><code>sudo apt --purge remove</code></li>
+<li><code>sudo apt autoremove</code></li>
+<li><code>sudo apt clean</code></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="install-the-koha-ils"><a class="header" href="#install-the-koha-ils">Install the Koha ILS</a></h1>
 <p>Preliminary notes on setting up <a href="https://koha-community.org/">Koha ILS</a> on Google Cloud.</p>
 <p>Helpful documentation and demos:</p>
