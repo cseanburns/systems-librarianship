@@ -14,7 +14,6 @@
     - [Managing Software](10-managing-software.md)
 - [Project Management and Version Control](p4-project-management.md)
     - [Learn Git and GitHub](12-learn-git-and-github.md)
-    - [Setup Git on Server](13-setup-git.md)
 - [Creating a LAMP Server](p5-creating-a-lamp-server.md)
     - [Installing the Apache Web Server](14-installing-the-apache-web-server.md)
     - [Installing and Configuring PHP](15-installing-configuring-php.md)
