@@ -2577,7 +2577,142 @@ Here's a list of commands we covered:</p>
 <li><code>sudo apt autoremove</code></li>
 <li><code>sudo apt clean</code></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="learn-git-and-github"><a class="header" href="#learn-git-and-github">Learn Git and GitHub</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="project-management-with-git-and-github"><a class="header" href="#project-management-with-git-and-github">Project Management with Git and GitHub</a></h1>
+<p>Every major software project
+requires management.
+This is because a lot of people
+are often involved in these projects and
+it takes some coordination for them
+to write the many thousands of lines of
+software code,
+which also requires management.</p>
+<p><a href="https://en.wikipedia.org/wiki/Git">Git</a> and GitHub are two
+of the most popular technologies
+used to manage such software projects.
+However, they can also be used for
+other purposes,
+such as for technical documentation.
+Providing good documentation is the
+key to being able to build on prior work,
+to make adjustments to our workflows,
+to recall the details of some process, and
+for students,
+it can help in retention and reflection.
+In the remainder of the semester,
+we will begin to install and configure
+some complicated pieces of software.
+In order to better understand what
+we will be doing,
+it will be helpful to document
+our processes.</p>
+<p>Specifically,
+we will use Git and GitHub to
+begin to document and take notes
+as we install the Apache2 web server,
+the PHP scripting language, and
+the MySQL relational database.
+These three technologies,
+plus the Linux operating system,
+form what is called the
+<a href="https://en.wikipedia.org/wiki/LAMP_(software_bundle)">LAMP stack</a>.
+This <em>stack</em> forms the basis of
+most modern web applications.</p>
+<p>I recently had the opportunity to
+sit down and interview
+<a href="https://chat.openai.com/chat">ChatGPT</a>,
+the artificial intelligent chat agent
+that has made headlines in recent weeks.
+I wanted to see how ChatGPT would respond
+to some questions about how Git and GitHub
+are used.
+I am, of course,
+being somewhat <em>cheeky</em>, but
+the reason that something like
+ChatGPT works at all is because
+it relies on data from
+across the web;
+that is, it relies on documentation.</p>
+<p>I asked ChatGPT two, admittedly,
+leading questions.
+I think it's responses are on
+the mark.</p>
+<p>Me: Why are Git and GitHub good tools for project management?</p>
+<p>This was its response:</p>
+<blockquote>
+<p>Git and GitHub are great tools for project management for
+several reasons:</p>
+<p>Version control: Git is a distributed version control
+system that allows developers to track changes in the
+codebase over time. It provides a history of all changes
+made to the code, allowing developers to track down bugs
+and revert to previous versions of the code if needed.
+This makes it easy to collaborate with other developers,
+as everyone can work on the same codebase without
+interfering with each other's work.</p>
+<p>Collaboration: GitHub is a web-based platform that allows
+multiple developers to work on the same project
+simultaneously. It provides tools for collaboration such
+as pull requests, code reviews, and issue tracking. This
+makes it easy for developers to collaborate and
+communicate with each other, share code, and make changes
+to the codebase.</p>
+<p>Documentation: GitHub provides tools for documentation,
+including a wiki and a README file. These tools allow
+developers to document the project's features,
+installation instructions, and other details. This makes
+it easy for new developers to get up to speed with the
+project and for non-developers to understand the project's
+features and functionality.</p>
+<p>Continuous Integration and Deployment: GitHub integrates
+with several continuous integration and deployment tools
+such as Travis CI, CircleCI, and Jenkins. These tools
+automate the build, test, and deployment process, ensuring
+that changes to the codebase are thoroughly tested before
+they are deployed to production.</p>
+<p>Community: GitHub has a large community of developers who
+contribute to open source projects. Developers can use
+GitHub to showcase their work and collaborate with other
+developers on open source projects. This allows developers
+to learn from each other, build their portfolios, and
+contribute to the open source community.</p>
+</blockquote>
+<p>Me: Then I asked a follow up question: &quot;How might
+non-programmers use Git and GitHub?&quot; This was its response:</p>
+<blockquote>
+<p>Git and GitHub are primarily used by developers for
+version control and collaboration, but non-programmers can
+also use these tools for various purposes. Here are some
+examples:</p>
+<p>Documentation: GitHub provides a platform for creating and
+sharing documentation. Non-programmers can use this
+platform to write and maintain documentation for their
+projects or organizations. For example, a technical writer
+can use GitHub to collaborate with developers and create
+technical documentation.</p>
+<p>Project management: GitHub provides tools for issue
+tracking and project management. Non-programmers can use
+these tools to manage projects and track progress. For
+example, a project manager can create and assign tasks,
+track progress, and communicate with team members.</p>
+<p>Content management: GitHub can be used as a content
+management system for non-programming projects. For
+example, a marketing team can use GitHub to manage content
+for their website or social media channels.</p>
+<p>Collaboration: GitHub can be used as a collaboration
+platform for non-programming projects. For example, a team
+working on a research project can use GitHub to
+collaborate on data analysis and share findings.</p>
+<p>Education: GitHub can be used in education for version
+control, collaboration, and project management. For
+example, a teacher can use GitHub to teach students how to
+collaborate on group projects, manage tasks, and share
+documents.</p>
+<p>In summary, Git and GitHub can be used by non-programmers
+for various purposes, such as documentation, project
+management, content management, collaboration, and
+education.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="learn-git-and-github"><a class="header" href="#learn-git-and-github">Learn Git and GitHub</a></h1>
 <h2 id="introduction-5"><a class="header" href="#introduction-5">Introduction</a></h2>
 <p><a href="https://git-scm.com/">Git</a> and <a href="https://github.com">GitHub</a>
 are some of the most popular tools
@@ -2783,7 +2918,851 @@ You can see it at:
 Click on the <strong>git-github.md</strong> file
 to view the notes.
 Your task it to repeat the process.</p>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="install-the-koha-ils"><a class="header" href="#install-the-koha-ils">Install the Koha ILS</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-lamp-server"><a class="header" href="#creating-a-lamp-server">Creating a LAMP Server</a></h1>
+<p>In this section,
+we learn how to set up a LAMP
+(Linux, Apache, MySQL, PHP) stack.
+This stack enables us to create a web server
+that provides extra funtionality via PHP and MySQL,
+both of which are required to run
+content management systems and
+integrated library systems.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installing-the-apache-web-server"><a class="header" href="#installing-the-apache-web-server">Installing the Apache Web Server</a></h1>
+<h2 id="introduction-6"><a class="header" href="#introduction-6">Introduction</a></h2>
+<p><a href="https://httpd.apache.org/">Apache</a> is an HTTP server,
+otherwise called web server software.
+Other HTTP server software exists.
+Another big one is <a href="https://nginx.org/en/">nginx</a>.
+At its most basic,
+an HTTP server essentially makes files
+available to others who are able to establish a
+connection to the computer and view the files
+with a web browser.
+Ergo, a web browser is,
+at its most basic,
+a file viewer.</p>
+<p>It's important to understand
+the basics of an HTTP server, and
+therefore I ask you to read Apache's
+<a href="https://httpd.apache.org/docs/2.4/getting-started.html">Getting Started</a> page before
+proceeding with the rest of this section.
+Each of the main sections on that page describe
+the important elements that make up and serve a website,
+including</p>
+<ul>
+<li>clients, servers, and URLs</li>
+<li>hostnames and DNS</li>
+<li>configuration files and directives</li>
+<li>web site content</li>
+<li>log files and troubleshooting</li>
+</ul>
+<h2 id="installation-1"><a class="header" href="#installation-1">Installation</a></h2>
+<p>Before we install Apache,
+we need to update our systems first.</p>
+<pre><code>sudo apt update
+sudo apt -y upgrade
+</code></pre>
+<p>Once the machine is updated,
+we can install Apache2 using <code>apt</code>.
+First we'll use <code>apt search</code> to identify
+the specific package name.
+I already know that a lot of results
+will be returned,
+so let's <strong>pipe</strong> the <code>apt search</code> command
+through <code>head</code> to look at the initial results:</p>
+<pre><code>sudo apt search apache2 | head
+</code></pre>
+<p>The package that we're interested in
+happens to be named <strong>apache2</strong> on Ubuntu.
+This package name is not a given.
+On other distributions,
+like Fedora,
+the Apache package is called <strong>httpd</strong>.
+To learn more about the <strong>apache2</strong> package,
+let's examine it with the <code>apt show</code> command:</p>
+<pre><code>apt show apache2
+</code></pre>
+<p>Once we've confirmed that <strong>apache2</strong> is the package
+that we want,
+we install it with the <code>apt install</code> command.
+Press <strong>Y</strong> to agree to continue after running
+the command below:</p>
+<pre><code>sudo apt install apache2
+</code></pre>
+<h2 id="basic-checks"><a class="header" href="#basic-checks">Basic checks</a></h2>
+<p>One thing that makes Apache2, and
+some other web servers,
+powerful is the library of modules that
+extend Apache's functionality.
+We'll come back to modules soon.
+For now,
+we're going to make sure the
+server is up and running,
+configure some basic things, and
+then create a basic web site.</p>
+<p>To start,
+let's use <code>systemctl</code> to acquire
+some info about <strong>apache2</strong> and
+make sure it is <em>enabled</em> and <em>running</em>:</p>
+<pre><code>systemctl list-unit-files apache2.service
+systemctl status apache2
+</code></pre>
+<p>The output shows that <strong>apache2</strong> is enabled,
+which means that it will start running automatically
+when the computer gets rebooted.</p>
+<p>The output of the second command also shows
+that <strong>apache2</strong> is active,
+which means that it has started working.</p>
+<h2 id="creating-a-web-page"><a class="header" href="#creating-a-web-page">Creating a web page</a></h2>
+<p>Since <strong>apache2</strong> is up and running,
+let's look at the default web page.</p>
+<p>There are two ways we can look
+at the default web page.
+We can use a command line web browser.
+There are a number available, but
+I like <code>w3m</code>.</p>
+<p>We can also use our regular web browsers
+and view the site by entering the
+IP address of the server
+in our browser URL bar.</p>
+<p>To check with <code>w3m</code>,
+we have to install it first:</p>
+<pre><code>sudo apt install w3m
+</code></pre>
+<p>Once it's installed,
+we can visit our default site using the
+loopback IP address
+(aka, <em>localhost</em>).
+From the command line on our server,
+we can run either of these two commands:</p>
+<pre><code>w3m 127.0.0.1
+w3m localhost
+</code></pre>
+<p>We can also get the subnet/private IP address
+using the <code>ip a</code> command, and
+then use that with <code>w3m</code>.
+For example, if <code>ip a</code> showed that my NIC
+has an IP address of <strong>10.0.1.1</strong>, then
+I could use <code>w3m</code> with that IP address:</p>
+<pre><code>w3m 10.0.1.1
+</code></pre>
+<p>If the <strong>apache2</strong> installed and
+started correctly,
+then you should see the
+following text at the top
+of the screen:</p>
+<p><strong>Apache2 Ubuntu Default Page</strong><br />
+<strong>It works!</strong></p>
+<p>To exit <code>w3m</code>,
+press <strong>q</strong> and then <strong>y</strong> to confirm exit.</p>
+<p>To view the default web page using
+a regular web browser,
+like Firefox, Chrome, Safari, Edge, or etc.,
+you need to get your server's public IP address.
+To do that,
+log into the
+<a href="https://console.cloud.google.com/">Google Cloud Console</a>.
+In the left hand navigation panel,
+hover your cursor over the <strong>Compute Engine</strong> link, and
+then click on <strong>VM instances</strong>.
+You should see your <strong>External IP</strong> address
+in the table on that page.
+You can copy that external IP address or
+simply click on it to open it in a new browser tab.
+Then you should see the graphical version of the
+<strong>Apache2 Ubuntu Default Page</strong>.</p>
+<blockquote>
+<p>Note that most browsers nowadays may try to force HTTPS
+mode, and they also often hide the protocal from the URL.
+If your web page is not loading, make sure your URL is
+<strong>http://IP-ADDRESS</strong> and not <strong>https://IP-ADDRESS</strong>.</p>
+</blockquote>
+<p>Please take a moment to read through
+the text on the default page.
+It provides important information about
+where Ubuntu stores configuration files and
+what those files do, and
+the document root,
+which is where website files are stored.</p>
+<h2 id="create-a-web-page"><a class="header" href="#create-a-web-page">Create a Web Page</a></h2>
+<p>Let's create our first web page.
+The default page described above provides
+the location of the document root at
+<strong>/var/www/html</strong>.
+When we navigate to that location
+on the command line,
+we'll see that there is already an <strong>index.html</strong>
+file located in that directory.
+This is the <strong>Apache2 Ubuntu Default Page</strong>
+that we visited above in our browsers.
+Let's rename that <strong>index.html</strong> file,
+and create a new one:</p>
+<pre><code>cd /var/www/html/
+sudo mv index.html index.html.original
+sudo nano index.html
+</code></pre>
+<blockquote>
+<p>Note: we use <code>sudo</code> in this directory because we are
+working on files and directories outside our home
+directories. Thus, be careful here about the commands you
+run. Any mistake may result in deleting necessary files or
+directories.</p>
+</blockquote>
+<p>If you know HTML,
+then feel free to write some
+basic HTML code to get started.
+Otherwise, you can re-type the content below
+in <code>nano</code>, and
+then save and exit out.</p>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;My first web page using Apache2&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h1&gt;Welcome&lt;/h1&gt;
+
+&lt;p&gt;Welcome to my web site.
+I created this site using the Apache2 HTTP server.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>If you have your site open in your web browser,
+reload the page, and you should see
+the new text.</p>
+<p>You can still view the original default page by
+specifying its name in the URL.
+Remember that web browsers are,
+at their most basic,
+simply file viewers.
+So it makes sense that you simply
+have to specify the name of the file
+you want to view.
+For example, if your <strong>external IP address</strong> is
+<strong>55.222.55.222</strong>, then you'd specify it like so:</p>
+<pre><code>http://55.222.55.222/index.html.original
+</code></pre>
+<h2 id="conclusion-7"><a class="header" href="#conclusion-7">Conclusion</a></h2>
+<p>In this section,
+we learned about the Apache2 HTTP server.
+We learned how to install it on Ubuntu,
+how to use systemd (<code>systemctl</code>) commands
+to check its status,
+how to create a basic web page in <code>/var/www/html</code>,
+how to view that web page using the <code>w3m</code>
+command line browser and 
+our regular graphical browser,</p>
+<p>In the next section,
+we will install PHP,
+which will provide the language
+needed to connect to MySQL,
+and thus enable more data
+driven web sites.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installing-and-configuring-php"><a class="header" href="#installing-and-configuring-php">Installing and Configuring PHP</a></h1>
+<h2 id="introduction-7"><a class="header" href="#introduction-7">Introduction</a></h2>
+<p>Client-side programming languages,
+like JavaScript,
+are handled by the browser.
+Major browsers like Firefox, Chrome, Safari, Edge, etc.
+all include <a href="https://en.wikipedia.org/wiki/JavaScript_engine">JavaScript engines</a> that use
+just-in-time compilers to execute JavaScript code
+(Mozilla has a <a href="https://blog.mozilla.org/javascript/">nice description</a> of the process.)
+From an end user's perspective,
+you basically install JavaScript when you install a web browser.</p>
+<p><a href="https://www.php.net/">PHP</a>, on the other hand,
+is a server-side programming language,
+which means it must be installed on the server
+in order to be used.
+From a system or web administrator's perspective,
+this means that not only does PHP have be installed
+on a server, but
+it must also be configured to work with the HTTP server,
+which in our case is Apache2.</p>
+<p>The main use of PHP is to interact with databases,
+like MySQL, MariaDB, PostgreSQL, etc.,
+in order to create data-based page content.
+To begin to set this up,
+we have to:</p>
+<ol>
+<li>Install PHP and relevant Apache2 modules</li>
+<li>Configure PHP and relevant modules to work with Apache2</li>
+<li>Configure PHP and relevant modules to work with MySQL</li>
+</ol>
+<h2 id="install-php"><a class="header" href="#install-php">Install PHP</a></h2>
+<p>As usual, we will use <code>apt install</code>
+to install PHP and relevant modules.
+Then we will restart Apache2
+using the <code>systemctl</code> command.
+Use <code>apt show [package_name]</code>
+to read more about each package
+we will install.
+The first command below installs
+the <strong>php</strong> and the <strong>libapache2-mod-php</strong>
+packages.
+The latter package is used to
+create a connection between PHP
+and Apache2.</p>
+<pre><code>sudo apt install php libapache2-mod-php
+sudo systemctl restart apache2
+</code></pre>
+<p>We can check its status and
+see if there are any errors:</p>
+<pre><code>systemctl status apache2
+</code></pre>
+<h2 id="check-install"><a class="header" href="#check-install">Check Install</a></h2>
+<p>To check that it's been installed and that
+it's working with Apache2,
+we can create a small PHP file in our
+web document root.
+To do that,
+we <code>cd</code> to the <code>/var/www/html/</code> directory
+and create a file called <strong>info.php</strong>:</p>
+<pre><code>cd /var/www/html/
+sudo nano info.php
+</code></pre>
+<p>In that file,
+add the following text,
+then save and close the file:</p>
+<pre><code>&lt;?php
+phpinfo();
+?&gt;
+</code></pre>
+<p>No visit that file using the external IP address
+for your server.
+For example, in Firefox, Chrome, etc, go to:</p>
+<pre><code>http://55.333.55.333/info.php
+</code></pre>
+<blockquote>
+<p>Again, be sure to replace the IP below with the IP address
+of your server and be sure to use <strong>http</strong> and not
+<strong>https</strong>.</p>
+</blockquote>
+<p>You should see a page that provides system information
+about PHP, Apache2, and the server.
+The top of the page should look like Figure 1 below:</p>
+<figure>
+<img src="images/24-phpinstall.png"
+alt="PHP install page"
+title="PHP install page">
+<figcaption>
+Fig. 1. A screenshot of the title of the PHP install page.
+</figcaption>
+</figure>
+<h2 id="basic-configurations"><a class="header" href="#basic-configurations">Basic Configurations</a></h2>
+<p>By default, when Apache2 serves a web page,
+it looks for and serves a
+<a href="https://httpd.apache.org/docs/current/mod/mod_dir.html">file titled <strong>index.html</strong></a>,
+even if it does not display that file in the URL bar.
+Thus, <code>http://example.com/</code> actually
+resolves to <code>http://example.com/index.html</code>
+in such cases.</p>
+<p>However, if our plan is to provide for PHP,
+we want Apache2 to default to a file
+titled <strong>index.php</strong> instead of
+<strong>index.html</strong> file.
+To configure that,
+we need to edit the <strong>dir.conf</strong> file
+in the <strong>/etc/apache2/mods-enabled/</strong> directory.
+In that file there is a line that starts with
+<strong>DirectoryIndex</strong>.
+The first file in that line is <strong>index.html</strong>, and then
+there are a series of other files that Apache2 will
+look for in the order listed.
+If any of those files exist in the document root,
+then Apache2 will serve those before proceeding to the next.
+We simply want to put <strong>index.php</strong> first and let
+<strong>index.html</strong> be second on that line.
+Before modifying this file,
+it's good practice to create a backup
+of the original.
+So we will use the <code>cp</code> command
+to create a copy with a new name,
+and then we will use <code>nano</code>
+to edit the file.</p>
+<pre><code>cd /etc/apache2/mods-enabled/
+cp dir.conf dir.conf.bak
+sudo nano dir.conf
+</code></pre>
+<p>Next we change the line to this:</p>
+<pre><code>DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</code></pre>
+<p>Whenever we make a configuration change,
+we can use the <code>apachectl</code> command to
+check our configuration:</p>
+<pre><code>apachectl configtest
+</code></pre>
+<p>If we get a <strong>Syntax Ok</strong> message,
+we can reload the Apache2 configuration and
+restart the service:</p>
+<pre><code>sudo systemctl reload apache2
+sudo systemctl restart apache2
+</code></pre>
+<h2 id="create-an-indexphp-file"><a class="header" href="#create-an-indexphp-file">Create an index.php File</a></h2>
+<p>Now create a basic PHP page.
+<code>cd</code> back to the Apache2
+document root directory and
+use <code>nano</code> to create and
+open an <code>index.php</code> file:</p>
+<pre><code>cd /var/www/html/
+sudo nano index.php
+</code></pre>
+<p>Let's add some HTML and PHP to it.
+We will add PHP that functions as a
+simple <a href="https://stackoverflow.com/questions/8754080/how-to-get-exact-browser-name-and-version">browser detector</a>.
+Add the following code:</p>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Broswer Detector&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;You are using the following browser to view this site:&lt;/p&gt;
+
+&lt;?php
+echo $_SERVER['HTTP_USER_AGENT'] . &quot;\n\n&quot;;
+
+$browser = get_browser(null, true);
+print_r($browser);
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Next, save the file and exit <code>nano</code>.
+In your browser,
+visit your external IP address site
+(again, replace your server's IP address):</p>
+<pre><code>http://55.333.55.333/
+</code></pre>
+<p>Although your <strong>index.html</strong> file still exists
+in your document root,
+Apache2 now returns the <strong>index.php</strong> file
+instead.
+However, if for some reason the <strong>index.php</strong>
+was deleted,
+then Apache2 would revert to the <strong>index.html</strong> file
+since that's what is listed next in the <strong>dir.conf</strong>
+<strong>DirectoryIndex</strong> line.</p>
+<h2 id="conclusion-8"><a class="header" href="#conclusion-8">Conclusion</a></h2>
+<p>In this section,
+we installed PHP and configured it work with Apache2.
+We also created a simple PHP test page
+that reported our browser user agent information
+on our website.</p>
+<p>In the next section,
+we'll learn how to complete the LAMP stack
+by adding the MySQL relational database
+to our setup.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installing-and-configuring-mysql"><a class="header" href="#installing-and-configuring-mysql">Installing and Configuring MySQL</a></h1>
+<h2 id="introduction-8"><a class="header" href="#introduction-8">Introduction</a></h2>
+<p>We started our LAMP stack when we installed
+Apache2 on Linux, and
+then we added extra functionality when
+we installed and configured PHP to work with Apache2.
+In this section,
+our objective is to complete
+the LAMP stack and install and
+configure <a href="https://en.wikipedia.org/wiki/MySQL">MySQL</a>.</p>
+<p>If you need a refresher on relational databases, the
+website can help. See:
+<a href="https://mariadb.com/kb/en/introduction-to-relational-databases/">Introduction to Relational Databases</a>.</p>
+<p>It's also good to review the documentation for any
+technology that you use.
+has <a href="https://mariadb.org/documentation/">good documentation</a> and
+getting started pages.</p>
+<h2 id="install-and-set-up-mysql"><a class="header" href="#install-and-set-up-mysql">Install and Set Up MySQL</a></h2>
+<p>In this section, we'll learn how to install,
+setup, secure, and configure the MySQL
+relational database so that it works
+with the Apache2 web server and
+the PHP programming language.</p>
+<p>First, let's install MySQL Community Server, and
+then log into the MySQL shell
+under the <strong>MySQL root</strong> account.</p>
+<pre><code>sudo apt install mysql-server
+</code></pre>
+<p>This should also start and
+enable the database server, but
+we can check if it's running and enabled
+using the <code>systemctl</code> command:</p>
+<pre><code>systemctl status mysql 
+</code></pre>
+<p>Next we need to run a post installation script
+called <code>mysql_secure_installation</code>
+that sets up the MySQL root password and 
+performs some security checks.
+To do that, run the following command, and
+<strong>be sure to save the MySQL root password you create</strong>:</p>
+<pre><code>sudo mysql_secure_installation
+</code></pre>
+<p>Here you create a root password
+for the MySQL database server.
+<strong>Be sure to save that password.</strong>
+When you run the above script,
+you'll get a series of prompts
+to respond to like below.
+Press <strong>enter</strong> for the first prompt,
+press <strong>Y</strong> for the prompts marked <strong>Y</strong>,
+and input your own password.
+Since this server is exposed to the internet,
+be sure to use a complex password.</p>
+<pre><code>Enter the current password for root (enter for none):
+Set root password: Y
+New Password: XXXXXXXXX
+Re-enter new password: XXXXXXXXX
+Remove anonymous users: Y
+Disallow root login remotely: Y
+Remove test database and access to it: Y
+Reload privilege tables now: Y
+</code></pre>
+<p>We can login to the database to test it.
+In order to do so,
+we have to become the <strong>root Linux user</strong>,
+which we can do with the following command:</p>
+<pre><code>sudo su
+</code></pre>
+<blockquote>
+<p>Note: we need to be careful when we enter commands on the
+command line, because it's a largely unforgiving computing
+environment. But we need to be especially careful when we
+are logged in as the Linux root user. This user can delete
+anything, including files that the system needs in order
+to boot and operate.</p>
+</blockquote>
+<p>After we are Linux root,
+we can login to MySQL,
+run the <code>show databases;</code> command, and
+then exit with the <code>\q</code> command:</p>
+<blockquote>
+<p><strong>NOTE:</strong> we need to distinguish between the regular user
+prompt of our Linux accounts and the MySQL prompt below.
+In the following, I will use the greater than symbol &gt; to
+represent the MySQL prompt.</p>
+</blockquote>
+<pre><code>root@hostname:~# mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 47
+Server version: 10.3.34-MySQL-0ubuntu0.20.04.1 Ubuntu 20.04
+
+Copyright (c) 2000, 2018, Oracle, MySQL Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
++--------------------+
+3 rows in set (0.002 sec)
+</code></pre>
+<blockquote>
+<p>Note: If we are logging into the root database account
+as the root Linux user, we don't need to enter our password.</p>
+</blockquote>
+<h2 id="create-and-set-up-a-regular-user-account"><a class="header" href="#create-and-set-up-a-regular-user-account">Create and Set Up a Regular User Account</a></h2>
+<p>We need to reserve the <strong>root MySQL user</strong> for
+special use cases and
+instead create a <strong>regular MySQL user</strong>, or
+more than one MySQL user, as needed.</p>
+<p>To create a regular MySQL user,
+we use the <code>create</code> command.
+In the command below,
+I'll create a new user called <strong>opacuser</strong>
+with a complex password within the single quotes
+at the end (marked with a series of Xs here for demo purposes):</p>
+<pre><code>&gt; create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
+</code></pre>
+<p>If the prompt returns a <strong>Query OK</strong> message,
+then the new user should have been created without any issues.</p>
+<h2 id="create-a-practice-database"><a class="header" href="#create-a-practice-database">Create a Practice Database</a></h2>
+<p>As the root database user,
+let's create a new database for a regular, new user.</p>
+<p>The regular user will be
+granted <strong>all privileges</strong>
+on the new database,
+including all its tables.
+Other than granting <strong>all privileges</strong>,
+we could limit the user to specific privileges, including:
+<strong>CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, and GRANT OPTION</strong>.
+Such privileges may be called operations or functions, and
+they allow MySQL users to use and modify the databases,
+where appropriate.
+For example,
+we may want to limit the <strong>opacuser</strong> user to
+only be able to use <strong>SELECT</strong> commands.
+It totally depends on the purpose of the database and
+our security risks.</p>
+<pre><code>&gt; create database opacdb;
+&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost';
+&gt; show databases;
+</code></pre>
+<p>Exit out of the MySQL database
+as the <strong>root MySQL user</strong>, and
+then exit out of the <strong>root
+Linux user account</strong>, and
+you should be back to your
+normal Linux user account:</p>
+<pre><code>&gt; \q
+root@hostname:~# exit
+</code></pre>
+<blockquote>
+<p>Note: relational database keywords are often written in
+all capital letters. As far as I know, this is simply a
+convention to make the code more readable. However, in
+most cases I'll write the keywords in lower case letters.
+This is simply because, by convention, I'm super lazy.</p>
+</blockquote>
+<h2 id="logging-in-as-regular-user-and-creating-tables"><a class="header" href="#logging-in-as-regular-user-and-creating-tables">Logging in as Regular User and Creating Tables</a></h2>
+<p>We can now start doing MySQL work.
+As a reminder,
+we've created a new MySQL user named <strong>opacuser</strong> and
+a new database for <strong>opacuser</strong> that is called <strong>opacdb</strong>.
+When we run the <code>show databases</code> command as
+the <strong>opacuser</strong> user,
+we should see the <strong>opacdb</strong> database.
+Note below that I use the <code>-p</code> option.
+This instructs MySQL to request the password
+for the <strong>opacuser</strong> user, which
+is required to log in.</p>
+<pre><code>mysql -u opacuser -p
+&gt; show databases;
+&gt; use opacdb;
+</code></pre>
+<p>A database is not worth much without data.
+In the following code,
+I create and define a new table for our <strong>opacdb</strong> database.
+The table will be called <strong>books</strong>, and
+it will contain data describing some books.
+We will keep this table very simple and
+use only three fields:</p>
+<pre><code>&gt; create table books 
+    -&gt; (
+    -&gt; id int unsigned not null auto_increment,
+    -&gt; author varchar(150) not null,
+    -&gt; title varchar(150) not null,
+    -&gt; copyright date not null,
+    -&gt; primary key (id)
+    -&gt; );
+Query OK, 0 rows affected (0.07 sec)
+
+&gt; show tables;
+&gt; describe books;
+</code></pre>
+<p>Congratulations! Now create some records for that table.</p>
+<h3 id="adding-records-into-the-table"><a class="header" href="#adding-records-into-the-table">Adding records into the table</a></h3>
+<p>We can populate our <strong>opacdb</strong> database
+with some data.
+(I simply picked the first book listed from
+the NYTimes best lists of books for the years
+2019-2022.)
+We'll use the <code>insert</code> command to add our records
+into our <strong>distribution</strong> table:</p>
+<pre><code>&gt; insert into books (author, title, copyright) values
+    -&gt; ('Jennifer Egan', 'The Candy House', '2022-04-05'),
+    -&gt; ('Imbolo Mbue', 'How Beautiful We Were', '2021-03-09'),
+    -&gt; ('Lydia Millet', 'A Children\'s Bible', '2020-05-12'),
+    -&gt; ('Julia Phillips', 'Disappearing Earth', '2019-05-14');
+&gt; select * from books;
+</code></pre>
+<p>Success! Now let's test our table.</p>
+<h3 id="testing-commands"><a class="header" href="#testing-commands">Testing Commands</a></h3>
+<p>We will complete the following tasks
+to refresh our MySQL/MySQL knowledge:</p>
+<ul>
+<li>retrieve some records or parts of records, </li>
+<li>delete a record,</li>
+<li>alter the table structure so that it will hold more data, and</li>
+<li>add a record:</li>
+</ul>
+<pre><code>&gt; select author from books;
+&gt; select copyright from books;
+&gt; select author, title from books;
+&gt; select author from books where author='Millet';
+&gt; select title from books where author='Mbue';
+&gt; select * from books;
+&gt; alter table books
+    -&gt; add publisher varchar(75) after title;
+&gt; describe books;
+&gt; update books set publisher='Simon \&amp; Schuster' where id='1';
+&gt; update books set publisher='Penguin Random House' where id='2';
+&gt; update books set publisher='W. W. Norton \&amp; Company' where id='3';
+&gt; update books set publisher='Knopf' where id='4';
+&gt; select * from books;
+&gt; delete from books where author='Julia Phillips';
+&gt; insert into books
+    -&gt; (author, title, publisher, copyright) values
+    -&gt; ('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company, '2010-08-06'),
+    -&gt; ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
+&gt; select * from books;
+&gt; select author, publisher
+    -&gt; from books
+    -&gt; where copyright &lt; '2011-01-01';
+&gt; select author from books order by copyright;
+&gt; \q
+</code></pre>
+<h2 id="install-php-and-mysql-support"><a class="header" href="#install-php-and-mysql-support">Install PHP and MySQL Support</a></h2>
+<p>The next goal is to complete the connection
+between PHP and MySQL so that
+we can use both for our websites.</p>
+<p>First install PHP support for MySQL.
+We're installing some modules alongside the basic support.
+These may or may not be needed,
+but I'm installing them to demonstrate some basics.</p>
+<pre><code>sudo apt install php-mysql
+</code></pre>
+<p>And then restart Apache2 and MySQL:</p>
+<pre><code>sudo systemctl restart apache2
+sudo systemctl restart mysql
+</code></pre>
+<h3 id="create-php-scripts"><a class="header" href="#create-php-scripts">Create PHP Scripts</a></h3>
+<p>In order for PHP to connect to MySQL,
+it needs to authenticate itself.
+To do that,
+we will create a <strong>login.php</strong> file
+in <strong>/var/www/html</strong>.
+We also need to change the group ownership
+of the file and its permissions so that
+the file can be read by the Apache2 web server
+but not by the world,
+since this file will store password information.</p>
+<pre><code>cd /var/www/html/
+sudo touch login.php
+sudo chmod 640 login.php
+sudo chown :www-data login.php
+ls -l login.php
+sudo nano login.php
+</code></pre>
+<p>In the file,
+add the following credentials.
+If you used a different database name than <strong>opacdb</strong>
+and a different username than <strong>opacuser</strong>,
+then you need to substitute your names below. 
+You need to use your own password where
+I have the Xs:</p>
+<pre><code>&lt;?php // login.php
+$db_hostname = &quot;localhost&quot;;
+$db_database = &quot;opacdb&quot;;
+$db_username = &quot;opacuser&quot;;
+$db_password = &quot;XXXXXXXXX&quot;;
+?&gt;
+</code></pre>
+<p>Next we create a new PHP file for our website.
+This file will display HTML but
+will primarily be PHP interacting with our
+<strong>books</strong> database.</p>
+<p>Create a file titled <strong>opac.php</strong>.</p>
+<pre><code>sudo nano opac.php
+</code></pre>
+<p>Then copy over the following text
+(I suggest you transcribe it, especially
+if you're interested in learning a bit of PHP, but
+you can simply copy and paste it into the <code>nano</code> buffer):</p>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;MySQL Server Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;?php
+
+// Load MySQL credentials
+require_once 'login.php';
+
+// Establish connection
+$conn = mysqli_connect($db_hostname, $db_username, $db_password) or
+  die(&quot;Unable to connect&quot;);
+
+// Open database
+mysqli_select_db($conn, $db_database) or
+  die(&quot;Could not open database '$db_database'&quot;);
+
+// QUERY 1
+$query1 = &quot;show tables from $db_database&quot;;
+$result1 = mysqli_query($conn, $query1);
+
+$tblcnt = 0;
+while($tbl = mysqli_fetch_array($result1)) {
+  $tblcnt++;
+}
+
+if (!$tblcnt) {
+  echo &quot;&lt;p&gt;There are no tables&lt;/p&gt;\n&quot;;
+}
+else {
+  echo &quot;&lt;p&gt;There are $tblcnt tables&lt;/p&gt;\n&quot;;
+}
+
+// Free result1 set
+mysqli_free_result($result1);
+
+// QUERY 2
+$query2 = &quot;select author, developer from books&quot;;
+$result2 = mysqli_query($conn, $query2);
+
+$row = mysqli_fetch_array($result2, MYSQLI_NUM);
+printf (&quot;%s (%s)\n&quot;, $row[0], $row[1]);
+echo &quot;&lt;br/&gt;&quot;;
+
+$row = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+printf (&quot;%s (%s)\n&quot;, $row[&quot;author&quot;], $row[&quot;publisher&quot;]);
+
+// Free result2 set
+mysqli_free_result($result2);
+
+// Query 3
+$query3 = &quot;select * from books&quot;;
+$result3 = mysqli_query($conn, $query3);
+
+while($row = $result3-&gt;fetch_assoc()) {
+  echo &quot;&lt;p&gt;Owner &quot; . $row[&quot;publisher&quot;] . &quot; manages book &quot; . $row[&quot;author&quot;] . &quot;.&lt;/p&gt;&quot;;
+}
+
+mysqli_free_result($result3);
+
+$result4 = mysqli_query($conn, $query3);
+while($row = $result4-&gt;fetch_assoc()) {
+  echo &quot;&lt;p&gt;book &quot; . $row[&quot;author&quot;] . &quot; was released on &quot; . $row[&quot;copyright&quot;] . &quot;.&lt;/p&gt;&quot;;
+}
+
+// Free result4 set
+mysqli_free_result($result4);
+
+/* Close connection */
+mysqli_close($conn);
+
+?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Save the file and exit out of <code>nano</code>.</p>
+<h3 id="test-syntax"><a class="header" href="#test-syntax">Test Syntax</a></h3>
+<p>After you save the file and exit the text editor,
+we need to test the PHP syntax.
+If there are any errors in our PHP,
+these commands will show the line numbers
+that are causing errors or leading up to errors.
+Nothing will output if all is well with the first command.
+If all is well with the second command, HTML should be outputted:</p>
+<pre><code>sudo php -f login.php
+sudo php -f index.php
+</code></pre>
+<h2 id="conclusion-9"><a class="header" href="#conclusion-9">Conclusion</a></h2>
+<p>Congratulations! If you've reached this far,
+you have successfully created a LAMP stack.
+In the process,
+you have learned how to install and set up MySQL,
+how to create MySQL root and regular user accounts,
+how to create a test database
+with play data for practicing, and
+how to connect this with PHP for display on a webpage.</p>
+<p>In regular applications of these technologies,
+there's a lot more involved, but
+completing the above process is a great start to
+learning more.</p>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="install-the-koha-ils"><a class="header" href="#install-the-koha-ils">Install the Koha ILS</a></h1>
 <p>Preliminary notes on setting up <a href="https://koha-community.org/">Koha ILS</a> on Google Cloud.</p>
 <p>Helpful documentation and demos:</p>
 <ul>
