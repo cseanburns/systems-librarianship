@@ -11,14 +11,8 @@ our objective is to complete
 the LAMP stack and install and
 configure [MySQL][wikipediaMySQL].
 
-If you need a refresher on relational databases, the
-website can help. See:
+If you need a refresher on relational databases, see:
 [Introduction to Relational Databases][introRelDatabases].
-
-It's also good to review the documentation for any
-technology that you use.
-has [good documentation][mariadbDocs] and
-getting started pages.
 
 ## Install and Set Up MySQL
 
@@ -45,6 +39,7 @@ using the ``systemctl`` command:
 systemctl status mysql 
 ```
 
+<!--
 Next we need to run a post installation script
 called ``mysql_secure_installation``
 that sets up the MySQL root password and 
@@ -78,6 +73,7 @@ Disallow root login remotely: Y
 Remove test database and access to it: Y
 Reload privilege tables now: Y
 ```
+-->
 
 We can login to the database to test it.
 In order to do so,
@@ -103,15 +99,20 @@ then exit with the ``\q`` command:
 > **NOTE:** we need to distinguish between the regular user
 > prompt of our Linux accounts and the MySQL prompt below.
 > In the following, I will use the greater than symbol \> to
-> represent the MySQL prompt.
+> represent the MySQL prompt. Do not type that prompt when
+> you are using MySQL.
 
 ```
 root@hostname:~# mysql -u root
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 47
-Server version: 10.3.34-MySQL-0ubuntu0.20.04.1 Ubuntu 20.04
+Your MySQL connection id is 10
+Server version: 8.0.32-0ubuntu0.20.04.2 (Ubuntu)
 
-Copyright (c) 2000, 2018, Oracle, MySQL Corporation Ab and others.
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
@@ -264,7 +265,7 @@ Success! Now let's test our table.
 ### Testing Commands
 
 We will complete the following tasks
-to refresh our MySQL/MySQL knowledge:
+to refresh our MySQL knowledge:
 
 - retrieve some records or parts of records, 
 - delete a record,
@@ -275,8 +276,9 @@ to refresh our MySQL/MySQL knowledge:
 > select author from books;
 > select copyright from books;
 > select author, title from books;
-> select author from books where author='Millet';
-> select title from books where author='Mbue';
+> select author from books where author like '%millet%';
+> select title from books where author like '%mbue%';
+> select author, title from books where title not like '%e';
 > select * from books;
 > alter table books
     -> add publisher varchar(75) after title;
@@ -289,7 +291,7 @@ to refresh our MySQL/MySQL knowledge:
 > delete from books where author='Julia Phillips';
 > insert into books
     -> (author, title, publisher, copyright) values
-    -> ('Emma Donoghue', 'Room', 'Little, Brown \& Company, '2010-08-06'),
+    -> ('Emma Donoghue', 'Room', 'Little, Brown \& Company', '2010-08-06'),
     -> ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
 > select * from books;
 > select author, publisher
@@ -311,7 +313,7 @@ These may or may not be needed,
 but I'm installing them to demonstrate some basics.
 
 ```
-sudo apt install php-mysql
+sudo apt install php-mysql php-mysqli
 ```
 
 And then restart Apache2 and MySQL:
@@ -383,6 +385,11 @@ you can simply copy and paste it into the ``nano`` buffer):
 </head>
 <body>
 
+<h1>A Basic OPAC</h1>
+
+<p>We can retrieve all the data from our database and book table
+using a couple of different queries.</p>
+
 <?php
 
 // Load MySQL credentials
@@ -396,56 +403,32 @@ $conn = mysqli_connect($db_hostname, $db_username, $db_password) or
 mysqli_select_db($conn, $db_database) or
   die("Could not open database '$db_database'");
 
-// QUERY 1
-$query1 = "show tables from $db_database";
+echo "<h2>Query 1: Retrieving Publisher and Author Data</h2>";
+
+// Query 1
+$query1 = "select * from books";
 $result1 = mysqli_query($conn, $query1);
 
-$tblcnt = 0;
-while($tbl = mysqli_fetch_array($result1)) {
-  $tblcnt++;
+while($row = $result1->fetch_assoc()) {
+	echo "<p>Publisher " . $row["publisher"] .
+		" published a book by " . $row["author"] .
+		".</p>";
 }
 
-if (!$tblcnt) {
-  echo "<p>There are no tables</p>\n";
-}
-else {
-  echo "<p>There are $tblcnt tables</p>\n";
-}
-
-// Free result1 set
 mysqli_free_result($result1);
 
-// QUERY 2
-$query2 = "select author, developer from books";
-$result2 = mysqli_query($conn, $query2);
+echo "<h2>Query 2: Retrieving Author, Title, Date Published Data</h2>";
 
-$row = mysqli_fetch_array($result2, MYSQLI_NUM);
-printf ("%s (%s)\n", $row[0], $row[1]);
-echo "<br/>";
-
-$row = mysqli_fetch_array($result2, MYSQLI_ASSOC);
-printf ("%s (%s)\n", $row["author"], $row["publisher"]);
+$result2 = mysqli_query($conn, $query1);
+while($row = $result2->fetch_assoc()) {
+	echo "<p>A book by " . $row["author"] .
+		" titled <em>" . $row["title"] .
+		"</em> was released on " . $row["copyright"] .
+		".</p>";
+}
 
 // Free result2 set
 mysqli_free_result($result2);
-
-// Query 3
-$query3 = "select * from books";
-$result3 = mysqli_query($conn, $query3);
-
-while($row = $result3->fetch_assoc()) {
-  echo "<p>Owner " . $row["publisher"] . " manages book " . $row["author"] . ".</p>";
-}
-
-mysqli_free_result($result3);
-
-$result4 = mysqli_query($conn, $query3);
-while($row = $result4->fetch_assoc()) {
-  echo "<p>book " . $row["author"] . " was released on " . $row["copyright"] . ".</p>";
-}
-
-// Free result4 set
-mysqli_free_result($result4);
 
 /* Close connection */
 mysqli_close($conn);

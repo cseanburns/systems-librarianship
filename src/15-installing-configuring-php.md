@@ -146,7 +146,7 @@ to edit the file.
 
 ```
 cd /etc/apache2/mods-enabled/
-cp dir.conf dir.conf.bak
+sudo cp dir.conf dir.conf.bak
 sudo nano dir.conf
 ```
 

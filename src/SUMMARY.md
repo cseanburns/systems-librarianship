@@ -17,7 +17,7 @@
 - [Creating a LAMP Server](p5-creating-a-lamp-server.md)
     - [Installing the Apache Web Server](14-installing-the-apache-web-server.md)
     - [Installing and Configuring PHP](15-installing-configuring-php.md)
-    - [Installing and Configuring MariaDB](16-installing-configuring-mysql.md)
+    - [Installing and Configuring MySQL](16-installing-configuring-mysql.md)
 - [Installing Content Management Systems](p6-installing-content-management-systems.md)
     - [Install Wordpress](17-install-wordpress.md)
     - [Install Omeka](18-install-omeka.md)
