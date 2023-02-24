@@ -18,6 +18,7 @@
     - [Installing the Apache Web Server](14-installing-the-apache-web-server.md)
     - [Installing and Configuring PHP](15-installing-configuring-php.md)
     - [Installing and Configuring MySQL](16-installing-configuring-mysql.md)
+    - [Creating a Bare Bones OPAC](16.5-basic-opac.md)
 - [Installing Content Management Systems](p6-installing-content-management-systems.md)
     - [Install Wordpress](17-install-wordpress.md)
     - [Install Omeka](18-install-omeka.md)
@@ -26,3 +27,5 @@
     - [Install Koha](20-install-koha.md)
     - [Use Koha](21-use-koha.md)
 - [Conclusion](p8-conclusion.md)
+
+
