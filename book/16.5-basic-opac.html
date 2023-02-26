@@ -349,11 +349,15 @@ recall that we used the <strong>insert into</strong>
 MySQL statements.
 Here's the example from the prior lesson.
 Use it to add titles that are of interest to you.</p>
-<pre><code>$ mysql -u opacuser -p
-&gt; insert into books
-    -&gt; (author, title, publisher, copyright) values
-    -&gt; ('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010-08-06'),
-    -&gt; ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
+<p>First connect to the MySQL server:</p>
+<pre><code>mysql -u opacuser -p
+</code></pre>
+<p>Then run the <code>insert</code> command with
+the data for the new records:</p>
+<pre><code>insert into books
+(author, title, publisher, copyright) values
+('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010-08-06'),
+('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
 </code></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>In this lesson,

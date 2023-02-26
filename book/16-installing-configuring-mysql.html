@@ -234,21 +234,14 @@ In the following, I will use the greater than symbol &gt; to
 represent the MySQL prompt. Do not type that prompt when
 you are using MySQL.</p>
 </blockquote>
-<pre><code>root@hostname:~# mysql -u root
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 10
-Server version: 8.0.32-0ubuntu0.20.04.2 (Ubuntu)
-
-Copyright (c) 2000, 2023, Oracle and/or its affiliates.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-&gt; show databases;
-+--------------------+
+<p>First, connect to the MySQL server as the MySQL root user:</p>
+<pre><code>mysql -u root
+</code></pre>
+<p>Then request a list of the databases:</p>
+<pre><code>show databases;
+</code></pre>
+<p>And the following databases should be returned:</p>
+<pre><code>+--------------------+
 | Database           |
 +--------------------+
 | information_schema |
@@ -271,8 +264,9 @@ we use the <code>create</code> command.
 In the command below,
 I'll create a new user called <strong>opacuser</strong>
 with a complex password within the single quotes
-at the end (marked with a series of Xs here for demo purposes):</p>
-<pre><code>&gt; create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
+at the end (marked with a series of Xs here for demo purposes).
+From the MySQL prompt:</p>
+<pre><code>create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
 </code></pre>
 <p>If the prompt returns a <strong>Query OK</strong> message,
 then the new user should have been created without any issues.</p>
@@ -294,9 +288,14 @@ we may want to limit the <strong>opacuser</strong> user to
 only be able to use <strong>SELECT</strong> commands.
 It totally depends on the purpose of the database and
 our security risks.</p>
-<pre><code>&gt; create database opacdb;
-&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost';
-&gt; show databases;
+<p>From the MySQL query prompt,
+run the following commands to
+create a new database <strong>opacdb</strong>
+and to grant all privileges to <strong>opacdb</strong>
+to the MySQL user <strong>opacuser</strong>:</p>
+<pre><code>create database opacdb;
+grant all privileges on opacdb.* to 'opacuser'@'localhost';
+show databases;
 </code></pre>
 <p>Exit out of the MySQL database
 as the <strong>root MySQL user</strong>, and
@@ -304,8 +303,10 @@ then exit out of the <strong>root
 Linux user account</strong>, and
 you should be back to your
 normal Linux user account:</p>
-<pre><code>&gt; \q
-root@hostname:~# exit
+<pre><code>\q
+</code></pre>
+<p>And then exit out of the Linux root user account:</p>
+<pre><code>exit
 </code></pre>
 <blockquote>
 <p>Note: relational database keywords are often written in
@@ -327,8 +328,12 @@ This instructs MySQL to request the password
 for the <strong>opacuser</strong> user, which
 is required to log in.</p>
 <pre><code>mysql -u opacuser -p
-&gt; show databases;
-&gt; use opacdb;
+</code></pre>
+<p>Then from the MySQL prompt,
+list the available databases and
+switch to the new <strong>opacdb</strong> database:</p>
+<pre><code>show databases;
+use opacdb;
 </code></pre>
 <p>A database is not worth much without data.
 In the following code,
@@ -337,18 +342,21 @@ The table will be called <strong>books</strong>, and
 it will contain data describing some books.
 We will keep this table very simple and
 use only three fields:</p>
-<pre><code>&gt; create table books 
-    -&gt; (
-    -&gt; id int unsigned not null auto_increment,
-    -&gt; author varchar(150) not null,
-    -&gt; title varchar(150) not null,
-    -&gt; copyright date not null,
-    -&gt; primary key (id)
-    -&gt; );
-Query OK, 0 rows affected (0.07 sec)
-
-&gt; show tables;
-&gt; describe books;
+<pre><code>create table books (
+id int unsigned not null auto_increment,
+author varchar(150) not null,
+title varchar(150) not null,
+copyright date not null,
+primary key (id)
+);
+</code></pre>
+<p>You can confirm that the table
+was created by running the following
+two commands,
+which lists the available tables
+and then describes the <strong>books</strong> table:</p>
+<pre><code>show tables;
+describe books;
 </code></pre>
 <p>Congratulations! Now create some records for that table.</p>
 <h3 id="adding-records-into-the-table"><a class="header" href="#adding-records-into-the-table">Adding records into the table</a></h3>
@@ -359,12 +367,16 @@ the NYTimes best lists of books for the years
 2019-2022.)
 We'll use the <code>insert</code> command to add our records
 into our <strong>distribution</strong> table:</p>
-<pre><code>&gt; insert into books (author, title, copyright) values
-    -&gt; ('Jennifer Egan', 'The Candy House', '2022-04-05'),
-    -&gt; ('Imbolo Mbue', 'How Beautiful We Were', '2021-03-09'),
-    -&gt; ('Lydia Millet', 'A Children\'s Bible', '2020-05-12'),
-    -&gt; ('Julia Phillips', 'Disappearing Earth', '2019-05-14');
-&gt; select * from books;
+<pre><code>insert into books (author, title, copyright) values
+('Jennifer Egan', 'The Candy House', '2022-04-05'),
+('Imbolo Mbue', 'How Beautiful We Were', '2021-03-09'),
+('Lydia Millet', 'A Children\'s Bible', '2020-05-12'),
+('Julia Phillips', 'Disappearing Earth', '2019-05-14');
+</code></pre>
+<p>Now we can view all the records
+that we just created with the MySQL
+<code>select</code> command:</p>
+<pre><code>select * from books;
 </code></pre>
 <p>Success! Now let's test our table.</p>
 <h3 id="testing-commands"><a class="header" href="#testing-commands">Testing Commands</a></h3>
@@ -374,34 +386,36 @@ to refresh our MySQL knowledge:</p>
 <li>retrieve some records or parts of records, </li>
 <li>delete a record,</li>
 <li>alter the table structure so that it will hold more data, and</li>
-<li>add a record:</li>
+<li>add a record</li>
 </ul>
-<pre><code>&gt; select author from books;
-&gt; select copyright from books;
-&gt; select author, title from books;
-&gt; select author from books where author like '%millet%';
-&gt; select title from books where author like '%mbue%';
-&gt; select author, title from books where title not like '%e';
-&gt; select * from books;
-&gt; alter table books
-    -&gt; add publisher varchar(75) after title;
-&gt; describe books;
-&gt; update books set publisher='Simon \&amp; Schuster' where id='1';
-&gt; update books set publisher='Penguin Random House' where id='2';
-&gt; update books set publisher='W. W. Norton \&amp; Company' where id='3';
-&gt; update books set publisher='Knopf' where id='4';
-&gt; select * from books;
-&gt; delete from books where author='Julia Phillips';
-&gt; insert into books
-    -&gt; (author, title, publisher, copyright) values
-    -&gt; ('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010-08-06'),
-    -&gt; ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
-&gt; select * from books;
-&gt; select author, publisher
-    -&gt; from books
-    -&gt; where copyright &lt; '2011-01-01';
-&gt; select author from books order by copyright;
-&gt; \q
+<p><strong>Reminder: each MySQL command ends with a semi-colon.
+Some of the following MySQL commands are single-line,
+but others are multi-line.
+Regardless if a MySQL command is one-line or multi-line,
+it doesn't end until it ends with a semi-colon:</strong></p>
+<pre><code>select author from books;
+select copyright from books;
+select author, title from books;
+select author from books where author like '%millet%';
+select title from books where author like '%mbue%';
+select author, title from books where title not like '%e';
+select * from books;
+alter table books add publisher varchar(75) after title;
+describe books;
+update books set publisher='Simon \&amp; Schuster' where id='1';
+update books set publisher='Penguin Random House' where id='2';
+update books set publisher='W. W. Norton \&amp; Company' where id='3';
+update books set publisher='Knopf' where id='4';
+select * from books;
+delete from books where author='Julia Phillips';
+insert into books
+(author, title, publisher, copyright) values
+('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010-08-06'),
+('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
+select * from books;
+select author, publisher from books where copyright &lt; '2011-01-01';
+select author from books order by copyright;
+\q
 </code></pre>
 <h2 id="install-php-and-mysql-support"><a class="header" href="#install-php-and-mysql-support">Install PHP and MySQL Support</a></h2>
 <p>The next goal is to complete the connection

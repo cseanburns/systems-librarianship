@@ -102,21 +102,21 @@ then exit with the ``\q`` command:
 > represent the MySQL prompt. Do not type that prompt when
 > you are using MySQL.
 
+First, connect to the MySQL server as the MySQL root user:
+
 ```
-root@hostname:~# mysql -u root
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 10
-Server version: 8.0.32-0ubuntu0.20.04.2 (Ubuntu)
+mysql -u root
+```
 
-Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+Then request a list of the databases:
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+```
+show databases;
+```
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+And the following databases should be returned:
 
-> show databases;
+```
 +--------------------+
 | Database           |
 +--------------------+
@@ -142,10 +142,11 @@ we use the ``create`` command.
 In the command below,
 I'll create a new user called **opacuser**
 with a complex password within the single quotes
-at the end (marked with a series of Xs here for demo purposes):
+at the end (marked with a series of Xs here for demo purposes).
+From the MySQL prompt:
 
 ```
-> create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
+create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
 ```
 
 If the prompt returns a **Query OK** message,
@@ -172,10 +173,16 @@ only be able to use **SELECT** commands.
 It totally depends on the purpose of the database and
 our security risks.
 
+From the MySQL query prompt,
+run the following commands to
+create a new database **opacdb**
+and to grant all privileges to **opacdb**
+to the MySQL user **opacuser**:
+
 ```
-> create database opacdb;
-> grant all privileges on opacdb.* to 'opacuser'@'localhost';
-> show databases;
+create database opacdb;
+grant all privileges on opacdb.* to 'opacuser'@'localhost';
+show databases;
 ```
 
 Exit out of the MySQL database
@@ -186,8 +193,13 @@ you should be back to your
 normal Linux user account:
 
 ```
-> \q
-root@hostname:~# exit
+\q
+```
+
+And then exit out of the Linux root user account:
+
+```
+exit
 ```
 
 > Note: relational database keywords are often written in
@@ -212,8 +224,15 @@ is required to log in.
 
 ```
 mysql -u opacuser -p
-> show databases;
-> use opacdb;
+```
+
+Then from the MySQL prompt,
+list the available databases and
+switch to the new **opacdb** database:
+
+```
+show databases;
+use opacdb;
 ```
 
 A database is not worth much without data.
@@ -225,18 +244,24 @@ We will keep this table very simple and
 use only three fields:
 
 ```
-> create table books 
-    -> (
-    -> id int unsigned not null auto_increment,
-    -> author varchar(150) not null,
-    -> title varchar(150) not null,
-    -> copyright date not null,
-    -> primary key (id)
-    -> );
-Query OK, 0 rows affected (0.07 sec)
+create table books (
+id int unsigned not null auto_increment,
+author varchar(150) not null,
+title varchar(150) not null,
+copyright date not null,
+primary key (id)
+);
+```
 
-> show tables;
-> describe books;
+You can confirm that the table
+was created by running the following
+two commands,
+which lists the available tables
+and then describes the **books** table:
+
+```
+show tables;
+describe books;
 ```
 
 Congratulations! Now create some records for that table.
@@ -252,12 +277,19 @@ We'll use the ``insert`` command to add our records
 into our **distribution** table:
 
 ```
-> insert into books (author, title, copyright) values
-    -> ('Jennifer Egan', 'The Candy House', '2022-04-05'),
-    -> ('Imbolo Mbue', 'How Beautiful We Were', '2021-03-09'),
-    -> ('Lydia Millet', 'A Children\'s Bible', '2020-05-12'),
-    -> ('Julia Phillips', 'Disappearing Earth', '2019-05-14');
-> select * from books;
+insert into books (author, title, copyright) values
+('Jennifer Egan', 'The Candy House', '2022-04-05'),
+('Imbolo Mbue', 'How Beautiful We Were', '2021-03-09'),
+('Lydia Millet', 'A Children\'s Bible', '2020-05-12'),
+('Julia Phillips', 'Disappearing Earth', '2019-05-14');
+```
+
+Now we can view all the records
+that we just created with the MySQL
+`select` command:
+
+```
+select * from books;
 ```
 
 Success! Now let's test our table.
@@ -270,35 +302,38 @@ to refresh our MySQL knowledge:
 - retrieve some records or parts of records, 
 - delete a record,
 - alter the table structure so that it will hold more data, and
-- add a record:
+- add a record
+
+**Reminder: each MySQL command ends with a semi-colon.
+Some of the following MySQL commands are single-line,
+but others are multi-line.
+Regardless if a MySQL command is one-line or multi-line,
+it doesn't end until it ends with a semi-colon:**
 
 ```
-> select author from books;
-> select copyright from books;
-> select author, title from books;
-> select author from books where author like '%millet%';
-> select title from books where author like '%mbue%';
-> select author, title from books where title not like '%e';
-> select * from books;
-> alter table books
-    -> add publisher varchar(75) after title;
-> describe books;
-> update books set publisher='Simon \& Schuster' where id='1';
-> update books set publisher='Penguin Random House' where id='2';
-> update books set publisher='W. W. Norton \& Company' where id='3';
-> update books set publisher='Knopf' where id='4';
-> select * from books;
-> delete from books where author='Julia Phillips';
-> insert into books
-    -> (author, title, publisher, copyright) values
-    -> ('Emma Donoghue', 'Room', 'Little, Brown \& Company', '2010-08-06'),
-    -> ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
-> select * from books;
-> select author, publisher
-    -> from books
-    -> where copyright < '2011-01-01';
-> select author from books order by copyright;
-> \q
+select author from books;
+select copyright from books;
+select author, title from books;
+select author from books where author like '%millet%';
+select title from books where author like '%mbue%';
+select author, title from books where title not like '%e';
+select * from books;
+alter table books add publisher varchar(75) after title;
+describe books;
+update books set publisher='Simon \& Schuster' where id='1';
+update books set publisher='Penguin Random House' where id='2';
+update books set publisher='W. W. Norton \& Company' where id='3';
+update books set publisher='Knopf' where id='4';
+select * from books;
+delete from books where author='Julia Phillips';
+insert into books
+(author, title, publisher, copyright) values
+('Emma Donoghue', 'Room', 'Little, Brown \& Company', '2010-08-06'),
+('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
+select * from books;
+select author, publisher from books where copyright < '2011-01-01';
+select author from books order by copyright;
+\q
 ```
 
 ## Install PHP and MySQL Support
