@@ -19,6 +19,7 @@
     - [Installing and Configuring PHP](15-installing-configuring-php.md)
     - [Installing and Configuring MySQL](16-installing-configuring-mysql.md)
     - [Creating a Bare Bones OPAC](16.5-basic-opac.md)
+    - [Creating a Bare Bones Cataloging Module](16.8-basic-opac-admin.md)
 - [Installing Content Management Systems](p6-installing-content-management-systems.md)
     - [Install Wordpress](17-install-wordpress.md)
     - [Install Omeka](18-install-omeka.md)
