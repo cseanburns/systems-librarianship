@@ -202,6 +202,22 @@ have MySQL 8.0,
 which is greater than MySQL 5.7.
 This means we can proceed.
 
+Next, we need to add some additional PHP
+modules to our system to let WordPress operate
+at full functionality.
+We can install these using the `apt` command:
+
+```
+sudo apt install php-curl php-xml php-imagick php-mbstring php-zip php-intl
+```
+
+Then restart Apache2 and MySQL:
+
+```
+sudo systemctl restart apache2
+sudo systemctl restart mysql
+```
+
 ### Step 2: Download and Extract
 
 The next step is to download and
@@ -318,6 +334,16 @@ in the appropriate fields,
 just like we did with our **login.php** file
 for our bare bones OPAC.
 
+Additionall, we want to disable FTP uploads
+to the site.
+To do that,
+navigate to the end of the file and
+add the following line:
+
+```
+define('FS_METHOD','direct');
+```
+
 ### Step 5: **Optional**
 
 The WordPress files were installed at
@@ -347,7 +373,20 @@ cd /var/www/html
 sudo mv wordpress blog
 ```
 
-### Step 6: Run the Install Script
+### Step 6: Change File Ownership
+
+WordPress will need to write to files
+in the base directory.
+Assuming your still in your base directory,
+whether that is `/var/www/html/wordpress` or
+`/var/www/html/blog` or like,
+run the following command:
+
+```
+sudo chown -R www-data:www-data *
+```
+
+### Step 7: Run the Install Script
 
 The next part of the process takes
 place in the browser.

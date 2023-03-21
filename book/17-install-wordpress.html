@@ -328,6 +328,16 @@ The output from <code>mysql --version</code> show that our systems
 have MySQL 8.0,
 which is greater than MySQL 5.7.
 This means we can proceed.</p>
+<p>Next, we need to add some additional PHP
+modules to our system to let WordPress operate
+at full functionality.
+We can install these using the <code>apt</code> command:</p>
+<pre><code>sudo apt install php-curl php-xml php-imagick php-mbstring php-zip php-intl
+</code></pre>
+<p>Then restart Apache2 and MySQL:</p>
+<pre><code>sudo systemctl restart apache2
+sudo systemctl restart mysql
+</code></pre>
 <h3 id="step-2-download-and-extract"><a class="header" href="#step-2-download-and-extract">Step 2: Download and Extract</a></h3>
 <p>The next step is to download and
 extract the WordPress software,
@@ -426,6 +436,13 @@ add your database name, user, and password
 in the appropriate fields,
 just like we did with our <strong>login.php</strong> file
 for our bare bones OPAC.</p>
+<p>Additionall, we want to disable FTP uploads
+to the site.
+To do that,
+navigate to the end of the file and
+add the following line:</p>
+<pre><code>define('FS_METHOD','direct');
+</code></pre>
 <h3 id="step-5-optional"><a class="header" href="#step-5-optional">Step 5: <strong>Optional</strong></a></h3>
 <p>The WordPress files were installed at
 <strong>/var/www/html/wordpress</strong>.
@@ -448,7 +465,16 @@ For example, if I want to change mine to <strong>blog</strong>, then:</p>
 <pre><code>cd /var/www/html
 sudo mv wordpress blog
 </code></pre>
-<h3 id="step-6-run-the-install-script"><a class="header" href="#step-6-run-the-install-script">Step 6: Run the Install Script</a></h3>
+<h3 id="step-6-change-file-ownership"><a class="header" href="#step-6-change-file-ownership">Step 6: Change File Ownership</a></h3>
+<p>WordPress will need to write to files
+in the base directory.
+Assuming your still in your base directory,
+whether that is <code>/var/www/html/wordpress</code> or
+<code>/var/www/html/blog</code> or like,
+run the following command:</p>
+<pre><code>sudo chown -R www-data:www-data *
+</code></pre>
+<h3 id="step-7-run-the-install-script"><a class="header" href="#step-7-run-the-install-script">Step 7: Run the Install Script</a></h3>
 <p>The next part of the process takes
 place in the browser.
 The location (URL) that you visit in the browser
