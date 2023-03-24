@@ -56,14 +56,15 @@ Use the WordPress guide to remind
 you of the specific commands.
 In short, you are going to complete the following steps:
 
-- Create a new user and a new database for Omeka
+- Create a new user and a new database for Omeka (do not
+  re-use the WordPress database, user, or credentials).
 - Use `wget` from your server to download Omeka Classic as a
   Zip file and extract it:
-    - https://github.com/omeka/omeka-s/releases/download/v4.0.1/omeka-s-4.0.1.zip
+    - https://github.com/omeka/Omeka/releases/download/v3.1/omeka-3.1.zip
     - unzip it with the `unzip` command
 - In the extracted directory, find the **db.ini** file and
   add your database credentials. This is the same thing we
-  did with the **login.php** file for our bare bones ILS and
+  did with the **login.php** file for our bare bones OPAC/ILS and
   the **wp-config.php** file for WordPress.
 - Use the `chown` command like we did with WordPress on the
   files and directories in the Omeka directory but you only
@@ -72,3 +73,9 @@ In short, you are going to complete the following steps:
 - In your web browser, go to
   http://your-ip-address/omeka/collections/admin and
   complete the setup.
+
+## Helpful Links
+
+- Omeka: https://omeka.org/
+- Omeka Classic: https://omeka.org/classic/
+- Omeka Classic User Manual: https://omeka.org/classic/docs/
