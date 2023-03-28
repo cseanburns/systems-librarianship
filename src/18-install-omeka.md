@@ -76,25 +76,29 @@ Use this handbook to remind
 you of the specific commands.
 In short, you are going to complete the following steps:
 
-- Create a new user and a new database for Omeka (do not re-use the WordPress
-  database, user, or credentials).
-- Use `wget` from your server to download Omeka Classic as a Zip file and
-  extract it in `/var/www/html`:
+- Create a new user and a new database in MySQL for the
+  Omeka installation (do not re-use the WordPress database,
+  user, or credentials).
+- Use `wget` from your server to download Omeka Classic as a
+  Zip file and extract it in `/var/www/html`:
     - https://github.com/omeka/Omeka/releases/download/v3.1/omeka-3.1.zip
-    - unzip it with the `unzip` command, which you will have to install with
-      the `apt` command.
-    - the extracted directory will be named **omeka-3.1**. You might want to
-      **rename** it simply **omeka**.
-- In the extracted directory, find the **db.ini** file and add your database
-  credentials, and replace all values containing **XXXXXX**, with the
-  appropriate information. This is the same thing we did with the **login.php**
-  file for our bare bones OPAC/ILS and the **wp-config.php** file for
-  WordPress.
-- Use the `chown` command like we did with WordPress on the `files` directory
-  in the `omeka` directory. The user and owner should again be **www-data**.
+    - unzip it with the `unzip` command, which you will have
+      to install with the `apt` command.
+    - the extracted directory will be named **omeka-3.1**.
+      You might want to **rename** it simply **omeka**.
+- In the extracted directory, find the **db.ini** file and
+  add your database credentials, and replace all values
+  containing **XXXXXX**, with the appropriate information.
+  This is the same thing we did with the **login.php** file
+  for our bare bones OPAC/ILS and the **wp-config.php** file
+    for WordPress.
+- Use the `chown` command like we did with WordPress on the
+  `files` directory in the `omeka` directory. The user and
+  owner should again be **www-data**.
 - Restart Apache2 and MySQL
-- In your web browser, go to **http://your-ip-address/omeka/** and complete the
-  setup via the web form, just like you did with WordPress.
+- In your web browser, go to
+  **http://your-ip-address/omeka/** and complete the setup
+  via the web form, just like you did with WordPress.
 
 ## Helpful Links
 
