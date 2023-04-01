@@ -23,10 +23,8 @@
 - [Installing Content Management Systems](p6-installing-content-management-systems.md)
     - [Install Wordpress](17-install-wordpress.md)
     - [Install Omeka](18-install-omeka.md)
-    - [Use Omeka](19-use-omeka.md)
 - [Installing an Integrated Library System](p7-installing-an-ILS.md)
     - [Install Koha](20-install-koha.md)
-    - [Use Koha](21-use-koha.md)
 - [Conclusion](p8-conclusion.md)
 
 
