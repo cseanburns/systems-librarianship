@@ -200,11 +200,45 @@ Add the following code:
 <p>You are using the following browser to view this site:</p>
 
 <?php
-echo $_SERVER['HTTP_USER_AGENT'] . "\n\n";
+$user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-$browser = get_browser(null, true);
-print_r($browser);
+if(strpos($user_agent, 'Edge') !== FALSE) {
+    $browser = 'Microsoft Edge';
+} elseif(strpos($user_agent, 'Firefox') !== FALSE) {
+    $browser = 'Mozilla Firefox';
+} elseif(strpos($user_agent, 'Chrome') !== FALSE) {
+    $browser = 'Google Chrome';
+} elseif(strpos($user_agent, 'Opera Mini') !== FALSE) {
+    $browser = "Opera Mini";
+} elseif(strpos($user_agent, 'Opera') !== FALSE) {
+    $browser = 'Opera';
+} elseif(strpos($user_agent, 'Safari') !== FALSE) {
+    $browser = 'Safari';
+} else {
+    $browser = 'Unknown';
+}
+
+if(strpos($user_agent, 'Windows') !== FALSE) {
+    $os = 'Windows';
+} elseif(strpos($user_agent, 'Linux') !== FALSE) {
+    $os = 'Linux';
+} elseif(strpos($user_agent, 'Mac') !== FALSE) {
+    $os = 'Mac';
+} elseif(strpos($user_agent, 'iOS') !== FALSE) {
+    $os = 'iOS';
+} elseif(strpos($user_agent, 'Android') !== FALSE) {
+    $os = 'Android';
+} else {
+    $os = 'Unknown';
+}
+
+if($browser === 'Unknown' || $os === 'Unknown') {
+    echo 'No browser detected.';
+} else {
+    echo 'Your browser is ' . $browser . ' and your operating system is ' . $os . '.';
+}
 ?>
+
 </body>
 </html>
 ```
