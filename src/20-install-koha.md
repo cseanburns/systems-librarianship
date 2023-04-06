@@ -354,8 +354,17 @@ nano /etc/apache2/ports.conf
 And add:
 
 ```
-Listen: 8080
+Listen 8080
 ```
+
+Make sure Apache configuration changes are valid:
+
+```
+apachectl configtest
+```
+
+If you get an error message,
+trace the error in the file and line listed.
 
 Let's restart Apache2.
 
