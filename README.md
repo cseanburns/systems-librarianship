@@ -9,6 +9,6 @@ using [mdbook][mdBook].
 
 The resulting output is hosted on my website at:
 
-[https://cseanburns.net/WWW/systems-librarianship](https://cseanburns.net/WWW/systems-librarianship)
+[https://cseanburns.github.io/systems-librarianship/](https://cseanburns.github.io/systems-librarianship/)
 
-[mdBook]:https://cseanburns.net/WWW/ERM-book/
+[mdBook]:https://github.com/rust-lang/mdBook
