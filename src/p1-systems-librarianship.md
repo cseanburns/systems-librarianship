@@ -1,38 +1,31 @@
 # Systems Librarianship 
 
 Author: C. Sean Burns  
-Date: 2023-01-03  
+Date, version 1: 2023-08-15  
 Email: [sean.burns@uky.edu](sean.burns@uky.edu)  
 Website: [cseanburns.net](https://cseanburns.net)  
 GitHub: [@cseanburns](https://github.com/cseanburns)  
 
 ## Introduction
 
-This short book is a work in progress.
-A main, first draft should be completed by
-the end of April 2023.
-
-I am writing this book as I teach
-a course on Systems Librarianship.
-The book and course's goals are 
-to provide a technical introduction to
+The goal of this book is to
+provide a technical introduction to
 the basics of systems librarianship
 using Linux.
+The book is used alongside a course
+on systems librarianship that the author teaches.
 
 The course and book goals include:
 
-1. how to use the Linux command line in order to become more
-   efficient computer users and more comfortable with using
-   computers in general;
-2. how to use cloud computing resources and create virtual
-   machines;
+1. how to use the Linux command line in order to become more efficient computer
+   users and more comfortable with using computers in general;
+2. how to use cloud computing resources and create virtual machines;
 3. how to manage projects using Git and GitHub;
-4. how to create a LAMP server, websites, and create a
-   bare bones OPAC;
-5. how to install and configure content management systems,
-   and;
-6. how to install and configure an integrated library
-   system.
+4. how to create a LAMP server, websites, and create a bare bones OPAC;
+5. how to install and configure content management systems, and;
+6. how to install and configure an integrated library system.
+7. to foster self-efficacy with computers and an enthusiasm for foundational
+   computer technologies
 
 ## About This Book
 
@@ -40,12 +33,12 @@ The Systems Librarianship course is
 a brand new course (2023).
 I created the course to help future
 and current librarians become proficient
-in the kind of technology used to manage
+in the kinds of technology used to manage
 and provide electronic resources.
 
 Since I use this book for my
 Systems Librarianship course,
-which I hope to teach each spring semester,
+which I will likely teach each spring semester,
 this book will be a live document.
 Each semester that I teach this course,
 I will update the content in order
@@ -75,11 +68,12 @@ That includes my course on
 [electronic resource management][ermbook]
 but also other courses that my colleagues teach.
 
-The book will start off as a series of transcripts, and
-over time,
-my hope is to build it out to a full fledged textbook
-on systems librarianship.
 I am using [mdBook][mdbook] to build this work.
+Please use the search function on this site to search for
+specific topics or keywords.
+If the reader desires a PDF copy of this work,
+the printer icon at the top right of the page
+will print to PDFs.
 
 The content in this book is open access and
 licensed under the [GNU GPL v3.0][gplrepo].
@@ -89,5 +83,5 @@ modify it for your own needs.
 [mdbook]:https://github.com/rust-lang/mdBook
 [systemslib]:https://github.com/cseanburns/systems_librarianship
 [gplrepo]:https://github.com/cseanburns/systems_librarianship/blob/master/LICENSE
-[linuxsysadmin]:https://github.com/cseanburns/linux_sysadmin
+[linuxsysadmin]:https://cseanburns.github.io/linux_sysadmin/
 [ermbook]:https://cseanburns.net/WWW/ERM-book/
