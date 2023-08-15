@@ -76,12 +76,12 @@ the printer icon at the top right of the page
 will print to PDFs.
 
 The content in this book is open access and
-licensed under the [GNU GPL v3.0][gplrepo].
+licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0][ccbyncsa] license.
 Feel free to fork it on [GitHub][systemslib] and
 modify it for your own needs.
 
 [mdbook]:https://github.com/rust-lang/mdBook
 [systemslib]:https://github.com/cseanburns/systems_librarianship
-[gplrepo]:https://github.com/cseanburns/systems_librarianship/blob/master/LICENSE
+[ccbyncsa]:https://creativecommons.org/licenses/by-nc-sa/4.0/
 [linuxsysadmin]:https://cseanburns.github.io/linux_sysadmin/
 [ermbook]:https://cseanburns.net/WWW/ERM-book/
