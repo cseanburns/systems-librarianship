@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Entry level book on systems librarianship.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,6 +32,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +70,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -99,7 +101,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -147,45 +149,39 @@
                     <main>
                         <h1 id="systems-librarianship"><a class="header" href="#systems-librarianship">Systems Librarianship</a></h1>
 <p>Author: C. Sean Burns<br />
-Date: 2023-01-03<br />
+Date, version 1: 2023-08-15<br />
 Email: <a href="sean.burns@uky.edu">sean.burns@uky.edu</a><br />
 Website: <a href="https://cseanburns.net">cseanburns.net</a><br />
 GitHub: <a href="https://github.com/cseanburns">@cseanburns</a></p>
 <h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
-<p>This short book is a work in progress.
-A main, first draft should be completed by
-the end of April 2023.</p>
-<p>I am writing this book as I teach
-a course on Systems Librarianship.
-The book and course's goals are 
-to provide a technical introduction to
+<p>The goal of this book is to
+provide a technical introduction to
 the basics of systems librarianship
-using Linux.</p>
+using Linux.
+The book is used alongside a course
+on systems librarianship that the author teaches.</p>
 <p>The course and book goals include:</p>
 <ol>
-<li>how to use the Linux command line in order to become more
-efficient computer users and more comfortable with using
-computers in general;</li>
-<li>how to use cloud computing resources and create virtual
-machines;</li>
+<li>how to use the Linux command line in order to become more efficient computer
+users and more comfortable with using computers in general;</li>
+<li>how to use cloud computing resources and create virtual machines;</li>
 <li>how to manage projects using Git and GitHub;</li>
-<li>how to create a LAMP server, websites, and create a
-bare bones OPAC;</li>
-<li>how to install and configure content management systems,
-and;</li>
-<li>how to install and configure an integrated library
-system.</li>
+<li>how to create a LAMP server, websites, and create a bare bones OPAC;</li>
+<li>how to install and configure content management systems, and;</li>
+<li>how to install and configure an integrated library system.</li>
+<li>to foster self-efficacy with computers and an enthusiasm for foundational
+computer technologies</li>
 </ol>
 <h2 id="about-this-book"><a class="header" href="#about-this-book">About This Book</a></h2>
 <p>The Systems Librarianship course is
 a brand new course (2023).
 I created the course to help future
 and current librarians become proficient
-in the kind of technology used to manage
+in the kinds of technology used to manage
 and provide electronic resources.</p>
 <p>Since I use this book for my
 Systems Librarianship course,
-which I hope to teach each spring semester,
+which I will likely teach each spring semester,
 this book will be a live document.
 Each semester that I teach this course,
 I will update the content in order
@@ -195,7 +191,7 @@ of the book causes confusion or
 does not provide enough information.</p>
 <p>A small part of this book will draw from
 my course on
-<a href="https://github.com/cseanburns/linux_sysadmin">Linux Systems Administration</a>,
+<a href="https://cseanburns.github.io/linux_sysadmin/">Linux Systems Administration</a>,
 which I teach in the fall semesters.</p>
 <p>This book is not a
 comprehensive introduction to
@@ -212,11 +208,12 @@ other courses taught in our program.
 That includes my course on
 <a href="https://cseanburns.net/WWW/ERM-book/">electronic resource management</a>
 but also other courses that my colleagues teach.</p>
-<p>The book will start off as a series of transcripts, and
-over time,
-my hope is to build it out to a full fledged textbook
-on systems librarianship.
-I am using <a href="https://github.com/rust-lang/mdBook">mdBook</a> to build this work.</p>
+<p>I am using <a href="https://github.com/rust-lang/mdBook">mdBook</a> to build this work.
+Please use the search function on this site to search for
+specific topics or keywords.
+If the reader desires a PDF copy of this work,
+the printer icon at the top right of the page
+will print to PDFs.</p>
 <p>The content in this book is open access and
 licensed under the <a href="https://github.com/cseanburns/systems_librarianship/blob/master/LICENSE">GNU GPL v3.0</a>.
 Feel free to fork it on <a href="https://github.com/cseanburns/systems_librarianship">GitHub</a> and
@@ -253,16 +250,17 @@ modify it for your own needs.</p>
         </script>
 
 
-        <script src="elasticlunr.min.js" charset="utf-8"></script>
-        <script src="mark.min.js" charset="utf-8"></script>
-        <script src="searcher.js" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" charset="utf-8"></script>
-        <script src="highlight.js" charset="utf-8"></script>
-        <script src="book.js" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

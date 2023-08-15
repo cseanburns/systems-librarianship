@@ -8,7 +8,6 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Entry level book on systems librarianship.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -33,6 +32,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +70,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -99,7 +101,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -145,7 +147,30 @@
 
                 <div id="content" class="content">
                     <main>
-                        
+                        <h1 id="installing-an-ils"><a class="header" href="#installing-an-ils">Installing an ILS</a></h1>
+<p>In the last section,
+we built a WordPress site that functions as
+our library's front-facing presence, and
+then we built an Omeka site that could serve as
+our library's digital library.
+In this section,
+we complete our infrastructure building by installing
+the <a href="https://koha-community.org/">Koha ILS</a>.</p>
+<p>Koha is a free and open source library system that
+provides modules for patron accounts, circulation,
+cataloging, serials, an OPAC, and more.
+The process of installing and using Koha is more
+complicated than the processes we used to installing
+and using WordPress and Omeka.
+This is because Koha,
+like other ILS software,
+is a complex project that must provide a lot of different
+functionality for a library and its patrons.
+Fortunately, the documentation makes the process pretty
+straightforward.
+We will rely on that documentation and other resources
+to install Koha and complete our library's interconnected web presence.</p>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
@@ -183,16 +208,17 @@
         </script>
 
 
-        <script src="elasticlunr.min.js" charset="utf-8"></script>
-        <script src="mark.min.js" charset="utf-8"></script>
-        <script src="searcher.js" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" charset="utf-8"></script>
-        <script src="highlight.js" charset="utf-8"></script>
-        <script src="book.js" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>
