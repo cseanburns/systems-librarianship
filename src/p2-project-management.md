@@ -1,4 +1,12 @@
-# Project Management with Git and GitHub
+# Project Management
+
+## Using Google Cloud (gcloud)
+
+This section introduces us to [Google Cloud][gcloud] (gcloud).
+We will use this platform to create virtual
+instances of the Ubuntu Server Linux operating system.
+
+## Git and GitHub
 
 Every major software project
 requires management.
@@ -154,3 +162,5 @@ non-programmers use Git and GitHub?" This was its response:
 [git]:https://en.wikipedia.org/wiki/Git
 [lampstack]:https://en.wikipedia.org/wiki/LAMP_(software_bundle)
 [chatgpt]:https://chat.openai.com/chat
+
+[gcloud]:https://cloud.google.com

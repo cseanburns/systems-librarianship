@@ -1,5 +1,0 @@
-# Learn the Filesystem
-
-## Introduction
-
-
