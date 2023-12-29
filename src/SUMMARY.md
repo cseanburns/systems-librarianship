@@ -13,6 +13,7 @@
     - [Using the Nano Text Editor](3b-learn-nano.md)
     - [Searching with ``grep``](3c-searching-with-grep.md)
     - [Managing Software](3d-managing-software.md)
+    - [Library Search](3e-library-search.md)
 - [Creating a LAMP Server](p4-creating-a-lamp-server.md)
     - [Installing the Apache Web Server](4a-installing-the-apache-web-server.md)
     - [Installing and Configuring PHP](4b-installing-configuring-php.md)
