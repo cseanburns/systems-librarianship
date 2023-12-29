@@ -9,9 +9,9 @@ the contents of text files.
 ## Grep
 
 The ``grep`` command is one of my most often used commands.
-Basically, ``grep`` "prints lines that match patterns"
+The purpose of ``grep`` is to "print lines that match patterns"
 (see ``man grep``).
-In other words, it's search, and
+In other words, it searches text, and
 it's super powerful.
 
 ``grep`` works line by line.
@@ -26,7 +26,7 @@ are line oriented.
 > "A string is any series of characters that are interpreted
 > literally by a script. For example, 'hello world' and 'LKJH019283'
 > are both examples of strings." -- [Computer Hope][computerhope].
-> More generally, it's the literal characters that we type. It's data.
+> More generally, it's a type of data structure. 
 
 To visualize how ``grep`` works,
 let's consider a file called
@@ -43,8 +43,8 @@ Windows NT, Proprietary, 1993
 Android, Apache, 2008
 ```
 
-We can use ``grep`` to search for anything
-in that file.
+We can use ``grep`` to search
+for anything in that file.
 Let's start with a search for the string **Chrome**.
 Notice that even though the string **Chrome** only appears once,
 and in one part of a line,
@@ -62,16 +62,23 @@ grep "Chrome" operating-systems.csv
 Chrome OS, Proprietary, 2009
 ```
 
-Be aware that, by default, ``grep`` is case-sensitive,
+### Case Matching
+
+Be aware that, *by default*, ``grep`` is case-sensitive,
 which means a search for the string **chrome**,
 with a lower case **c**,
 would return no results.
-Fortunately, ``grep`` has an ``-i`` option,
-which means to ignore the case of the search string.
+However, many Linux command line utilities
+can have their functionality extended
+through commnad line options.
+``grep`` has an ``-i`` option
+that can be used to
+to ignore the case of the search string.
 In the following examples,
 ``grep`` returns nothing in the first search
 since we do not capitalize the string **chrome**.
-However, adding the ``-i`` option results in success:
+However, adding the ``-i`` option results in success
+since `grep` is instructed to ignore case:
 
 **Command:**
 
@@ -95,14 +102,21 @@ grep -i "chrome" operating-systems.csv
 Chrome OS, Proprietary, 2009
 ```
 
-We can also search for lines
+### Invert Matching
+
+`grep` can do inverse searching.
+That is, we can search for lines
 that **do not** match our string 
-using the ``-v`` option.
-We can combine that with the ``-i``
-option to ignore the string's case.
-Therefore, in the following example,
-all lines that do not contain the
-string **chrome** are returned:
+using the `-v` option.
+Options can often be combined
+for additional functionality.
+We can combine `-v` to inverse search
+with `-i` to ignore the case.
+In the following example,
+we search for
+all lines that
+do not contain the
+string **chrome**:
 
 **Command:**
 
@@ -121,14 +135,16 @@ Windows NT, Proprietary, 1993
 Android, Apache, 2008
 ```
 
+### Regular Expressions
+
 Sometimes data files,
 like spreadsheets,
 contain header columns in the
 first row.
 We can use ``grep`` to remove
 the first line of a file by
-inverting our search and select
-all lines not matching
+inverting our search and
+selecting all lines not matching
 "OS" at the start of a line.
 Here the carat key ``^`` is
 a **regex** indicating the
@@ -193,48 +209,31 @@ Android, Apache, 2008
 The ``man grep`` page lists other options,
 but a couple of other good ones include:
 
-Get a count of the matching lines with the ``-c`` option:
+### Count Matches
 
-**Command:**
-
-```
-grep -ic "proprietary" operating-systems.csv
-```
-
-**Output**:
-
-```
-4
-```
-
-Print only the match and
-not the whole line with the ``-o`` option:
-
-**Command:**
+Get a count of the matching lines
+with the `-c` option.
+For example,
+let's get a total count of rows
+in our file excluding the header
+by adding the `-c` option:
 
 ```
-grep -io "proprietary" operating-systems.csv
+grep -vic "year$" operating-systems.csv
 ```
 
-**Output:**
+### Alternate Matching
 
-```
-Proprietary
-Proprietary
-Proprietary
-Proprietary
-```
-
-We can simulate a Boolean OR search, and
-print lines matching one or both strings
-using the ``-E`` option.
-We separate the strings with a vertical bar ``|``.
-This is similar to a Boolean OR search
-since there's at least one match in the following string,
+We separate the strings with a vertical bar ``|``
+(the **infix operator**)
+to match any string on either side.
+This is similar to a Boolean OR search.
+Since there's at least one match in the following string,
 there is at least one result.
 
 Here is an example where only one string
-returns a true value:
+returns a true value since
+the file contains **bsd** but not **atari**:
 
 **Command:**
 
@@ -257,11 +256,12 @@ grep -Ei "(bsd|gpl)" operating-systems.csv
 ```
 
 **Output:**
-
 ```
 FreeBSD, BSD, 1993
 Linux, GPL, 1991
 ```
+
+### Whole Word Matching
 
 By default, ``grep`` will return results where the
 string appears within a larger word,
@@ -320,11 +320,17 @@ OS, License, Year
 Chrome OS, Proprietary, 2009
 ```
 
+### Context Matches
+
 Sometimes we want the context for a result;
 that is,
-we might want to print lines that surround our matches.
-For example, print the matching line plus the two lines
-after the matching line using the ``-A NUM`` option:
+we might want to print lines
+that surround our matches.
+For example,
+to print the matching line plus the two lines
+after the matching line using the ``-A NUM`` option,
+where **NUM** equals the number of lines
+to return after the matching line:
 
 **Command:**
 
@@ -378,11 +384,13 @@ FreeBSD, BSD, 1993
 Linux, GPL, 1991
 ```
 
+### Halt Matching
+
 We can use another option to
 stop returning results after some
 number of hits.
 Here I use ``grep`` to return
-search for the string "proprietary"
+a search for the string "proprietary"
 and stop after the first hit:
 
 **Command:**
@@ -397,8 +405,10 @@ grep -i -m1 "proprietary" operating-systems.csv
 Chrome OS, Proprietary, 2009
 ```
 
+### Returning Line Numbers
+
 We can add the ``-n`` option to
-instruct ``grep`` to tell us what
+instruct ``grep`` to tell us the
 line number for each hit.
 Below we see that the string
 "proprietary" is found on lines
@@ -418,10 +428,13 @@ grep -in "proprietary" operating-systems.csv
 6:Windows NT, Proprietary, 1993
 ```
 
+### Character Class Matching
+
 We can use ``grep`` to search for
 patterns in strings instead of literal words.
 Here we use what's called **character classes**
-and **repetition** to search for five letter words:
+and **repetition** to search for five letter words
+that contain any English character **a through z**:
 
 **Command:**
 
@@ -436,7 +449,8 @@ Linux, GPL, 1991
 macOS, Proprietary, 2001
 ```
 
-Or four letter numbers:
+Or four letter numbers,
+which highlights the years:
 
 **Command:**
 
