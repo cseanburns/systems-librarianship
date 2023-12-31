@@ -3014,37 +3014,40 @@ Here's a list of commands we covered:</p>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="library-search"><a class="header" href="#library-search">Library Search</a></h1>
 <p>We're going to explore the <code>yaz-client</code>,
-a powerful tool that serves
-as a gateway to the
-world of advanced information retrieval
-using the Z39.50 and SRU/SRW protocols.
+a tool that serves
+as a gateway to
+information retrieval
+using the Z39.50 protocol.
 For those unfamiliar,
-Z39.50 is a longstanding standard
+Z39.50 is a standard protocol
 in library science for
 querying and retrieving information
-from remote databases,
-a testament to the evolution of
+from remote databases.
+Development and usage
+began in the 1970s,
+which of course pre-dates the web,
+and this is a testament to the evolution of
 information retrieval systems since the 1970s.
 SRU (Search/Retrieve via URL) and
 SRW (Search/Retrieve Web service)
-are modern web-based successors to Z39.50,
-offering more flexibility
+are modern web-based successors to Z39.50.
+They offer more flexibility
 in accessing and sharing bibliographic records.
 The <code>yaz-client</code> allows us to interact
 with these protocols
 directly from the command line,
-providing a hands-on experience
+which provides a hands-on experience
 with the underlying mechanics of
 digital library searches and data retrieval.
 This exploration is not
-just about learning a tool;
+only about learning a tool;
 it's about understanding the
-rich history and ongoing development
+history and ongoing development
 of information retrieval systems,
 a crucial aspect of your journey
 in library and information science.</p>
 <h2 id="installing-yaz"><a class="header" href="#installing-yaz">Installing <code>yaz</code></a></h2>
-<p>Use the instructions
+<p>Use the <code>apt</code> instructions
 from the prior lesson
 to install the <code>yaz</code> client.</p>
 <p>First we need to search
@@ -3063,12 +3066,30 @@ we want to install.
 Note that the output also
 returns a URL to the program's
 homepage on the web.
-Visit that link
+Visit that link to
 read more about the software.</p>
 <p>To install it,
 we use the <code>sudo apt install</code> command:</p>
 <pre><code>sudo apt install yaz
 </code></pre>
+<h2 id="documentation"><a class="header" href="#documentation">Documentation</a></h2>
+<p>The documentation for the
+<code>yaz-client</code> can be accessed
+via its manual page or on the web.
+See:</p>
+<pre><code>man yaz-client
+</code></pre>
+<p>For attribute documentation:</p>
+<pre><code>man bib1-attr
+</code></pre>
+<p>The Library of Congress also
+provides an overview of the <strong>bib1-attr</strong>,
+but it's less comprehensive:</p>
+<p>[https://www.loc.gov/z3950/agency/defns/bib1.html](bib1-attr @loc.gov)</p>
+<p>Complete documentation for the
+<code>yaz-client</code> can be found on its
+homepage:</p>
+<p><a href="yaz-client">https://www.indexdata.com/resources/software/yaz/</a></p>
 <h2 id="using-yaz"><a class="header" href="#using-yaz">Using <code>yaz</code></a></h2>
 <p>The command to start
 the <code>yaz</code> program is
@@ -3077,36 +3098,80 @@ the <code>yaz</code> program is
 <pre><code>yaz-client
 </code></pre>
 <p>This starts a separate command line
-interface with a new prompt: <strong>Z&gt;</strong></p>
+interface with a new prompt:</p>
+<pre><code>Z&gt;
+</code></pre>
 <p>In this new interface,
-we can connect to UK Libraries using
-the <code>open</code> command followed by the
-server address:</p>
+we can connect to a library's
+OPAC or discovery service.
+To do so,
+we use  the <code>open</code> command
+followed by the server address:</p>
 <pre><code>open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
 </code></pre>
-<h2 id="documentation"><a class="header" href="#documentation">Documentation</a></h2>
-<p>Queries are constructed using Prefix Query Notation</p>
-<p>For <code>yaz-client</code> documentation:</p>
-<pre><code>man yaz-client
-</code></pre>
-<p>For attribute documentation:</p>
-<pre><code>man bib1-attr
-</code></pre>
-<p>Less informative but the web version is here:</p>
-<p>[https://www.loc.gov/z3950/agency/defns/bib1.html](bib1-attr @loc.gov)</p>
 <h2 id="queries"><a class="header" href="#queries">Queries</a></h2>
-<p>Find title with word 'information' and LCSH 'library science'</p>
-<pre><code>f @and @attr 1=4 &quot;information&quot; @attr 1=21 &quot;library science&quot;
+<p>Queries are constructed
+using Prefix Query Notation (PQN).
+In the context of PQN,
+this is a way of structuring
+queries where the operator
+(e.g., AND, NOT, OR)
+precedes the operands
+(e.g., search terms, attributes, fields).</p>
+<p>Each query begins with a <em>command</em>.
+The list of commands are
+described in <code>man yaz-client</code>
+in the COMMANDS section.
+The main command we'll use
+is the <code>find</code> command,
+which may be abbreviated
+down to the <code>f</code> command.
+Let's see some examples:</p>
+<h3 id="example-1"><a class="header" href="#example-1">Example 1</a></h3>
+<p>To find title with word
+'information' and
+the Librar of Congress Subject Heading
+'library science',
+we use the following query:</p>
+<pre><code>find @and @attr 1=4 &quot;information&quot; @attr 1=21 &quot;library science&quot;
 </code></pre>
+<p>In the above:</p>
+<ul>
+<li><code>find</code> is the command that sends a search request</li>
+<li><code>@and</code> is the operator signifying a Boolean AND search of multiple attributes</li>
+<li><code>@attr 1=4</code> instructs the query to search for the term in the Title</li>
+<li><code>&quot;information&quot;</code> is the first search term for the Title search</li>
+<li><code>@attr 1=21</code> instructs the query to search for the term in the Subject-heading</li>
+<li><code>&quot;library science&quot;</code> is the second search term for the subject heading search</li>
+</ul>
+<h3 id="example-2"><a class="header" href="#example-2">Example 2</a></h3>
 <p>Find with subject headings &quot;library science&quot; and &quot;philosophy&quot;</p>
 <pre><code>f @and @attr 1=21 &quot;library science&quot; @attr 1=21 &quot;philosophy&quot;
 </code></pre>
+<h3 id="example-3"><a class="header" href="#example-3">Example 3</a></h3>
 <p>Find where personal name is &quot;mcmurtry, larry&quot;</p>
 <pre><code>f @and @attr 1=1 &quot;mcmurtry, larry&quot;
 </code></pre>
+<h3 id="example-4"><a class="header" href="#example-4">Example 4</a></h3>
 <p>Find any for &quot;c programming language&quot;</p>
 <pre><code>f @attr 1=1016 &quot;c programming language&quot;
 </code></pre>
+<h2 id="conclusion-7"><a class="header" href="#conclusion-7">Conclusion</a></h2>
+<p>Z39.50 is often presented as an abstract
+information retrieval concept
+even though it has played a central
+part of searching online catalogs and database
+for nearly 50 years.
+The protocol,
+along with tools like <code>yaz</code>
+can be used to build
+search interfaces to bibliographic data.
+For example,
+see:</p>
+<ul>
+<li><a href="https://reintech.io/blog/guide-to-php-yaz-library-information-retrieval">A Guide to the PHP YAZ Library for Information Retrieval</a></li>
+<li><a href="https://sites.nd.edu/emorgan/2013/11/fun/">Fun with bibliographic indexes, bibliographic data management software, and Z39.50</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-lamp-server"><a class="header" href="#creating-a-lamp-server">Creating a LAMP Server</a></h1>
 <p>In this section,
 we learn how to set up a LAMP
@@ -3332,7 +3397,7 @@ For example, if your <strong>external IP address</strong> is
 <strong>55.222.55.222</strong>, then you'd specify it like so:</p>
 <pre><code>http://55.222.55.222/index.html.original
 </code></pre>
-<h2 id="conclusion-7"><a class="header" href="#conclusion-7">Conclusion</a></h2>
+<h2 id="conclusion-8"><a class="header" href="#conclusion-8">Conclusion</a></h2>
 <p>In this section,
 we learned about the Apache2 HTTP server.
 We learned how to install it on Ubuntu,
@@ -3565,7 +3630,7 @@ was deleted,
 then Apache2 would revert to the <strong>index.html</strong> file
 since that's what is listed next in the <strong>dir.conf</strong>
 <strong>DirectoryIndex</strong> line.</p>
-<h2 id="conclusion-8"><a class="header" href="#conclusion-8">Conclusion</a></h2>
+<h2 id="conclusion-9"><a class="header" href="#conclusion-9">Conclusion</a></h2>
 <p>In this section,
 we installed PHP and configured it work with Apache2.
 We also created a simple PHP test page
@@ -3975,7 +4040,7 @@ If all is well with the second command, HTML should be outputted:</p>
 <pre><code>sudo php -f login.php
 sudo php -f index.php
 </code></pre>
-<h2 id="conclusion-9"><a class="header" href="#conclusion-9">Conclusion</a></h2>
+<h2 id="conclusion-10"><a class="header" href="#conclusion-10">Conclusion</a></h2>
 <p>Congratulations! If you've reached this far,
 you have successfully created a LAMP stack.
 In the process,
@@ -4202,7 +4267,7 @@ the data for the new records:</p>
 ('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010-08-06'),
 ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
 </code></pre>
-<h2 id="conclusion-10"><a class="header" href="#conclusion-10">Conclusion</a></h2>
+<h2 id="conclusion-11"><a class="header" href="#conclusion-11">Conclusion</a></h2>
 <p>In this lesson,
 we created a very bare bones OPAC
 simply to express the fundamental idea
@@ -4431,7 +4496,7 @@ systemctl status apache2
 <p>Now visit your cataloging module.
 You should be required to enter the username
 and password that you created with <code>htpasswd</code>.</p>
-<h2 id="conclusion-11"><a class="header" href="#conclusion-11">Conclusion</a></h2>
+<h2 id="conclusion-12"><a class="header" href="#conclusion-12">Conclusion</a></h2>
 <p>In the last lesson,
 we created a very bare bones OPAC
 that would allow patrons to
@@ -4865,7 +4930,7 @@ we are not doing that here.
 So if there are any problems accessing your
 site in the browser,
 be sure to check that the URL starts off with <strong>http</strong>.</p>
-<h2 id="conclusion-12"><a class="header" href="#conclusion-12">Conclusion</a></h2>
+<h2 id="conclusion-13"><a class="header" href="#conclusion-13">Conclusion</a></h2>
 <p>Congrats on setting up your WordPress library site.
 It's now time to explore and build a website.
 Use free themes and free plugins to alter
@@ -5345,7 +5410,7 @@ Some example tasks:</p>
 <li>Check out books to patrons</li>
 <li>Delete patron circulation history</li>
 </ul>
-<h2 id="conclusion-13"><a class="header" href="#conclusion-13">Conclusion</a></h2>
+<h2 id="conclusion-14"><a class="header" href="#conclusion-14">Conclusion</a></h2>
 <p>In this final section,
 you learned how to install
 and setup a Koha ILS installation
@@ -5357,7 +5422,7 @@ on a Linux server.</p>
 <li><a href="https://wiki.koha-community.org/wiki/Koha_on_Debian">Koha on Debian</a></li>
 <li><a href="https://www.youtube.com/watch?v=mzUop9R4sKc">Install Koha on Google Cloud Platform</a></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="conclusion-14"><a class="header" href="#conclusion-14">Conclusion</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="conclusion-15"><a class="header" href="#conclusion-15">Conclusion</a></h1>
 <h2 id="accomplishments"><a class="header" href="#accomplishments">Accomplishments</a></h2>
 <p>In this course, we learned how to:</p>
 <ul>
