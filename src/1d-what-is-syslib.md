@@ -212,13 +212,16 @@ in systems librarianship in LIS schools.
 This is as true today as it was in 2003.
 This course was created to address the
 lack of that training.
-However, it can only be a start.
+However, as Jordan (2003) noted,
+pre-service education is only a start.
 Technology is constantly changing, and
 that means we must always embrace more
-informal learning opportunities.
+other learning opportunities,
+such as through workshops, conferences,
+and on the job training.
 LIS programs are only two or so years
 long (if attending full time), but
-our careers, hopefully, will span decades.
+our careers will hopefully span decades.
 So all this course can ever be
 is just a starting point.
 
@@ -296,9 +299,12 @@ We will use ``git`` to document our work flows and
 push that documentation to [GitHub.com][github].
 On our Linux servers,
 we will create a web server out of
-what is called a LAMP stack,
+what is called a [LAMP stack][lamp_stack],
 which stands for
-Linux, Apache, MySQL, and PHP.
+[Linux][linux_kernel],
+[Apache][apache_httpd],
+[MySQL][mysql_com], and
+[PHP][php_net].
 We will use the web server
 to setup a basic website and
 a bare bones OPAC.
@@ -309,12 +315,9 @@ Wordpress and Omeka.
 Lastly, we will spend the final
 two weeks of the semester
 installing and setting up the
-open source [Koha ILS][kohails].
+open source [Koha ILS][koha_ils].
 
 Let's get started!
-
-[github]:https://github.com
-[kohails]:https://koha-community.org/
 
 ## References
 
@@ -365,16 +368,23 @@ defining skills. American Library Association.
 
 [abbott1998]:https://www.proquest.com/docview/220452054/abstract/A48FC30B10D94886PQ/1?accountid=11836
 [abbott2010]:https://www.jstor.org/stable/40664150
-[burns2022a]:https://cseanburns.net/WWW/linux-systems-admin/19-networking-tcpip.html
-[burns2022b]:https://cseanburns.net/WWW/linux-systems-admin/20-dns-domain-names.html
-[burns2022c]:https://cseanburns.net/WWW/linux-systems-admin/
-[ermbook]:https://cseanburns.net/WWW/ERM-book/
+[apache_httpd]:https://www.apache.org/
+[burns2022a]:https://cseanburns.github.io/linux_sysadmin/19-networking-tcpip.html
+[burns2022b]:https://cseanburns.github.io/linux_sysadmin/20-dns-domain-names.html
+[burns2022c]:https://cseanburns.github.io/linux_sysadmin/
+[ermbook]:https://cseanburns.github.io/electronic_resource_mgmt/
+[github]:https://github.com
 [gonzales2020]:https://rowman.com/ISBN/9781538107133/Systems-Librarianship-A-Practical-Guide-for-Librarians
 [jordan2003]:https://doi.org/10.1108/07378830310494445
+[koha_ils]:https://koha-community.org/
+[lamp_stack]:https://en.wikipedia.org/wiki/LAMP_(software_bundle)
+[linux_kernel]:https://www.kernel.org/
 [lista]:https://libguides.uky.edu/803
 [liu2013]:https://doi.org/10.1108/10650751311294528
 [martin1988]:https://doi.org/10.1300/J111v09n04_06
+[mysql_com]:https://www.mysql.com/
 [nasigesr]:https://www.nasig.org/Competencies-Eresources
 [naveed2021]:https://doi.org/10.1108/DLP-03-2021-0022
+[php_net]:https://www.php.net/
 [ratledge2017]:https://doi.org/10.1108/LHT-08-2016-0092
 [wilson1998]:https://www.worldcat.org/title/1038159656
