@@ -1,7 +1,7 @@
 # Systems Librarianship 
 
 Author: C. Sean Burns  
-Date, version 1: 2023-08-15  
+Date, version 2: 2024-01-08  
 Email: [sean.burns@uky.edu](sean.burns@uky.edu)  
 Website: [cseanburns.net](https://cseanburns.net)  
 GitHub: [@cseanburns](https://github.com/cseanburns)  
