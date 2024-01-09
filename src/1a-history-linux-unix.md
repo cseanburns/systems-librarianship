@@ -48,7 +48,7 @@ including [Bill Joy][billjoy],
 played vital roles in its development.
 Joy was particularly influential,
 creating the [vi][nvi] text editor,
-a descendant of the popular [Vim][vim] editor,
+a precursor of the popular [Vim][vim] editor,
 and many other essential programs.
 He also co-founded Sun Microsystems.
 This installation and collaborative effort at

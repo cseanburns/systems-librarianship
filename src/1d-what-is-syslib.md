@@ -215,8 +215,8 @@ lack of that training.
 However, as Jordan (2003) noted,
 pre-service education is only a start.
 Technology is constantly changing, and
-that means we must always embrace more
-other learning opportunities,
+that means we must always embrace 
+learning opportunities,
 such as through workshops, conferences,
 and on the job training.
 LIS programs are only two or so years
