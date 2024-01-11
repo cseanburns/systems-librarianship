@@ -57,9 +57,9 @@ but if not, go ahead and create one at
 
 ### Google Cloud (gcloud) Project
 
-Next, the gcloud software
-helps you us on a Google Cloud project
-on your own system.
+Next we will need
+to create a project on
+Google Cloud website.
 Once you've created that project,
 you can enable billing for that project,
 and then install the gcloud software 
@@ -74,7 +74,8 @@ Also, review the page on
 When you create your project,
 you can name it anything,
 but try to name it something to do with this course.
-E.g., I am using the name **syslib-2023**.
+E.g., I am using the name **syslib-YEAR**
+(replace **YEAR** with the actual year).
 Avoid using spaces when naming your project.
 
 Then click on the **Create** button,
@@ -93,6 +94,13 @@ only amount to $5 to 10 dollars, at most.
 billing for your new project.
 See also the page on how to
 **[create, modify, or close your self-serve Cloud Billing account][googleBilling]**
+
+At the end of the semester,
+I'll remind you that you may
+want to delete your virtual machines.
+If you don't do this,
+you will continue
+to be billed for them.
 
 ### Install the latest gcloud CLI version 
 
@@ -227,7 +235,7 @@ To do so, follow these steps from the Project page:
 - Make sure your project is listed.
 - Next, click on **Create Instance**.
 - Provide a name for your **instance**.
-    - E.g., I chose **syslib-2023** (no spaces) 
+    - E.g., I chose **syslib-2024** (no spaces) 
 - Under the **Series** drop down box, make sure **E2** is selected.
 - Under the **Machine type** drop down box, select **e2-micro (2 vCPU, 1 GB memory)**
     - This is the lowest cost virtual machine and perfect for our needs.

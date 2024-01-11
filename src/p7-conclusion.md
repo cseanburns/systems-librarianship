@@ -17,3 +17,7 @@ In this course, we learned how to:
   sites
 - connect these sites to create a full library web
   presence
+
+In order to avoid continued billing,
+be sure to stop and delete
+all virtual machines in your project.
