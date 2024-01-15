@@ -17,33 +17,17 @@ The virtual machine, thus, runs on top of our main OS.
 It's like an app, where the app is a fully functioning
 operating system.
 
-In my Linux Systems Administration course,
-we used to use [VirtualBox][virtualbox] to create
-virtual machines with Linux as the virtual operating system.
-This worked despite whether you or I were running
-Windows, macOS, or Linux as our main operating systems.
-VirtualBox is freely available virtualization software,
-and using it let students and myself
-run Linux as a server
-on our own desktops and laptops without changing
-the underlying OS on those machines
-(e.g., Windows, macOS).
-
-However, even though we virtualize an operating
-system when we run a VM,
-the underlying operating system and CPU architecture
-are still important.
-When Apple, Inc launched their new M1 
-(ARM-based) chip in 2020,
-it created problems for running non ARM-based operating
-systems as virtual machines (i.e., x86_64 chips).
-
-Fortunately, we are able to solve that issue
-using a third-party virtualization platform.
 In this course,
-that means we're going to use gcloud (via Google).
-There are other options available that you 
+we're going to use gcloud (via Google)
+to provide us with virtual machines.
+There are cloud servie providers
+available that you 
 can explore on your own.
+You can also test out
+[VirtualBox][virtualbox],
+which I've used in prior classes,
+to install virtual machines
+on your own computers.
 
 ## Google Cloud / gcloud
 
@@ -59,11 +43,7 @@ but if not, go ahead and create one at
 
 Next we will need
 to create a project on
-Google Cloud website.
-Once you've created that project,
-you can enable billing for that project,
-and then install the gcloud software 
-on your local machine.
+[Google Cloud website][gcloud].
 
 Follow **Step 1** at the top of the 
 **[Install the gcloud CLI][gcloudInstall]** page
@@ -347,9 +327,11 @@ on short notice and deploy websites and more.
 
 [distrowatch]:https://distrowatch.com/
 [gcloudConsole]:https://console.cloud.google.com/
+[gcloud]:https://cloud.google.com/?hl=en
 [gcloudInstall]:https://cloud.google.com/sdk/docs/install-sdk
 [gcloudProjects]:https://cloud.google.com/resource-manager/docs/creating-managing-projects#gcloud
 [googleBilling]:https://cloud.google.com/billing/docs/how-to/manage-billing-account
 [google]:https://www.google.com
 [ubuntuReleases]:https://wiki.ubuntu.com/Releases
 [virtualbox]:https://www.virtualbox.org/
+
