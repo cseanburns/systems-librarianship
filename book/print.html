@@ -1230,31 +1230,17 @@ we use virtual machine software to mimic the process.
 The virtual machine, thus, runs on top of our main OS.
 It's like an app, where the app is a fully functioning
 operating system.</p>
-<p>In my Linux Systems Administration course,
-we used to use <a href="https://www.virtualbox.org/">VirtualBox</a> to create
-virtual machines with Linux as the virtual operating system.
-This worked despite whether you or I were running
-Windows, macOS, or Linux as our main operating systems.
-VirtualBox is freely available virtualization software,
-and using it let students and myself
-run Linux as a server
-on our own desktops and laptops without changing
-the underlying OS on those machines
-(e.g., Windows, macOS).</p>
-<p>However, even though we virtualize an operating
-system when we run a VM,
-the underlying operating system and CPU architecture
-are still important.
-When Apple, Inc launched their new M1 
-(ARM-based) chip in 2020,
-it created problems for running non ARM-based operating
-systems as virtual machines (i.e., x86_64 chips).</p>
-<p>Fortunately, we are able to solve that issue
-using a third-party virtualization platform.
-In this course,
-that means we're going to use gcloud (via Google).
-There are other options available that you 
-can explore on your own.</p>
+<p>In this course,
+we're going to use gcloud (via Google)
+to provide us with virtual machines.
+There are cloud servie providers
+available that you 
+can explore on your own.
+You can also test out
+<a href="https://www.virtualbox.org/">VirtualBox</a>,
+which I've used in prior classes,
+to install virtual machines
+on your own computers.</p>
 <h2 id="google-cloud--gcloud"><a class="header" href="#google-cloud--gcloud">Google Cloud / gcloud</a></h2>
 <h3 id="google-account"><a class="header" href="#google-account">Google Account</a></h3>
 <p>We need to have a personal Google
@@ -1265,11 +1251,7 @@ but if not, go ahead and create one at
 <h3 id="google-cloud-gcloud-project"><a class="header" href="#google-cloud-gcloud-project">Google Cloud (gcloud) Project</a></h3>
 <p>Next we will need
 to create a project on
-Google Cloud website.
-Once you've created that project,
-you can enable billing for that project,
-and then install the gcloud software 
-on your local machine.</p>
+<a href="https://cloud.google.com/?hl=en">Google Cloud website</a>.</p>
 <p>Follow <strong>Step 1</strong> at the top of the 
 <strong><a href="https://cloud.google.com/sdk/docs/install-sdk">Install the gcloud CLI</a></strong> page
 to create a new project.
