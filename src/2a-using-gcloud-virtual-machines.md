@@ -20,11 +20,12 @@ operating system.
 In this course,
 we're going to use gcloud (via Google)
 to provide us with virtual machines.
-There are cloud servie providers
+There are other cloud service providers
 available that you 
 can explore on your own.
-You can also test out
-[VirtualBox][virtualbox],
+You can also play with
+[VirtualBox][virtualbox]
+(on your own),
 which I've used in prior classes,
 to install virtual machines
 on your own computers.
@@ -42,7 +43,7 @@ but if not, go ahead and create one at
 ### Google Cloud (gcloud) Project
 
 Next we will need
-to create a project on
+to create a project on the
 [Google Cloud website][gcloud].
 
 Follow **Step 1** at the top of the 
@@ -73,7 +74,7 @@ only amount to $5 to 10 dollars, at most.
 **[Follow Step 2][gcloudInstall]** to enable
 billing for your new project.
 See also the page on how to
-**[create, modify, or close your self-serve Cloud Billing account][googleBilling]**
+**[create, modify, or close your self-serve Cloud Billing account][googleBilling]**.
 
 At the end of the semester,
 I'll remind you that you may
@@ -148,7 +149,8 @@ of the gcloud CLI.
 
 ### Initializing the gcloud CLI
 
-**Please follow the instructions
+**As above,
+please follow the instructions
 from the Google Cloud documentation
 for your operating system.**
 
@@ -166,7 +168,9 @@ per the instructions at the above page:
 gcloud init
 ```
 
-And continue to follow the above instructions.
+And continue to follow the instructions
+from the prompt and from the
+Google Cloud documentation page above.
 
 ## gcloud VM Instance
 
@@ -210,14 +214,14 @@ We will create our VM using the gcloud console.
 To do so, follow these steps from the Project page:
 
 - Click on the hamburger icon (three vertical bars) in the
-  top right corner.
+  top left corner.
 - Click on **Compute Engine** and then **VM instances**
 - Make sure your project is listed.
 - Next, click on **Create Instance**.
 - Provide a name for your **instance**.
-    - E.g., I chose **syslib-2024** (no spaces) 
-- Under the **Series** drop down box, make sure **E2** is selected.
-- Under the **Machine type** drop down box, select **e2-micro (2 vCPU, 1 GB memory)**
+    - E.g., I chose **main-ubuntu** (no spaces) 
+- In the **Machine configuration** section, make sure **E2** is selected.
+- In the **Machine type** section, select **e2-micro (2 vCPU, 1 core, 1 GB memory)**
     - This is the lowest cost virtual machine and perfect for our needs.
 - Under **Boot disk**, click on the **Change** button.
 - In the window, select **Ubuntu** from the **Operating system** drop down box.
