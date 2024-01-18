@@ -152,10 +152,7 @@ contribute code to these projects.
 Second, we will soon install and
 configure these projects on our servers,
 and doing so involves complicated processes.
-Unlike the commands we have practiced so far,
-the installation and configuration of these
-technologies are not everyday tasks.
-This means that documenting how we install
+Documenting how we install
 and configure them will help us reproduce
 the steps at later times.
 For example, I used to install, configure,
