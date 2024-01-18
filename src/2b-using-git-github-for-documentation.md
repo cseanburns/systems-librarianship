@@ -199,35 +199,52 @@ we contribute back to that ecosystem.
 
 ## How to Document
 
-The first video for this week
-covers how I configured `git`
-on my Linux server, and
-how I started using GitHub.
-While I use `git` almost everyday,
-I don't often set up `git` on
-a new machine.
-Therefore, I wanted to show you
-a live view of the process and
-a live view of how I document
-as I work on a process.
-I hope that by showing you how
-I document the steps I took
-to set up `git` and GitHub,
-you will see how to adapt a
-documentation workflow for yourselves.
+Because you will be
+documenting technical information,
+it will be important
+to take notes of the commands
+that you will be learning
+and using in this course
+and document those notes
+in GitHub.
+
+However,
+as importantly,
+you will want to describe
+the processes you use
+in learning Linux,
+git, and more.
+Therefore,
+you should not just
+record your commands.
+You should also describe
+what the commands do and
+why you run various commands.
+Use this book as an example,
+which itself arose out of 
+documenting the steps
+needed to accomplish the goals
+for this course.
 
 ## Setup Git and GitHub
 
-In the process of setting up
-`git` and GitHub during the unscripted video,
-I created a GitHub repo for that documentation.
-You can see it at:
-[Setup Git and GitHub][setupgitgithub].
-Click on the **git-github.md** file
-to view the notes.
-Your task it to repeat the process.
+The steps we'll take to begin
+using Git and GitHub will be:
 
-[setupgitgithub]:https://github.com/cseanburns/syslib
+1. Create an account on GitHub
+    - be sure to setup two factor authentication
+2. Create a repository for your documentation
+3. Create a markdown file to begin documenting
+4. Begin documenting your process
+5. Once you have documented your process, you can commit your file to your repository
+
+You can edit and commit files
+directly on GitHub.
+Later I will show you how to
+manage your GitHub documentation
+from the command line
+on your Linux virtual machines.
+
 [git]:https://git-scm.com/
 [github]:https://github.com
 [markdown]:https://www.markdownguide.org/
