@@ -112,6 +112,25 @@ what we will be doing,
 it will be helpful
 to document our processes.
 
+As we begin to work on
+the more technical aspects
+of this book and course,
+it will be important to
+remain **attentive to details**.
+Many people who are new
+to this kind of work often
+stumble over the details,
+like a missing period,
+incorrect capitalization,
+and more.
+To learn how to pay
+**attention to the details**,
+work slowly and
+read any messages,
+including error messages,
+the screen prints out
+in response to your commands.
+
 [bash_shell]:https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [gcloud]:https://cloud.google.com
 [git]:https://en.wikipedia.org/wiki/Git
