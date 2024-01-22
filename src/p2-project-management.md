@@ -112,6 +112,8 @@ what we will be doing,
 it will be helpful
 to document our processes.
 
+## Attending to Detail
+
 As we begin to work on
 the more technical aspects
 of this book and course,
