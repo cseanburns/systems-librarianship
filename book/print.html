@@ -1774,34 +1774,25 @@ know that Bash is a
 <a href="https://www.redhat.com/sysadmin/learn-bash-scripting">full-fledged programming language</a>, and
 I encourage you to explore it as a scripting language.</p>
 <p>There are three reasons,
-from a systems administration point of view,
-to prefer the CLI over the GUI.
-First, the GUI entails extra software, and
-the more software we have on a server,
-the more resources (memory, CPU, storage, etc)
-that software consumes.
-We would much rather have our machine's
-resources being used to provide the services
-we build them to do than to run irrelevant software.
-Second, the extra software a GUI requires means
-that we expose our systems to additional security risks.
-That is, every time we install more software
-on our servers,
-the server becomes more vulnerable
-because all software has bugs.
-This means that we want to be
-conservative, careful, and protective
-of our systems.
-This is especially true for production systems.
-Third, graphical user interfaces do not provide
-a good platform for automation,
-at least not remotely as well 
-as command line interfaces do.
-Working on the command line,
-becuase it is a text-based environment,
-in what is known as a <a href="https://en.wikipedia.org/wiki/Unix_shell">shell</a>,
-is a reproducible process.
-That is not as easily true in a GUI.</p>
+from a systems administration/librarianship
+point of view,
+to prefer the CLI over the GUI.</p>
+<ul>
+<li>First, the GUI entails extra software, and the more software we have on a
+server, the more resources (memory, CPU, storage, etc) that software
+consumes. We would much rather have our machine's resources being used to
+provide the services we build them to do than to run irrelevant software.</li>
+<li>Second, the extra software a GUI requires means that we expose our systems to
+additional security risks. That is, every time we install more software on
+our servers, the server becomes more vulnerable because all software is buggy.
+This means that we want to be conservative, careful, and protective of our
+systems. This is especially true for production systems.</li>
+<li>Third, graphical user interfaces do not provide a good platform for
+automation, at least not remotely as well as command line interfaces do.
+Working on the command line, because it is a text-based environment, in what is
+known as a <a href="https://en.wikipedia.org/wiki/Unix_shell">shell</a>, is a reproducible process. That is not as easily
+true in a GUI.</li>
+</ul>
 <p>Fortunately, Linux, and
 many other Unix-like operating systems,
 have the ability to operate without graphical user interfaces.
@@ -1825,7 +1816,7 @@ This interface largely emphasizes
 non-textual interaction,
 such as the mouse, fingers (touch screens),
 remote controls (e.g., smart TVs),
-and most recently,
+and more recently,
 wearable tech such as
 VR headsets and like.
 All of the above mechanisms for interacting
@@ -1840,11 +1831,12 @@ our computers is via the
 command line interface, or CLI.
 The CLI is also suited to
 specific ranges of engagement, and
-its the kind of engagement that often
-allows us greater control over our systems.</p>
+it's the kind of engagement that 
+allows greater control over
+the fundamental uses of our systems.</p>
 <p>One reason the CLI provides greater
 control over our systems is because
-the interaction is all text-based.
+the interaction is text-based.
 Text-based interaction requires more
 specificity than graphical-based interaction.
 By that I mean, it requires us to provide
@@ -1873,11 +1865,29 @@ made into an executable file,
 and run like a program.
 This makes text-based interaction
 rather powerful.</p>
+<p>The big gotcha with a text-based
+interface with the computer
+is that it requires specificity.
+We have to be fairly exact
+in our commands.
+This exactitude requires
+an <strong>attention to detail</strong>.
+Little things like misplaced punctuation,
+missing punctuation,
+incorrect capitalization or indentation,
+and misspelled words
+can cause errors or
+prevent the execution of our programs.
+It's important to proceed slowly
+on the command line and
+to <strong>pay attention to the messages</strong>
+the screen displays
+when we run commands.</p>
 <h2 id="basic-commands"><a class="header" href="#basic-commands">Basic Commands</a></h2>
 <p>In light of that,
 I have developed two programs that
-will help you remember these basic
-commands.
+will help you learn and remember
+basic Linux shell commands.
 The commands that I'll ask you to
 learn encompass less than 0.3%
 of the commands that are available
@@ -1911,11 +1921,12 @@ called <a href="https://github.com/cseanburns/learn-the-commandline/blob/main/le
 (I will show you how to install
 this and the other programs shortly).</p>
 <p>I also developed a <a href="https://github.com/cseanburns/learn-the-commandline/blob/main/flashcards">flashcards</a>
-program that will help you learn an
-additional fifteen commands.
-This program is based on one created
-by someone else for a different purpose
-(see source code link above for credit).
+program that will help you learn,
+or at least become familiar,
+with an additional 45 commands.
+(This program is based on one created
+by someone else for a different purpose;
+see source code link above for credit).
 I'll explain these additional commands
 as we proceed through the semester.
 In the meantime,
@@ -1937,7 +1948,8 @@ I find this to be the most difficult
 thing that new Linux users have to learn
 for a couple of reasons.
 First, modern operating systems tend
-to hide the filesystem from their users.
+to hide (abstract away)
+the filesystem from their users.
 So even though, for example,
 macOS is Unix,
 many macOS users that I have taught
@@ -1963,10 +1975,18 @@ All directories <strong>branch</strong> off from root.
 The location to any directory is called
 a <strong>PATH</strong>.
 For example, our home directories on
-Linux will be located at the following PATH:</p>
-<pre><code>/home
+Linux are located at the following PATH:</p>
+<pre><code>/home/USER
 </code></pre>
-<p>That PATH begins at root <code>/</code> and ends at <code>home</code>.</p>
+<p>That PATH begins at the root directory <code>/</code>,
+proceeds to the directory named <code>home</code>, and
+then ends in our <strong>USER</strong> directory,
+which will share the same name as our usernames.
+As an example,
+if my username on a Linux system is <strong>sb</strong>,
+then my home directory will be located at:</p>
+<pre><code>/home/sb
+</code></pre>
 <p>It is a little different for Windows users.
 Since Windows is not Unix-like,
 it uses a different filesystem hierarchy.
@@ -1975,7 +1995,7 @@ the basics, such as the <strong>C:</strong> drive for the
 main storage device or the <strong>D:</strong> drive for
 an added USB stick.
 As such, the Windows operating system
-uses multiple root directories (C:, D:, E:, etc.)
+uses multiple root directories (C:, D:, E:, etc.).
 I encourage you to read the following article on
 <a href="https://www.redhat.com/sysadmin/linux-filesystem-windows">A quick introduction to the Linux filesystem for Windows users</a>.
 The article is published by <em>Red Hat</em>,
@@ -2021,7 +2041,9 @@ as a <a href="https://en.wikipedia.org/wiki/Command_language">command language</
 but if you're interested someday,
 I'd encourage you to explore Bash
 as a <a href="https://en.wikipedia.org/wiki/Scripting_language">scripting language</a>
-(I personally script in Bash quite a lot).
+(I personally script in Bash quite a lot, and the
+learn-the-cli and flashcard programs
+were written in <code>bash</code>).
 There are a variety of shells
 available for Linux and other Unix-like
 operating systems, but
@@ -2112,6 +2134,14 @@ some other commands that you'll learn
 about soon:</p>
 <pre><code>flashcards
 </code></pre>
+<p>After working through the
+<code>learn-the-cli</code> program a few times,
+you can continue
+to practice with the
+<code>learn-the-cli-module</code> program.
+This is a modified version that
+allows you to focus specific
+learning modules.</p>
 <h2 id="references-1"><a class="header" href="#references-1">References</a></h2>
 <p>Dourish, P. (2001). <em>Where the Action Is: The Foundations of
 Embodied Interaction</em>. MIT Press.
