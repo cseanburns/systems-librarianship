@@ -10,7 +10,7 @@ This interface largely emphasizes
 non-textual interaction,
 such as the mouse, fingers (touch screens),
 remote controls (e.g., smart TVs),
-and most recently,
+and more recently,
 wearable tech such as
 VR headsets and like.
 All of the above mechanisms for interacting
@@ -26,12 +26,13 @@ our computers is via the
 command line interface, or CLI.
 The CLI is also suited to
 specific ranges of engagement, and
-its the kind of engagement that often
-allows us greater control over our systems.
+it's the kind of engagement that 
+allows greater control over
+the fundamental uses of our systems.
 
 One reason the CLI provides greater
 control over our systems is because
-the interaction is all text-based.
+the interaction is text-based.
 Text-based interaction requires more
 specificity than graphical-based interaction.
 By that I mean, it requires us to provide
@@ -62,12 +63,31 @@ and run like a program.
 This makes text-based interaction
 rather powerful.
 
+The big gotcha with a text-based
+interface with the computer
+is that it requires specificity.
+We have to be fairly exact
+in our commands.
+This exactitude requires
+an **attention to detail**.
+Little things like misplaced punctuation,
+missing punctuation,
+incorrect capitalization or indentation,
+and misspelled words
+can cause errors or
+prevent the execution of our programs.
+It's important to proceed slowly
+on the command line and
+to **pay attention to the messages**
+the screen displays
+when we run commands.
+
 ## Basic Commands
 
 In light of that,
 I have developed two programs that
-will help you remember these basic
-commands.
+will help you learn and remember
+basic Linux shell commands.
 The commands that I'll ask you to
 learn encompass less than 0.3%
 of the commands that are available
@@ -106,11 +126,12 @@ called [learn-the-cli][learnthecli]
 this and the other programs shortly).
 
 I also developed a [flashcards][flashcards]
-program that will help you learn an
-additional fifteen commands.
-This program is based on one created
-by someone else for a different purpose
-(see source code link above for credit).
+program that will help you learn,
+or at least become familiar,
+with an additional 45 commands.
+(This program is based on one created
+by someone else for a different purpose;
+see source code link above for credit).
 I'll explain these additional commands
 as we proceed through the semester.
 In the meantime,
@@ -134,7 +155,8 @@ I find this to be the most difficult
 thing that new Linux users have to learn
 for a couple of reasons.
 First, modern operating systems tend
-to hide the filesystem from their users.
+to hide (abstract away)
+the filesystem from their users.
 So even though, for example,
 macOS is Unix,
 many macOS users that I have taught
@@ -161,13 +183,23 @@ All directories **branch** off from root.
 The location to any directory is called
 a **PATH**.
 For example, our home directories on
-Linux will be located at the following PATH:
+Linux are located at the following PATH:
 
 ```
-/home
+/home/USER
 ```
 
-That PATH begins at root ``/`` and ends at ``home``.
+That PATH begins at the root directory ``/``,
+proceeds to the directory named ``home``, and
+then ends in our **USER** directory,
+which will share the same name as our usernames.
+As an example,
+if my username on a Linux system is **sb**,
+then my home directory will be located at:
+
+```
+/home/sb
+```
 
 It is a little different for Windows users.
 Since Windows is not Unix-like,
@@ -177,7 +209,7 @@ the basics, such as the **C:** drive for the
 main storage device or the **D:** drive for
 an added USB stick.
 As such, the Windows operating system
-uses multiple root directories (C:, D:, E:, etc.)
+uses multiple root directories (C:, D:, E:, etc.).
 I encourage you to read the following article on
 [A quick introduction to the Linux filesystem for Windows users][quickWindows].
 The article is published by *Red Hat*,
@@ -225,7 +257,9 @@ as a [command language][comlanguage],
 but if you're interested someday,
 I'd encourage you to explore Bash
 as a [scripting language][scripting]
-(I personally script in Bash quite a lot).
+(I personally script in Bash quite a lot, and the
+learn-the-cli and flashcard programs
+were written in `bash`).
 There are a variety of shells
 available for Linux and other Unix-like
 operating systems, but
@@ -346,6 +380,15 @@ about soon:
 ```
 flashcards
 ```
+
+After working through the
+`learn-the-cli` program a few times,
+you can continue
+to practice with the
+`learn-the-cli-module` program.
+This is a modified version that
+allows you to focus specific
+learning modules.
 
 ## References
 
