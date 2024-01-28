@@ -2255,15 +2255,11 @@ will use to modify how they work.
 Often the settings for programs can only
 be modified by editing their plain text
 configuration files.</p>
-<p>We will also soon be working with Git and GitHub.
-These will also require us to use plain text.
-More on that in a couple of chapters.</p>
 <h2 id="nano"><a class="header" href="#nano"><code>nano</code></a></h2>
 <p>The <a href="https://www.nano-editor.org/"><code>nano</code></a> text editor
-is one of the user-friendliest
-of the text editors available on
-the Linux command line, but
-it still requires some adjustment
+is a fairly user-friendly
+command line text editor, but
+it requires some learning
 as a new command line user.
 The friendliest thing about
 <code>nano</code> is that it is modeless,
@@ -2311,6 +2307,13 @@ of the more common <code>Ctrl-v</code>.
 Fortunately, <code>nano</code> lists
 the shortcuts at the bottom
 of the screen.</p>
+<blockquote>
+<p><code>nano</code> is a text-editor with old origins. Specifically, it's a fork of the
+Unix <code>pico</code> editor. The keyboard shortcuts used by <code>nano</code> were carried over
+from the <code>pico</code> editor. These keyboard shortcuts were designed before the
+<a href="cua">Common User Access</a> guidelines helped standardize the common keyboard
+shortcuts we use today for opening, saving, closing, etc files.</p>
+</blockquote>
 <p>The shortcuts listed
 need some explanation, though.
 The carat mark is shorthand
@@ -2377,6 +2380,16 @@ Some quick tips:</p>
 <li>Quit and save by pressing <code>Ctrl-x</code>.</li>
 <li>Be sure to follow the prompts at the bottom of the screen.</li>
 </ol>
+<h2 id="tilde"><a class="header" href="#tilde">tilde</a></h2>
+<p>It's important to be familiar with
+<code>nano</code> because it's generally the default
+text editor on Linux operating systems nowadays.
+However, if you are interested in using a
+command line text editor with familiar keyboard shortcuts,
+then feel free to try out the <code>tilde</code> text editor.
+You can install it via the <code>apt</code> command:</p>
+<pre><code>sudo apt install tilde
+</code></pre>
 <h2 id="conclusion-4"><a class="header" href="#conclusion-4">Conclusion</a></h2>
 <p>In the prior lesson,
 we learned how to use the
