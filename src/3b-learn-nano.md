@@ -119,17 +119,12 @@ Often the settings for programs can only
 be modified by editing their plain text
 configuration files.
 
-We will also soon be working with Git and GitHub.
-These will also require us to use plain text.
-More on that in a couple of chapters.
-
 ## ``nano``
 
 The [``nano``][nano] text editor
-is one of the user-friendliest
-of the text editors available on
-the Linux command line, but
-it still requires some adjustment
+is a fairly user-friendly
+command line text editor, but
+it requires some learning
 as a new command line user.
 The friendliest thing about
 ``nano`` is that it is modeless,
@@ -177,6 +172,12 @@ of the more common ``Ctrl-v``.
 Fortunately, ``nano`` lists
 the shortcuts at the bottom
 of the screen.
+
+> `nano` is a text-editor with old origins. Specifically, it's a fork of the
+> Unix `pico` editor. The keyboard shortcuts used by `nano` were carried over
+> from the `pico` editor. These keyboard shortcuts were designed before the
+> [Common User Access](cua) guidelines helped standardize the common keyboard
+> shortcuts we use today for opening, saving, closing, etc files.
 
 The shortcuts listed
 need some explanation, though.
@@ -251,6 +252,20 @@ Some quick tips:
 1. Quit and save by pressing ``Ctrl-x``.
 1. Be sure to follow the prompts at the bottom of the screen.
 
+## tilde
+
+It's important to be familiar with
+`nano` because it's generally the default
+text editor on Linux operating systems nowadays.
+However, if you are interested in using a
+command line text editor with familiar keyboard shortcuts,
+then feel free to try out the `tilde` text editor.
+You can install it via the `apt` command:
+
+```
+sudo apt install tilde
+```
+
 ## Conclusion
 
 In the prior lesson,
@@ -266,6 +281,7 @@ configuration files and publish
 text to GitHub.
 
 [apache]:https://httpd.apache.org/
+[cua]:https://www.ibm.com/docs/en/zos/3.1.0?topic=reference-common-user-access-cua-guidelines
 [ide]:https://en.wikipedia.org/wiki/Integrated_development_environment
 [nano]:https://www.nano-editor.org/
 [tty]:https://www.youtube.com/watch?v=jxkygWI-Wfs
