@@ -252,19 +252,74 @@ Some quick tips:
 1. Quit and save by pressing ``Ctrl-x``.
 1. Be sure to follow the prompts at the bottom of the screen.
 
-## tilde
+## Other Editors
 
 It's important to be familiar with
 `nano` because it's generally the default
 text editor on Linux operating systems nowadays.
 However, if you are interested in using a
 command line text editor with familiar keyboard shortcuts,
-then feel free to try out the `tilde` text editor.
+then there are others you may want to try.
+In the meantime,
+here are a couple of more friendly editors
+to test out.
+
+### tilde
+
+The [`tilde`](tilde) text editor is a user friendly
+text editor that uses conventional keybindings
+(like ctrl-s for saving, etc).
+
 You can install it via the `apt` command:
 
 ```
 sudo apt install tilde
 ```
+
+### micro
+
+The [`micro`](micro) text editor is also user friendly,
+and, like `tilde`, uses conventional key bindings.
+Press **ctrl-g** to enter its help menu.
+Use your arrow keys to read through it and
+learn more about its capabilities and its functions.
+Press **ctrl-q** to exit the help menu.
+
+You can install it via the `apt` command:
+
+```
+sudo apt install micro
+```
+
+## ed(1), Vi/Vim, Emacs
+
+ed(1), Vi/Vim, and Emacs are
+the traditional Unix and Linux text editors.
+I first started using Linux
+because I found `emacs`,
+but sometime during my early
+Linux years,
+I switched to `vim`,
+which is a descendent of the
+`vi` text editor,
+which itself is a descendent
+of the `ed` editor.
+None of these editors are
+user-friendly, but
+they are extremely powerful
+once you learn them, and
+they are still quite popular
+(well, `ed` probably isn't
+all that popular).
+There are plenty of online
+resources that provide
+tutorials on getting started with
+these text editors.
+I won't teach how to use them
+because it will take too much time,
+but they are worth knowing about
+because all three are important
+parts of Unix and Linux history.
 
 ## Conclusion
 
@@ -276,9 +331,14 @@ but in the meantime,
 in this lesson,
 we begin to learn how to use
 a command line text editor, ``nano``.
-We will use ``nano`` to edit
+I also introduce you to friendlier
+editors (`tilde` and `micro`)
+ that you might prefer over `nano`.
+We will use a text editor to edit
 configuration files and publish
 text to GitHub.
+It's your choice what
+you want to use.
 
 [apache]:https://httpd.apache.org/
 [cua]:https://www.ibm.com/docs/en/zos/3.1.0?topic=reference-common-user-access-cua-guidelines
@@ -286,3 +346,5 @@ text to GitHub.
 [nano]:https://www.nano-editor.org/
 [tty]:https://www.youtube.com/watch?v=jxkygWI-Wfs
 [asciitable]:https://www.rapidtables.com/code/text/ascii-table.html
+[micro]:https://micro-editor.github.io/index.html
+[tilde]:https://os.ghalkes.nl/tilde/
