@@ -2380,16 +2380,61 @@ Some quick tips:</p>
 <li>Quit and save by pressing <code>Ctrl-x</code>.</li>
 <li>Be sure to follow the prompts at the bottom of the screen.</li>
 </ol>
-<h2 id="tilde"><a class="header" href="#tilde">tilde</a></h2>
+<h2 id="other-editors"><a class="header" href="#other-editors">Other Editors</a></h2>
 <p>It's important to be familiar with
 <code>nano</code> because it's generally the default
 text editor on Linux operating systems nowadays.
 However, if you are interested in using a
 command line text editor with familiar keyboard shortcuts,
-then feel free to try out the <code>tilde</code> text editor.
-You can install it via the <code>apt</code> command:</p>
+then there are others you may want to try.
+In the meantime,
+here are a couple of more friendly editors
+to test out.</p>
+<h3 id="tilde"><a class="header" href="#tilde">tilde</a></h3>
+<p>The <a href="tilde"><code>tilde</code></a> text editor is a user friendly
+text editor that uses conventional keybindings
+(like ctrl-s for saving, etc).</p>
+<p>You can install it via the <code>apt</code> command:</p>
 <pre><code>sudo apt install tilde
 </code></pre>
+<h3 id="micro"><a class="header" href="#micro">micro</a></h3>
+<p>The <a href="micro"><code>micro</code></a> text editor is also user friendly,
+and, like <code>tilde</code>, uses conventional key bindings.
+Press <strong>ctrl-g</strong> to enter its help menu.
+Use your arrow keys to read through it and
+learn more about its capabilities and its functions.
+Press <strong>ctrl-q</strong> to exit the help menu.</p>
+<p>You can install it via the <code>apt</code> command:</p>
+<pre><code>sudo apt install micro
+</code></pre>
+<h2 id="ed1-vivim-emacs"><a class="header" href="#ed1-vivim-emacs">ed(1), Vi/Vim, Emacs</a></h2>
+<p>ed(1), Vi/Vim, and Emacs are
+the traditional Unix and Linux text editors.
+I first started using Linux
+because I found <code>emacs</code>,
+but sometime during my early
+Linux years,
+I switched to <code>vim</code>,
+which is a descendent of the
+<code>vi</code> text editor,
+which itself is a descendent
+of the <code>ed</code> editor.
+None of these editors are
+user-friendly, but
+they are extremely powerful
+once you learn them, and
+they are still quite popular
+(well, <code>ed</code> probably isn't
+all that popular).
+There are plenty of online
+resources that provide
+tutorials on getting started with
+these text editors.
+I won't teach how to use them
+because it will take too much time,
+but they are worth knowing about
+because all three are important
+parts of Unix and Linux history.</p>
 <h2 id="conclusion-4"><a class="header" href="#conclusion-4">Conclusion</a></h2>
 <p>In the prior lesson,
 we learned how to use the
@@ -2399,9 +2444,14 @@ but in the meantime,
 in this lesson,
 we begin to learn how to use
 a command line text editor, <code>nano</code>.
-We will use <code>nano</code> to edit
+I also introduce you to friendlier
+editors (<code>tilde</code> and <code>micro</code>)
+that you might prefer over <code>nano</code>.
+We will use a text editor to edit
 configuration files and publish
-text to GitHub.</p>
+text to GitHub.
+It's your choice what
+you want to use.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="searching-with-grep"><a class="header" href="#searching-with-grep">Searching with grep</a></h1>
 <p>We have available some powerful utilities and programs
 to process, manipulate, and analyze text files.
