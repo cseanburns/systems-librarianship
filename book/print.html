@@ -2509,7 +2509,7 @@ with a lower case <strong>c</strong>,
 would return no results.
 However, many Linux command line utilities
 can have their functionality extended
-through commnad line options.
+through command line options.
 <code>grep</code> has an <code>-i</code> option
 that can be used to
 to ignore the case of the search string.
@@ -2709,7 +2709,6 @@ before the matching line using the <code>-B NUM</code> option:</p>
 <pre><code>Chrome OS, Proprietary, 2009
 FreeBSD, BSD, 1993
 Linux, GPL, 1991
-
 </code></pre>
 <p>We can combine many of the variations.
 Here I search for the whole word <strong>BSD</strong>,
@@ -2790,36 +2789,241 @@ end with <strong>s</strong>, and have three letters in the middle:</p>
 <pre><code>macOS, Proprietary, 2001
 </code></pre>
 <h2 id="practice"><a class="header" href="#practice">Practice</a></h2>
-<p>Here let's practice looking at the <strong>auth.log</strong> file.
-This file records all attempts to login to the system:</p>
-<p>First, we change directory to <code>/var/log</code>.</p>
-<p>Second, we use <code>less</code> to peruse the <strong>auth.log</strong> file.</p>
-<p>Third, we do a simple <code>grep</code> search for the string
-<strong>invalid user</strong> and
-pipe that through another grep command
-that examines IP addresses.</p>
-<p>Fourth, we do another simple search for a longer
-string and pipe that through other commands to
-sort the data.</p>
-<pre><code>cd /var/log
-less auth.log
-grep -E &quot;session opened for user (sean|root)&quot; auth.log | less
-grep &quot;invalid user&quot; auth.log | grep -Eo &quot;[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}&quot; | sort | uniq -c | sort
-grep &quot;Connection closed by invalid user&quot; auth.log | cut -d&quot; &quot; -f11 | sort | uniq -c | sort |less
-grep &quot;Connection closed by invalid user&quot; auth.log | cut -d&quot; &quot; -f11 | sort | uniq -c | sort -r |less
+<p>Let's use the <code>grep</code> command
+to investigate bibliographic data.
+Our task is to:</p>
+<ol>
+<li>Search <em>Scopus</em>.</li>
+<li>Download a <a href="https://www.bibtex.org/Format/"><em>BibTeX</em></a> file from <em>Scopus</em> as a .bib file.</li>
+<li>Use the <code>grep</code> command to search the downloaded <em>BibTeX</em> file, which should be named <strong>scopus.bib</strong>.</li>
+</ol>
+<h3 id="investigate"><a class="header" href="#investigate">Investigate</a></h3>
+<p>My first task is to
+to get an understanding of
+the structure of the data.
+<em>BibTeX</em> (.bib) files are structured
+files that contain bibliographic data.
+It's important to understand
+how files are structured
+if we want to search them efficiently.</p>
+<p>The <strong>scopus.bib</strong> file begins with
+information about the source
+(<em>Scopus</em>) of the records
+and the date the records
+were exported.
+These two lines and the
+empty line after them can
+be safely deleted or ignored.</p>
+<p>Each bibliographic record
+in the file begins with
+an <strong>entry type</strong> (or document type) preceded
+by an at <strong>@</strong> sign.
+Example entry types include:
+<a href="https://www.bibtex.com/e/entry-types/">article, book, booklet, conference, and more</a>.
+There is a opening curly brace
+after the entry or document type.
+These curly braces mark
+the beginning and ending of each record.</p>
+<p>The cite key follows
+the opening curly brace.
+The cite key is an identifier that
+often refers to the author's name and
+includes publication date information.
+For example, a cite key might look
+as follows and
+would stand for the author <strong>Budd</strong>
+and the date <strong>2020-11-23</strong>.</p>
+<pre><code>Budd20201123
 </code></pre>
+<p>The rows below the entry type
+contain the metadata for the record.
+Each row begins with a tag or field name
+followed by an equal sign,
+which is then followed by
+the values or content for that tag.
+For example,
+there's an author tag,
+an equal sign, and
+then a list of authors.
+There is a standard list
+of <em>BibTeX</em> fields.
+Example fields include:
+<a href="https://bibtex.eu/fields/">author, doi, publisher, title, journal, year, and more</a>.
+The fields are standardized because
+some programs use <em>BibTeX</em> records
+to manage and generate
+bibliographies, in-text citations, footnotes, etc..</p>
+<p>The content of each field
+is enclosed in
+additional curly braces.
+Each line ends with a comma,
+except for the last line.
+The record ends
+with a closing curly brace.</p>
+<h4 id="document-types"><a class="header" href="#document-types">Document Types</a></h4>
+<p>We can use <code>grep</code> to
+examine the types of documents
+the records point to.
+In the following command,
+I use the carat key <strong>^</strong>,
+which is a regular expression
+to signify the start of a line,
+to search for lines beginning
+with the at <strong>@</strong> symbol.
+The following <code>grep</code> command
+therefore means:
+return all lines that begin
+with the at <strong>@</strong> symbol:</p>
+<pre><code>grep &quot;^@&quot; scopus.bib
+</code></pre>
+<p>The results show,
+for this particular data,
+that I have BOOK and ARTICLE entry types.
+The data I'm using does not contain
+many records, but
+if it contained thousands or more,
+then it would be helpful to
+filter these results.</p>
+<p>Thus, below I use the <strong>-E</strong> option
+to extend <code>grep</code>'s regular expression engine.
+I use the <strong>(A|B)</strong> to tell <code>grep</code> to search
+for letters after the at sign <strong>@</strong>
+that start with either A or B,
+for ARTICLE or BOOK.
+Then I use regular expression
+character class matching
+with <strong>[A-Z]*</strong> to match any letters
+after the initial A or B characters.
+The <strong>-i</strong> option turns off case sensitivity,
+and the <strong>-o</strong> option returns
+only matching results from the lines.
+I pipe the output of the <code>grep</code> command
+to the <code>sort</code> command to sort the
+results alphabetically:</p>
+<pre><code>grep -Eio &quot;^@(A|B)[A-Z]*&quot; scopus.bib | sort
+</code></pre>
+<blockquote>
+<p>Tip: Without using the <code>sort</code> command, the <code>grep</code> command returns the results
+in the order it finds them. To see this, run the above command with and
+without piping to the <code>sort</code> command to examine how the output changes.</p>
+</blockquote>
+<p>Now let's get a frequency of the document types.
+Here I <strong>pipe</strong> <code>|</code> the output from the <code>grep</code>
+command to the <code>sort</code> command,
+in order to sort the output alphabetically.
+Then I <strong>pipe</strong> the output from the <code>sort</code>
+command to the <code>uniq</code> command.
+The <code>uniq</code> command will deduplicate
+the results, and
+the <strong>-c</strong> option will count the
+number of duplicates.
+As a result,
+it will provide an overall
+count of the document or entry types
+we searched.</p>
+<pre><code>grep -Eio &quot;^@(A|B)[A-Z]*&quot; scopus.bib | sort | uniq -c
+</code></pre>
+<h4 id="journal-titles"><a class="header" href="#journal-titles">Journal Titles</a></h4>
+<p>We can parse the data for other information.
+For example,
+we can get a list of journal titles by
+querying for the <strong>journal</strong> tag:</p>
+<pre><code>grep &quot;journal&quot; scopus.bib
+</code></pre>
+<p>Even though that works,
+the data contains
+the word <strong>Journal</strong>
+in the name of some journals.
+If we were searching thousands
+or more records,
+we might want to construct a more
+unique <code>grep</code> search.</p>
+<p>To rectify this,
+we can modify our <code>grep</code> search
+in two ways.
+First, the rows of data fields
+begin with a tab character.
+The regular expression
+for the tab character is <strong>\t</strong>.
+Therefore, we can search
+the file using this expression
+with the <strong>-P</strong> option:</p>
+<pre><code>grep -P &quot;\tjournal&quot; scopus.bib
+</code></pre>
+<p>Second, we can simply add more
+unique terms to our <code>grep</code> search.
+Since each tag includes a space,
+an equal sign,
+followed by another space, 
+we can use that in our <code>grep</code> query:</p>
+<pre><code>grep &quot;journal =&quot; scopus.bib
+</code></pre>
+<p>Using either method above,
+we can extract the journal title information.
+Here I use two new commands,
+<code>cut</code> and <code>sed</code>.
+The <code>cut</code> command takes
+the results of the <code>grep</code> command,
+removes the first column based on
+the comma as the column delimiter.
+In the first <code>sed</code> command,
+I remove the space and opening
+curly brace and replace it with nothing.
+In the second <code>sed</code> command,
+I remove the closing curly brace and
+the comma and replace it with nothing.
+The result is list of only the journal titles
+without any extraneous characters.
+I then pipe the output to the <code>sort</code> command,
+which sorts the list alphabetically,
+to the <code>uniq -c</code> command,
+which deduplicates and counts the results,
+and again to the <code>sort</code> command,
+which sorts numerically,
+since the first character is a number:</p>
+<pre><code>grep &quot;journal =&quot; scopus.bib | cut -d&quot;=&quot; -f2 | \
+    sed 's/ {//' | sed 's/},//' | \
+    sort | uniq -c | sort
+</code></pre>
+<h4 id="total-citations"><a class="header" href="#total-citations">Total Citations</a></h4>
+<p>There are other things we can
+do if we want to learn more powerful technologies.
+While I will not cover <code>awk</code>,
+I do want to introduce it to you.
+With the <code>awk</code> command,
+based on the <em>BibTeX</em> tag that
+includes citation counts
+at the time of the download
+(e.g., <strong>note = {Cited by: 2}</strong>),
+we can extract the number from
+that field for each record and
+sum the total citations for
+the records in the file:</p>
+<pre><code> grep -o &quot;Cited by: [0-9]*&quot; scopus.bib | \
+    awk -F&quot;:&quot; \
+    'BEGIN { printf &quot;Total Citations: &quot;} \
+    { sum += $2; } \
+    END { print sum }'
+</code></pre>
+<p>In the above command,
+we use the pipe operator
+to connect a series of commands
+to each other:</p>
+<ol>
+<li>use <code>grep</code> to search for the string &quot;Cited by: &quot; and to include any number of digits</li>
+<li>use <code>awk</code> to use the colon as the column or field delimiter</li>
+<li>use the <code>awk</code> BEGIN statement to print the words &quot;Total Citations: &quot;</li>
+<li>instruct <code>awk</code> to sum the second column, which is the citation numbers</li>
+<li>use the <code>awk</code> END statement to print the sum.</li>
+</ol>
+<blockquote>
+<p>If you want to learn more about <code>sed</code> and <code>awk</code>, please see my <a href="https://cseanburns.github.io/linux_sysadmin/10-text-processing-part-2.html">text
+processing chapter for my Linux Systems Administration</a>.
+There are also many tutorials on the web.</p>
+</blockquote>
 <h2 id="conclusion-5"><a class="header" href="#conclusion-5">Conclusion</a></h2>
 <p><code>grep</code> is very powerful, and
 there are more options listed in its <code>man</code> page.</p>
-<blockquote>
-<p>Note that I enclose my search strings in double quotes.
-For example: <code>grep &quot;search string&quot; filename.txt</code>
-It's not always required to enclose a search string
-in double quotes,
-but it's good practice because
-if your string contains more than one word or
-empty spaces, the search will fail.</p>
-</blockquote>
 <p>The Linux (and other Unix-like OSes) command line
 offers a lot of utilities to examine data.
 It's fun to learn and practice these.
@@ -2827,8 +3031,8 @@ Despite this, you do not have to become
 an advanced <code>grep</code> user.
 For most cases,
 simple <code>grep</code> searches work well.</p>
-<p>If you want to learn more,
-there are many <code>grep</code> tutorials on the web.</p>
+<p>There are many <code>grep</code> tutorials on the web
+if you want to see other examples.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="managing-software"><a class="header" href="#managing-software">Managing Software</a></h1>
 <h2 id="introduction-5"><a class="header" href="#introduction-5">Introduction</a></h2>
 <p>Most Linux distributions use
