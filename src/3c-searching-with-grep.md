@@ -70,7 +70,7 @@ with a lower case **c**,
 would return no results.
 However, many Linux command line utilities
 can have their functionality extended
-through commnad line options.
+through command line options.
 ``grep`` has an ``-i`` option
 that can be used to
 to ignore the case of the search string.
@@ -361,7 +361,6 @@ grep -i "linux" -B2 operating-systems.csv
 Chrome OS, Proprietary, 2009
 FreeBSD, BSD, 1993
 Linux, GPL, 1991
-
 ```
 
 We can combine many of the variations.
@@ -489,53 +488,292 @@ macOS, Proprietary, 2001
 
 ## Practice
 
-Here let's practice looking at the **auth.log** file.
-This file records all attempts to login to the system:
+Let's use the `grep` command
+to investigate bibliographic data.
+Our task is to:
 
-First, we change directory to ``/var/log``.
+1. Search *Scopus*.
+1. Download a [*BibTeX*][bibtex] file from *Scopus* as a .bib file.
+1. Use the `grep` command to search the downloaded *BibTeX* file, which should be named **scopus.bib**.
 
-Second, we use ``less`` to peruse the **auth.log** file.
+### Investigate
 
-Third, we do a simple ``grep`` search for the string
-**invalid user** and
-pipe that through another grep command
-that examines IP addresses.
+My first task is to
+to get an understanding of
+the structure of the data.
+*BibTeX* (.bib) files are structured
+files that contain bibliographic data.
+It's important to understand
+how files are structured
+if we want to search them efficiently.
 
-Fourth, we do another simple search for a longer
-string and pipe that through other commands to
-sort the data.
+The **scopus.bib** file begins with
+information about the source
+(*Scopus*) of the records
+and the date the records
+were exported.
+These two lines and the
+empty line after them can
+be safely deleted or ignored.
+
+Each bibliographic record
+in the file begins with
+an **entry type** (or document type) preceded
+by an at **@** sign.
+Example entry types include:
+[article, book, booklet, conference, and more][bibtex_entries].
+There is a opening curly brace
+after the entry or document type.
+These curly braces mark
+the beginning and ending of each record.
+
+The cite key follows
+the opening curly brace.
+The cite key is an identifier that
+often refers to the author's name and
+includes publication date information.
+For example, a cite key might look
+as follows and
+would stand for the author **Budd**
+and the date **2020-11-23**.
 
 ```
-cd /var/log
-less auth.log
-grep -E "session opened for user (sean|root)" auth.log | less
-grep "invalid user" auth.log | grep -Eo "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}" | sort | uniq -c | sort
-grep "Connection closed by invalid user" auth.log | cut -d" " -f11 | sort | uniq -c | sort |less
-grep "Connection closed by invalid user" auth.log | cut -d" " -f11 | sort | uniq -c | sort -r |less
+Budd20201123
 ```
+
+The rows below the entry type
+contain the metadata for the record.
+Each row begins with a tag or field name
+followed by an equal sign,
+which is then followed by
+the values or content for that tag.
+For example,
+there's an author tag,
+an equal sign, and
+then a list of authors.
+There is a standard list
+of *BibTeX* fields.
+Example fields include:
+[author, doi, publisher, title, journal, year, and more][bibtex_fields].
+The fields are standardized because
+some programs use *BibTeX* records
+to manage and generate
+bibliographies, in-text citations, footnotes, etc..
+
+The content of each field
+is enclosed in
+additional curly braces.
+Each line ends with a comma,
+except for the last line.
+The record ends
+with a closing curly brace.
+
+#### Document Types
+
+We can use `grep` to
+examine the types of documents
+the records point to.
+In the following command,
+I use the carat key **^**,
+which is a regular expression
+to signify the start of a line,
+to search for lines beginning
+with the at **@** symbol.
+The following `grep` command
+therefore means:
+return all lines that begin
+with the at **@** symbol:
+
+```
+grep "^@" scopus.bib
+```
+
+The results show,
+for this particular data,
+that I have BOOK and ARTICLE entry types.
+The data I'm using does not contain
+many records, but
+if it contained thousands or more,
+then it would be helpful to
+filter these results.
+
+Thus, below I use the **-E** option
+to extend `grep`'s regular expression engine.
+I use the **(A|B)** to tell `grep` to search
+for letters after the at sign **@**
+that start with either A or B,
+for ARTICLE or BOOK.
+Then I use regular expression
+character class matching
+with **[A-Z]\*** to match any letters
+after the initial A or B characters.
+The **-i** option turns off case sensitivity,
+and the **-o** option returns
+only matching results from the lines.
+I pipe the output of the `grep` command
+to the `sort` command to sort the
+results alphabetically:
+
+```
+grep -Eio "^@(A|B)[A-Z]*" scopus.bib | sort
+```
+
+> Tip: Without using the `sort` command, the `grep` command returns the results
+> in the order it finds them. To see this, run the above command with and
+> without piping to the `sort` command to examine how the output changes.
+
+Now let's get a frequency of the document types.
+Here I **pipe** `|` the output from the `grep`
+command to the `sort` command,
+in order to sort the output alphabetically.
+Then I **pipe** the output from the `sort`
+command to the `uniq` command.
+The `uniq` command will deduplicate
+the results, and
+the **-c** option will count the
+number of duplicates.
+As a result,
+it will provide an overall
+count of the document or entry types
+we searched.
+
+```
+grep -Eio "^@(A|B)[A-Z]*" scopus.bib | sort | uniq -c
+```
+
+#### Journal Titles
+
+We can parse the data for other information.
+For example,
+we can get a list of journal titles by
+querying for the **journal** tag:
+
+```
+grep "journal" scopus.bib
+```
+
+Even though that works,
+the data contains
+the word **Journal**
+in the name of some journals.
+If we were searching thousands
+or more records,
+we might want to construct a more
+unique `grep` search.
+
+To rectify this,
+we can modify our `grep` search
+in two ways.
+First, the rows of data fields
+begin with a tab character.
+The regular expression
+for the tab character is **\t**.
+Therefore, we can search
+the file using this expression
+with the **-P** option:
+
+```
+grep -P "\tjournal" scopus.bib
+```
+
+Second, we can simply add more
+unique terms to our `grep` search.
+Since each tag includes a space,
+an equal sign,
+followed by another space, 
+we can use that in our `grep` query:
+
+```
+grep "journal =" scopus.bib
+```
+
+Using either method above,
+we can extract the journal title information.
+Here I use two new commands,
+`cut` and `sed`.
+The `cut` command takes
+the results of the `grep` command,
+removes the first column based on
+the comma as the column delimiter.
+In the first `sed` command,
+I remove the space and opening
+curly brace and replace it with nothing.
+In the second `sed` command,
+I remove the closing curly brace and
+the comma and replace it with nothing.
+The result is list of only the journal titles
+without any extraneous characters.
+I then pipe the output to the `sort` command,
+which sorts the list alphabetically,
+to the `uniq -c` command,
+which deduplicates and counts the results,
+and again to the `sort` command,
+which sorts numerically,
+since the first character is a number:
+
+```
+grep "journal =" scopus.bib | cut -d"=" -f2 | \
+    sed 's/ {//' | sed 's/},//' | \
+    sort | uniq -c | sort
+```
+
+#### Total Citations
+
+There are other things we can
+do if we want to learn more powerful technologies.
+While I will not cover `awk`,
+I do want to introduce it to you.
+With the `awk` command,
+based on the *BibTeX* tag that
+includes citation counts
+at the time of the download
+(e.g., **note = {Cited by: 2}**),
+we can extract the number from
+that field for each record and
+sum the total citations for
+the records in the file:
+
+```
+ grep -o "Cited by: [0-9]*" scopus.bib | \
+    awk -F":" \
+    'BEGIN { printf "Total Citations: "} \
+    { sum += $2; } \
+    END { print sum }'
+```
+
+In the above command,
+we use the pipe operator
+to connect a series of commands
+to each other:
+
+1. use `grep` to search for the string "Cited by: " and to include any number of digits
+2. use `awk` to use the colon as the column or field delimiter
+3. use the `awk` BEGIN statement to print the words "Total Citations: "
+4. instruct `awk` to sum the second column, which is the citation numbers
+5. use the `awk` END statement to print the sum.
+
+> If you want to learn more about `sed` and `awk`, please see my [text
+> processing chapter for my Linux Systems Administration][text_processing].
+> There are also many tutorials on the web.
 
 ## Conclusion
 
-``grep`` is very powerful, and
-there are more options listed in its ``man`` page.
-
-> Note that I enclose my search strings in double quotes.
-> For example: ``grep "search string" filename.txt``
-> It's not always required to enclose a search string
-> in double quotes,
-> but it's good practice because
-> if your string contains more than one word or
-> empty spaces, the search will fail.
+`grep` is very powerful, and
+there are more options listed in its `man` page.
 
 The Linux (and other Unix-like OSes) command line
 offers a lot of utilities to examine data.
 It's fun to learn and practice these.
 Despite this, you do not have to become
-an advanced ``grep`` user.
+an advanced `grep` user.
 For most cases,
-simple ``grep`` searches work well.
+simple `grep` searches work well.
 
-If you want to learn more,
-there are many ``grep`` tutorials on the web.
+There are many `grep` tutorials on the web
+if you want to see other examples.
 
+[bibtex_entries]:https://www.bibtex.com/e/entry-types/
+[bibtex_fields]:https://bibtex.eu/fields/
+[bibtex]:https://www.bibtex.org/Format/
 [computerhope]:https://www.computerhope.com/jargon/s/string.htm
+[text_processing]:https://cseanburns.github.io/linux_sysadmin/10-text-processing-part-2.html
