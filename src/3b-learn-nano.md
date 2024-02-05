@@ -340,6 +340,72 @@ text to GitHub.
 It's your choice what
 you want to use.
 
+## My .nanorc
+
+You can configure `nano`
+to look and behave in certain ways.
+If you want to mimic
+the setup I have,
+then create a file called
+**.nanorc** in your home directory,
+and add the following to it:
+
+```
+# set element fgcolor,bgcolor
+set titlecolor brightwhite,blue
+set statuscolor brightwhite,green
+# set errorcolor brightwhite,red
+set selectedcolor brightwhite,magenta
+# set stripecolor ,yellow
+set numbercolor cyan
+set keycolor cyan
+set functioncolor green
+
+set speller "aspell -x -c"
+
+## When soft line wrapping is enabled, make it wrap lines at blanks
+## (tabs and spaces) instead of always at the edge of the screen.
+set atblanks
+
+## Use auto-indentation.
+set autoindent
+
+## Back up files to the current filename plus a tilde.
+# set backup
+
+## The directory to put unique backup files in.
+# set backupdir "~/.backup"
+
+## Use bold text instead of reverse video text.
+set boldtext
+
+## Remember the used search/replace strings for the next session.
+set historylog
+
+## Display line numbers to the left of the text.
+set linenumbers
+
+## Enable vim-style lock-files.  This is just to let a vim user know you
+## are editing a file [s]he is trying to edit and vice versa.  There are
+## no plans to implement vim-style undo state in these files.
+set locking
+
+## Remember the cursor position in each file for the next editing session.
+set positionlog
+
+## Do extended regular expression searches by default.
+set regexp
+
+## Allow nano to be suspended.
+set suspend
+
+## Use this tab size instead of the default; it must be greater than 0.
+set tabsize 8
+
+## Convert typed tabs to spaces.
+set tabstospaces
+```
+
 [apache]:https://httpd.apache.org/
 [cua]:https://www.ibm.com/docs/en/zos/3.1.0?topic=reference-common-user-access-cua-guidelines
 [ide]:https://en.wikipedia.org/wiki/Integrated_development_environment
