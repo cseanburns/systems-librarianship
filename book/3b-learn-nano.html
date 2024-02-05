@@ -453,6 +453,68 @@ configuration files and publish
 text to GitHub.
 It's your choice what
 you want to use.</p>
+<h2 id="my-nanorc"><a class="header" href="#my-nanorc">My .nanorc</a></h2>
+<p>You can configure <code>nano</code>
+to look and behave in certain ways.
+If you want to mimic
+the setup I have,
+then create a file called
+<strong>.nanorc</strong> in your home directory,
+and add the following to it:</p>
+<pre><code># set element fgcolor,bgcolor
+set titlecolor brightwhite,blue
+set statuscolor brightwhite,green
+# set errorcolor brightwhite,red
+set selectedcolor brightwhite,magenta
+# set stripecolor ,yellow
+set numbercolor cyan
+set keycolor cyan
+set functioncolor green
+
+set speller &quot;aspell -x -c&quot;
+
+## When soft line wrapping is enabled, make it wrap lines at blanks
+## (tabs and spaces) instead of always at the edge of the screen.
+set atblanks
+
+## Use auto-indentation.
+set autoindent
+
+## Back up files to the current filename plus a tilde.
+# set backup
+
+## The directory to put unique backup files in.
+# set backupdir &quot;~/.backup&quot;
+
+## Use bold text instead of reverse video text.
+set boldtext
+
+## Remember the used search/replace strings for the next session.
+set historylog
+
+## Display line numbers to the left of the text.
+set linenumbers
+
+## Enable vim-style lock-files.  This is just to let a vim user know you
+## are editing a file [s]he is trying to edit and vice versa.  There are
+## no plans to implement vim-style undo state in these files.
+set locking
+
+## Remember the cursor position in each file for the next editing session.
+set positionlog
+
+## Do extended regular expression searches by default.
+set regexp
+
+## Allow nano to be suspended.
+set suspend
+
+## Use this tab size instead of the default; it must be greater than 0.
+set tabsize 8
+
+## Convert typed tabs to spaces.
+set tabstospaces
+</code></pre>
 
                     </main>
 
