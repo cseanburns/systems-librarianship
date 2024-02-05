@@ -496,9 +496,64 @@ Our task is to:
 1. Download a [*BibTeX*][bibtex] file from *Scopus* as a .bib file.
 1. Use the `grep` command to search the downloaded *BibTeX* file, which should be named **scopus.bib**.
 
+### Download Data
+
+I'm using Scopus data
+in this example, but
+other bibliographic data can
+be downloaded from other databases.
+
+1. From your university's website, find Scopus.
+1. In Scopus, perform a search.
+1. Select the documents you want to download.
+1. Click on the **Export** button.
+1. Click on *BibTeX* under the listed file types.
+1. Select all **Citation Information** and **Bibliographic Information**. Select more in interested.
+1. Click on **Export**.
+
+The file should be saved
+to your Downloads folder
+and titled **scopus.bib**.
+
+### Upload to gcloud
+
+To upload to `gcloud`,
+you use a similar command
+as the `gcloud compute ssh`
+command that you use
+to connect to your servers.
+
+However, there are some differences.
+The `gcloud` copy command uses
+`scp` instead of `ssh` and
+then specifies the local file to transfer
+and the remote location.
+The following command
+copies the local file
+titled **file_name**
+to the remote server.
+Simply replace the file name,
+server, zone, and project names
+with those specific
+to your virtual instances.
+
+```
+gcloud compute scp file_name "server_name":~/ --zone "zone_name" --project "project_name"
+```
+
+There are other ways
+to transfer files to the
+virtual instance from your
+local computer, but
+they raise some complications.
+If interested, see
+[Transfer files to Linux VMs][transfer_vm].
+
 ### Investigate
 
-My first task is to
+Now that the file
+is uploaded,
+the first task is to
 to get an understanding of
 the structure of the data.
 *BibTeX* (.bib) files are structured
@@ -777,3 +832,4 @@ if you want to see other examples.
 [bibtex]:https://www.bibtex.org/Format/
 [computerhope]:https://www.computerhope.com/jargon/s/string.htm
 [text_processing]:https://cseanburns.github.io/linux_sysadmin/10-text-processing-part-2.html
+[transfer_vm]:https://cloud.google.com/compute/docs/instances/transfer-files
