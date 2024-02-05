@@ -1,0 +1,2 @@
+# gcloud compute scp scopus.bib --zone "us-central1-a" "main-ubuntu":~/ --project "syslib-2024"
+

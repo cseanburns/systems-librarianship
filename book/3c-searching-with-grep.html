@@ -492,8 +492,55 @@ Our task is to:</p>
 <li>Download a <a href="https://www.bibtex.org/Format/"><em>BibTeX</em></a> file from <em>Scopus</em> as a .bib file.</li>
 <li>Use the <code>grep</code> command to search the downloaded <em>BibTeX</em> file, which should be named <strong>scopus.bib</strong>.</li>
 </ol>
+<h3 id="download-data"><a class="header" href="#download-data">Download Data</a></h3>
+<p>I'm using Scopus data
+in this example, but
+other bibliographic data can
+be downloaded from other databases.</p>
+<ol>
+<li>From your university's website, find Scopus.</li>
+<li>In Scopus, perform a search.</li>
+<li>Select the documents you want to download.</li>
+<li>Click on the <strong>Export</strong> button.</li>
+<li>Click on <em>BibTeX</em> under the listed file types.</li>
+<li>Select all <strong>Citation Information</strong> and <strong>Bibliographic Information</strong>. Select more in interested.</li>
+<li>Click on <strong>Export</strong>.</li>
+</ol>
+<p>The file should be saved
+to your Downloads folder
+and titled <strong>scopus.bib</strong>.</p>
+<h3 id="upload-to-gcloud"><a class="header" href="#upload-to-gcloud">Upload to gcloud</a></h3>
+<p>To upload to <code>gcloud</code>,
+you use a similar command
+as the <code>gcloud compute ssh</code>
+command that you use
+to connect to your servers.</p>
+<p>However, there are some differences.
+The <code>gcloud</code> copy command uses
+<code>scp</code> instead of <code>ssh</code> and
+then specifies the local file to transfer
+and the remote location.
+The following command
+copies the local file
+titled <strong>file_name</strong>
+to the remote server.
+Simply replace the file name,
+server, zone, and project names
+with those specific
+to your virtual instances.</p>
+<pre><code>gcloud compute scp file_name &quot;server_name&quot;:~/ --zone &quot;zone_name&quot; --project &quot;project_name&quot;
+</code></pre>
+<p>There are other ways
+to transfer files to the
+virtual instance from your
+local computer, but
+they raise some complications.
+If interested, see
+<a href="https://cloud.google.com/compute/docs/instances/transfer-files">Transfer files to Linux VMs</a>.</p>
 <h3 id="investigate"><a class="header" href="#investigate">Investigate</a></h3>
-<p>My first task is to
+<p>Now that the file
+is uploaded,
+the first task is to
 to get an understanding of
 the structure of the data.
 <em>BibTeX</em> (.bib) files are structured
