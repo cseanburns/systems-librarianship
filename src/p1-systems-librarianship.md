@@ -3,7 +3,7 @@
 Author: C. Sean Burns  
 Date, version 2: 2024-01-08  
 Email: [sean.burns@uky.edu](sean.burns@uky.edu)  
-Website: [cseanburns.net](https://cseanburns.net)  
+Website: [cseanburns.github.io/csb/](https://cseanburns.github.io/csb/)  
 GitHub: [@cseanburns](https://github.com/cseanburns)  
 
 ## Introduction
