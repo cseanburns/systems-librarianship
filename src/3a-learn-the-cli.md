@@ -390,6 +390,15 @@ This is a modified version that
 allows you to focus specific
 learning modules.
 
+### Resources
+
+Here are some additional resources
+for learning Bash and Linux shell commands:
+
+- [explainshell.com](https://explainshell.com) : helps explain the parts of a shell command
+- [shellcheck.net](https://www.shellcheck.net/) : helps debut a shell script
+- [The Art of the Command Line](https://github.com/jlevy/the-art-of-command-line) : describes the fundamentals of Bash and the command line
+
 ## References
 
 Dourish, P. (2001). *Where the Action Is: The Foundations of
