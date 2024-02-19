@@ -226,11 +226,11 @@ See:</p>
 <p>The Library of Congress also
 provides an overview of the <strong>bib1-attr</strong>,
 but it's less comprehensive:</p>
-<p>[https://www.loc.gov/z3950/agency/defns/bib1.html](bib1-attr @loc.gov)</p>
+<p><a href="https://www.loc.gov/z3950/agency/defns/bib1.html">https://www.loc.gov/z3950/agency/defns/bib1.html</a></p>
 <p>Complete documentation for the
 <code>yaz-client</code> can be found on its
 homepage:</p>
-<p><a href="yaz-client">https://www.indexdata.com/resources/software/yaz/</a></p>
+<p><a href="https://www.indexdata.com/resources/software/yaz/">https://www.indexdata.com/resources/software/yaz/</a></p>
 <h2 id="using-yaz"><a class="header" href="#using-yaz">Using <code>yaz</code></a></h2>
 <p>The command to start
 the <code>yaz</code> program is
@@ -285,6 +285,12 @@ we use the following query:</p>
 <li><code>@attr 1=21</code> instructs the query to search for the term in the Subject-heading</li>
 <li><code>&quot;library science&quot;</code> is the second search term for the subject heading search</li>
 </ul>
+<p>The search does not reveal the results.
+To peruse the results,
+we use the <code>show</code> command.
+To show the first record:</p>
+<pre><code>show 1
+</code></pre>
 <h3 id="example-2"><a class="header" href="#example-2">Example 2</a></h3>
 <p>Find with subject headings &quot;library science&quot; and &quot;philosophy&quot;</p>
 <pre><code>f @and @attr 1=21 &quot;library science&quot; @attr 1=21 &quot;philosophy&quot;
