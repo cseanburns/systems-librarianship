@@ -7,14 +7,17 @@ information retrieval
 using the Z39.50 protocol.
 For those unfamiliar,
 Z39.50 is a standard protocol
-in library science for
-querying and retrieving information
-from remote databases.
+in libraries for
+sharing, querying, and retrieving bibliographic information
+between library databases.
 Development and usage
 began in the 1970s,
 which of course pre-dates the web,
 and this is a testament to the evolution of
 information retrieval systems since the 1970s.
+The protocol is maintained by the
+[*Library of Congress*][locz3950].
+
 SRU (Search/Retrieve via URL) and
 SRW (Search/Retrieve Web service)
 are modern web-based successors to Z39.50.
@@ -26,13 +29,17 @@ directly from the command line,
 which provides a hands-on experience
 with the underlying mechanics of
 digital library searches and data retrieval.
+
 This exploration is not
 only about learning a tool;
 it's about understanding the
 history and ongoing development
 of information retrieval systems,
-a crucial aspect of your journey
-in library and information science.
+a crucial aspect in
+library and information science.
+
+> SRU uses URL query strings, which is similar to web searches.
+> SRW utilizes [SOAP][soap], which is more complex but allows for more data exchange.
 
 ## Installing `yaz`
 
@@ -156,7 +163,7 @@ Let's see some examples:
 
 To find title with word
 'information' and
-the Librar of Congress Subject Heading
+the Library of Congress Subject Heading
 'library science',
 we use the following query:
 
@@ -213,3 +220,6 @@ see:
 
 - [A Guide to the PHP YAZ Library for Information Retrieval](https://reintech.io/blog/guide-to-php-yaz-library-information-retrieval)
 - [Fun with bibliographic indexes, bibliographic data management software, and Z39.50](https://sites.nd.edu/emorgan/2013/11/fun/)
+
+[locz3950]:https://www.loc.gov/z3950/agency/
+[soap]:https://en.wikipedia.org/wiki/SOAP
