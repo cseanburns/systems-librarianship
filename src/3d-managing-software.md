@@ -16,23 +16,20 @@ from our servers.
 
 ## ``sudo``
 
-In order to do the above tasks,
-we will need to use
+In order to use the package manager,
+we will need 
 the ``sudo`` command.
 The ``sudo`` command allows us to
 "execute a command as another user"
 (see ``man sudo``).
-If we have multiple users on a system,
-and if we have their passwords,
-then we could use ``sudo`` to run
-commands as if we were logged into
-their accounts.
+By default,
+the `sudo` command
+"executes a command as the superuser"
+(see `man 8 sudo`).
 
-However, the main use of ``sudo``
-is to execute a command as the **root** user.
-The root user is the **superuser** account
-and as such,
-this user can perform administrative tasks
+The name of the **superuser** account
+is **root**.
+This user can perform administrative tasks
 that regular users cannot.
 For security purposes,
 regular accounts may not add, remove, or
@@ -81,13 +78,13 @@ In our home directories, for example,
 we don't need to use ``sudo`` to
 create a new directory with the ``mkdir``
 command.
-Instead we just type
+Instead we type
 ``mkdir data`` to create a new
 directory/folder called **data**.
 But outside our home directory,
 for example, in the directory
-**/usr/local/bin**.
-We need to use ``sudo`` to do such things.
+**/usr/local/bin**,
+we need to use ``sudo`` to do such things.
 (This is why I used the ``sudo`` command
 when I showed you how to copy the
 **Learn the Commandline** programs to
@@ -115,7 +112,7 @@ home directory, then
 I have to use sudo there, too:
 
 ```
-cd /etc
+cd /srv
 sudo touch data.csv
 ```
 
@@ -123,7 +120,7 @@ Or, without changing to that directory,
 I can specify the full path:
 
 ```
-sudo touch /etc/data.csv
+sudo touch /srv/data.csv
 ```
 
 ## apt
@@ -157,7 +154,8 @@ because this lets your system upgrade to
 the most recent version of what you want
 to install.
 
-In short, this command is simply:
+In short, the command to download
+new package information is:
 
 ```
 sudo apt update
@@ -165,7 +163,7 @@ sudo apt update
 
 ### ``sudo apt upgrade``
 
-Once your list of software has been updated,
+Once the list of packages have been updated,
 you can **upgrade** with the ``sudo apt upgrade``
 command if there are any upgrades.
 When you run this command, and if
@@ -272,8 +270,7 @@ I like to add the ``--purge`` option
 because this also removes system configuration
 files that I probably do not need.
 That is, some applications
-install configuration files (configs).
-Configs are files that set application preferences
+install configuration files (configs)
 in the **/etc** directory.
 Adding ``--purge`` will remove those configs.
 
@@ -299,11 +296,12 @@ is that it installs and handles software
 Dependencies are other software that software
 depends upon to run.
 That is, few computer applications are self-contained, and
-they often require other technology.
+they often require other software to operate.
 When we uninstall (or remove) applications,
 the package manager does not auto uninstall those
 dependencies that were installed with it.
-We use the autoremove command to uninstall those:
+We use the autoremove command to uninstall those,
+which helps keep our systems clean:
 
 ```
 sudo apt autoremove
