@@ -100,14 +100,13 @@ The Library of Congress also
 provides an overview of the **bib1-attr**,
 but it's less comprehensive:
 
-[https://www.loc.gov/z3950/agency/defns/bib1.html](bib1-attr @loc.gov)
+[https://www.loc.gov/z3950/agency/defns/bib1.html][bib1_attr]
 
 Complete documentation for the
 `yaz-client` can be found on its
 homepage:
 
-[https://www.indexdata.com/resources/software/yaz/](yaz-client)
-
+[https://www.indexdata.com/resources/software/yaz/][yaz_client]
 ## Using `yaz`
 
 The command to start
@@ -180,6 +179,15 @@ In the above:
 - `@attr 1=21` instructs the query to search for the term in the Subject-heading
 - `"library science"` is the second search term for the subject heading search
 
+The search does not reveal the results.
+To peruse the results,
+we use the `show` command.
+To show the first record:
+
+```
+show 1
+```
+
 ### Example 2
 
 Find with subject headings "library science" and "philosophy"
@@ -223,3 +231,5 @@ see:
 
 [locz3950]:https://www.loc.gov/z3950/agency/
 [soap]:https://en.wikipedia.org/wiki/SOAP
+[bib1_attr]:https://www.loc.gov/z3950/agency/defns/bib1.html
+[yaz_client]:https://www.indexdata.com/resources/software/yaz/
