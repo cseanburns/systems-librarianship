@@ -3164,22 +3164,19 @@ We will use <code>apt</code> to install,
 update, and remove software
 from our servers.</p>
 <h2 id="sudo"><a class="header" href="#sudo"><code>sudo</code></a></h2>
-<p>In order to do the above tasks,
-we will need to use
+<p>In order to use the package manager,
+we will need 
 the <code>sudo</code> command.
 The <code>sudo</code> command allows us to
 &quot;execute a command as another user&quot;
 (see <code>man sudo</code>).
-If we have multiple users on a system,
-and if we have their passwords,
-then we could use <code>sudo</code> to run
-commands as if we were logged into
-their accounts.</p>
-<p>However, the main use of <code>sudo</code>
-is to execute a command as the <strong>root</strong> user.
-The root user is the <strong>superuser</strong> account
-and as such,
-this user can perform administrative tasks
+By default,
+the <code>sudo</code> command
+&quot;executes a command as the superuser&quot;
+(see <code>man 8 sudo</code>).</p>
+<p>The name of the <strong>superuser</strong> account
+is <strong>root</strong>.
+This user can perform administrative tasks
 that regular users cannot.
 For security purposes,
 regular accounts may not add, remove, or
@@ -3224,13 +3221,13 @@ In our home directories, for example,
 we don't need to use <code>sudo</code> to
 create a new directory with the <code>mkdir</code>
 command.
-Instead we just type
+Instead we type
 <code>mkdir data</code> to create a new
 directory/folder called <strong>data</strong>.
 But outside our home directory,
 for example, in the directory
-<strong>/usr/local/bin</strong>.
-We need to use <code>sudo</code> to do such things.
+<strong>/usr/local/bin</strong>,
+we need to use <code>sudo</code> to do such things.
 (This is why I used the <code>sudo</code> command
 when I showed you how to copy the
 <strong>Learn the Commandline</strong> programs to
@@ -3250,12 +3247,12 @@ I can just specify the full path:</p>
 some other directory outside my
 home directory, then
 I have to use sudo there, too:</p>
-<pre><code>cd /etc
+<pre><code>cd /srv
 sudo touch data.csv
 </code></pre>
 <p>Or, without changing to that directory,
 I can specify the full path:</p>
-<pre><code>sudo touch /etc/data.csv
+<pre><code>sudo touch /srv/data.csv
 </code></pre>
 <h2 id="apt"><a class="header" href="#apt">apt</a></h2>
 <p>We will use <code>sudo</code> in the above
@@ -3283,11 +3280,12 @@ before installing or upgrading your system
 because this lets your system upgrade to
 the most recent version of what you want
 to install.</p>
-<p>In short, this command is simply:</p>
+<p>In short, the command to download
+new package information is:</p>
 <pre><code>sudo apt update
 </code></pre>
 <h3 id="sudo-apt-upgrade"><a class="header" href="#sudo-apt-upgrade"><code>sudo apt upgrade</code></a></h3>
-<p>Once your list of software has been updated,
+<p>Once the list of packages have been updated,
 you can <strong>upgrade</strong> with the <code>sudo apt upgrade</code>
 command if there are any upgrades.
 When you run this command, and if
@@ -3373,8 +3371,7 @@ I like to add the <code>--purge</code> option
 because this also removes system configuration
 files that I probably do not need.
 That is, some applications
-install configuration files (configs).
-Configs are files that set application preferences
+install configuration files (configs)
 in the <strong>/etc</strong> directory.
 Adding <code>--purge</code> will remove those configs.</p>
 <p>To remove a package and
@@ -3394,11 +3391,12 @@ is that it installs and handles software
 Dependencies are other software that software
 depends upon to run.
 That is, few computer applications are self-contained, and
-they often require other technology.
+they often require other software to operate.
 When we uninstall (or remove) applications,
 the package manager does not auto uninstall those
 dependencies that were installed with it.
-We use the autoremove command to uninstall those:</p>
+We use the autoremove command to uninstall those,
+which helps keep our systems clean:</p>
 <pre><code>sudo apt autoremove
 </code></pre>
 <h3 id="sudo-apt-clean"><a class="header" href="#sudo-apt-clean"><code>sudo apt clean</code></a></h3>
