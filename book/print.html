@@ -3431,15 +3431,17 @@ information retrieval
 using the Z39.50 protocol.
 For those unfamiliar,
 Z39.50 is a standard protocol
-in library science for
-querying and retrieving information
-from remote databases.
+in libraries for
+sharing, querying, and retrieving bibliographic information
+between library databases.
 Development and usage
 began in the 1970s,
 which of course pre-dates the web,
 and this is a testament to the evolution of
 information retrieval systems since the 1970s.
-SRU (Search/Retrieve via URL) and
+The protocol is maintained by the
+<a href="https://www.loc.gov/z3950/agency/"><em>Library of Congress</em></a>.</p>
+<p>SRU (Search/Retrieve via URL) and
 SRW (Search/Retrieve Web service)
 are modern web-based successors to Z39.50.
 They offer more flexibility
@@ -3449,14 +3451,18 @@ with these protocols
 directly from the command line,
 which provides a hands-on experience
 with the underlying mechanics of
-digital library searches and data retrieval.
-This exploration is not
+digital library searches and data retrieval.</p>
+<p>This exploration is not
 only about learning a tool;
 it's about understanding the
 history and ongoing development
 of information retrieval systems,
-a crucial aspect of your journey
-in library and information science.</p>
+a crucial aspect in
+library and information science.</p>
+<blockquote>
+<p>SRU uses URL query strings, which is similar to web searches.
+SRW utilizes <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a>, which is more complex but allows for more data exchange.</p>
+</blockquote>
 <h2 id="installing-yaz"><a class="header" href="#installing-yaz">Installing <code>yaz</code></a></h2>
 <p>Use the <code>apt</code> instructions
 from the prior lesson
@@ -3541,7 +3547,7 @@ Let's see some examples:</p>
 <h3 id="example-1"><a class="header" href="#example-1">Example 1</a></h3>
 <p>To find title with word
 'information' and
-the Librar of Congress Subject Heading
+the Library of Congress Subject Heading
 'library science',
 we use the following query:</p>
 <pre><code>find @and @attr 1=4 &quot;information&quot; @attr 1=21 &quot;library science&quot;
