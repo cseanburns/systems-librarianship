@@ -201,7 +201,7 @@ f @and @attr 1=21 "library science" @attr 1=21 "philosophy"
 Find where personal name is "mcmurtry, larry"
 
 ```
-f @and @attr 1=1 "mcmurtry, larry"
+f @attr 1=1 "mcmurtry, larry"
 ```
 
 ### Example 4
