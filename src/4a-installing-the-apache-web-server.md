@@ -2,18 +2,35 @@
 
 ## Introduction
 
-[Apache][apache] is an HTTP server,
-otherwise called web server software.
-Other HTTP server software exists.
-Another big one is [nginx][nginx].
-At its most basic,
-an HTTP server essentially makes files
-available to others who are able to establish a
-connection to the computer and view the files
-with a web browser.
-Ergo, a web browser is,
-at its most basic,
-a file viewer.
+In this section,
+we focus on a fundamental component
+of the internet's infrastructure:
+the web server,
+or alternatively,
+the HTTP server.
+
+The web server is software
+that makes websites available.
+The basic function is
+to make files accessible on
+at least one computer
+to anyone with a web browser.
+Thus, at a basic level,
+the web is essentially
+a world wide file system, and
+the web browser is essentially
+a file explorer,
+like Windows Explorer on Windows
+or Finder on macOS.
+
+Understanding how an HTTP server
+functions is crucial for anyone
+wanting to manage or deploy web services.
+This session will guide
+you through installing [Apache][apache],
+one of the most popular web server applications,
+conducting basic checks to ensure its operation,
+and creating your first web page.
 
 It's important to understand
 the basics of an HTTP server, and
@@ -22,7 +39,7 @@ therefore I ask you to read Apache's
 proceeding with the rest of this section.
 Each of the main sections on that page describe
 the important elements that make up and serve a website,
-including
+including:
 
 - clients, servers, and URLs
 - hostnames and DNS
@@ -46,7 +63,7 @@ First we'll use ``apt search`` to identify
 the specific package name.
 I already know that a lot of results
 will be returned,
-so let's **pipe** the ``apt search`` command
+so I will **pipe** the ``apt search`` command
 through ``head`` to look at the initial results:
 
 ```
@@ -60,7 +77,7 @@ On other distributions,
 like Fedora,
 the Apache package is called **httpd**.
 To learn more about the **apache2** package,
-let's examine it with the ``apt show`` command:
+we can examine it with the ``apt show`` command:
 
 ```
 apt show apache2
@@ -90,48 +107,53 @@ configure some basic things, and
 then create a basic web site.
 
 To start,
-let's use ``systemctl`` to acquire
-some info about **apache2** and
+I will use the ``systemctl`` command
+to acquire some info about **apache2** and
 make sure it is *enabled* and *running*:
 
 ```
-systemctl list-unit-files apache2.service
 systemctl status apache2
 ```
 
 The output shows that **apache2** is enabled,
-which means that it will start running automatically
-when the computer gets rebooted.
-
-The output of the second command also shows
-that **apache2** is active,
-which means that it has started working.
+which is the default for this software.
+The `systemctl` command's use of the term **enabled**
+means that the software
+will start automatically on reboot.
+However, it may not be running.
+The output should state that
+the software is **active** if it is running.
 
 ## Creating a web page
 
-Since **apache2** is up and running,
+Since **apache2** is running,
 let's look at the default web page.
 
 There are two ways we can look
 at the default web page.
-We can use a command line web browser.
-There are a number available, but
-I like ``w3m``.
+We can use a text based web browser 
+or a graphical web browser like
+Firefox, Chrome, etc.
 
-We can also use our regular web browsers
-and view the site by entering the
-IP address of the server
-in our browser URL bar.
+### Text Based Web Browser 
 
-To check with ``w3m``,
+There are a number of
+text based web browsers available.
+I like `w3m` because it
+defaults to Vim keybindings,
+but many like `elinks`.
+
+To check the site with ``w3m``,
 we have to install it first:
 
 ```
 sudo apt install w3m
 ```
 
-Once it's installed,
-we can visit our default site using the
+> If you want to try `elinks`, then run `sudo apt install elinks`.
+
+Once the text based browser is installed,
+we can visit our default site using its
 loopback IP address
 (aka, *localhost*).
 From the command line on our server,
@@ -139,18 +161,24 @@ we can run either of these two commands:
 
 ```
 w3m 127.0.0.1
+```
+
+Or:
+
+```
 w3m localhost
 ```
 
-We can also get the subnet/private IP address
-using the ``ip a`` command, and
-then use that with ``w3m``.
-For example, if ``ip a`` showed that my NIC
-has an IP address of **10.0.1.1**, then
-I could use ``w3m`` with that IP address:
+We can also get the system's private IP address
+using the `ip a` command.
+This address will begin with the number **10** and
+look like **10.128.0.99**.
+To use that with `w3m` from the
+virtual machine's command line,
+we run:
 
 ```
-w3m 10.0.1.1
+w3m 10.128.0.99
 ```
 
 If the **apache2** installed and
@@ -162,8 +190,10 @@ of the screen:
 **Apache2 Ubuntu Default Page**  
 **It works!**
 
-To exit ``w3m``,
+To exit `w3m`,
 press **q** and then **y** to confirm exit.
+
+### Graphical Browser
 
 To view the default web page using
 a regular web browser,
@@ -183,7 +213,7 @@ Then you should see the graphical version of the
 **Apache2 Ubuntu Default Page**.
 
 > Note that most browsers nowadays may try to force HTTPS
-> mode, and they also often hide the protocal from the URL.
+> mode, and they also often hide the protocol from the URL.
 > If your web page is not loading, make sure your URL is
 > **http://IP-ADDRESS** and not **https://IP-ADDRESS**.
 
@@ -199,9 +229,25 @@ which is where website files are stored.
 
 Let's create our first web page.
 The default page described above provides
-the location of the document root at
+the location of the **document root** at
 **/var/www/html**.
-When we navigate to that location
+Remember that the web is,
+at its simplest,
+a filesystem that has been made
+available to the wide world.
+The web server is what provides
+access to part of the filesystem.
+That point of access is called
+the **document root**,
+which may be on a different location
+on a different machine,
+configured to be at a different location
+than the default,
+or web servers may also be configured
+to expose multiple parts of the
+filesystem to the web.
+
+When we navigate to the document root
 on the command line,
 we'll see that there is already an **index.html**
 file located in that directory.
@@ -269,7 +315,7 @@ http://55.222.55.222/index.html.original
 In this section,
 we learned about the Apache2 HTTP server.
 We learned how to install it on Ubuntu,
-how to use systemd (``systemctl``) commands
+how to use a `systemctl` command
 to check its status,
 how to create a basic web page in ``/var/www/html``,
 how to view that web page using the ``w3m``
