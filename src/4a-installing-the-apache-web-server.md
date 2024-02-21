@@ -67,7 +67,7 @@ so I will **pipe** the ``apt search`` command
 through ``head`` to look at the initial results:
 
 ```
-sudo apt search apache2 | head
+apt search apache2 | head
 ```
 
 The package that we're interested in
