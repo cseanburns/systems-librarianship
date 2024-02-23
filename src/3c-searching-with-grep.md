@@ -2,19 +2,19 @@
 
 We have available some powerful utilities and programs
 to process, manipulate, and analyze text files.
-In this section, we will focus on the ``grep`` utility,
+In this section, we will focus on the `grep` utility,
 which offers some advanced methods for searching
 the contents of text files.
 
 ## Grep
 
-The ``grep`` command is one of my most often used commands.
-The purpose of ``grep`` is to "print lines that match patterns"
-(see ``man grep``).
+The `grep` command is one of my most often used commands.
+The purpose of `grep` is to "print lines that match patterns"
+(see `man grep`).
 In other words, it searches text, and
 it's super powerful.
 
-``grep`` works line by line.
+`grep` works line by line.
 So when we use it to search a file for a **string** of text,
 it will return the whole line that matches the string.
 This **line by line** idea is part of the history of
@@ -43,12 +43,12 @@ Windows NT, Proprietary, 1993
 Android, Apache, 2008
 ```
 
-We can use ``grep`` to search
+We can use `grep` to search
 for anything in that file.
 Let's start with a search for the string **Chrome**.
 Notice that even though the string **Chrome** only appears once,
 and in one part of a line,
-``grep`` returns the entire line.
+`grep` returns the entire line.
 
 **Command:**
 
@@ -64,20 +64,20 @@ Chrome OS, Proprietary, 2009
 
 ### Case Matching
 
-Be aware that, *by default*, ``grep`` is case-sensitive,
+Be aware that, *by default*, `grep` is case-sensitive,
 which means a search for the string **chrome**,
 with a lower case **c**,
 would return no results.
 However, many Linux command line utilities
 can have their functionality extended
 through command line options.
-``grep`` has an ``-i`` option
+`grep` has an `-i` option
 that can be used to
 to ignore the case of the search string.
 In the following examples,
-``grep`` returns nothing in the first search
+`grep` returns nothing in the first search
 since we do not capitalize the string **chrome**.
-However, adding the ``-i`` option results in success
+However, adding the `-i` option results in success
 since `grep` is instructed to ignore case:
 
 **Command:**
@@ -141,15 +141,15 @@ Sometimes data files,
 like spreadsheets,
 contain header columns in the
 first row.
-We can use ``grep`` to remove
+We can use `grep` to remove
 the first line of a file by
 inverting our search and
 selecting all lines not matching
 "OS" at the start of a line.
-Here the carat key ``^`` is
+Here the carat key `^` is
 a **regex** indicating the
 start of a line.
-Again, this ``grep`` command returns
+Again, this `grep` command returns
 all lines that do not match the
 string **os** at the start of a line,
 ignoring case:
@@ -175,12 +175,12 @@ Android, Apache, 2008
 Alternatively, since we know that
 the string **Year** comes
 at the end of the first line,
-we can use ``grep`` to invert search for that.
-Here the dollar sign key ``$``
+we can use `grep` to invert search for that.
+Here the dollar sign key `$`
 is a **regex** indicating the
 end of a line.
 Like the above,
-this ``grep`` command returns all lines that
+this `grep` command returns all lines that
 do not match the string **year**
 at the end of a line,
 ignoring case.
@@ -206,7 +206,7 @@ Windows NT, Proprietary, 1993
 Android, Apache, 2008
 ```
 
-The ``man grep`` page lists other options,
+The `man grep` page lists other options,
 but a couple of other good ones include:
 
 ### Count Matches
@@ -224,7 +224,7 @@ grep -vic "year$" operating-systems.csv
 
 ### Alternate Matching
 
-We separate the strings with a vertical bar ``|``
+We separate the strings with a vertical bar `|`
 (the **infix operator**)
 to match any string on either side.
 This is similar to a Boolean OR search.
@@ -263,7 +263,7 @@ Linux, GPL, 1991
 
 ### Whole Word Matching
 
-By default, ``grep`` will return results where the
+By default, `grep` will return results where the
 string appears within a larger word,
 like **OS** in **macOS**.
 
@@ -304,7 +304,7 @@ Sometimes I find it hard to remember
 the backslash and angle bracket combinations
 because they're too much alike HTML syntax but
 not exactly like HTML syntax.
-Fortunately, ``grep`` has a ``-w`` option
+Fortunately, `grep` has a `-w` option
 to match whole words:
 
 **Command:**
@@ -328,7 +328,7 @@ we might want to print lines
 that surround our matches.
 For example,
 to print the matching line plus the two lines
-after the matching line using the ``-A NUM`` option,
+after the matching line using the `-A NUM` option,
 where **NUM** equals the number of lines
 to return after the matching line:
 
@@ -347,7 +347,7 @@ Windows NT, Proprietary, 1993
 ```
 
 Or, print the matching line plus the two lines
-before the matching line using the ``-B NUM`` option:
+before the matching line using the `-B NUM` option:
 
 **Command**
 
@@ -388,7 +388,7 @@ Linux, GPL, 1991
 We can use another option to
 stop returning results after some
 number of hits.
-Here I use ``grep`` to return
+Here I use `grep` to return
 a search for the string "proprietary"
 and stop after the first hit:
 
@@ -406,8 +406,8 @@ Chrome OS, Proprietary, 2009
 
 ### Returning Line Numbers
 
-We can add the ``-n`` option to
-instruct ``grep`` to tell us the
+We can add the `-n` option to
+instruct `grep` to tell us the
 line number for each hit.
 Below we see that the string
 "proprietary" is found on lines
@@ -429,7 +429,7 @@ grep -in "proprietary" operating-systems.csv
 
 ### Character Class Matching
 
-We can use ``grep`` to search for
+We can use `grep` to search for
 patterns in strings instead of literal words.
 Here we use what's called **character classes**
 and **repetition** to search for five letter words
@@ -468,7 +468,7 @@ Windows NT, Proprietary, 1993
 Android, Apache, 2008
 ```
 
-``grep`` can also search for words that
+`grep` can also search for words that
 begin with some letter and end with some letter
 and with a specified number of letters between.
 Here we search for words that start with **m**,
