@@ -39,7 +39,6 @@ using the ``systemctl`` command:
 systemctl status mysql 
 ```
 
-<!--
 Next we need to run a post installation script
 called ``mysql_secure_installation``
 that sets up the MySQL root password and 
@@ -73,7 +72,6 @@ Disallow root login remotely: Y
 Remove test database and access to it: Y
 Reload privilege tables now: Y
 ```
--->
 
 We can login to the database to test it.
 In order to do so,
