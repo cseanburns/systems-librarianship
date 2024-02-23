@@ -176,32 +176,26 @@ we can check if it's running and enabled
 using the <code>systemctl</code> command:</p>
 <pre><code>systemctl status mysql 
 </code></pre>
-<!--
-Next we need to run a post installation script
-called ``mysql_secure_installation``
+<p>Next we need to run a post installation script
+called <code>mysql_secure_installation</code>
 that sets up the MySQL root password and 
 performs some security checks.
 To do that, run the following command, and
-**be sure to save the MySQL root password you create**:
-
-```
-sudo mysql_secure_installation
-```
-
-Here you create a root password
+<strong>be sure to save the MySQL root password you create</strong>:</p>
+<pre><code>sudo mysql_secure_installation
+</code></pre>
+<p>Here you create a root password
 for the MySQL database server.
-**Be sure to save that password.**
+<strong>Be sure to save that password.</strong>
 When you run the above script,
 you'll get a series of prompts
 to respond to like below.
-Press **enter** for the first prompt,
-press **Y** for the prompts marked **Y**,
+Press <strong>enter</strong> for the first prompt,
+press <strong>Y</strong> for the prompts marked <strong>Y</strong>,
 and input your own password.
 Since this server is exposed to the internet,
-be sure to use a complex password.
-
-```
-Enter the current password for root (enter for none):
+be sure to use a complex password.</p>
+<pre><code>Enter the current password for root (enter for none):
 Set root password: Y
 New Password: XXXXXXXXX
 Re-enter new password: XXXXXXXXX
@@ -209,8 +203,7 @@ Remove anonymous users: Y
 Disallow root login remotely: Y
 Remove test database and access to it: Y
 Reload privilege tables now: Y
-```
--->
+</code></pre>
 <p>We can login to the database to test it.
 In order to do so,
 we have to become the <strong>root Linux user</strong>,
