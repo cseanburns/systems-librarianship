@@ -4532,8 +4532,8 @@ multiple modules for patron management,
 acquisitions, circulation, cataloging,
 serials management, authorities, reporting,
 and so forth
-(see <a href="koha-about">Koha: About</a>].
-All of those modules rely on some kind
+(see <a href="https://koha-community.org/about/">Koha: About</a>.
+All those modules rely on some kind
 of underlying relational database,
 like MySQL
 (which is what Koha uses).
@@ -4569,7 +4569,7 @@ creating anything that's full fledged.</p>
 create a basic HTML page that
 contains a form for entering queries.
 We'll call this HTML page with the form
-<strong>opacbb.html</strong> (just a made up name).
+<strong>mylibrary.html</strong>.
 When a user clicks on the submit button
 in the form,
 the form will activate a PHP script
@@ -4580,7 +4580,7 @@ that we already have created.
 Our PHP script will contain a special
 MySQL query that will allow us to
 search all the fields in our <strong>books</strong> table.
-The it will iterate through each row of
+Then it will iterate through each row of
 the <strong>books</strong> table and return results
 that match our query.
 We also add two date fields to our form
@@ -4588,7 +4588,8 @@ to limit results by publication dates,
 which we labeled as <strong>copyright</strong> in our
 MySQL <strong>books</strong> table.</p>
 <h3 id="html-form"><a class="header" href="#html-form">HTML Form</a></h3>
-<p>Here is the HTML for our search page:</p>
+<p>Here is the HTML for our search page,
+titled <strong>mylibrary.html</strong>:</p>
 <pre><code>&lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;MySQL Server Example&lt;/title&gt;
@@ -4621,8 +4622,8 @@ to select different fields,
 like author, title, or publisher fields.
 Instead the search field below searches
 all the fields in our &lt;b&gt;books&lt;/b&gt; table.
-The key idea is to get a sense,
-an intuition, of how an OPAC works, though.&lt;/p&gt;
+The key idea is to get a sense
+of how an OPAC works, though.&lt;/p&gt;
 
 &lt;h2&gt;My Basic Library OPAC&lt;/h2&gt;
 &lt;form method=&quot;post&quot; action=&quot;search.php&quot;&gt;
@@ -4643,7 +4644,8 @@ an intuition, of how an OPAC works, though.&lt;/p&gt;
 &lt;/html&gt;
 </code></pre>
 <h3 id="php-search-script"><a class="header" href="#php-search-script">PHP Search Script</a></h3>
-<p>Here is the PHP for our search script:</p>
+<p>Here is the PHP for our search script,
+which should be named <strong>search.php</strong>:</p>
 <pre><code>&lt;?php
 // Load MySQL credentials
 require_once 'login.php';
@@ -4702,8 +4704,10 @@ echo &quot;&lt;p&gt;Return to search page: &lt;a href='http://11.111.222.222/opa
 ?&gt;
 </code></pre>
 <h2 id="modifications"><a class="header" href="#modifications">Modifications</a></h2>
-<p>Replace my IP address (11.111.222.222) above
-with your IP address.
+<p>Replace the example IP address
+(11.111.222.222 above)
+with the external IP address
+of your machine.
 Add more records,
 using MySQL,
 to your <strong>books</strong> table,
@@ -4739,7 +4743,12 @@ Such records are structured using MARC.
 Our records are very simply structured,
 but still,
 I hope this helps in creating an intuition
-about how OPACs and like function.</p>
+about how OPACs and like function.
+In the next section,
+we will learn how to enter data
+into our catalog,
+thereby mimicking the cataloging
+module of an integrated library system.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-bare-bones-cataloging-module"><a class="header" href="#creating-a-bare-bones-cataloging-module">Creating a Bare Bones Cataloging Module</a></h1>
 <p>If you have worked with an integrated library system
 (or took my electronic resource management class),
