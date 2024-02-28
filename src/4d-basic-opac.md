@@ -24,8 +24,8 @@ multiple modules for patron management,
 acquisitions, circulation, cataloging,
 serials management, authorities, reporting,
 and so forth
-(see [Koha: About](koha-about)].
-All of those modules rely on some kind
+(see [Koha: About][koha_about].
+All those modules rely on some kind
 of underlying relational database,
 like MySQL
 (which is what Koha uses).
@@ -65,7 +65,7 @@ The first thing we do is
 create a basic HTML page that
 contains a form for entering queries.
 We'll call this HTML page with the form
-**opacbb.html** (just a made up name).
+**mylibrary.html**.
 When a user clicks on the submit button
 in the form,
 the form will activate a PHP script
@@ -76,7 +76,7 @@ that we already have created.
 Our PHP script will contain a special
 MySQL query that will allow us to
 search all the fields in our **books** table.
-The it will iterate through each row of
+Then it will iterate through each row of
 the **books** table and return results
 that match our query.
 We also add two date fields to our form
@@ -86,7 +86,8 @@ MySQL **books** table.
 
 ### HTML Form
 
-Here is the HTML for our search page:
+Here is the HTML for our search page,
+titled **mylibrary.html**:
 
 ```
 <html>
@@ -121,8 +122,8 @@ to select different fields,
 like author, title, or publisher fields.
 Instead the search field below searches
 all the fields in our <b>books</b> table.
-The key idea is to get a sense,
-an intuition, of how an OPAC works, though.</p>
+The key idea is to get a sense
+of how an OPAC works, though.</p>
 
 <h2>My Basic Library OPAC</h2>
 <form method="post" action="search.php">
@@ -145,7 +146,8 @@ an intuition, of how an OPAC works, though.</p>
 
 ### PHP Search Script
 
-Here is the PHP for our search script:
+Here is the PHP for our search script,
+which should be named **search.php**:
 
 ```
 <?php
@@ -208,8 +210,10 @@ echo "<p>Return to search page: <a href='http://11.111.222.222/opacbb.php'>http:
 
 ## Modifications
 
-Replace my IP address (11.111.222.222) above
-with your IP address.
+Replace the example IP address
+(11.111.222.222 above)
+with the external IP address
+of your machine.
 Add more records,
 using MySQL,
 to your **books** table,
@@ -255,5 +259,10 @@ Our records are very simply structured,
 but still,
 I hope this helps in creating an intuition
 about how OPACs and like function.
+In the next section,
+we will learn how to enter data
+into our catalog,
+thereby mimicking the cataloging
+module of an integrated library system.
 
-[koha-about]:https://koha-community.org/about/
+[koha_about]:https://koha-community.org/about/
