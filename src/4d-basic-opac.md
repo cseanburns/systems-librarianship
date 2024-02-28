@@ -24,7 +24,7 @@ multiple modules for patron management,
 acquisitions, circulation, cataloging,
 serials management, authorities, reporting,
 and so forth
-(see [Koha: About][koha_about].
+(see [Koha: About][koha_about]).
 All those modules rely on some kind
 of underlying relational database,
 like MySQL
