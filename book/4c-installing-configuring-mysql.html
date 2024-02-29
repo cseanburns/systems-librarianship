@@ -178,28 +178,21 @@ using the <code>systemctl</code> command:</p>
 </code></pre>
 <p>Next we need to run a post installation script
 called <code>mysql_secure_installation</code>
-that sets up the MySQL root password and 
-performs some security checks.
-To do that, run the following command, and
-<strong>be sure to save the MySQL root password you create</strong>:</p>
+that performs some security checks.
+To do that, run the following command:</p>
 <pre><code>sudo mysql_secure_installation
 </code></pre>
-<p>Here you create a root password
-for the MySQL database server.
-<strong>Be sure to save that password.</strong>
-When you run the above script,
+<p>When you run the above script,
 you'll get a series of prompts
 to respond to like below.
-Press <strong>enter</strong> for the first prompt,
-press <strong>Y</strong> for the prompts marked <strong>Y</strong>,
-and input your own password.
-Since this server is exposed to the internet,
-be sure to use a complex password.</p>
-<pre><code>Enter the current password for root (enter for none):
-Set root password: Y
-New Password: XXXXXXXXX
-Re-enter new password: XXXXXXXXX
-Remove anonymous users: Y
+As shown below,
+you will want to remove
+anonymous users,
+disallow root login remotely,
+remove the test database, and
+reload privileges.
+Press <strong>Y</strong> at these prompts.</p>
+<pre><code>Remove anonymous users: Y
 Disallow root login remotely: Y
 Remove test database and access to it: Y
 Reload privilege tables now: Y
@@ -538,7 +531,7 @@ that are causing errors or leading up to errors.
 Nothing will output if all is well with the first command.
 If all is well with the second command, HTML should be outputted:</p>
 <pre><code>sudo php -f login.php
-sudo php -f index.php
+sudo php -f opac.php
 </code></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>Congratulations! If you've reached this far,
