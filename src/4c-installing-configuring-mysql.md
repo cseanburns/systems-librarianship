@@ -41,32 +41,25 @@ systemctl status mysql
 
 Next we need to run a post installation script
 called ``mysql_secure_installation``
-that sets up the MySQL root password and 
-performs some security checks.
-To do that, run the following command, and
-**be sure to save the MySQL root password you create**:
+that performs some security checks.
+To do that, run the following command:
 
 ```
 sudo mysql_secure_installation
 ```
 
-Here you create a root password
-for the MySQL database server.
-**Be sure to save that password.**
 When you run the above script,
 you'll get a series of prompts
 to respond to like below.
-Press **enter** for the first prompt,
-press **Y** for the prompts marked **Y**,
-and input your own password.
-Since this server is exposed to the internet,
-be sure to use a complex password.
+As shown below,
+you will want to remove
+anonymous users,
+disallow root login remotely,
+remove the test database, and
+reload privileges.
+Press **Y** at these prompts.
 
 ```
-Enter the current password for root (enter for none):
-Set root password: Y
-New Password: XXXXXXXXX
-Re-enter new password: XXXXXXXXX
 Remove anonymous users: Y
 Disallow root login remotely: Y
 Remove test database and access to it: Y
@@ -486,7 +479,7 @@ If all is well with the second command, HTML should be outputted:
 
 ```
 sudo php -f login.php
-sudo php -f index.php
+sudo php -f opac.php
 ```
 
 ## Conclusion
