@@ -203,7 +203,7 @@ if (isset($_POST['search'])) {
 // Close the MySQL connection
 mysqli_close($conn);
 
-echo "<p>Return to search page: <a href='http://11.111.222.222/opacbb.php'>http://11.111.222.222/opacbb.php</a></p>";
+echo "<p>Return to search page: <a href='http://11.111.222.222/mylibrary.html'>http://11.111.222.222/mylibrary.html</a></p>";
 
 ?>
 ```
