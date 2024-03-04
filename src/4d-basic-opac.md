@@ -112,17 +112,25 @@ which you can view to know what you can query:</p>
 
 <p><a href="http://11.111.222.222/opac.php">http://11.111.222.222/opac.php</a></p>
 
-<p>This is very much a toy, stripped down OPAC.
+<p>This is very much a toy,
+stripped down
+<a href="https://en.wikipedia.org/wiki/Online_public_access_catalog">OPAC</a>.
 The records are basic.
-Not only do they not conform to MARC,
+Not only do they not conform to
+<a href="https://www.loc.gov/marc/">MARC</a>,
 but they don't even conform to something
-as simple as Dublin Core.
-I also don't provide options
+as simple as
+<a href="https://www.dublincore.org/">Dublin Core</a>.
+
+<p>I also don't provide options
 to select different fields,
 like author, title, or publisher fields.
 Instead the search field below searches
-all the fields in our <b>books</b> table.
-The key idea is to get a sense
+all the fields
+(author, title, publisher)
+in our <b>books</b> table.</p>
+
+<p>The key idea is to get a sense
 of how an OPAC works, though.</p>
 
 <h2>My Basic Library OPAC</h2>
