@@ -9,10 +9,13 @@ newer library service platforms (LSP),
 provide [other modules for other types of work][ERMILS].
 These include modules for acquisitions, authority files,
 circulation, course reserves, patron management, and more.
-
+In the prior section,
+we created one of those modules:
+a bare bones OPAC.
 In this section,
 we are going to create a bare bones cataloging module in
-the same kind of way that we created a bare bones OPAC.
+the same kind of way.
+
 Up until this point,
 you have been adding records to your OPAC
 using the MySQL command interface.
@@ -20,8 +23,9 @@ But unless you are a full time database administrator
 or programmer,
 it's unlikely that you would add data to your system
 via that interface.
-Instead you would use a fancy graphical user interface,
-which is what integrated library systems provide.
+Instead you would use an application via
+a fancy graphical user interface,
+i.e., integrated library system.
 The reason we started off with MySQL is not because
 you would necessarily use this interface on a daily basis.
 Rather, it's because I want you to understand the
@@ -29,17 +33,17 @@ foundations of these technologies.
 
 ## Creating the HTML Page and a PHP Cataloging Page
 
-Like in the last excerise,
+Like in the last exercise,
 the first thing we do is create a basic HTML page that
 contains a form for entering our bibliographic data.
 Again, our cataloging *module* will not be
 real world like.
 The goal here is to build an intuition about
 how these technologies work and
-to also provide some grounding if you do want
+to provide some grounding if you do want
 to pursue a more technical path.
 
-The form that we will create also needs to mirror
+The form that we will create needs to mirror
 the data structure in the **books** table that we
 created in our prior lesson.
 That means it will only contain four fields:
@@ -115,7 +119,9 @@ from the HTML page and the data structure
 in the **books** table.
 
 Here is the PHP script,
-which I call **insert.php**:
+which I call **insert.php**,
+which you'll notice was
+referenced in the HTML code above:
 
 ```
 <?php
@@ -176,7 +182,8 @@ which is where the **Apache2** web server
 stores its configuration files.
 The file will contain a **hashed** password
 and a username we give it.
-In the following command,
+In the following command
+to set the password,
 I set the username to **libcat**, but
 it could be anything:
 
@@ -198,7 +205,7 @@ sudo nano /etc/apache2/apache2.conf
 In the **apache2.conf** file,
 look for the following code block / stanza.
 We are interested in the third line in the stanza,
-which is line 173 for me, and
+which is line 172 for me, and
 probably is for you, too.
 
 ```
@@ -253,6 +260,70 @@ sudo systemctl restart apache2
 systemctl status apache2
 ```
 
+### Permissions and Ownership
+
+The Apache2 web server
+has a user account on your Linux server.
+The account name is **www-data**, and
+it's account details are stored
+in the **/etc/passwd** file:
+
+```
+grep "www-data" /etc/passwd
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+```
+
+From the output,
+we can see that the
+**www-apache** user's home directory
+is **/var/www** and
+its default shell is **/usr/sbin/nologin**.
+See `man nologin` for details, but
+in short,
+the `nologin` prevents the
+**www-data** account to be able
+to login to a shell.
+
+> You can compare the output of the above `grep` command with your account
+> information that is stored in **/etc/passwd**. Use the following command:
+> `grep $USER /etc/passwd` to do so. You'll see, for example, that your home
+> directory is listed there as well as your default shell, which is `bash`.
+
+The benefit with having
+Apache2 a user is that we
+can limit file permissions and
+ownership to this user.
+
+The general guidelines for this
+are as follows:
+
+- Static files (like HTML, CSS, JS) might not need to be writable by the Apache
+  server, so they could be owned by a different user (like your own user
+  account) but be readable by **www-data**.
+- Directories where Apache needs to write data (like upload directories) or
+  applications that need write access should be owned by **www-data**.
+- Configuration files (incl. files like **login.php**) should be readable by
+  **www-data** but not writable, to prevent unauthorized modifications.
+
+We can initiate this guidelines
+with the `chown` and `chmod` commands:
+
+1. Change the group ownership of **/var/www/html** to **www-data**:
+
+        sudo chown :www-data /var/www/html
+
+2. Set the **setgid bit** on **/var/www/html**. This command makes it so that
+   any new files and directories created within **/var/www/html** will inherit
+   the group ownership of the parent directory (**www-data**, in this case).
+   While this ensures that group ownership is inherited, the user ownership of
+   new files will still be the user that creates the files. In our case, since
+   we use `sudo` to work in this directory, that means that the user owner for
+   subsequent files and directories will be the Linux **root** user.
+
+        sudo chmod -R g+s /var/www/html
+
+## Get Cataloging!
+
 Now visit your cataloging module.
 You should be required to enter the username
 and password that you created with `htpasswd`.
@@ -264,23 +335,21 @@ we created a very bare bones OPAC
 that would allow patrons to
 search our catalog.
 In this lesson,
-we learned how to create a very
+we learned how to create a
 bare bones cataloging module
 that would allow librarians
 to add bibliographic data
-and records to our OPAC.
+and records to the OPAC.
 
-Add some records using the above form,
-and then return to your OPAC and
-conduct some queries to confirm
-that the new records have been added.
+Now try this:
 
-You can also use the MySQL command line
-interface to view the new records,
-just like we did a couple of lessons ago.
+1. Add some records using the above form, and then return to your OPAC and
+   conduct some queries to confirm that the new records have been added.
+2. Use the MySQL command line interface to view the new records, just
+   like we did a couple of lessons ago.
 
 In a production level environment,
-we would add quite a bit more.
+we would add quite a bit more functionality and security.
 Our MySQL database would contain
 many more tables that allow storing
 data related to the modules listed above.
@@ -292,7 +361,7 @@ That would mean we would add
 attractive and usable interface.
 But that would be a whole other class.
 
-[ERMILS]:https://cseanburns.net/WWW/ERM-book/04-erm-ils.html#administration
+[ERMILS]:https://cseanburns.github.io/electronic_resource_mgmt/04-erm-ils.html#administration
 [css]:https://en.wikipedia.org/wiki/CSS
 [javascript]:https://en.wikipedia.org/wiki/JavaScript
 [htpasswd]:https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-apache-on-ubuntu-18-04
