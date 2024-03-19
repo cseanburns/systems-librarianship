@@ -21,7 +21,7 @@
     - [Creating a Bare Bones OPAC](4d-basic-opac.md)
     - [Creating a Bare Bones Cataloging Module](4e-basic-opac-admin.md)
 - [Installing Content Management Systems](p5-installing-content-management-systems.md)
-    - [Install Wordpress](5a-install-wordpress.md)
+    - [Install WordPress](5a-install-wordpress.md)
     - [Install Omeka](5b-install-omeka.md)
 - [Installing an Integrated Library System](p6-installing-an-ILS.md)
     - [Install Koha](6a-install-koha.md)

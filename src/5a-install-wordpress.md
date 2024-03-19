@@ -10,21 +10,21 @@ throughout the last decade plus,
 it has become a general purpose CMS
 that can serve as a website builder.
 Two sites exist to provide access to WordPress:
-[WordPress.com][wpcom] and [Wordpress.org][wporg].
+[WordPress.com][wpcom] and [WordPress.org][wporg].
 WordPress.com is a hosting solution,
 which means that customers can sign up and
 create a free WordPress site.
 Since its hosted,
 customers are only responsible for
 their content and not for managing
-the WordPress installation and its updates.
+the core WordPress installation and its updates.
 Various paid plans can extend the functionality
 offered to WordPress.com customers.
 
 WordPress.org is maintained by
 the [WordPress Foundation][wpfoundation], which 
-oversees the development of and
-provides access to the WordPress software.
+oversees the development of the software and
+which provides access to the WordPress software.
 When we download the WordPress software,
 we download it from WordPress.org.
 Unlike the hosted solution,
@@ -86,7 +86,7 @@ This is part of the confusion
 around how libraries provide electronic resources.
 There are efforts to make all
 these components connect more seamlessly
-(e.g., through discovery systems),
+(e.g., through [discovery systems][disc_systems]),
 but if we were to model this to the
 walking around world,
 it would be like having a library that
@@ -104,24 +104,29 @@ I digress.
 You can read the announcement
 about RPL's WordPress launch at:
 [Reading Public Library Launches New WordPress Site][rpllaunch].
-The above announcement page also describes how
+The announcement describes how
 various plugins were used to offer patrons
-additional functionality.
-These include plugins to display
-business hours and to manage events and
+additional functionality and
+describes other basic changes
+that come with the new site.
+The plugins they added display
+business hours and help manage events and
 event attendees.
+
 Plugins are often used with WordPress sites
 to offer all sorts of additional capabilities.
-Currently, there are over [60 thousand plugins][sixtyKplugins]
+Currently, there are nearly [60 thousand plugins][wp_plugins]
 available for WordPress, but
 some are of higher quality and utility than others.
 In addition to the thousands of available plugins,
-there are over [10 thousand free themes][tenKthemes] for
+there are nearly [12 thousand free themes][wp_themes] for
 WordPress sites.
 Plus, many businesses offer paid themes or can
 offer customized themes based on customer needs.
 These themes can drastically alter the
-appearance and usability of a WordPress site.
+appearance and usability of a WordPress site or
+cater a site for a specific clientele,
+such as a library.
 
 ## Installation
 
@@ -158,7 +163,7 @@ we create a specific database for our platform,
 we create a specific user for that database,
 and we provide login credentials in a specific file.
 
-First, read through but don't follow the following instructions:
+First, *read through* **but don't follow** the following instructions:
 
 [How to install WordPress][installWordPress]
 
@@ -198,7 +203,7 @@ The output from `php --version` shows that our systems
 have PHP 7.4.3,
 which is greater than PHP 7.4.
 The output from `mysql --version` show that our systems
-have MySQL 8.0,
+have MySQL 8.0.36,
 which is greater than MySQL 5.7.
 This means we can proceed.
 
@@ -223,7 +228,8 @@ sudo systemctl restart mysql
 The next step is to download and
 extract the WordPress software,
 which is downloaded as a **tar.gz** file.
-This is very much like a compressed
+This is a compressed archive file,
+and is very much like a compressed
 **zip** file.
 Although we only download one file,
 when we extract it with the `tar` command,
@@ -259,12 +265,18 @@ and a user for WordPress.
 **phpMyAdmin** is a graphical front end to the
 MySQL relational database that you would access
 through the browser.
-But I like to minimize the software that we install
+We are not going to install that because
+I like to minimize the software that we install
 on servers to reduce the server's security exposure.
+Though you can use phpMyAdmin
+from a different machine and
+connect to the server,
+this is a command line class anyway.
 Therefore, we are going to create the WordPress database
 and a database user using the same process we used
 to create a database and user for our bare bones OPAC.
-The general instructions are:
+You already know this, but
+the general instructions are:
 
 1. Switch to the root Linux user
 1. Login as the MySQL root user
@@ -328,7 +340,7 @@ sudo cp wp-config-sample.php wp-config.php
 sudo nano wp-config.php
 ```
 
-In `nano`,
+Using `nano`,
 add your database name, user, and password
 in the appropriate fields,
 just like we did with our **login.php** file
@@ -348,7 +360,8 @@ define('FS_METHOD','direct');
 
 The WordPress files were installed at
 **/var/www/html/wordpress**.
-This means that your site would be located at:
+This means that your site would be located at
+a URL like:
 
 ```
 http://11.111.111.11/wordpress
@@ -369,8 +382,7 @@ and one word (no spaces and only alphabetic characters).
 For example, if I want to change mine to **blog**, then:
 
 ```
-cd /var/www/html
-sudo mv wordpress blog
+sudo mv /var/www/html/wordpress /var/www/html/blog
 ```
 
 ### Step 6: Change File Ownership
@@ -396,7 +408,7 @@ includes the directory in **/var/www/html** that
 we extracted WordPress to or that you renamed
 if you followed **Step 5**.
 Thus, if my IP address is 11.111.111.11 and
-I renamed by directory to **blog**, then
+I renamed my directory to **blog**, then
 I need to visit the following URL:
 
 ```
@@ -430,7 +442,7 @@ those who will add content and manage the website.
 
 We have not setup **Email**
 on our servers.
-It's actually quite complicated to setup an email
+It's quite complicated to setup an email
 server correctly and securely, but
 it wouldn't work well without having a domain name
 setup anyway.
@@ -463,10 +475,10 @@ is to create an attractive, yet fictional,
 It's also a break from the command line!
 
 [installWordPress]:https://wordpress.org/documentation/article/how-to-install-wordpress/
-[rpllaunch]:https://www.bartlettinteractive.com/blog/libraries-using-wordpress
+[rpllaunch]:https://web.archive.org/web/20230927082116/https://www.bartlettinteractive.com/blog/libraries-using-wordpress
 [rplwp]:https://readingpl.org/
-[sixtyKplugins]:https://wordpress.org/plugins/
-[tenKthemes]:https://wordpress.org/themes/
+[wp_plugins]:https://wordpress.org/plugins/
+[wp_themes]:https://wordpress.org/themes/
 [wpcom]:https://wordpress.com
 [wporg]:https://wordpress.org
 [wprequirements]:https://wordpress.org/about/requirements/
@@ -475,3 +487,4 @@ It's also a break from the command line!
 [wpfoundation]:https://wordpressfoundation.org/
 [evergreenils]:https://evergreen-ils.org/
 [updatingwp]:https://wordpress.org/documentation/article/updating-wordpress/
+[disc_systems]:https://en.wikipedia.org/wiki/Discovery_system_(bibliographic_search)
