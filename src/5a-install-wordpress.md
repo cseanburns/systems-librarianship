@@ -395,7 +395,7 @@ whether that is `/var/www/html/wordpress` or
 run the following command:
 
 ```
-sudo chown -R www-data:www-data *
+sudo chown -R www-data:www-data /var/www/html/wordpress
 ```
 
 ### Step 7: Run the Install Script
