@@ -81,17 +81,17 @@ In short, you are going to complete the following steps:
   user, or credentials).
 - Use `wget` from your server to download Omeka Classic as a
   Zip file and extract it in `/var/www/html`:
-    - https://github.com/omeka/Omeka/releases/download/v3.1/omeka-3.1.zip
+    - https://github.com/omeka/Omeka/releases/download/v3.1.2/omeka-3.1.2.zip
     - unzip it with the `unzip` command, which you will have
       to install with the `apt` command.
-    - the extracted directory will be named **omeka-3.1**.
+    - the extracted directory will be named **omeka-3.1.2**.
       You might want to **rename** it simply **omeka**.
 - In the extracted directory, find the **db.ini** file and
-  add your database credentials, and replace all values
+  add your new database credentials. Replace all values
   containing **XXXXXX**, with the appropriate information.
   This is the same thing we did with the **login.php** file
   for our bare bones OPAC/ILS and the **wp-config.php** file
-    for WordPress.
+  for WordPress.
 - Use the `chown` command like we did with WordPress on the
   `files` directory in the `omeka` directory. The user and
   owner should again be **www-data**.
@@ -114,4 +114,4 @@ Be sure to download **Omeka Classic** and not **Omeka S**.
 [imagemagick]:https://imagemagick.org/index.php
 [omeka]:https://omeka.org/
 [omeka_classic]:https://omeka.org/classic/
-[omeka_user_manual]:[https://omeka.org/classic/docs/]
+[omeka_user_manual]:https://omeka.org/classic/docs/
