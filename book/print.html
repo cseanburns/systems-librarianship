@@ -5496,12 +5496,14 @@ Here our task is not to learn information/knowledge organization,
 per se,
 but to learn how to administer the Omeka digital library platform.</p>
 <h2 id="the-task"><a class="header" href="#the-task">The Task</a></h2>
-<p>So far we have created our own bare bones OPAC/ILS
-and we have downloaded, installed, and configured
-WordPress on our servers.
-We will use the same basic process to download,
+<p>So far we have created a:</p>
+<ul>
+<li>bare bones OPAC/ILS, and</li>
+<li>downloaded, installed, and configured WordPress on our servers.</li>
+</ul>
+<p>We will use the same basic process to download,
 install, and configure Omeka.</p>
-<p>However, instead of providing comprehensive instructions,
+<p>Instead of providing comprehensive instructions,
 your goal is to take what you learned from the
 bare bones OPAC/ILS and WordPress assignments,
 and apply them to the Omeka installation and setup.
@@ -5519,16 +5521,16 @@ that Omeka needs, but
 there are a couple of additional things we need to do.</p>
 <p>Some prerequisites:</p>
 <ul>
-<li>Install ImageMagick: this is a suite of utilities to work with photo files.
-It's used by Omeka to create thumbnail images of any photo uploaded to the
-digital library. See <a href="https://imagemagick.org/index.php">Imagemagick</a> for more information.</li>
+<li>Install <a href="https://imagemagick.org/index.php">ImageMagick</a>: this is a suite of utilities to work with
+photo files. It's used by Omeka to create thumbnail images of any photo
+uploaded to the digital library. Visit the link above for more information.</li>
 </ul>
 <pre><code>sudo apt install imagemagick
 </code></pre>
 <ul>
 <li>Enable Apache <code>mod_rewrite</code>. This is an Apache module used to rewrite URLs.
-Omeka uses this to create appropriate URLs for items and collections in its
-digital libraries.</li>
+Omeka uses this to create appropriate, user friendly URLs for items and
+collections in its digital libraries.</li>
 </ul>
 <pre><code>sudo a2enmod rewrite
 </code></pre>
@@ -5536,44 +5538,48 @@ digital libraries.</li>
 <pre><code>sudo systemctl restart apache2
 </code></pre>
 <h2 id="general-steps"><a class="header" href="#general-steps">General Steps</a></h2>
-<p>You have already completed all the steps below when you
+<p>Below is a list of the general steps 
+you need to use to install Omeka.
+Generally, you have already completed these steps when you
 created a bare bones OPAC/ILS and installed WordPress.
-Your task is to apply what you've learned by completing
-an Omeka installation on your own.
+Your task is to apply what you've learned
+when doing those prior assignments
+by completing an Omeka installation on your own.
 (You can work together and discuss on our chat server.)</p>
-<p><strong>Note</strong> that the process is very similar to what we have
+<p><strong>Note</strong>: let me emphasize
+that the process is
+very similar to what we have
 already done with our bare bones OPAC/ILS and
 our WordPress installations.
 Use this handbook to remind
 you of the specific commands.
 In short, you are going to complete the following steps:</p>
 <ul>
-<li>Create a new user and a new database in MySQL for the
-Omeka installation (do not re-use the WordPress database,
-user, or credentials).</li>
-<li>Use <code>wget</code> from your server to download Omeka Classic as a
-Zip file and extract it in <code>/var/www/html</code>:
+<li>Create a new user and a new database in MySQL for the Omeka installation (do
+not re-use the WordPress database, user, etc credentials or names of
+databases or tables).</li>
+<li>Use <code>wget</code> from your server to download Omeka Classic as a Zip file and
+extract it in <code>/var/www/html</code>:
 <ul>
 <li>https://github.com/omeka/Omeka/releases/download/v3.1.2/omeka-3.1.2.zip</li>
-<li>unzip it with the <code>unzip</code> command, which you will have
-to install with the <code>apt</code> command.</li>
-<li>the extracted directory will be named <strong>omeka-3.1.2</strong>.
-You might want to <strong>rename</strong> it simply <strong>omeka</strong>.</li>
+<li>unzip it with the <code>unzip</code> command, which you might have to install with
+the <code>apt</code> command.</li>
+<li>the extracted directory will be named <strong>omeka-3.1.2</strong>. You might want to
+<strong>rename</strong> it simply <strong>omeka</strong> or something else of your choosing.
+Remember that names of files and directories should not have spaces in
+them.</li>
 </ul>
 </li>
-<li>In the extracted directory, find the <strong>db.ini</strong> file and
-add your new database credentials. Replace all values
-containing <strong>XXXXXX</strong>, with the appropriate information.
-This is the same thing we did with the <strong>login.php</strong> file
-for our bare bones OPAC/ILS and the <strong>wp-config.php</strong> file
-for WordPress.</li>
-<li>Use the <code>chown</code> command like we did with WordPress on the
-<code>files</code> directory in the <code>omeka</code> directory. The user and
-owner should again be <strong>www-data</strong>.</li>
+<li>In the extracted directory, find the <strong>db.ini</strong> file and add your new
+database credentials. Replace all values containing <strong>XXXXXX</strong> with the
+appropriate information. This is the same thing we did with the <strong>login.php</strong>
+file for our bare bones OPAC/ILS and the <strong>wp-config.php</strong> file for
+WordPress.</li>
+<li>Use the <code>chown</code> command like we did with WordPress on the <code>files</code> directory
+in the <code>omeka</code> directory. The user and owner should again be <strong>www-data</strong>.</li>
 <li>Restart Apache2 and MySQL</li>
-<li>In your web browser, go to
-<strong>http://your-ip-address/omeka/</strong> and complete the setup
-via the web form, just like you did with WordPress.</li>
+<li>In your web browser, go to <strong>http://your-ip-address/omeka/</strong> and complete the
+setup via the web form, just like you did with WordPress.</li>
 </ul>
 <h2 id="helpful-links"><a class="header" href="#helpful-links">Helpful Links</a></h2>
 <p>The user manual below is helpful, but
