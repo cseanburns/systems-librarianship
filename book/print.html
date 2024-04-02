@@ -150,7 +150,7 @@
                     <main>
                         <h1 id="systems-librarianship"><a class="header" href="#systems-librarianship">Systems Librarianship</a></h1>
 <p>Author: C. Sean Burns<br />
-Date, version 2: 2024-01-08<br />
+Date, version 2: 2024-04-01<br />
 Email: <a href="sean.burns@uky.edu">sean.burns@uky.edu</a><br />
 Website: <a href="https://cseanburns.github.io/csb/">cseanburns.github.io/csb/</a><br />
 GitHub: <a href="https://github.com/cseanburns">@cseanburns</a></p>
@@ -5722,16 +5722,32 @@ at the end of the semester.</p>
 <h3 id="google-cloud-firewall"><a class="header" href="#google-cloud-firewall">Google Cloud firewall</a></h3>
 <p>Later, after we install Koha,
 we will need to access the staff interface
-on a special HTTP port.
-HTTP (i.e., web) traffic is delivered through
-what are called <strong>ports</strong>.
+on a special port for HTTP data.
+All internet traffic to a server contains
+metadata that identifies itself by port numbers.
 The default port for HTTP is 80, and
-the default port for HTTPS is 443.
+the default port for HTTPS (encrypted) is 443.
 Since we do not have encryption enabled,
-this means that the Apache2 web server
-listens on port 80 by default for all web traffic.
-Firewalls are used to control incoming and
-outcoming traffic via ports.
+this means we will only use port 80, but 
+the staff interface will be identified by port 8080.</p>
+<blockquote>
+<p>How does a server know where to send internet traffic?
+Internet data is <em>packaged</em> in many forms.
+One of the most common forms are TCP packets.
+These packets contain <em>header</em> information that
+names the source IP, destination IP, source port, and destination port.
+When TCP packets arrive at a destination server,
+the operating system inspects the packet header for the port number.
+The OS then looks up the port number in a table that
+contains a mapping of ports to applications.
+When the OS makes the match,
+it sends the TCP packets to the application.
+In its default setup,
+the Apache2 web server
+handles traffic on port 80.</p>
+</blockquote>
+<p>Firewalls are used to control incoming and
+outgoing traffic via ports.
 When we selected <strong>Allow HTTP traffic</strong> when
 we created our virtual instance,
 we instructed the Google Console firewall
@@ -5872,7 +5888,9 @@ the following information:</p>
 <p>Next install and setup <strong>mysql-server</strong>:</p>
 <pre><code>apt install mysql-server
 </code></pre>
-<p>Next we set the root MySQL password:</p>
+<p>Next we set the root MySQL password
+(the password below is not an actual
+password that I use anywhere):</p>
 <pre><code>mysqladmin -u root password bibliolib1
 </code></pre>
 <p>When we installed Koha,
@@ -5915,7 +5933,7 @@ systemctl reload apache2
 systemctl restart apache2
 </code></pre>
 <h3 id="koha-web-installer"><a class="header" href="#koha-web-installer">Koha Web Installer</a></h3>
-<p>All the backend work is complete, and
+<p>All the back end work is complete, and
 like we did with WordPress and Omeka,
 we can complete the installation through
 a web installer.</p>
@@ -5925,7 +5943,7 @@ a web installer.</p>
 <p>Look for the <code>&lt;config&gt;</code> stanza (line number 252) and the
 line beginning with <code>&lt;user&gt;</code> (line number 257).
 The password is on the line after (line number 258).</p>
-<p>Make sure your URL begins with <em>http</em>* and not <strong>https</strong>,
+<p>Make sure your URL begins with <strong>http</strong> and not <strong>https</strong>,
 and visit the web installer at:</p>
 <pre><code>http://IP-ADDRESS:8080
 </code></pre>
