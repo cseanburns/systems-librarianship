@@ -119,16 +119,32 @@ at the end of the semester.
 
 Later, after we install Koha,
 we will need to access the staff interface
-on a special HTTP port.
-HTTP (i.e., web) traffic is delivered through
-what are called **ports**.
+on a special port for HTTP data.
+All internet traffic to a server contains
+metadata that identifies itself by port numbers.
 The default port for HTTP is 80, and
-the default port for HTTPS is 443.
+the default port for HTTPS (encrypted) is 443.
 Since we do not have encryption enabled,
-this means that the Apache2 web server
-listens on port 80 by default for all web traffic.
+this means we will only use port 80, but 
+the staff interface will be identified by port 8080.
+
+> How does a server know where to send internet traffic?
+> Internet data is *packaged* in many forms.
+> One of the most common forms are TCP packets.
+> These packets contain *header* information that
+> names the source IP, destination IP, source port, and destination port.
+> When TCP packets arrive at a destination server,
+> the operating system inspects the packet header for the port number.
+> The OS then looks up the port number in a table that
+> contains a mapping of ports to applications.
+> When the OS makes the match,
+> it sends the TCP packets to the application.
+> In its default setup,
+> the Apache2 web server
+> handles traffic on port 80.
+
 Firewalls are used to control incoming and
-outcoming traffic via ports.
+outgoing traffic via ports.
 When we selected **Allow HTTP traffic** when
 we created our virtual instance,
 we instructed the Google Console firewall
@@ -316,7 +332,9 @@ Next install and setup **mysql-server**:
 apt install mysql-server
 ```
 
-Next we set the root MySQL password:
+Next we set the root MySQL password
+(the password below is not an actual
+password that I use anywhere):
 
 ```
 mysqladmin -u root password bibliolib1
@@ -388,7 +406,7 @@ systemctl restart apache2
 
 ### Koha Web Installer
 
-All the backend work is complete, and
+All the back end work is complete, and
 like we did with WordPress and Omeka,
 we can complete the installation through
 a web installer.
@@ -403,7 +421,7 @@ Look for the ``<config>`` stanza (line number 252) and the
 line beginning with ``<user>`` (line number 257).
 The password is on the line after (line number 258).
 
-Make sure your URL begins with *http** and not **https**,
+Make sure your URL begins with **http** and not **https**,
 and visit the web installer at:
 
 ```
