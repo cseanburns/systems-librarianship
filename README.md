@@ -19,4 +19,11 @@ The resulting output is hosted on my website at:
 
 [https://cseanburns.github.io/systems-librarianship/](https://cseanburns.github.io/systems-librarianship/)
 
+I accept revisions to this work.
+I will review minor revisions.
+Major revisions,
+including re-organization of the material
+or new content,
+would require discussionf first.
+
 [mdBook]:https://github.com/rust-lang/mdBook
