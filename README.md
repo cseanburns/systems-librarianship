@@ -19,11 +19,19 @@ The resulting output is hosted on my website at:
 
 [https://cseanburns.github.io/systems-librarianship/](https://cseanburns.github.io/systems-librarianship/)
 
+## To Do for Spring 2025
+
+- based on student feedback, add an additional lecture on using MySQL. Some ideas:
+    - creating more structured records
+    - creating tables using third normal form, perhaps
+
+## Contributions
+
 I accept revisions to this work.
 I will review minor revisions.
 Major revisions,
 including re-organization of the material
 or new content,
-would require discussionf first.
+would require a discussion first.
 
 [mdBook]:https://github.com/rust-lang/mdBook
