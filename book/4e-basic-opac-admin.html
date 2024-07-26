@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -10,7 +10,7 @@
         
         <meta name="description" content="Entry level book on systems librarianship.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -31,7 +31,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -61,42 +61,71 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="p1-systems-librarianship.html"><strong aria-hidden="true">1.</strong> Systems Librarianship</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="1a-history-linux-unix.html"><strong aria-hidden="true">1.1.</strong> History of Unix and Linux</a></li><li class="chapter-item expanded "><a href="1b-what-is-linux.html"><strong aria-hidden="true">1.2.</strong> What is Linux?</a></li><li class="chapter-item expanded "><a href="1c-what-is-sysadmin.html"><strong aria-hidden="true">1.3.</strong> What is Systems Administration?</a></li><li class="chapter-item expanded "><a href="1d-what-is-syslib.html"><strong aria-hidden="true">1.4.</strong> What is Systems Librarianship?</a></li></ol></li><li class="chapter-item expanded "><a href="p2-project-management.html"><strong aria-hidden="true">2.</strong> Project Management</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="2a-using-gcloud-virtual-machines.html"><strong aria-hidden="true">2.1.</strong> Using gcloud for Virtual Machines</a></li><li class="chapter-item expanded "><a href="2b-using-git-github-for-documentation.html"><strong aria-hidden="true">2.2.</strong> Using Git and GitHub for Documentation</a></li></ol></li><li class="chapter-item expanded "><a href="p3-learning-the-command-line.html"><strong aria-hidden="true">3.</strong> Learning the Command Line</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3a-learn-the-cli.html"><strong aria-hidden="true">3.1.</strong> Learn the CLI</a></li><li class="chapter-item expanded "><a href="3b-learn-nano.html"><strong aria-hidden="true">3.2.</strong> Using the Nano Text Editor</a></li><li class="chapter-item expanded "><a href="3c-searching-with-grep.html"><strong aria-hidden="true">3.3.</strong> Searching with grep</a></li><li class="chapter-item expanded "><a href="3d-managing-software.html"><strong aria-hidden="true">3.4.</strong> Managing Software</a></li><li class="chapter-item expanded "><a href="3e-library-search.html"><strong aria-hidden="true">3.5.</strong> Library Search</a></li></ol></li><li class="chapter-item expanded "><a href="p4-creating-a-lamp-server.html"><strong aria-hidden="true">4.</strong> Creating a LAMP Server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="4a-installing-the-apache-web-server.html"><strong aria-hidden="true">4.1.</strong> Installing the Apache Web Server</a></li><li class="chapter-item expanded "><a href="4b-installing-configuring-php.html"><strong aria-hidden="true">4.2.</strong> Installing and Configuring PHP</a></li><li class="chapter-item expanded "><a href="4c-installing-configuring-mysql.html"><strong aria-hidden="true">4.3.</strong> Installing and Configuring MySQL</a></li><li class="chapter-item expanded "><a href="4d-basic-opac.html"><strong aria-hidden="true">4.4.</strong> Creating a Bare Bones OPAC</a></li><li class="chapter-item expanded "><a href="4e-basic-opac-admin.html" class="active"><strong aria-hidden="true">4.5.</strong> Creating a Bare Bones Cataloging Module</a></li></ol></li><li class="chapter-item expanded "><a href="p5-installing-content-management-systems.html"><strong aria-hidden="true">5.</strong> Installing Content Management Systems</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="5a-install-wordpress.html"><strong aria-hidden="true">5.1.</strong> Install WordPress</a></li><li class="chapter-item expanded "><a href="5b-install-omeka.html"><strong aria-hidden="true">5.2.</strong> Install Omeka</a></li></ol></li><li class="chapter-item expanded "><a href="p6-installing-an-ILS.html"><strong aria-hidden="true">6.</strong> Installing an Integrated Library System</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="6a-install-koha.html"><strong aria-hidden="true">6.1.</strong> Install Koha</a></li></ol></li><li class="chapter-item expanded "><a href="p7-conclusion.html"><strong aria-hidden="true">7.</strong> Conclusion</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -207,7 +236,7 @@ file and add the content:</p>
 <pre><code>cd cataloging
 sudo nano index.html
 </code></pre>
-<p>In <strong>index.html</strong>, 
+<p>In <strong>index.html</strong>,
 we add the following content:</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -220,20 +249,20 @@ we add the following content:</p>
 	&lt;p&gt;This is the library administration page for entering records into the OPAC.&lt;/p&gt;
 	&lt;p&gt;Please do not use this page unless you are an authorized cataloger.&lt;/p&gt;
 
-	&lt;form action=&quot;insert.php&quot; method=&quot;post&quot;&gt;
-		&lt;label for=&quot;author&quot;&gt;Author:&lt;/label&gt;
-		&lt;input type=&quot;text&quot; name=&quot;author&quot; id=&quot;author&quot; required&gt;&lt;br&gt;&lt;br&gt;
+	&lt;form action="insert.php" method="post"&gt;
+		&lt;label for="author"&gt;Author:&lt;/label&gt;
+		&lt;input type="text" name="author" id="author" required&gt;&lt;br&gt;&lt;br&gt;
 
-		&lt;label for=&quot;title&quot;&gt;Book Title:&lt;/label&gt;
-		&lt;input type=&quot;text&quot; name=&quot;title&quot; id=&quot;title&quot; required&gt;&lt;br&gt;&lt;br&gt;
+		&lt;label for="title"&gt;Book Title:&lt;/label&gt;
+		&lt;input type="text" name="title" id="title" required&gt;&lt;br&gt;&lt;br&gt;
 
-		&lt;label for=&quot;publisher&quot;&gt;Publisher:&lt;/label&gt;
-		&lt;input type=&quot;text&quot; name=&quot;publisher&quot; id=&quot;publisher&quot; required&gt;&lt;br&gt;&lt;br&gt;
+		&lt;label for="publisher"&gt;Publisher:&lt;/label&gt;
+		&lt;input type="text" name="publisher" id="publisher" required&gt;&lt;br&gt;&lt;br&gt;
 
-		&lt;label for=&quot;copyright&quot;&gt;Copyright:&lt;/label&gt;
-		&lt;input type=&quot;date&quot; id=&quot;copyright&quot; name=&quot;copyright&quot;&gt;
+		&lt;label for="copyright"&gt;Copyright:&lt;/label&gt;
+		&lt;input type="date" id="copyright" name="copyright"&gt;
 
-		&lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+		&lt;input type="submit" value="Submit"&gt;
 	&lt;/form&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -261,33 +290,33 @@ require_once '../login.php';
 
 // Establish connection
 $conn = mysqli_connect($db_hostname, $db_username, $db_password) or
-  die(&quot;Unable to connect&quot;);
+  die("Unable to connect");
 
 // Open database
 mysqli_select_db($conn, $db_database) or
-  die(&quot;Could not open database '$db_database'&quot;);
+  die("Could not open database '$db_database'");
 
 // Prepare and bind SQL statement
-$stmt = $conn-&gt;prepare(&quot;INSERT INTO books (author, title, publisher, copyright) VALUES (?, ?, ?, ?)&quot;);
-$stmt-&gt;bind_param(&quot;ssss&quot;, $author, $title, $publisher, $copyright);
+$stmt = $conn-&gt;prepare("INSERT INTO books (author, title, publisher, copyright) VALUES (?, ?, ?, ?)");
+$stmt-&gt;bind_param("ssss", $author, $title, $publisher, $copyright);
 
 // Set parameters and execute statement
-$author = $_POST[&quot;author&quot;];
-$title = $_POST[&quot;title&quot;];
-$publisher = $_POST[&quot;publisher&quot;];
-$copyright = $_POST[&quot;copyright&quot;];
+$author = $_POST["author"];
+$title = $_POST["title"];
+$publisher = $_POST["publisher"];
+$copyright = $_POST["copyright"];
 
 if ($stmt-&gt;execute() === TRUE) {
-    echo &quot;New record created successfully&quot;;
+    echo "New record created successfully";
 } else {
-    echo &quot;Error: &quot; . $stmt-&gt;error;
+    echo "Error: " . $stmt-&gt;error;
 }
 
 // Close statement and connection
 $stmt-&gt;close();
 $conn-&gt;close();
 
-echo &quot;&lt;p&gt;Return to the cataloging page: &lt;a href='http://11.111.111.111/cataloging/'&gt;http://11.111.111.111/cataloging/&lt;/a&gt;&lt;/p&gt;&quot;;
+echo "&lt;p&gt;Return to the cataloging page: &lt;a href='http://11.111.111.111/cataloging/'&gt;http://11.111.111.111/cataloging/&lt;/a&gt;&lt;/p&gt;";
 ?&gt;
 </code></pre>
 <h2 id="security"><a class="header" href="#security">Security</a></h2>
@@ -350,7 +379,7 @@ sudo nano .htaccess
 </code></pre>
 <p>Add the following content to <strong>.htaccess</strong>:</p>
 <pre><code>AuthType Basic
-AuthName &quot;Authorization Required&quot;
+AuthName "Authorization Required"
 AuthUserFile /etc/apache2/.htpasswd
 Require valid-user
 </code></pre>
@@ -369,7 +398,7 @@ has a user account on your Linux server.
 The account name is <strong>www-data</strong>, and
 it's account details are stored
 in the <strong>/etc/passwd</strong> file:</p>
-<pre><code>grep &quot;www-data&quot; /etc/passwd
+<pre><code>grep "www-data" /etc/passwd
 www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
 </code></pre>
 <p>From the output,
@@ -466,7 +495,7 @@ But that would be a whole other class.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="p5-installing-content-management-systems.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="p5-installing-content-management-systems.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -480,7 +509,7 @@ But that would be a whole other class.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="p5-installing-content-management-systems.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="p5-installing-content-management-systems.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Systems Librarianship</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
         
         <meta name="description" content="Entry level book on systems librarianship.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -32,7 +32,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -62,42 +62,71 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="p1-systems-librarianship.html"><strong aria-hidden="true">1.</strong> Systems Librarianship</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="1a-history-linux-unix.html"><strong aria-hidden="true">1.1.</strong> History of Unix and Linux</a></li><li class="chapter-item expanded "><a href="1b-what-is-linux.html"><strong aria-hidden="true">1.2.</strong> What is Linux?</a></li><li class="chapter-item expanded "><a href="1c-what-is-sysadmin.html"><strong aria-hidden="true">1.3.</strong> What is Systems Administration?</a></li><li class="chapter-item expanded "><a href="1d-what-is-syslib.html"><strong aria-hidden="true">1.4.</strong> What is Systems Librarianship?</a></li></ol></li><li class="chapter-item expanded "><a href="p2-project-management.html"><strong aria-hidden="true">2.</strong> Project Management</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="2a-using-gcloud-virtual-machines.html"><strong aria-hidden="true">2.1.</strong> Using gcloud for Virtual Machines</a></li><li class="chapter-item expanded "><a href="2b-using-git-github-for-documentation.html"><strong aria-hidden="true">2.2.</strong> Using Git and GitHub for Documentation</a></li></ol></li><li class="chapter-item expanded "><a href="p3-learning-the-command-line.html"><strong aria-hidden="true">3.</strong> Learning the Command Line</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3a-learn-the-cli.html"><strong aria-hidden="true">3.1.</strong> Learn the CLI</a></li><li class="chapter-item expanded "><a href="3b-learn-nano.html"><strong aria-hidden="true">3.2.</strong> Using the Nano Text Editor</a></li><li class="chapter-item expanded "><a href="3c-searching-with-grep.html"><strong aria-hidden="true">3.3.</strong> Searching with grep</a></li><li class="chapter-item expanded "><a href="3d-managing-software.html"><strong aria-hidden="true">3.4.</strong> Managing Software</a></li><li class="chapter-item expanded "><a href="3e-library-search.html"><strong aria-hidden="true">3.5.</strong> Library Search</a></li></ol></li><li class="chapter-item expanded "><a href="p4-creating-a-lamp-server.html"><strong aria-hidden="true">4.</strong> Creating a LAMP Server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="4a-installing-the-apache-web-server.html"><strong aria-hidden="true">4.1.</strong> Installing the Apache Web Server</a></li><li class="chapter-item expanded "><a href="4b-installing-configuring-php.html"><strong aria-hidden="true">4.2.</strong> Installing and Configuring PHP</a></li><li class="chapter-item expanded "><a href="4c-installing-configuring-mysql.html"><strong aria-hidden="true">4.3.</strong> Installing and Configuring MySQL</a></li><li class="chapter-item expanded "><a href="4d-basic-opac.html"><strong aria-hidden="true">4.4.</strong> Creating a Bare Bones OPAC</a></li><li class="chapter-item expanded "><a href="4e-basic-opac-admin.html"><strong aria-hidden="true">4.5.</strong> Creating a Bare Bones Cataloging Module</a></li></ol></li><li class="chapter-item expanded "><a href="p5-installing-content-management-systems.html"><strong aria-hidden="true">5.</strong> Installing Content Management Systems</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="5a-install-wordpress.html"><strong aria-hidden="true">5.1.</strong> Install WordPress</a></li><li class="chapter-item expanded "><a href="5b-install-omeka.html"><strong aria-hidden="true">5.2.</strong> Install Omeka</a></li></ol></li><li class="chapter-item expanded "><a href="p6-installing-an-ILS.html"><strong aria-hidden="true">6.</strong> Installing an Integrated Library System</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="6a-install-koha.html"><strong aria-hidden="true">6.1.</strong> Install Koha</a></li></ol></li><li class="chapter-item expanded "><a href="p7-conclusion.html"><strong aria-hidden="true">7.</strong> Conclusion</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -152,7 +181,7 @@
 <p>Author: C. Sean Burns<br />
 Date, version 2: 2024-04-01<br />
 Email: <a href="sean.burns@uky.edu">sean.burns@uky.edu</a><br />
-Website: <a href="https://cseanburns.github.io/csb/">cseanburns.github.io/csb/</a><br />
+Website: <a href="https://cseanburns.net">cseanburns.net</a>
 GitHub: <a href="https://github.com/cseanburns">@cseanburns</a></p>
 <h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
 <p>The goal of this book is to
@@ -204,7 +233,7 @@ requests for proposals for software products,
 or budgeting.
 It is designed as an entry level course in
 the technical aspects of systems librarianship,
-and it is meant to go hand-in-hand with 
+and it is meant to go hand-in-hand with
 other courses taught in our program.
 That includes my course on
 <a href="https://cseanburns.net/WWW/ERM-book/">electronic resource management</a>
@@ -227,14 +256,14 @@ course.</p>
 <h2 id="location-bell-labs-part-of-att-new-jersey-late-1960s-through-early-1970s"><a class="header" href="#location-bell-labs-part-of-att-new-jersey-late-1960s-through-early-1970s">Location: Bell Labs, part of AT&amp;T (New Jersey), late 1960s through early 1970s</a></h2>
 <p>In the late 1960s through the early 1970s at Bell Labs,
 part of AT&amp;T in New Jersey,
-the journey began with an operating system called Multics. 
+the journey began with an operating system called Multics.
 Multics was a pioneering time-sharing system,
 allowing more than one person to use it at once.
 Despite its innovative approach,
-Multics was fraught with issues and was slowly abandoned. 
+Multics was fraught with issues and was slowly abandoned.
 In the midst of this abandonment,
 <a href="http://cs.bell-labs.co/who/ken/">Ken Thompson</a>
-stumbled upon an old PDP-7 and started 
+stumbled upon an old PDP-7 and started
 writing what would become UNIX.
 During this time,
 he created the <a href="https://en.wikipedia.org/wiki/Ed_(text_editor)">ed</a> line editor,
@@ -301,9 +330,9 @@ trend of software becoming commercialized.
 This commercialization led to hardware vendors
 ceasing to share the code they developed
 to make their hardware work.
-This paradigm change was further solidified by the 
+This paradigm change was further solidified by the
 Copyright Act of 1976,
-making software code eligible for copyright protection. 
+making software code eligible for copyright protection.
 Stallman, who thrived in a hacker culture,
 began to battle against this new direction.
 He responded by creating the <a href="https://www.gnu.org/gnu/gnu.html">GNU project</a>,
@@ -346,7 +375,7 @@ Access to the source code is a precondition for this.</li>
 <p><a href="https://www.gnu.org/philosophy/free-sw.html">The Four Freedoms</a></p>
 <h2 id="the-unix-wars-and-the-lawsuit-late-1980s-through-the-early-1990s"><a class="header" href="#the-unix-wars-and-the-lawsuit-late-1980s-through-the-early-1990s">The Unix wars and the lawsuit, late 1980s through the early 1990s</a></h2>
 <p>During the late 1980s through the early 1990s,
-the so-called &quot;Unix wars&quot; and an
+the so-called "Unix wars" and an
 ensuing lawsuit marked a contentious period
 in the history of computing.
 Following its breakup,
@@ -356,14 +385,14 @@ AT&amp;T Unix and BSD Unix.
 The former was aimed at commercial markets,
 while the latter was targeted at
 researchers and academics.
-These contrasting objectives led to legal friction, 
+These contrasting objectives led to legal friction,
 culminating in UNIX Systems Laboratories, Inc.
 (USL, part of AT&amp;T) suing
 Berkeley Software Design, Inc.
 (BSDi, part of the University of California, Berkeley)
 for copyright and trademark violations.
 Ultimately, USL lost the case,
-but not before the lawsuit had created significant 
+but not before the lawsuit had created significant
 obstacles for BSD Unix.
 The legal battle delayed the adoption of BSD Unix,
 leaving a lasting impact on the
@@ -375,7 +404,7 @@ a significant development in the
 world of computing unfolded.
 On August 25, 1991,
 <a href="https://www.cs.helsinki.fi/u/torvalds/">Linus Torvalds</a> announced that he had
-started working on a free operating system kernel 
+started working on a free operating system kernel
 specifically for the 386 CPU architecture and
 his hardware.
 This <a href="https://www.kernel.org/">kernel</a> would later be famously named Linux.
@@ -396,27 +425,27 @@ copyright restrictions.
 Interestingly, Torvalds has stated that if a
 BSD or GNU Hurd operating system were
 available at that time,
-he might not have created the Linux kernel at all. 
+he might not have created the Linux kernel at all.
 However, he and others took the
 GNU utilities and created what is
 now widely referred to as Linux or GNU/Linux.
 This amalgamation of Torvalds' kernel and
 GNU utilities marked a critical point
-in the evolution of free and open-source software, 
+in the evolution of free and open-source software,
 fostering a global community of developers and users.</p>
 <h2 id="distributions-early-1990s-through-today"><a class="header" href="#distributions-early-1990s-through-today">Distributions, early 1990s through today</a></h2>
 <p>Soon after the development of Linux in the early 1990s,
-a trend began to emerge that continues to this day. 
+a trend began to emerge that continues to this day.
 Enthusiasts and developers started creating
-their own Linux and GNU-based operating systems, 
-customizing them to suit various needs and preferences. 
+their own Linux and GNU-based operating systems,
+customizing them to suit various needs and preferences.
 They would then distribute these customized
 versions to others,
 sharing their innovations and insights with a
 wider community.
 As a result of this practice,
 these Linux operating systems became
-known as &quot;distributions.&quot;
+known as "distributions."
 This phenomenon has led to a rich ecosystem of
 Linux distributions,
 catering to different user bases,
@@ -438,7 +467,7 @@ Early Unix version numbers 1-6
 eventually led to the development of BSD versions 1-4.
 By the time of BSD 4.3,
 all versions still contained some AT&amp;T code.
-A desire to remove this proprietary code led to the 
+A desire to remove this proprietary code led to the
 creation of BSD Net/1.</p>
 <p>The effort continued until all AT&amp;T
 code was successfully removed by BSD Net/2.
@@ -480,8 +509,8 @@ for a short history.</p>
 <h2 id="short-history-of-gnu-1980s-through-today"><a class="header" href="#short-history-of-gnu-1980s-through-today">Short History of GNU, 1980s through today</a></h2>
 <p>The history of GNU,
 particularly the GNU Hurd kernel,
-traces back to the 1980s and continues to evolve today. 
-The GNU Hurd, despite its long development process, 
+traces back to the 1980s and continues to evolve today.
+The GNU Hurd, despite its long development process,
 remains in a pre-production state.
 The latest release of this kernel was version 0.9,
 which came out in December 2016.
@@ -623,10 +652,10 @@ We'll touch on the first three in this course:</p>
 <ul>
 <li>Web server administrator:
 <ul>
-<li>&quot;web server administrators are system architects responsible for the
+<li>"web server administrators are system architects responsible for the
 overall design, implementation, and maintenance of Web servers. They may or
 may not be responsible for Web content, which is traditionally the
-responsibility of the Webmaster (<a href="https://csrc.nist.gov/glossary/term/web_server_administrator">Web Server Administrator&quot;
+responsibility of the Webmaster (<a href="https://csrc.nist.gov/glossary/term/web_server_administrator">Web Server Administrator"
 @NIST</a>).</li>
 </ul>
 </li>
@@ -634,22 +663,22 @@ responsibility of the Webmaster (<a href="https://csrc.nist.gov/glossary/term/we
 <ul>
 <li>like web admins, and to paraphrase above, database administrators are system
 architects responsible for the overall design, implementation, and
-maintenance of database management systems. </li>
+maintenance of database management systems.</li>
 </ul>
 </li>
 <li>Network administrator:
 <ul>
-<li>&quot;a person who manages a network within an organization. Responsibilities
+<li>"a person who manages a network within an organization. Responsibilities
 include network security, installing new applications, distributing software
 upgrades, monitoring daily activity, enforcing licensing agreements,
-developing a storage management program, and providing for routine backups&quot;
+developing a storage management program, and providing for routine backups"
 (<a href="https://csrc.nist.gov/glossary/term/network_administrator">Network Administrator @NIST</a>).</li>
 </ul>
 </li>
 <li>Mail server administrator:
 <ul>
-<li>&quot;mail server administrators are system architects responsible for the
-overall design and implementation of mail servers&quot; (<a href="https://csrc.nist.gov/glossary/term/mail_server_administrator">Mail Server
+<li>"mail server administrators are system architects responsible for the
+overall design and implementation of mail servers" (<a href="https://csrc.nist.gov/glossary/term/mail_server_administrator">Mail Server
 Administrators @NIST</a>).</li>
 </ul>
 </li>
@@ -698,10 +727,10 @@ the field and membership is free for students.</p>
 <p><a href="https://www.acm.org/">ACM</a>, or the Association for Computing Machinery,
 has a number of relevant
 <a href="https://www.acm.org/special-interest-groups/alphabetical-listing">special interest groups (SIGs)</a>
-that might be beneficial to systems administrators. </p>
+that might be beneficial to systems administrators.</p>
 <p><a href="http://www.npa.org/">NPA</a>, or the Network Professional Association,
-is an organization that &quot;supports IT/Network 
-professionals.&quot;</p>
+is an organization that "supports IT/Network
+professionals."</p>
 <h2 id="codes-of-ethics"><a class="header" href="#codes-of-ethics">Codes of Ethics</a></h2>
 <p>Systems administrators manage computer systems
 that contain a lot of data about us and
@@ -726,7 +755,7 @@ as sysadmins,
 to keep up, too.</p>
 <p>I therefore suggest that you continue your
 education by reading and practicing.
-For example, there are lots of books on 
+For example, there are lots of books on
 systems administration.
 <a href="https://www.npa.org/public/about_codeofethics.cfm">O'Reilly</a> continually
 publishes on the topic.
@@ -832,7 +861,7 @@ are always changing.
 The mechanisms for that change are
 structural and cultural <a href="https://www.jstor.org/stable/40664150">(Abbott, 2010)</a>,
 but a changing profession means that
-its &quot;link of jurisdiction&quot;
+its "link of jurisdiction"
 (Abbott, 1998, p. 435) changes, too.
 It not only changes, but
 professions constantly compete with each
@@ -874,7 +903,7 @@ and then use that knowledge to build
 the infrastructure to support that.</p>
 <p>Given this, and the technologies involved,
 such work requires constant learning.
-<a href="https://doi.org/10.1108/07378830310494445">Jordan (2003)</a> 
+<a href="https://doi.org/10.1108/07378830310494445">Jordan (2003)</a>
 identified three areas of learning:</p>
 <ul>
 <li>pre-service education in library schools</li>
@@ -908,7 +937,7 @@ remain the same
 <a href="https://www.worldcat.org/title/1038159656">Wilson (1998)</a>,
 as cited in Jordan (2003),
 refers to a list of the
-&quot;typical responsibilities of systems librarians.&quot;
+"typical responsibilities of systems librarians."
 These responsibilities look different today,
 because the technology is different,
 but conceptually,
@@ -977,7 +1006,7 @@ lack of that training.
 However, as Jordan (2003) noted,
 pre-service education is only a start.
 Technology is constantly changing, and
-that means we must always embrace 
+that means we must always embrace
 learning opportunities,
 such as through workshops, conferences,
 and on the job training.
@@ -1235,7 +1264,7 @@ the screen prints out
 in response to your commands.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="using-gcloud-for-virtual-machines"><a class="header" href="#using-gcloud-for-virtual-machines">Using gcloud for Virtual Machines</a></h1>
 <h2 id="virtual-machines"><a class="header" href="#virtual-machines">Virtual Machines</a></h2>
-<p>Our goal in this section 
+<p>Our goal in this section
 is to create a <strong>virtual machine (VM)</strong> <em>instance</em>.
 A VM is basically a virtualized operating system
 that runs on a host operating system.
@@ -1253,7 +1282,7 @@ operating system.</p>
 we're going to use gcloud (via Google)
 to provide us with virtual machines.
 There are other cloud service providers
-available that you 
+available that you
 can explore on your own.
 You can also play with
 <a href="https://www.virtualbox.org/">VirtualBox</a>
@@ -1272,7 +1301,7 @@ but if not, go ahead and create one at
 <p>Next we will need
 to create a project on the
 <a href="https://cloud.google.com/?hl=en">Google Cloud website</a>.</p>
-<p>Follow <strong>Step 1</strong> at the top of the 
+<p>Follow <strong>Step 1</strong> at the top of the
 <strong><a href="https://cloud.google.com/sdk/docs/install-sdk">Install the gcloud CLI</a></strong> page
 to create a new project.
 Also, review the page on
@@ -1305,7 +1334,7 @@ you will continue
 to be billed for them.</p>
 <h3 id="install-the-latest-gcloud-cli-version"><a class="header" href="#install-the-latest-gcloud-cli-version">Install the latest gcloud CLI version</a></h3>
 <p>After you have set up billing,
-the next step is to install gcloud on your local machines. 
+the next step is to install gcloud on your local machines.
 The <strong><a href="https://cloud.google.com/sdk/docs/install-sdk">Install the gcloud CLI</a></strong> page
 provides instructions for different operating systems.</p>
 <p>There are installation instructions
@@ -1340,7 +1369,7 @@ Windows user can use Command.exe,
 which can be located by search also.</p>
 <p>Windows users will download a regular <strong>.exe</strong> file,
 but macOS users will download a <strong>.tar.gz</strong> file.
-Since macOS is Unix, you can use the <code>mv</code> command to 
+Since macOS is Unix, you can use the <code>mv</code> command to
 move that file to your <code>$HOME</code> directory.
 Then you extract it there using the <code>tar</code> command,
 and once extracted
@@ -1387,7 +1416,7 @@ As a reminder,
 a VM is basically a virtualized operating system.
 That means instead of installing an operating system
 (like Linux, macOS, Windows, etc) on a physical machine,
-software is used to mimic the process. </p>
+software is used to mimic the process.</p>
 <p>gcloud offers a number of Linux-based operating systems
 to create VMs.
 We're going to use the Ubuntu operating system
@@ -1422,7 +1451,7 @@ top left corner.</li>
 <li>Next, click on <strong>Create Instance</strong>.</li>
 <li>Provide a name for your <strong>instance</strong>.
 <ul>
-<li>E.g., I chose <strong>main-ubuntu</strong> (no spaces) </li>
+<li>E.g., I chose <strong>main-ubuntu</strong> (no spaces)</li>
 </ul>
 </li>
 <li>In the <strong>Machine configuration</strong> section, make sure <strong>E2</strong> is selected.</li>
@@ -1456,7 +1485,7 @@ Windows users can connect to it via their command prompt.</p>
 <p>We use a <code>ssh</code> command
 to connect to our VMs.
 The syntax follows this pattern:</p>
-<pre><code>gcloud compute ssh --zone &quot;zone-info&quot; &quot;name-info&quot; --project &quot;project-id&quot;
+<pre><code>gcloud compute ssh --zone "zone-info" "name-info" --project "project-id"
 </code></pre>
 <p>The values in the double quotes in the above command
 can be located in your Google Cloud console and
@@ -1485,7 +1514,7 @@ machines.</p>
 </blockquote>
 <h2 id="snapshots"><a class="header" href="#snapshots">Snapshots</a></h2>
 <p>Lastly, we have installed a pristine version of Ubuntu,
-but it's likely that we will mess something up 
+but it's likely that we will mess something up
 as we work on our systems.
 Or it could be that our systems may become compromised
 at some point.
@@ -1530,7 +1559,7 @@ You have just completed your first installation of a Linux server.</p>
 <p>To summarize,
 in this section,
 you learned about and created a VM with gcloud.
-This is a lot! 
+This is a lot!
 After this course is completed,
 you will be able to fire up a virtual machine
 on short notice and deploy websites and more.</p>
@@ -1554,8 +1583,8 @@ technologies:</p>
 <li>the Koha integrated library system</li>
 </ul>
 <h2 id="git"><a class="header" href="#git">Git</a></h2>
-<p><code>git</code> is a &quot;free and open source
-distributed version control system.&quot;
+<p><code>git</code> is a "free and open source
+distributed version control system."
 While it is primarily used by
 software developers, researchers, and
 others to manage software code and
@@ -1733,7 +1762,7 @@ You should also describe
 what the commands do and
 why you run various commands.
 Use this book as an example,
-which itself arose out of 
+which itself arose out of
 documenting the steps
 needed to accomplish the goals
 for this course.</p>
@@ -1759,7 +1788,7 @@ from the command line
 on your Linux virtual machines.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="learning-the-command-line"><a class="header" href="#learning-the-command-line">Learning the Command Line</a></h1>
 <p>It's obviously more common for people today
-to learn how to use a computer via a 
+to learn how to use a computer via a
 graphical user interface (GUI), but
 there are benefits to learning a
 command line interface (CLI).
@@ -1810,7 +1839,7 @@ the shell has to offer.</p>
 <h2 id="introduction-4"><a class="header" href="#introduction-4">Introduction</a></h2>
 <p>There are two major interfaces
 that we use to interact with our computers.
-The most common interface is the 
+The most common interface is the
 graphical user interface, or GUI.
 This interface largely emphasizes
 non-textual interaction,
@@ -1831,7 +1860,7 @@ our computers is via the
 command line interface, or CLI.
 The CLI is also suited to
 specific ranges of engagement, and
-it's the kind of engagement that 
+it's the kind of engagement that
 allows greater control over
 the fundamental uses of our systems.</p>
 <p>One reason the CLI provides greater
@@ -2033,9 +2062,9 @@ that include:</p>
 command line interface that we
 are using on our Linux servers
 is provided by a <a href="https://en.wikipedia.org/wiki/Unix_shell">shell</a>.
-A shell is &quot;both an interactive
+A shell is "both an interactive
 command language and a scripting
-language&quot; (see link above).
+language" (see link above).
 We will use the shell strictly
 as a <a href="https://en.wikipedia.org/wiki/Command_language">command language</a>,
 but if you're interested someday,
@@ -2171,16 +2200,16 @@ we will install the
 we will need to edit
 Apache's configuration
 files in the process.</p>
-<p>In order to edit and save text files, 
+<p>In order to edit and save text files,
 we need a text editor.
 Programmers use text editors
 to write programs,
-but because programmers 
+but because programmers
 often work in
 graphical user environments,
-they may often use 
+they may often use
 graphical text editors or graphical
-<a href="https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated Development Environments (IDEs)</a>. 
+<a href="https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated Development Environments (IDEs)</a>.
 It might be that if you work
 in systems librarianship,
 that you will often use
@@ -2478,7 +2507,7 @@ set numbercolor cyan
 set keycolor cyan
 set functioncolor green
 
-set speller &quot;aspell -x -c&quot;
+set speller "aspell -x -c"
 
 ## When soft line wrapping is enabled, make it wrap lines at blanks
 ## (tabs and spaces) instead of always at the edge of the screen.
@@ -2491,7 +2520,7 @@ set autoindent
 # set backup
 
 ## The directory to put unique backup files in.
-# set backupdir &quot;~/.backup&quot;
+# set backupdir "~/.backup"
 
 ## Use bold text instead of reverse video text.
 set boldtext
@@ -2530,7 +2559,7 @@ which offers some advanced methods for searching
 the contents of text files.</p>
 <h2 id="grep"><a class="header" href="#grep">Grep</a></h2>
 <p>The <code>grep</code> command is one of my most often used commands.
-The purpose of <code>grep</code> is to &quot;print lines that match patterns&quot;
+The purpose of <code>grep</code> is to "print lines that match patterns"
 (see <code>man grep</code>).
 In other words, it searches text, and
 it's super powerful.</p>
@@ -2543,10 +2572,10 @@ and it's important to remember that most utilities
 and programs that we use on the commandline
 are line oriented.</p>
 <blockquote>
-<p>&quot;A string is any series of characters that are interpreted
+<p>"A string is any series of characters that are interpreted
 literally by a script. For example, 'hello world' and 'LKJH019283'
-are both examples of strings.&quot; -- <a href="https://www.computerhope.com/jargon/s/string.htm">Computer Hope</a>.
-More generally, it's a type of data structure. </p>
+are both examples of strings." -- <a href="https://www.computerhope.com/jargon/s/string.htm">Computer Hope</a>.
+More generally, it's a type of data structure.</p>
 </blockquote>
 <p>To visualize how <code>grep</code> works,
 let's consider a file called
@@ -2567,7 +2596,7 @@ Notice that even though the string <strong>Chrome</strong> only appears once,
 and in one part of a line,
 <code>grep</code> returns the entire line.</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep &quot;Chrome&quot; operating-systems.csv
+<pre><code>grep "Chrome" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>Chrome OS, Proprietary, 2009
@@ -2589,12 +2618,12 @@ since we do not capitalize the string <strong>chrome</strong>.
 However, adding the <code>-i</code> option results in success
 since <code>grep</code> is instructed to ignore case:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep &quot;chrome&quot; operating-systems.csv
+<pre><code>grep "chrome" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <p>None.</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -i &quot;chrome&quot; operating-systems.csv
+<pre><code>grep -i "chrome" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>Chrome OS, Proprietary, 2009
@@ -2602,7 +2631,7 @@ since <code>grep</code> is instructed to ignore case:</p>
 <h3 id="invert-matching"><a class="header" href="#invert-matching">Invert Matching</a></h3>
 <p><code>grep</code> can do inverse searching.
 That is, we can search for lines
-that <strong>do not</strong> match our string 
+that <strong>do not</strong> match our string
 using the <code>-v</code> option.
 Options can often be combined
 for additional functionality.
@@ -2614,7 +2643,7 @@ all lines that
 do not contain the
 string <strong>chrome</strong>:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -vi &quot;chrome&quot; operating-systems.csv
+<pre><code>grep -vi "chrome" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>FreeBSD, BSD, 1993
@@ -2633,7 +2662,7 @@ We can use <code>grep</code> to remove
 the first line of a file by
 inverting our search and
 selecting all lines not matching
-&quot;OS&quot; at the start of a line.
+"OS" at the start of a line.
 Here the carat key <code>^</code> is
 a <strong>regex</strong> indicating the
 start of a line.
@@ -2642,7 +2671,7 @@ all lines that do not match the
 string <strong>os</strong> at the start of a line,
 ignoring case:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -vi &quot;^os&quot; operating-systems.csv
+<pre><code>grep -vi "^os" operating-systems.csv
 </code></pre>
 <p><strong>Output</strong>:</p>
 <pre><code>Chrome OS, Proprietary, 2009
@@ -2669,7 +2698,7 @@ The result,
 in this specific instance,
 is exactly the same as the last command:</p>
 <p><strong>Command</strong>:</p>
-<pre><code>grep -vi &quot;year$&quot; operating-systems.csv
+<pre><code>grep -vi "year$" operating-systems.csv
 </code></pre>
 <p><strong>Output</strong>:</p>
 <pre><code>Chrome OS, Proprietary, 2009
@@ -2689,7 +2718,7 @@ For example,
 let's get a total count of rows
 in our file excluding the header
 by adding the <code>-c</code> option:</p>
-<pre><code>grep -vic &quot;year$&quot; operating-systems.csv
+<pre><code>grep -vic "year$" operating-systems.csv
 </code></pre>
 <h3 id="alternate-matching"><a class="header" href="#alternate-matching">Alternate Matching</a></h3>
 <p>We separate the strings with a vertical bar <code>|</code>
@@ -2702,14 +2731,14 @@ there is at least one result.</p>
 returns a true value since
 the file contains <strong>bsd</strong> but not <strong>atari</strong>:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -Ei &quot;(bsd|atari)&quot; operating-systems.csv
+<pre><code>grep -Ei "(bsd|atari)" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>FreeBSD, BSD, 1993
 </code></pre>
 <p>Here's an example where both strings evaluate to true:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -Ei &quot;(bsd|gpl)&quot; operating-systems.csv
+<pre><code>grep -Ei "(bsd|gpl)" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>FreeBSD, BSD, 1993
@@ -2720,7 +2749,7 @@ Linux, GPL, 1991
 string appears within a larger word,
 like <strong>OS</strong> in <strong>macOS</strong>.</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -i &quot;os&quot; operating-systems.csv
+<pre><code>grep -i "os" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>OS, License, Year
@@ -2733,7 +2762,7 @@ we only return results where <strong>OS</strong> is a complete word.
 To do that, we can surround the string with
 special characters:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -i &quot;\&lt;os\&gt;&quot; operating-systems.csv
+<pre><code>grep -i "\&lt;os\&gt;" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>OS, License, Year
@@ -2746,7 +2775,7 @@ not exactly like HTML syntax.
 Fortunately, <code>grep</code> has a <code>-w</code> option
 to match whole words:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -wi &quot;os&quot; operating-systems.csv
+<pre><code>grep -wi "os" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>OS, License, Year
@@ -2763,7 +2792,7 @@ after the matching line using the <code>-A NUM</code> option,
 where <strong>NUM</strong> equals the number of lines
 to return after the matching line:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -i &quot;linux&quot; -A2 operating-systems.csv
+<pre><code>grep -i "linux" -A2 operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>Linux, GPL, 1991
@@ -2773,7 +2802,7 @@ Windows NT, Proprietary, 1993
 <p>Or, print the matching line plus the two lines
 before the matching line using the <code>-B NUM</code> option:</p>
 <p><strong>Command</strong></p>
-<pre><code>grep -i &quot;linux&quot; -B2 operating-systems.csv
+<pre><code>grep -i "linux" -B2 operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>Chrome OS, Proprietary, 2009
@@ -2786,7 +2815,7 @@ case insensitive, and
 print the line before and the line after
 the match:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -iw -C1 &quot;bsd&quot; operating-systems.csv
+<pre><code>grep -iw -C1 "bsd" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>Chrome OS, Proprietary, 2009
@@ -2798,10 +2827,10 @@ Linux, GPL, 1991
 stop returning results after some
 number of hits.
 Here I use <code>grep</code> to return
-a search for the string &quot;proprietary&quot;
+a search for the string "proprietary"
 and stop after the first hit:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -i -m1 &quot;proprietary&quot; operating-systems.csv
+<pre><code>grep -i -m1 "proprietary" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>Chrome OS, Proprietary, 2009
@@ -2811,10 +2840,10 @@ and stop after the first hit:</p>
 instruct <code>grep</code> to tell us the
 line number for each hit.
 Below we see that the string
-&quot;proprietary&quot; is found on lines
+"proprietary" is found on lines
 2, 5, and 6.</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -in &quot;proprietary&quot; operating-systems.csv
+<pre><code>grep -in "proprietary" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>2:Chrome OS, Proprietary, 2009
@@ -2828,7 +2857,7 @@ Here we use what's called <strong>character classes</strong>
 and <strong>repetition</strong> to search for five letter words
 that contain any English character <strong>a through z</strong>:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -Eiw &quot;[a-z]{5}&quot; operating-systems.csv
+<pre><code>grep -Eiw "[a-z]{5}" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>Linux, GPL, 1991
@@ -2837,7 +2866,7 @@ macOS, Proprietary, 2001
 <p>Or four letter numbers,
 which highlights the years:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -Eiw &quot;[0-9]{4}&quot; operating-systems.csv
+<pre><code>grep -Eiw "[0-9]{4}" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>Chrome OS, Proprietary, 2009
@@ -2853,7 +2882,7 @@ and with a specified number of letters between.
 Here we search for words that start with <strong>m</strong>,
 end with <strong>s</strong>, and have three letters in the middle:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -Eiw &quot;m.{3}s&quot; operating-systems.csv
+<pre><code>grep -Eiw "m.{3}s" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>macOS, Proprietary, 2001
@@ -2903,7 +2932,7 @@ Simply replace the file name,
 server, zone, and project names
 with those specific
 to your virtual instances.</p>
-<pre><code>gcloud compute scp file_name &quot;server_name&quot;:~/ --zone &quot;zone_name&quot; --project &quot;project_name&quot;
+<pre><code>gcloud compute scp file_name "server_name":~/ --zone "zone_name" --project "project_name"
 </code></pre>
 <p>There are other ways
 to transfer files to the
@@ -2991,7 +3020,7 @@ The following <code>grep</code> command
 therefore means:
 return all lines that begin
 with the at <strong>@</strong> symbol:</p>
-<pre><code>grep &quot;^@&quot; scopus.bib
+<pre><code>grep "^@" scopus.bib
 </code></pre>
 <p>The results show,
 for this particular data,
@@ -3017,7 +3046,7 @@ only matching results from the lines.
 I pipe the output of the <code>grep</code> command
 to the <code>sort</code> command to sort the
 results alphabetically:</p>
-<pre><code>grep -Eio &quot;^@(A|B)[A-Z]*&quot; scopus.bib | sort
+<pre><code>grep -Eio "^@(A|B)[A-Z]*" scopus.bib | sort
 </code></pre>
 <blockquote>
 <p>Tip: Without using the <code>sort</code> command, the <code>grep</code> command returns the results
@@ -3038,14 +3067,14 @@ As a result,
 it will provide an overall
 count of the document or entry types
 we searched.</p>
-<pre><code>grep -Eio &quot;^@(A|B)[A-Z]*&quot; scopus.bib | sort | uniq -c
+<pre><code>grep -Eio "^@(A|B)[A-Z]*" scopus.bib | sort | uniq -c
 </code></pre>
 <h4 id="journal-titles"><a class="header" href="#journal-titles">Journal Titles</a></h4>
 <p>We can parse the data for other information.
 For example,
 we can get a list of journal titles by
 querying for the <strong>journal</strong> tag:</p>
-<pre><code>grep &quot;journal&quot; scopus.bib
+<pre><code>grep "journal" scopus.bib
 </code></pre>
 <p>Even though that works,
 the data contains
@@ -3065,15 +3094,15 @@ for the tab character is <strong>\t</strong>.
 Therefore, we can search
 the file using this expression
 with the <strong>-P</strong> option:</p>
-<pre><code>grep -P &quot;\tjournal&quot; scopus.bib
+<pre><code>grep -P "\tjournal" scopus.bib
 </code></pre>
 <p>Second, we can simply add more
 unique terms to our <code>grep</code> search.
 Since each tag includes a space,
 an equal sign,
-followed by another space, 
+followed by another space,
 we can use that in our <code>grep</code> query:</p>
-<pre><code>grep &quot;journal =&quot; scopus.bib
+<pre><code>grep "journal =" scopus.bib
 </code></pre>
 <p>Using either method above,
 we can extract the journal title information.
@@ -3098,7 +3127,7 @@ which deduplicates and counts the results,
 and again to the <code>sort</code> command,
 which sorts numerically,
 since the first character is a number:</p>
-<pre><code>grep &quot;journal =&quot; scopus.bib | cut -d&quot;=&quot; -f2 | \
+<pre><code>grep "journal =" scopus.bib | cut -d"=" -f2 | \
     sed 's/ {//' | sed 's/},//' | \
     sort | uniq -c | sort
 </code></pre>
@@ -3116,9 +3145,9 @@ we can extract the number from
 that field for each record and
 sum the total citations for
 the records in the file:</p>
-<pre><code> grep -o &quot;Cited by: [0-9]*&quot; scopus.bib | \
-    awk -F&quot;:&quot; \
-    'BEGIN { printf &quot;Total Citations: &quot;} \
+<pre><code> grep -o "Cited by: [0-9]*" scopus.bib | \
+    awk -F":" \
+    'BEGIN { printf "Total Citations: "} \
     { sum += $2; } \
     END { print sum }'
 </code></pre>
@@ -3127,9 +3156,9 @@ we use the pipe operator
 to connect a series of commands
 to each other:</p>
 <ol>
-<li>use <code>grep</code> to search for the string &quot;Cited by: &quot; and to include any number of digits</li>
+<li>use <code>grep</code> to search for the string "Cited by: " and to include any number of digits</li>
 <li>use <code>awk</code> to use the colon as the column or field delimiter</li>
-<li>use the <code>awk</code> BEGIN statement to print the words &quot;Total Citations: &quot;</li>
+<li>use the <code>awk</code> BEGIN statement to print the words "Total Citations: "</li>
 <li>instruct <code>awk</code> to sum the second column, which is the citation numbers</li>
 <li>use the <code>awk</code> END statement to print the sum.</li>
 </ol>
@@ -3165,14 +3194,14 @@ update, and remove software
 from our servers.</p>
 <h2 id="sudo"><a class="header" href="#sudo"><code>sudo</code></a></h2>
 <p>In order to use the package manager,
-we will need 
+we will need
 the <code>sudo</code> command.
 The <code>sudo</code> command allows us to
-&quot;execute a command as another user&quot;
+"execute a command as another user"
 (see <code>man sudo</code>).
 By default,
 the <code>sudo</code> command
-&quot;executes a command as the superuser&quot;
+"executes a command as the superuser"
 (see <code>man 8 sudo</code>).</p>
 <p>The name of the <strong>superuser</strong> account
 is <strong>root</strong>.
@@ -3550,16 +3579,16 @@ Let's see some examples:</p>
 the Library of Congress Subject Heading
 'library science',
 we use the following query:</p>
-<pre><code>find @and @attr 1=4 &quot;information&quot; @attr 1=21 &quot;library science&quot;
+<pre><code>find @and @attr 1=4 "information" @attr 1=21 "library science"
 </code></pre>
 <p>In the above:</p>
 <ul>
 <li><code>find</code> is the command that sends a search request</li>
 <li><code>@and</code> is the operator signifying a Boolean AND search of multiple attributes</li>
 <li><code>@attr 1=4</code> instructs the query to search for the term in the Title</li>
-<li><code>&quot;information&quot;</code> is the first search term for the Title search</li>
+<li><code>"information"</code> is the first search term for the Title search</li>
 <li><code>@attr 1=21</code> instructs the query to search for the term in the Subject-heading</li>
-<li><code>&quot;library science&quot;</code> is the second search term for the subject heading search</li>
+<li><code>"library science"</code> is the second search term for the subject heading search</li>
 </ul>
 <p>The search does not reveal the results.
 To peruse the results,
@@ -3568,16 +3597,16 @@ To show the first record:</p>
 <pre><code>show 1
 </code></pre>
 <h3 id="example-2"><a class="header" href="#example-2">Example 2</a></h3>
-<p>Find with subject headings &quot;library science&quot; and &quot;philosophy&quot;</p>
-<pre><code>f @and @attr 1=21 &quot;library science&quot; @attr 1=21 &quot;philosophy&quot;
+<p>Find with subject headings "library science" and "philosophy"</p>
+<pre><code>f @and @attr 1=21 "library science" @attr 1=21 "philosophy"
 </code></pre>
 <h3 id="example-3"><a class="header" href="#example-3">Example 3</a></h3>
-<p>Find where personal name is &quot;mcmurtry, larry&quot;</p>
-<pre><code>f @attr 1=1 &quot;mcmurtry, larry&quot;
+<p>Find where personal name is "mcmurtry, larry"</p>
+<pre><code>f @attr 1=1 "mcmurtry, larry"
 </code></pre>
 <h3 id="example-4"><a class="header" href="#example-4">Example 4</a></h3>
-<p>Find any for &quot;c programming language&quot;</p>
-<pre><code>f @attr 1=1016 &quot;c programming language&quot;
+<p>Find any for "c programming language"</p>
+<pre><code>f @attr 1=1016 "c programming language"
 </code></pre>
 <h2 id="conclusion-7"><a class="header" href="#conclusion-7">Conclusion</a></h2>
 <p>Z39.50 is often presented as an abstract
@@ -3711,7 +3740,7 @@ the software is <strong>active</strong> if it is running.</p>
 let's look at the default web page.</p>
 <p>There are two ways we can look
 at the default web page.
-We can use a text based web browser 
+We can use a text based web browser
 or a graphical web browser like
 Firefox, Chrome, etc.</p>
 <h3 id="text-based-web-browser"><a class="header" href="#text-based-web-browser">Text Based Web Browser</a></h3>
@@ -3868,7 +3897,7 @@ how to use a <code>systemctl</code> command
 to check its status,
 how to create a basic web page in <code>/var/www/html</code>,
 how to view that web page using the <code>w3m</code>
-command line browser and 
+command line browser and
 our regular graphical browser,</p>
 <p>In the next section,
 we will install PHP,
@@ -4045,7 +4074,7 @@ if(strpos($user_agent, 'Edge') !== FALSE) {
 } elseif(strpos($user_agent, 'Chrome') !== FALSE) {
     $browser = 'Google Chrome';
 } elseif(strpos($user_agent, 'Opera Mini') !== FALSE) {
-    $browser = &quot;Opera Mini&quot;;
+    $browser = "Opera Mini";
 } elseif(strpos($user_agent, 'Opera') !== FALSE) {
     $browser = 'Opera';
 } elseif(strpos($user_agent, 'Safari') !== FALSE) {
@@ -4327,7 +4356,7 @@ that we just created with the MySQL
 <p>We will complete the following tasks
 to refresh our MySQL knowledge:</p>
 <ul>
-<li>retrieve some records or parts of records, </li>
+<li>retrieve some records or parts of records,</li>
 <li>delete a record,</li>
 <li>alter the table structure so that it will hold more data, and</li>
 <li>add a record</li>
@@ -4397,14 +4426,14 @@ sudo nano login.php
 add the following credentials.
 If you used a different database name than <strong>opacdb</strong>
 and a different username than <strong>opacuser</strong>,
-then you need to substitute your names below. 
+then you need to substitute your names below.
 You need to use your own password where
 I have the Xs:</p>
 <pre><code>&lt;?php // login.php
-$db_hostname = &quot;localhost&quot;;
-$db_database = &quot;opacdb&quot;;
-$db_username = &quot;opacuser&quot;;
-$db_password = &quot;XXXXXXXXX&quot;;
+$db_hostname = "localhost";
+$db_database = "opacdb";
+$db_username = "opacuser";
+$db_password = "XXXXXXXXX";
 ?&gt;
 </code></pre>
 <p>Next we create a new PHP file for our website.
@@ -4436,34 +4465,34 @@ require_once 'login.php';
 
 // Establish connection
 $conn = mysqli_connect($db_hostname, $db_username, $db_password) or
-  die(&quot;Unable to connect&quot;);
+  die("Unable to connect");
 
 // Open database
 mysqli_select_db($conn, $db_database) or
-  die(&quot;Could not open database '$db_database'&quot;);
+  die("Could not open database '$db_database'");
 
-echo &quot;&lt;h2&gt;Query 1: Retrieving Publisher and Author Data&lt;/h2&gt;&quot;;
+echo "&lt;h2&gt;Query 1: Retrieving Publisher and Author Data&lt;/h2&gt;";
 
 // Query 1
-$query1 = &quot;select * from books&quot;;
+$query1 = "select * from books";
 $result1 = mysqli_query($conn, $query1);
 
 while($row = $result1-&gt;fetch_assoc()) {
-	echo &quot;&lt;p&gt;Publisher &quot; . $row[&quot;publisher&quot;] .
-		&quot; published a book by &quot; . $row[&quot;author&quot;] .
-		&quot;.&lt;/p&gt;&quot;;
+	echo "&lt;p&gt;Publisher " . $row["publisher"] .
+		" published a book by " . $row["author"] .
+		".&lt;/p&gt;";
 }
 
 mysqli_free_result($result1);
 
-echo &quot;&lt;h2&gt;Query 2: Retrieving Author, Title, Date Published Data&lt;/h2&gt;&quot;;
+echo "&lt;h2&gt;Query 2: Retrieving Author, Title, Date Published Data&lt;/h2&gt;";
 
 $result2 = mysqli_query($conn, $query1);
 while($row = $result2-&gt;fetch_assoc()) {
-	echo &quot;&lt;p&gt;A book by &quot; . $row[&quot;author&quot;] .
-		&quot; titled &lt;em&gt;&quot; . $row[&quot;title&quot;] .
-		&quot;&lt;/em&gt; was released on &quot; . $row[&quot;copyright&quot;] .
-		&quot;.&lt;/p&gt;&quot;;
+	echo "&lt;p&gt;A book by " . $row["author"] .
+		" titled &lt;em&gt;" . $row["title"] .
+		"&lt;/em&gt; was released on " . $row["copyright"] .
+		".&lt;/p&gt;";
 }
 
 // Free result2 set
@@ -4603,17 +4632,17 @@ You can use the date fields to limit results.
 I added some extra records,
 which you can view to know what you can query:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://11.111.222.222/opac.php&quot;&gt;http://11.111.222.222/opac.php&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://11.111.222.222/opac.php"&gt;http://11.111.222.222/opac.php&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;This is very much a toy,
 stripped down
-&lt;a href=&quot;https://en.wikipedia.org/wiki/Online_public_access_catalog&quot;&gt;OPAC&lt;/a&gt;.
+&lt;a href="https://en.wikipedia.org/wiki/Online_public_access_catalog"&gt;OPAC&lt;/a&gt;.
 The records are basic.
 Not only do they not conform to
-&lt;a href=&quot;https://www.loc.gov/marc/&quot;&gt;MARC&lt;/a&gt;,
+&lt;a href="https://www.loc.gov/marc/"&gt;MARC&lt;/a&gt;,
 but they don't even conform to something
 as simple as
-&lt;a href=&quot;https://www.dublincore.org/&quot;&gt;Dublin Core&lt;/a&gt;.
+&lt;a href="https://www.dublincore.org/"&gt;Dublin Core&lt;/a&gt;.
 
 &lt;p&gt;I also don't provide options
 to select different fields,
@@ -4627,17 +4656,17 @@ in our &lt;b&gt;books&lt;/b&gt; table.&lt;/p&gt;
 of how an OPAC works, though.&lt;/p&gt;
 
 &lt;h2&gt;My Basic Library OPAC&lt;/h2&gt;
-&lt;form method=&quot;post&quot; action=&quot;search.php&quot;&gt;
-    &lt;label for=&quot;search&quot;&gt;Search:&lt;/label&gt;
-    &lt;input type=&quot;text&quot; name=&quot;search&quot; id=&quot;search&quot;&gt;
+&lt;form method="post" action="search.php"&gt;
+    &lt;label for="search"&gt;Search:&lt;/label&gt;
+    &lt;input type="text" name="search" id="search"&gt;
     &lt;br&gt;
-    &lt;label for=&quot;start_date&quot;&gt;Start Date:&lt;/label&gt;
-    &lt;input type=&quot;date&quot; name=&quot;start_date&quot; id=&quot;start_date&quot;&gt;
+    &lt;label for="start_date"&gt;Start Date:&lt;/label&gt;
+    &lt;input type="date" name="start_date" id="start_date"&gt;
     &lt;br&gt;
-    &lt;label for=&quot;end_date&quot;&gt;End Date:&lt;/label&gt;
-    &lt;input type=&quot;date&quot; name=&quot;end_date&quot; id=&quot;end_date&quot;&gt;
+    &lt;label for="end_date"&gt;End Date:&lt;/label&gt;
+    &lt;input type="date" name="end_date" id="end_date"&gt;
     &lt;br&gt;
-    &lt;input type=&quot;submit&quot; value=&quot;Search&quot;&gt;
+    &lt;input type="submit" value="Search"&gt;
 &lt;/form&gt;
 
 
@@ -4653,11 +4682,11 @@ require_once 'login.php';
 
 // Establish connection
 $conn = mysqli_connect($db_hostname, $db_username, $db_password) or
-  die(&quot;Unable to connect&quot;);
+  die("Unable to connect");
 
 // Open database
 mysqli_select_db($conn, $db_database) or
-  die(&quot;Could not open database '$db_database'&quot;);
+  die("Could not open database '$db_database'");
 
 // Check if search query was submitted
 if (isset($_POST['search'])) {
@@ -4670,11 +4699,11 @@ if (isset($_POST['search'])) {
 
     // Build the MySQL query with a WHERE
     // clause that includes the date range filter
-    $query = &quot;SELECT * FROM books WHERE
+    $query = "SELECT * FROM books WHERE
 	    (author LIKE '%$search%' OR
 		title LIKE '%$search%' OR
 		publisher LIKE '%$search%') AND
-		copyright BETWEEN '$start_date' AND '$end_date'&quot;;
+		copyright BETWEEN '$start_date' AND '$end_date'";
 
     // Execute the query
     $result = mysqli_query($conn, $query);
@@ -4683,14 +4712,14 @@ if (isset($_POST['search'])) {
     if (mysqli_num_rows($result) &gt; 0) {
         // Loop through the results and output them
         while ($row = mysqli_fetch_assoc($result)) {
-            echo &quot;ID: &quot; . $row[&quot;id&quot;] . &quot;&lt;br&gt;&quot;;
-            echo &quot;Author: &quot; . $row[&quot;author&quot;] . &quot;&lt;br&gt;&quot;;
-            echo &quot;Title: &quot; . $row[&quot;title&quot;] . &quot;&lt;br&gt;&quot;;
-            echo &quot;Publisher: &quot; . $row[&quot;publisher&quot;] . &quot;&lt;br&gt;&quot;;
-            echo &quot;Copyright: &quot; . $row[&quot;copyright&quot;] . &quot;&lt;br&gt;&lt;br&gt;&quot;;
+            echo "ID: " . $row["id"] . "&lt;br&gt;";
+            echo "Author: " . $row["author"] . "&lt;br&gt;";
+            echo "Title: " . $row["title"] . "&lt;br&gt;";
+            echo "Publisher: " . $row["publisher"] . "&lt;br&gt;";
+            echo "Copyright: " . $row["copyright"] . "&lt;br&gt;&lt;br&gt;";
         }
     } else {
-        echo &quot;No results found.&quot;;
+        echo "No results found.";
     }
 
     // Free up memory by closing the MySQL result set
@@ -4700,7 +4729,7 @@ if (isset($_POST['search'])) {
 // Close the MySQL connection
 mysqli_close($conn);
 
-echo &quot;&lt;p&gt;Return to search page: &lt;a href='http://11.111.222.222/mylibrary.html'&gt;http://11.111.222.222/mylibrary.html&lt;/a&gt;&lt;/p&gt;&quot;;
+echo "&lt;p&gt;Return to search page: &lt;a href='http://11.111.222.222/mylibrary.html'&gt;http://11.111.222.222/mylibrary.html&lt;/a&gt;&lt;/p&gt;";
 
 ?&gt;
 </code></pre>
@@ -4810,7 +4839,7 @@ file and add the content:</p>
 <pre><code>cd cataloging
 sudo nano index.html
 </code></pre>
-<p>In <strong>index.html</strong>, 
+<p>In <strong>index.html</strong>,
 we add the following content:</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -4823,20 +4852,20 @@ we add the following content:</p>
 	&lt;p&gt;This is the library administration page for entering records into the OPAC.&lt;/p&gt;
 	&lt;p&gt;Please do not use this page unless you are an authorized cataloger.&lt;/p&gt;
 
-	&lt;form action=&quot;insert.php&quot; method=&quot;post&quot;&gt;
-		&lt;label for=&quot;author&quot;&gt;Author:&lt;/label&gt;
-		&lt;input type=&quot;text&quot; name=&quot;author&quot; id=&quot;author&quot; required&gt;&lt;br&gt;&lt;br&gt;
+	&lt;form action="insert.php" method="post"&gt;
+		&lt;label for="author"&gt;Author:&lt;/label&gt;
+		&lt;input type="text" name="author" id="author" required&gt;&lt;br&gt;&lt;br&gt;
 
-		&lt;label for=&quot;title&quot;&gt;Book Title:&lt;/label&gt;
-		&lt;input type=&quot;text&quot; name=&quot;title&quot; id=&quot;title&quot; required&gt;&lt;br&gt;&lt;br&gt;
+		&lt;label for="title"&gt;Book Title:&lt;/label&gt;
+		&lt;input type="text" name="title" id="title" required&gt;&lt;br&gt;&lt;br&gt;
 
-		&lt;label for=&quot;publisher&quot;&gt;Publisher:&lt;/label&gt;
-		&lt;input type=&quot;text&quot; name=&quot;publisher&quot; id=&quot;publisher&quot; required&gt;&lt;br&gt;&lt;br&gt;
+		&lt;label for="publisher"&gt;Publisher:&lt;/label&gt;
+		&lt;input type="text" name="publisher" id="publisher" required&gt;&lt;br&gt;&lt;br&gt;
 
-		&lt;label for=&quot;copyright&quot;&gt;Copyright:&lt;/label&gt;
-		&lt;input type=&quot;date&quot; id=&quot;copyright&quot; name=&quot;copyright&quot;&gt;
+		&lt;label for="copyright"&gt;Copyright:&lt;/label&gt;
+		&lt;input type="date" id="copyright" name="copyright"&gt;
 
-		&lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+		&lt;input type="submit" value="Submit"&gt;
 	&lt;/form&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -4864,33 +4893,33 @@ require_once '../login.php';
 
 // Establish connection
 $conn = mysqli_connect($db_hostname, $db_username, $db_password) or
-  die(&quot;Unable to connect&quot;);
+  die("Unable to connect");
 
 // Open database
 mysqli_select_db($conn, $db_database) or
-  die(&quot;Could not open database '$db_database'&quot;);
+  die("Could not open database '$db_database'");
 
 // Prepare and bind SQL statement
-$stmt = $conn-&gt;prepare(&quot;INSERT INTO books (author, title, publisher, copyright) VALUES (?, ?, ?, ?)&quot;);
-$stmt-&gt;bind_param(&quot;ssss&quot;, $author, $title, $publisher, $copyright);
+$stmt = $conn-&gt;prepare("INSERT INTO books (author, title, publisher, copyright) VALUES (?, ?, ?, ?)");
+$stmt-&gt;bind_param("ssss", $author, $title, $publisher, $copyright);
 
 // Set parameters and execute statement
-$author = $_POST[&quot;author&quot;];
-$title = $_POST[&quot;title&quot;];
-$publisher = $_POST[&quot;publisher&quot;];
-$copyright = $_POST[&quot;copyright&quot;];
+$author = $_POST["author"];
+$title = $_POST["title"];
+$publisher = $_POST["publisher"];
+$copyright = $_POST["copyright"];
 
 if ($stmt-&gt;execute() === TRUE) {
-    echo &quot;New record created successfully&quot;;
+    echo "New record created successfully";
 } else {
-    echo &quot;Error: &quot; . $stmt-&gt;error;
+    echo "Error: " . $stmt-&gt;error;
 }
 
 // Close statement and connection
 $stmt-&gt;close();
 $conn-&gt;close();
 
-echo &quot;&lt;p&gt;Return to the cataloging page: &lt;a href='http://11.111.111.111/cataloging/'&gt;http://11.111.111.111/cataloging/&lt;/a&gt;&lt;/p&gt;&quot;;
+echo "&lt;p&gt;Return to the cataloging page: &lt;a href='http://11.111.111.111/cataloging/'&gt;http://11.111.111.111/cataloging/&lt;/a&gt;&lt;/p&gt;";
 ?&gt;
 </code></pre>
 <h2 id="security"><a class="header" href="#security">Security</a></h2>
@@ -4953,7 +4982,7 @@ sudo nano .htaccess
 </code></pre>
 <p>Add the following content to <strong>.htaccess</strong>:</p>
 <pre><code>AuthType Basic
-AuthName &quot;Authorization Required&quot;
+AuthName "Authorization Required"
 AuthUserFile /etc/apache2/.htpasswd
 Require valid-user
 </code></pre>
@@ -4972,7 +5001,7 @@ has a user account on your Linux server.
 The account name is <strong>www-data</strong>, and
 it's account details are stored
 in the <strong>/etc/passwd</strong> file:</p>
-<pre><code>grep &quot;www-data&quot; /etc/passwd
+<pre><code>grep "www-data" /etc/passwd
 www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
 </code></pre>
 <p>From the output,
@@ -5106,7 +5135,7 @@ the core WordPress installation and its updates.
 Various paid plans can extend the functionality
 offered to WordPress.com customers.</p>
 <p>WordPress.org is maintained by
-the <a href="https://wordpressfoundation.org/">WordPress Foundation</a>, which 
+the <a href="https://wordpressfoundation.org/">WordPress Foundation</a>, which
 oversees the development of the software and
 which provides access to the WordPress software.
 When we download the WordPress software,
@@ -5488,8 +5517,8 @@ is to create an attractive, yet fictional,
 It's also a break from the command line!</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="install-omeka"><a class="header" href="#install-omeka">Install Omeka</a></h1>
 <p><a href="https://omeka.org/">Omeka</a> is an
-&quot;Open-source web publishing platforms for sharing
-digital collections and creating media-rich online exhibits.&quot;
+"Open-source web publishing platforms for sharing
+digital collections and creating media-rich online exhibits."
 Most if not all of you have already used Omeka
 in a prior course.
 Here our task is not to learn information/knowledge organization,
@@ -5538,7 +5567,7 @@ collections in its digital libraries.</li>
 <pre><code>sudo systemctl restart apache2
 </code></pre>
 <h2 id="general-steps"><a class="header" href="#general-steps">General Steps</a></h2>
-<p>Below is a list of the general steps 
+<p>Below is a list of the general steps
 you need to use to install Omeka.
 Generally, you have already completed these steps when you
 created a bare bones OPAC/ILS and installed WordPress.
@@ -5616,7 +5645,7 @@ to install Koha and complete our library's interconnected web presence.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="install-the-koha-ils"><a class="header" href="#install-the-koha-ils">Install the Koha ILS</a></h1>
 <h2 id="koha-ils"><a class="header" href="#koha-ils">Koha ILS</a></h2>
 <p><a href="https://koha-community.org/">Koha</a> is an open source
-&quot;library management system&quot;,
+"library management system",
 otherwise called an integrated library system (ILS).
 These kinds of systems provide modules
 that perform specific kinds of functionality.
@@ -5635,8 +5664,8 @@ Koha's modules include:</p>
 </ul>
 <p>According to <a href="https://librarytechnology.org/product/koha">Library Technology Guides</a>,
 Koha is installed in
-&quot;4,040 libraries [around the world],
-spanning 5,677 facilities or branches&quot;.
+"4,040 libraries [around the world],
+spanning 5,677 facilities or branches".
 Most installations are in medium sized
 or small libraries.
 Koha is well represented in academic libraries,
@@ -5645,7 +5674,7 @@ but the majority of installations are in public libraries.</p>
 free to download, install, and administer
 without external support,
 librarians can hire companies that support
-open source library management solutions, like 
+open source library management solutions, like
 <a href="https://bywatersolutions.com/">ByWater Solutions</a> or
 the <a href="https://www.equinoxoli.org/">Equinox Open Library Initiative</a>
 These companies support ILS migration,
@@ -5728,7 +5757,7 @@ metadata that identifies itself by port numbers.
 The default port for HTTP is 80, and
 the default port for HTTPS (encrypted) is 443.
 Since we do not have encryption enabled,
-this means we will only use port 80, but 
+this means we will only use port 80, but
 the staff interface will be identified by port 8080.</p>
 <blockquote>
 <p>How does a server know where to send internet traffic?
@@ -5796,16 +5825,16 @@ it for the Koha installation.</p>
 <pre><code>sudo apt upgrade
 </code></pre>
 <p>The next two commands help save disk space.
-The <code>apt autoremove</code> command &quot;is used
+The <code>apt autoremove</code> command "is used
 to remove packages that were automatically
 installed to satisfy dependencies for other
 packages and are now no longer needed
 as dependencies changed or the package(s)
-needing them were removed in the meantime&quot;
+needing them were removed in the meantime"
 (see <code>man apt</code>).
-The <code>apt clean</code> command 
-&quot;clears out the local repository
-of retrieved package files&quot; (see <code>man apt-get</code>).
+The <code>apt clean</code> command
+"clears out the local repository
+of retrieved package files" (see <code>man apt-get</code>).
 In the following example,
 I combine both commands on one line:</p>
 <pre><code>sudo apt autoremove -y &amp;&amp; sudo apt clean
@@ -5878,12 +5907,12 @@ files for Koha:</p>
 <pre><code>nano /etc/koha/koha-sites.conf
 </code></pre>
 <p>In the above <strong>koha-sites.conf</strong> file,
-change the line that contains 
+change the line that contains
 the following information:</p>
-<pre><code>INTRAPORT=&quot;80&quot;
+<pre><code>INTRAPORT="80"
 </code></pre>
 <p>To:</p>
-<pre><code>INTRAPORT=&quot;8080&quot;
+<pre><code>INTRAPORT="8080"
 </code></pre>
 <p>Next install and setup <strong>mysql-server</strong>:</p>
 <pre><code>apt install mysql-server
@@ -5894,7 +5923,7 @@ password that I use anywhere):</p>
 <pre><code>mysqladmin -u root password bibliolib1
 </code></pre>
 <p>When we installed Koha,
-the Apache2 web server was installed 
+the Apache2 web server was installed
 with it as a prerequisite.
 We need to enable URL rewriting and
 <a href="https://en.wikipedia.org/wiki/Common_Gateway_Interface">CGI</a> functionality.</p>
