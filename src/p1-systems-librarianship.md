@@ -6,6 +6,8 @@ Email: [sean.burns@uky.edu](sean.burns@uky.edu)
 Website: [cseanburns.net](https://cseanburns.net)  
 GitHub: [@cseanburns](https://github.com/cseanburns)  
 
+**NOTE (January 9, 2025): As always, this textbook is a live document. During the Spring 2025 semester, I will be making major revisions to this work as I add new content and reorganize and update prior content.**
+
 ## Introduction
 
 The goal of this book is to
