@@ -1,12 +1,12 @@
 # Systems Librarianship 
 
 Author: C. Sean Burns  
-Date, version 2: 2024-04-01  
+[Date, version 2: 2024-04-01](https://github.com/cseanburns/systems-librarianship/releases/tag/V2)  
 Email: [sean.burns@uky.edu](sean.burns@uky.edu)  
 Website: [cseanburns.net](https://cseanburns.net)  
 GitHub: [@cseanburns](https://github.com/cseanburns)  
 
-**NOTE (January 9, 2025): As always, this textbook is a live document. During the Spring 2025 semester, I will be making major revisions to this work as I add new content and reorganize and update prior content.**
+**NOTE (January 10, 2025): This textbook is a live document. During the Spring 2025 semester, this work will be updated to version 3, which will include new content and some reorganziation of prior content.**
 
 ## Introduction
 
