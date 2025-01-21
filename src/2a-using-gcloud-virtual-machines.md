@@ -138,7 +138,8 @@ We will create our VM using the gcloud console.
 To do so, follow these steps from the Project page:
 
 - Click on the hamburger icon (three vertical bars) in the top left corner.
-- Click on **Compute Engine** and then **VM instances**
+- Click on **Compute Engine** and then **VM instances**.
+- Enable **Compute Engine API**.
 - Make sure your project is listed.
 - Next, click on **Create Instance**.
 - Provide a name for your **instance**.
