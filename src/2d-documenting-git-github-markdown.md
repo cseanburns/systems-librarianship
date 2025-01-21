@@ -1,1 +1,1 @@
-# Documentating with Git, GitHub, and Markdown
+# Documenting with Git, GitHub, and Markdown
