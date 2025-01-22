@@ -33,7 +33,8 @@ For example, HTML is written in plain text and the web browser uses the HTML mar
 ```
 <p>This is using a HTML paragraph tag.
 The web browser would render this like the other paragraphs on this page.
-However, it's written in a code block, which allows me to display the HTML as source code.</p>
+However, it's written in a code block,
+which allows me to display the HTML as source code.</p>
 ```
 
 The rendered result is not plain text but HTML, just like the rendered result of all those
@@ -166,7 +167,7 @@ LS_COLORS='rs=0:di=04;31:fi=00;00:ex=01;93';
 export LS_COLORS
 ```
 
-Next, go to the line that starts with, which is probably line 46:
+Next, go to the line that starts with the text below, which is probably line 46:
 
 ```
 # force_color_prompt=yes
