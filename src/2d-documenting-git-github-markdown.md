@@ -2,44 +2,47 @@
 
 ## Introduction
 
+Documentation is the cornerstone of effective communication and knowledge sharing.
+It ensures that processes are understood, tasks are reproducible, and
+collaborators can contribute to shared goals.
+In this section, we learn how to use Git, GitHub, and Markdown as tools for managing and presenting documentation efficiently.
+Specifically, Git with GitHub offer robust version control and collaboration capabilities.
+Markdown is a markup language with a simple syntax that facilitates clean, professional documentation compatible with multiple platforms.
+
 ## Create a GitHub Account
 
 Let's start by creating an account on GitHub:
 
-1. **Visit the GitHub Website**: Navigate to [GitHub's website][github].
+1. **Visit the GitHub Website**: [GitHub's website][github].
 2. **Sign Up**: Click on the "Sign Up" button usually located at the top right corner of the page. 
 3. **Enter Your Details**: You will be prompted to enter some basic information:
    - **Username**: Choose a unique username that will be your identity on GitHub. Select a name that reflects your personal or professional identity. It will be visible publicly.
    - **Email Address**: Provide a valid, personal email address (not university email address). This will be used for account verification and communication.
    - **Password**: Create a strong password. Use a mix of letters, numbers, and symbols for better security.
-4. **Choose a Plan**: GitHub offers various plans. Select the free option. This is fine for most individual users.
-6. **Verify Your Email Address**: After completing the sign-up process, GitHub will send a verification email to the address you provided.
-   Click on the verification link in that email to activate your account.
+4. **Choose a Plan**: GitHub offers various plans. Select the free option, which is fine for most individual users.
 
 ### Tips for New Users
 
 - **Profile Information**: After creating your account, consider adding more details to your profile, like a profile picture and bio, to make it more personable.
 - **Security**: Set up two-factor authentication for added security.
-- **Learning Resources**: GitHub has a wealth of tutorials and guides to help you get started. Utilize these to familiarize yourself with GitHub's features and best practices.
+- **Learning Resources**: GitHub has a [wealth of tutorials and guides][github_docs] to help you get started. Utilize these to familiarize yourself with GitHub's features and best practices.
 
 #### File Naming Conventions
 
-Use good names for files because file names help with organizing and maintaining a clear and efficient documentation system.
-Good file names provide:
+Name files well!
+Good file names help to organize and maintain a clear and efficient documentation system.
+Good file names add:
 
 1. **Clarity and Accessibility**: To save time and reduce confusion, use well-named files. This makes it easier to identify and understand your files at a glance.
 2. **Ease of Navigation**: Use consistent naming to aid navigating through files.
 3. **System Compatibility**: Avoid certain characters, like spaces and special characters, in file names. They will cause issues in different operating systems.
-
-For the sake of system compatibility, follow these guidelines:
-
-- Use single words or combine words using camelCase, underscores (`_`), or hyphens (`-`):
-    - For example:
-        - `ServerSetupGuide.md`,
-        - `server_setup_guide.md`, or
-        - `server-setup-guide.md`.
-- Avoid spaces in file names. They cause issues in URLs and command-line operations.
-- Avoid special characters like `!`, `$`, `#`, `%`, etc. They have specific functions in certain environments or scripts.
+    - Avoid spaces in file names. They cause issues in URLs and command-line operations.
+    - Avoid special characters like `!`, `$`, `#`, `%`, etc. They have specific functions in certain environments or scripts.
+    - Use single words or combine words using camelCase, underscores (`_`), or hyphens (`-`):
+        - For example:
+            - `ServerSetupGuide.md`,
+            - `server_setup_guide.md`, or
+            - `server-setup-guide.md`.
 
 #### The Importance of `.md` Extension for Markdown Files
 
@@ -48,18 +51,19 @@ However, when it comes to Markdown files, add the `.md` extension.
 This helps in the following ways:
 
 1. **GitHub Rendering**: GitHub automatically renders files with a `.md` extension as formatted Markdown.
-   This means your documentation will be displayed with the intended formatting (like headers, lists, links, etc.) when viewing them on GitHub.
+   This means your documentation will be displayed with the intended formatting (like headers, lists, links, etc.) when viewing it on GitHub.
 3. **Editor Support**: Most code editors recognize `.md` files and provide syntax highlighting.
-4. **Consistency and Recognition**: Using the `.md` extension helps users and systems alike to quickly identify the file type and its intended use.
+4. **Consistency and Recognition**: Using the `.md` extension helps users identify the file type and its intended use.
 
 For instance, naming a file `InstallationGuide.md` ensures that GitHub renders it as a Markdown document and displays all formatting correctly in the browser.
 This enhances readability and makes the documentation more user-friendly.
 
 ## Create a Repository (Repo) on GitHub
 
-Now that you have a GitHub account, you will want to create a repository or repo for your documentation project.
+Now that you have a GitHub account, your next step is to create a repository (repo) for your documentation project.
 I outline the steps below, but see the official documentation:
 [Creating a new repository][github_repo].
+To get started:
 
 - Click the green **New** button in the upper left corner on your home page.
 - In the **Owner/Repository name** field, add a name for your repo:
@@ -71,7 +75,6 @@ I outline the steps below, but see the official documentation:
 - Choose an open source license, if you want.
 - Then click the **Create repository** button.
 
-[github_repo]:https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository
 
 ### Edit README
 
@@ -81,16 +84,14 @@ Let's edit this file on GitHub:
 
 - Click the pencil icon at the top right of that README.md file.
 - This opens an editor. Put the cursor after the heading and press Enter.
-- Add some text that describes the project:
-    - You can add a better description later.
-- Use Markdown code to edit the text you add. The next section describes the basics of Markdown.
+- Add some text that describes the project. You can add a better description later.
+- Use Markdown code to edit the text you add.
 
 #### Markdown Basics
 
 Markdown is a simple markup language for formatting plain text,
 which can later be rendered as HTML or even as a PDF, DOCX, etc.
-It's a very popular markup language in various technical spheres, and
-it's easy to get started.
+It's a very popular markup language in tech industries, and it's easy to get started.
 
 Here's a quick guide to the most commonly used Markdown syntax:
 
@@ -138,8 +139,8 @@ The number of `#` symbols indicates the level of the heading:
 
 ##### Links and Images
 
-- **Links**: To create a link, wrap the link text in brackets `[ ]`, and then wrap the URL in parentheses `( )`. 
-    - For example, `[GitHub](https://github.com)`.
+- **Links**: To create a named link, wrap the link text in brackets `[ ]`, and then wrap the URL in parentheses `( )`. 
+    - For example, `[GitHub](https://github.com)` will be [GitHub](https://github.com).
 - **Images**: Similar to links, but start with an exclamation mark, followed by the alt text in brackets, and the URL in parentheses. 
     - For example, `![Alt text](image-url.jpg)`.
     - In this example, the file **image-url.jpg** must be in the same directory as the Markdown file.
@@ -153,8 +154,8 @@ The number of `#` symbols indicates the level of the heading:
   
 The following code:
   
-\```
-your code here
+\```  
+your code here  
 \```
 
 Will render as:
@@ -165,7 +166,7 @@ your code here
 
 ##### Blockquotes
 
-To create a blockquote, use the `>` symbol before your text.
+To create a blockquote, use the greater than symbol `>` at the beginning of a line.
 For nested blockquotes, use multiple `>` symbols.
 
 This code:
@@ -190,9 +191,8 @@ Create a horizontal line or rule by using three or more asterisks, dashes, or un
 
 ##### Additional Tips
 
-- **Whitespace and Line Breaks**: In Markdown, line breaks and spacing can be crucial.
-  Paragraphs are automatically created when text is separated by an empty line.
-  To create a new line without starting a new paragraph, end a line with two or more spaces before hitting Enter.
+- **Whitespace and Line Breaks**: In Markdown, paragraphs are automatically created when text is separated by an empty line.
+  To create a new line without starting a new paragraph, end a line with two or more spaces.
 - **Escaping Markdown**: To display a Markdown character, precede it with a backslash (`\`). For example, `\*not italic\*`.
 
 ### Preview and Save
@@ -203,21 +203,19 @@ Once you are finished editing, to save you:
 
 - Click on the **Commit changes...** button.
 - A pop-up will appear. Update the **Commit message** or leave as-is:
-    - When you make more substantive edits, you will want to leave descriptive commit messages.
-    - Descriptive commit messages help with version control.
+    - When you make more substantive edits, you will want to leave descriptive commit messages for help with version control.
 - Press the **Commit changes** button.
 - Then click on the repo link to return to your repo's homepage.
 
-### *Gitting* Started
+## *Gitting* Started
 
-`git` is already installed on your Linux virtual machines.
-To get started using it, we will need to connect to our virtual machines and
-run some commands to configure `git` to work with GitHub.
+`git` is already installed on your Linux virtual machines!
 
-#### Git Configuration
+### Git Configuration
 
-To get started, connect to your remote server and run the following commands.
-Note the quotes around the name but not around the **github_username** or **email address**.
+First, connect to your remote server and run the commands below to begin configuring `git`.
+Note the quotes around the **Your Name** command
+but not around the **github_username** or **email address** commands.
 Replace your name and email address with the name and email address you used for your GitHub accounts.
 Run these commands separately:
 
@@ -227,16 +225,17 @@ git config --global user.name github_username
 git config --global user.email youremail@example.com
 ```
 
-Next, we configure Git to use **main** as our default branch name.
-The second command instructs Git to use `nano` as your default editor.
-Run these two commands as-is, but if you are using a different text editor, then be sure to lookup the appropriate command for that editor:
+Next, configure `git` to use **main** as your default branch name.
+The second command instructs `git` to use `nano` as your default editor.
+Run these two commands as-is, but if you are using a different text editor,
+then be sure to lookup the appropriate command for that editor:
 
 ```
 git config --global init.defaultBranch main
 git config --global core.editor "nano"
 ```
 
-We can verify the above settings with the following command:
+Verify the above settings with the following command:
 
 ```
 git config --list
@@ -247,9 +246,9 @@ For additional details, see the Git documentation on getting started:
 - [Getting Started - First-Time Git Setup][gitstarted]
 
 We'll soon begin to use Git and GitHub when we start coding our websites.
-Next, we need to understand some basic concepts with Git and GitHub.
+Next, we need to configure how `git` and GitHub work together.
 
-## Generate SSH Keys
+### Generate SSH Keys
 
 We need to secure our `git` and GitHub connection and repositories.
 We do that first by creating an SSH key.
@@ -259,7 +258,7 @@ On the server:
 1. Generate a new ssh key with the following command:
     1. `ssh-keygen -t ed25519 -C "your_email@example.com"`
     2. Use the same email that you used when signing up with GitHub.
-3. Copy your SSH public key to your clipboard:
+2. Copy your SSH public key to your clipboard:
   1. View it with this command: `cat ~/.ssh/id_ed25519.pub`.
   2. Then select it with your mouse and copy it.
   3. Open GitHub and click on profile photo and then Settings.
@@ -270,21 +269,18 @@ On the server:
   7. Select the key type: authentication
   8. Paste your SSH public key in the **Key** field.
   9. Click **Add SSH key**
-  10. See the official documentation here:
-    1. [https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account][github_ssh_add]
-4. Setup the SSH public key as your signing key:
+  10. See the official documentation here: [Adding a New SSH Key][github_ssh_add]
+3. Setup the SSH public key as your signing key:
   1. Run the following commands:
       1. `git config --global gpg.format ssh`
       2. `git config --global user.signingkey $HOME/.ssh/id_ed25519.pub`
-      3. See the documentation at:
-          1. [https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key][github_signing_key]
-5. Then run the following command to configure signing:
+      3. See the documentation at: [Telling Git About Your Signing Key][github_signing_key]
+4. Then run the following command to configure signing:
     1. `git config --global commit.gpgsign true`
 
-## Clone Your Repo
+### Clone Your Repo
 
-Now that you have `git` configured to work with GitHub,
-you will want to clone your repo to your virtual machine.
+Now that you have `git` configured to work with GitHub, you want to clone your repo to your virtual machine.
 
 - Return to GitHub and your repo's homepage.
 - Click the green **Code** drop down button.
@@ -295,26 +291,19 @@ you will want to clone your repo to your virtual machine.
     - **repo_name.git** should be your repo's name.
 - Return to your Linux virtual machine, and run the following command to clone your repo:
     - `git clone git@github.com:repo_user/repo_name.git`
+    - This command will create a new directory named after your repo.
 
-Now you should have the one-for-one copy on your virtual machine.
+### Stage, Commit, and Push Your Repo
 
-## Stage, Commit, and Push Your Repo
-
-Now we will use `nano` to make changes to your repository.
-Let's navigate to your repo's directory on your virtual machine:
+Now use your text editor (e.g., `nano`) to make changes to your repository.
+Navigate to your repo's directory on your virtual machine:
 
 ```
 cd repo_name
 ```
 
-Now let's create a new file.
-I'll use **entry_one.md** as the file name, but feel free to choose a different name:
-
-```
-touch entry_one.md
-```
-
-Let's edit the file with `nano`:
+Create and open a new file.
+I'll use **entry_one.md** as an example file name, but feel free to choose a different name:
 
 ```
 nano entry_one.md
@@ -324,19 +313,19 @@ Add whatever you'd like here to get started.
 When completed, save the file and exit `nano`.
 
 Now we need to **push** our changes to our GitHub repo.
-We start by staging the changes:
+First, **stage** the changes with the `git add` command:
 
 ```
 git add entry_one.md
 ```
 
-Then we commit the change and add a commit message:
+Then **commit** the changes and add a commit message with the `-m` option:
 
 ```
 git commit -m "commit message here"
 ```
 
-Then we **push** the commit to our GitHub repo:
+Then **push** the commit to our GitHub URL (i.e., **origin**) and **main** branch:
 
 ```
 git push origin main
@@ -346,6 +335,22 @@ Visit your repo's homepage on GitHub to see the update.
 
 Whenever we add, edit, or delete a file or directory in our local repo,
 we will want to follow the stage (add), commit, and push steps above.
+
+### Pull
+
+Your remote repository is located on GitHub.
+Your local repository is located on your virtual instance.
+Get used to working on your documentation in your local repository.
+However, if you mix it up and make edits to files on your remote repository via the GitHub web interface,
+then you need sync your local and remote repositories before switching back to local work.
+To do that, you need to run a `pull` command:
+
+```
+cd repo_name
+git pull origin main
+```
+
+If you often switch between local and remote repo work, the repos will quickly grow apart and it will be hard to merge them later.
 
 ### Git Basics
 
@@ -405,7 +410,9 @@ For future reference, here's a nice cheat sheet of [Git commands][git_commands].
 [git_branches]:https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell
 [git_commands]:https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html
 [git]:https://git-scm.com/
+[github_docs]:https://docs.github.com/en
 [github]:https://github.com
+[github_repo]:https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository
 [github_signing_key]:https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
 [github_ssh_add]:https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 [gitlabels]:https://www.wired.com/story/tech-confronts-use-labels-master-slave/
