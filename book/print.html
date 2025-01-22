@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="Entry level book on systems librarianship.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -31,15 +31,17 @@
 
         <!-- Custom theme stylesheets -->
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,45 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="p1-systems-librarianship.html"><strong aria-hidden="true">1.</strong> Systems Librarianship</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="1a-history-linux-unix.html"><strong aria-hidden="true">1.1.</strong> History of Unix and Linux</a></li><li class="chapter-item expanded "><a href="1b-what-is-linux.html"><strong aria-hidden="true">1.2.</strong> What is Linux?</a></li><li class="chapter-item expanded "><a href="1c-what-is-sysadmin.html"><strong aria-hidden="true">1.3.</strong> What is Systems Administration?</a></li><li class="chapter-item expanded "><a href="1d-what-is-syslib.html"><strong aria-hidden="true">1.4.</strong> What is Systems Librarianship?</a></li></ol></li><li class="chapter-item expanded "><a href="p2-project-management-and-CLI.html"><strong aria-hidden="true">2.</strong> Project Management and CLI (Command Line Interface) Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="2a-using-gcloud-virtual-machines.html"><strong aria-hidden="true">2.1.</strong> Using gcloud for Virtual Machines</a></li><li class="chapter-item expanded "><a href="2b-learn-the-cli.html"><strong aria-hidden="true">2.2.</strong> Learn the CLI</a></li><li class="chapter-item expanded "><a href="2c-learn-nano.html"><strong aria-hidden="true">2.3.</strong> Using the Nano Text Editor</a></li><li class="chapter-item expanded "><a href="2d-documenting-git-github-markdown.html"><strong aria-hidden="true">2.4.</strong> Documentating with Git, GitHub, and Markdown</a></li></ol></li><li class="chapter-item expanded "><a href="p3-working-on-the-CLI.html"><strong aria-hidden="true">3.</strong> Working on the CLI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3a-searching-with-grep.html"><strong aria-hidden="true">3.1.</strong> Searching with grep</a></li><li class="chapter-item expanded "><a href="3b-managing-software.html"><strong aria-hidden="true">3.2.</strong> Managing Software</a></li><li class="chapter-item expanded "><a href="3c-library-search.html"><strong aria-hidden="true">3.3.</strong> Library Search</a></li></ol></li><li class="chapter-item expanded "><a href="p4-creating-a-lamp-server.html"><strong aria-hidden="true">4.</strong> Creating a LAMP Server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="4a-installing-the-apache-web-server.html"><strong aria-hidden="true">4.1.</strong> Installing the Apache Web Server</a></li><li class="chapter-item expanded "><a href="4b-installing-configuring-php.html"><strong aria-hidden="true">4.2.</strong> Installing and Configuring PHP</a></li><li class="chapter-item expanded "><a href="4c-installing-configuring-mysql.html"><strong aria-hidden="true">4.3.</strong> Installing and Configuring MySQL</a></li><li class="chapter-item expanded "><a href="4d-basic-opac.html"><strong aria-hidden="true">4.4.</strong> Creating a Bare Bones OPAC</a></li><li class="chapter-item expanded "><a href="4e-basic-opac-admin.html"><strong aria-hidden="true">4.5.</strong> Creating a Bare Bones Cataloging Module</a></li></ol></li><li class="chapter-item expanded "><a href="p5-installing-content-management-systems.html"><strong aria-hidden="true">5.</strong> Installing Content Management Systems</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="5a-install-wordpress.html"><strong aria-hidden="true">5.1.</strong> Install WordPress</a></li><li class="chapter-item expanded "><a href="5b-install-omeka.html"><strong aria-hidden="true">5.2.</strong> Install Omeka</a></li></ol></li><li class="chapter-item expanded "><a href="p6-installing-an-ILS.html"><strong aria-hidden="true">6.</strong> Installing an Integrated Library System</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="6a-install-koha.html"><strong aria-hidden="true">6.1.</strong> Install Koha</a></li></ol></li><li class="chapter-item expanded "><a href="p7-conclusion.html"><strong aria-hidden="true">7.</strong> Conclusion</a></li></ol>
-            </div>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
-
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -1596,10 +1575,16 @@ set tabstospaces
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="documenting-with-git-github-and-markdown"><a class="header" href="#documenting-with-git-github-and-markdown">Documenting with Git, GitHub, and Markdown</a></h1>
 <h2 id="introduction-4"><a class="header" href="#introduction-4">Introduction</a></h2>
+<p>Documentation is the cornerstone of effective communication and knowledge sharing.
+It ensures that processes are understood, tasks are reproducible, and
+collaborators can contribute to shared goals.
+In this section, we learn how to use Git, GitHub, and Markdown as tools for managing and presenting documentation efficiently.
+Specifically, Git with GitHub offer robust version control and collaboration capabilities.
+Markdown is a markup language with a simple syntax that facilitates clean, professional documentation compatible with multiple platforms.</p>
 <h2 id="create-a-github-account"><a class="header" href="#create-a-github-account">Create a GitHub Account</a></h2>
 <p>Let's start by creating an account on GitHub:</p>
 <ol>
-<li><strong>Visit the GitHub Website</strong>: Navigate to <a href="https://github.com">GitHub's website</a>.</li>
+<li><strong>Visit the GitHub Website</strong>: <a href="https://github.com">GitHub's website</a>.</li>
 <li><strong>Sign Up</strong>: Click on the "Sign Up" button usually located at the top right corner of the page.</li>
 <li><strong>Enter Your Details</strong>: You will be prompted to enter some basic information:
 <ul>
@@ -1608,26 +1593,25 @@ set tabstospaces
 <li><strong>Password</strong>: Create a strong password. Use a mix of letters, numbers, and symbols for better security.</li>
 </ul>
 </li>
-<li><strong>Choose a Plan</strong>: GitHub offers various plans. Select the free option. This is fine for most individual users.</li>
-<li><strong>Verify Your Email Address</strong>: After completing the sign-up process, GitHub will send a verification email to the address you provided.
-Click on the verification link in that email to activate your account.</li>
+<li><strong>Choose a Plan</strong>: GitHub offers various plans. Select the free option, which is fine for most individual users.</li>
 </ol>
 <h3 id="tips-for-new-users"><a class="header" href="#tips-for-new-users">Tips for New Users</a></h3>
 <ul>
 <li><strong>Profile Information</strong>: After creating your account, consider adding more details to your profile, like a profile picture and bio, to make it more personable.</li>
 <li><strong>Security</strong>: Set up two-factor authentication for added security.</li>
-<li><strong>Learning Resources</strong>: GitHub has a wealth of tutorials and guides to help you get started. Utilize these to familiarize yourself with GitHub's features and best practices.</li>
+<li><strong>Learning Resources</strong>: GitHub has a <a href="https://docs.github.com/en">wealth of tutorials and guides</a> to help you get started. Utilize these to familiarize yourself with GitHub's features and best practices.</li>
 </ul>
 <h4 id="file-naming-conventions"><a class="header" href="#file-naming-conventions">File Naming Conventions</a></h4>
-<p>Use good names for files because file names help with organizing and maintaining a clear and efficient documentation system.
-Good file names provide:</p>
+<p>Name files well!
+Good file names help to organize and maintain a clear and efficient documentation system.
+Good file names add:</p>
 <ol>
 <li><strong>Clarity and Accessibility</strong>: To save time and reduce confusion, use well-named files. This makes it easier to identify and understand your files at a glance.</li>
 <li><strong>Ease of Navigation</strong>: Use consistent naming to aid navigating through files.</li>
-<li><strong>System Compatibility</strong>: Avoid certain characters, like spaces and special characters, in file names. They will cause issues in different operating systems.</li>
-</ol>
-<p>For the sake of system compatibility, follow these guidelines:</p>
+<li><strong>System Compatibility</strong>: Avoid certain characters, like spaces and special characters, in file names. They will cause issues in different operating systems.
 <ul>
+<li>Avoid spaces in file names. They cause issues in URLs and command-line operations.</li>
+<li>Avoid special characters like <code>!</code>, <code>$</code>, <code>#</code>, <code>%</code>, etc. They have specific functions in certain environments or scripts.</li>
 <li>Use single words or combine words using camelCase, underscores (<code>_</code>), or hyphens (<code>-</code>):
 <ul>
 <li>For example:
@@ -1639,25 +1623,26 @@ Good file names provide:</p>
 </li>
 </ul>
 </li>
-<li>Avoid spaces in file names. They cause issues in URLs and command-line operations.</li>
-<li>Avoid special characters like <code>!</code>, <code>$</code>, <code>#</code>, <code>%</code>, etc. They have specific functions in certain environments or scripts.</li>
 </ul>
+</li>
+</ol>
 <h4 id="the-importance-of-md-extension-for-markdown-files"><a class="header" href="#the-importance-of-md-extension-for-markdown-files">The Importance of <code>.md</code> Extension for Markdown Files</a></h4>
 <p>File name extensions are not always necessary, especially on Linux and Unix systems.
 However, when it comes to Markdown files, add the <code>.md</code> extension.
 This helps in the following ways:</p>
 <ol>
 <li><strong>GitHub Rendering</strong>: GitHub automatically renders files with a <code>.md</code> extension as formatted Markdown.
-This means your documentation will be displayed with the intended formatting (like headers, lists, links, etc.) when viewing them on GitHub.</li>
+This means your documentation will be displayed with the intended formatting (like headers, lists, links, etc.) when viewing it on GitHub.</li>
 <li><strong>Editor Support</strong>: Most code editors recognize <code>.md</code> files and provide syntax highlighting.</li>
-<li><strong>Consistency and Recognition</strong>: Using the <code>.md</code> extension helps users and systems alike to quickly identify the file type and its intended use.</li>
+<li><strong>Consistency and Recognition</strong>: Using the <code>.md</code> extension helps users identify the file type and its intended use.</li>
 </ol>
 <p>For instance, naming a file <code>InstallationGuide.md</code> ensures that GitHub renders it as a Markdown document and displays all formatting correctly in the browser.
 This enhances readability and makes the documentation more user-friendly.</p>
 <h2 id="create-a-repository-repo-on-github"><a class="header" href="#create-a-repository-repo-on-github">Create a Repository (Repo) on GitHub</a></h2>
-<p>Now that you have a GitHub account, you will want to create a repository or repo for your documentation project.
+<p>Now that you have a GitHub account, your next step is to create a repository (repo) for your documentation project.
 I outline the steps below, but see the official documentation:
-<a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository">Creating a new repository</a>.</p>
+<a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository">Creating a new repository</a>.
+To get started:</p>
 <ul>
 <li>Click the green <strong>New</strong> button in the upper left corner on your home page.</li>
 <li>In the <strong>Owner/Repository name</strong> field, add a name for your repo:
@@ -1682,18 +1667,13 @@ Let's edit this file on GitHub:</p>
 <ul>
 <li>Click the pencil icon at the top right of that README.md file.</li>
 <li>This opens an editor. Put the cursor after the heading and press Enter.</li>
-<li>Add some text that describes the project:
-<ul>
-<li>You can add a better description later.</li>
-</ul>
-</li>
-<li>Use Markdown code to edit the text you add. The next section describes the basics of Markdown.</li>
+<li>Add some text that describes the project. You can add a better description later.</li>
+<li>Use Markdown code to edit the text you add.</li>
 </ul>
 <h4 id="markdown-basics"><a class="header" href="#markdown-basics">Markdown Basics</a></h4>
 <p>Markdown is a simple markup language for formatting plain text,
 which can later be rendered as HTML or even as a PDF, DOCX, etc.
-It's a very popular markup language in various technical spheres, and
-it's easy to get started.</p>
+It's a very popular markup language in tech industries, and it's easy to get started.</p>
 <p>Here's a quick guide to the most commonly used Markdown syntax:</p>
 <h5 id="headings"><a class="header" href="#headings">Headings</a></h5>
 <p>Headings are created using the <code>#</code> symbol before your text.
@@ -1742,9 +1722,9 @@ The number of <code>#</code> symbols indicates the level of the heading:</p>
 </ul>
 <h5 id="links-and-images"><a class="header" href="#links-and-images">Links and Images</a></h5>
 <ul>
-<li><strong>Links</strong>: To create a link, wrap the link text in brackets <code>[ ]</code>, and then wrap the URL in parentheses <code>( )</code>.
+<li><strong>Links</strong>: To create a named link, wrap the link text in brackets <code>[ ]</code>, and then wrap the URL in parentheses <code>( )</code>.
 <ul>
-<li>For example, <code>[GitHub](https://github.com)</code>.</li>
+<li>For example, <code>[GitHub](https://github.com)</code> will be <a href="https://github.com">GitHub</a>.</li>
 </ul>
 </li>
 <li><strong>Images</strong>: Similar to links, but start with an exclamation mark, followed by the alt text in brackets, and the URL in parentheses.
@@ -1765,14 +1745,14 @@ The number of <code>#</code> symbols indicates the level of the heading:</p>
 with four spaces.</li>
 </ul>
 <p>The following code:</p>
-<p>```
-your code here
+<p>```<br />
+your code here<br />
 ```</p>
 <p>Will render as:</p>
 <pre><code>your code here
 </code></pre>
 <h5 id="blockquotes"><a class="header" href="#blockquotes">Blockquotes</a></h5>
-<p>To create a blockquote, use the <code>&gt;</code> symbol before your text.
+<p>To create a blockquote, use the greater than symbol <code>&gt;</code> at the beginning of a line.
 For nested blockquotes, use multiple <code>&gt;</code> symbols.</p>
 <p>This code:</p>
 <pre><code>&gt; This is a blockquote.
@@ -1791,9 +1771,8 @@ For nested blockquotes, use multiple <code>&gt;</code> symbols.</p>
 </code></pre>
 <h5 id="additional-tips"><a class="header" href="#additional-tips">Additional Tips</a></h5>
 <ul>
-<li><strong>Whitespace and Line Breaks</strong>: In Markdown, line breaks and spacing can be crucial.
-Paragraphs are automatically created when text is separated by an empty line.
-To create a new line without starting a new paragraph, end a line with two or more spaces before hitting Enter.</li>
+<li><strong>Whitespace and Line Breaks</strong>: In Markdown, paragraphs are automatically created when text is separated by an empty line.
+To create a new line without starting a new paragraph, end a line with two or more spaces.</li>
 <li><strong>Escaping Markdown</strong>: To display a Markdown character, precede it with a backslash (<code>\</code>). For example, <code>\*not italic\*</code>.</li>
 </ul>
 <h3 id="preview-and-save"><a class="header" href="#preview-and-save">Preview and Save</a></h3>
@@ -1803,33 +1782,32 @@ To create a new line without starting a new paragraph, end a line with two or mo
 <li>Click on the <strong>Commit changes...</strong> button.</li>
 <li>A pop-up will appear. Update the <strong>Commit message</strong> or leave as-is:
 <ul>
-<li>When you make more substantive edits, you will want to leave descriptive commit messages.</li>
-<li>Descriptive commit messages help with version control.</li>
+<li>When you make more substantive edits, you will want to leave descriptive commit messages for help with version control.</li>
 </ul>
 </li>
 <li>Press the <strong>Commit changes</strong> button.</li>
 <li>Then click on the repo link to return to your repo's homepage.</li>
 </ul>
-<h3 id="gitting-started"><a class="header" href="#gitting-started"><em>Gitting</em> Started</a></h3>
-<p><code>git</code> is already installed on your Linux virtual machines.
-To get started using it, we will need to connect to our virtual machines and
-run some commands to configure <code>git</code> to work with GitHub.</p>
-<h4 id="git-configuration"><a class="header" href="#git-configuration">Git Configuration</a></h4>
-<p>To get started, connect to your remote server and run the following commands.
-Note the quotes around the name but not around the <strong>github_username</strong> or <strong>email address</strong>.
+<h2 id="gitting-started"><a class="header" href="#gitting-started"><em>Gitting</em> Started</a></h2>
+<p><code>git</code> is already installed on your Linux virtual machines!</p>
+<h3 id="git-configuration"><a class="header" href="#git-configuration">Git Configuration</a></h3>
+<p>First, connect to your remote server and run the commands below to begin configuring <code>git</code>.
+Note the quotes around the <strong>Your Name</strong> command
+but not around the <strong>github_username</strong> or <strong>email address</strong> commands.
 Replace your name and email address with the name and email address you used for your GitHub accounts.
 Run these commands separately:</p>
 <pre><code>git config --global user.name "Your Name"
 git config --global user.name github_username
 git config --global user.email youremail@example.com
 </code></pre>
-<p>Next, we configure Git to use <strong>main</strong> as our default branch name.
-The second command instructs Git to use <code>nano</code> as your default editor.
-Run these two commands as-is, but if you are using a different text editor, then be sure to lookup the appropriate command for that editor:</p>
+<p>Next, configure <code>git</code> to use <strong>main</strong> as your default branch name.
+The second command instructs <code>git</code> to use <code>nano</code> as your default editor.
+Run these two commands as-is, but if you are using a different text editor,
+then be sure to lookup the appropriate command for that editor:</p>
 <pre><code>git config --global init.defaultBranch main
 git config --global core.editor "nano"
 </code></pre>
-<p>We can verify the above settings with the following command:</p>
+<p>Verify the above settings with the following command:</p>
 <pre><code>git config --list
 </code></pre>
 <p>For additional details, see the Git documentation on getting started:</p>
@@ -1837,8 +1815,8 @@ git config --global core.editor "nano"
 <li><a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup">Getting Started - First-Time Git Setup</a></li>
 </ul>
 <p>We'll soon begin to use Git and GitHub when we start coding our websites.
-Next, we need to understand some basic concepts with Git and GitHub.</p>
-<h2 id="generate-ssh-keys"><a class="header" href="#generate-ssh-keys">Generate SSH Keys</a></h2>
+Next, we need to configure how <code>git</code> and GitHub work together.</p>
+<h3 id="generate-ssh-keys"><a class="header" href="#generate-ssh-keys">Generate SSH Keys</a></h3>
 <p>We need to secure our <code>git</code> and GitHub connection and repositories.
 We do that first by creating an SSH key.</p>
 <p>On the server:</p>
@@ -1863,18 +1841,13 @@ We do that first by creating an SSH key.</p>
 <li>Select the key type: authentication</li>
 <li>Paste your SSH public key in the <strong>Key</strong> field.</li>
 <li>Click <strong>Add SSH key</strong></li>
-<li>See the official documentation here:
-1. <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</a></li>
+<li>See the official documentation here: <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">Adding a New SSH Key</a></li>
 <li>Setup the SSH public key as your signing key:</li>
 <li>Run the following commands:
 <ol>
 <li><code>git config --global gpg.format ssh</code></li>
 <li><code>git config --global user.signingkey $HOME/.ssh/id_ed25519.pub</code></li>
-<li>See the documentation at:
-<ol>
-<li><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key">https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key</a></li>
-</ol>
-</li>
+<li>See the documentation at: <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key">Telling Git About Your Signing Key</a></li>
 </ol>
 </li>
 <li>Then run the following command to configure signing:
@@ -1883,9 +1856,8 @@ We do that first by creating an SSH key.</p>
 </ol>
 </li>
 </ol>
-<h2 id="clone-your-repo"><a class="header" href="#clone-your-repo">Clone Your Repo</a></h2>
-<p>Now that you have <code>git</code> configured to work with GitHub,
-you will want to clone your repo to your virtual machine.</p>
+<h3 id="clone-your-repo"><a class="header" href="#clone-your-repo">Clone Your Repo</a></h3>
+<p>Now that you have <code>git</code> configured to work with GitHub, you want to clone your repo to your virtual machine.</p>
 <ul>
 <li>Return to GitHub and your repo's homepage.</li>
 <li>Click the green <strong>Code</strong> drop down button.</li>
@@ -1900,37 +1872,45 @@ you will want to clone your repo to your virtual machine.</p>
 <li>Return to your Linux virtual machine, and run the following command to clone your repo:
 <ul>
 <li><code>git clone git@github.com:repo_user/repo_name.git</code></li>
+<li>This command will create a new directory named after your repo.</li>
 </ul>
 </li>
 </ul>
-<p>Now you should have the one-for-one copy on your virtual machine.</p>
-<h2 id="stage-commit-and-push-your-repo"><a class="header" href="#stage-commit-and-push-your-repo">Stage, Commit, and Push Your Repo</a></h2>
-<p>Now we will use <code>nano</code> to make changes to your repository.
-Let's navigate to your repo's directory on your virtual machine:</p>
+<h3 id="stage-commit-and-push-your-repo"><a class="header" href="#stage-commit-and-push-your-repo">Stage, Commit, and Push Your Repo</a></h3>
+<p>Now use your text editor (e.g., <code>nano</code>) to make changes to your repository.
+Navigate to your repo's directory on your virtual machine:</p>
 <pre><code>cd repo_name
 </code></pre>
-<p>Now let's create a new file.
-I'll use <strong>entry_one.md</strong> as the file name, but feel free to choose a different name:</p>
-<pre><code>touch entry_one.md
-</code></pre>
-<p>Let's edit the file with <code>nano</code>:</p>
+<p>Create and open a new file.
+I'll use <strong>entry_one.md</strong> as an example file name, but feel free to choose a different name:</p>
 <pre><code>nano entry_one.md
 </code></pre>
 <p>Add whatever you'd like here to get started.
 When completed, save the file and exit <code>nano</code>.</p>
 <p>Now we need to <strong>push</strong> our changes to our GitHub repo.
-We start by staging the changes:</p>
+First, <strong>stage</strong> the changes with the <code>git add</code> command:</p>
 <pre><code>git add entry_one.md
 </code></pre>
-<p>Then we commit the change and add a commit message:</p>
+<p>Then <strong>commit</strong> the changes and add a commit message with the <code>-m</code> option:</p>
 <pre><code>git commit -m "commit message here"
 </code></pre>
-<p>Then we <strong>push</strong> the commit to our GitHub repo:</p>
+<p>Then <strong>push</strong> the commit to our GitHub URL (i.e., <strong>origin</strong>) and <strong>main</strong> branch:</p>
 <pre><code>git push origin main
 </code></pre>
 <p>Visit your repo's homepage on GitHub to see the update.</p>
 <p>Whenever we add, edit, or delete a file or directory in our local repo,
 we will want to follow the stage (add), commit, and push steps above.</p>
+<h3 id="pull"><a class="header" href="#pull">Pull</a></h3>
+<p>Your remote repository is located on GitHub.
+Your local repository is located on your virtual instance.
+Get used to working on your documentation in your local repository.
+However, if you mix it up and make edits to files on your remote repository via the GitHub web interface,
+then you need sync your local and remote repositories before switching back to local work.
+To do that, you need to run a <code>pull</code> command:</p>
+<pre><code>cd repo_name
+git pull origin main
+</code></pre>
+<p>If you often switch between local and remote repo work, the repos will quickly grow apart and it will be hard to merge them later.</p>
 <h3 id="git-basics"><a class="header" href="#git-basics">Git Basics</a></h3>
 <p>Now that we've covered the basic practice, let's review some concepts.</p>
 <h4 id="repos"><a class="header" href="#repos">Repos</a></h4>
