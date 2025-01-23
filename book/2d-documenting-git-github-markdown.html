@@ -183,7 +183,7 @@ It ensures that processes are understood, tasks are reproducible, and
 collaborators can contribute to shared goals.
 In this section, we learn how to use Git, GitHub, and Markdown as tools for managing and presenting documentation efficiently.
 Specifically, Git with GitHub offer robust version control and collaboration capabilities.
-Markdown is a markup language with a simple syntax that facilitates clean, professional documentation compatible with multiple platforms.</p>
+Markdown, a markup language with a simple syntax, facilitates clean, professional documentation compatible with multiple platforms.</p>
 <h2 id="create-a-github-account"><a class="header" href="#create-a-github-account">Create a GitHub Account</a></h2>
 <p>Let's start by creating an account on GitHub:</p>
 <ol>
@@ -224,14 +224,14 @@ To get started:</p>
 <li>Keep it public.</li>
 <li>Click to add a README file:
 <ul>
-<li>This will serve as the main page of your repository on GitHub.</li>
+<li>This serves as the main page of your repository on GitHub.</li>
 </ul>
 </li>
 <li>Choose an open source license, if you want.</li>
-<li>Then click the <strong>Create repository</strong> button.</li>
+<li>Click the <strong>Create repository</strong> button.</li>
 </ul>
 <h3 id="edit-readme"><a class="header" href="#edit-readme">Edit README</a></h3>
-<p>You should now see your repository's home page, and you should be viewing the default but empty README.md file.
+<p>You should now see your repository's home page, and you will be viewing the default, empty README.md file.
 Let's edit this file on GitHub:</p>
 <ul>
 <li>Click the pencil icon at the top right of that README.md file.</li>
@@ -245,8 +245,9 @@ which can later be rendered as HTML or even as a PDF, DOCX, etc.
 It's a very popular markup language in tech industries, and it's easy to get started.</p>
 <p>Here's a quick guide to the most commonly used Markdown syntax:</p>
 <h5 id="headings"><a class="header" href="#headings">Headings</a></h5>
-<p>Headings are created using the <code>#</code> symbol before your text.
-The number of <code>#</code> symbols indicates the level of the heading:</p>
+<p>Create headings using the pound <code>#</code> symbol before your text.
+The number of pound <code>#</code> symbols indicates the level of the heading.
+Heading level 1 indicates the main heading and so forth.</p>
 <pre><code class="language-markdown"># Heading 1
 ## Heading 2
 ### Heading 3
@@ -270,14 +271,22 @@ The number of <code>#</code> symbols indicates the level of the heading:</p>
 <h5 id="lists"><a class="header" href="#lists">Lists</a></h5>
 <ul>
 <li>
-<p><strong>Unordered Lists</strong>: Use asterisks, plus signs, or hyphens to create bullet points.</p>
+<p><strong>Unordered Lists</strong>: Use asterisks, plus signs, or hyphens to create bullet point lists.</p>
 </li>
 <li>
 <p>Use indentation to create sub-items in a list.</p>
-<pre><code class="language-markdown">* Item 1
-* Item 2
-  * Subitem 2.1
-  * Subitem 2.2
+<pre><code>```markdown
+</code></pre>
+<ul>
+<li>Item 1</li>
+<li>Item 2
+<ul>
+<li>Subitem 1</li>
+<li>Subitem 2</li>
+</ul>
+</li>
+</ul>
+<pre><code>
 </code></pre>
 </li>
 <li>
@@ -294,12 +303,14 @@ The number of <code>#</code> symbols indicates the level of the heading:</p>
 <li><strong>Links</strong>: To create a named link, wrap the link text in brackets <code>[ ]</code>, and then wrap the URL in parentheses <code>( )</code>.
 <ul>
 <li>For example, <code>[GitHub](https://github.com)</code> will be <a href="https://github.com">GitHub</a>.</li>
+<li>Add a link title: <code>[GitHub](https://github.com "GitHub Code Repo")</code>.</li>
+<li>Use reference-style links: <code>[GitHub][github]</code>. Then refer to the full URL elsewhere in the document. For example, I usually add the reference at the end: <code>[github]:https://github.com</code>.</li>
 </ul>
 </li>
 <li><strong>Images</strong>: Similar to links, but start with an exclamation mark, followed by the alt text in brackets, and the URL in parentheses.
 <ul>
 <li>For example, <code>![Alt text](image-url.jpg)</code>.</li>
-<li>In this example, the file <strong>image-url.jpg</strong> must be in the same directory as the Markdown file.</li>
+<li>In this example, the file <strong>image-url.jpg</strong> must be in the same directory as the Markdown file. It's good practice to organize project files. In this case, I would suggest creating an images directory in the project home and storing images there, with good, descriptive names. Then use a relative path to link to the image: <code>![Alt text](images/image-url.jpg)</code> where <code>images/</code> is the directory name and <code>image-url.jpg</code> is the image file name.</li>
 </ul>
 </li>
 </ul>
@@ -307,7 +318,7 @@ The number of <code>#</code> symbols indicates the level of the heading:</p>
 <ul>
 <li><strong>Inline Code</strong>: Use a single backtick to wrap your code in text.
 <ul>
-<li>For example, this is an example of <code>`inline code`</code>.</li>
+<li>For example: <code>`inline code`</code>.</li>
 </ul>
 </li>
 <li><strong>Code Blocks</strong>: For larger sections of code, use three backticks or indent
@@ -338,15 +349,17 @@ For nested blockquotes, use multiple <code>&gt;</code> symbols.</p>
 <p>Create a horizontal line or rule by using three or more asterisks, dashes, or underscores on a new line.</p>
 <pre><code>---
 </code></pre>
+<p>The above will render as:</p>
+<hr />
 <h5 id="additional-tips"><a class="header" href="#additional-tips">Additional Tips</a></h5>
 <ul>
 <li><strong>Whitespace and Line Breaks</strong>: In Markdown, paragraphs are automatically created when text is separated by an empty line.
 To create a new line without starting a new paragraph, end a line with two or more spaces.</li>
-<li><strong>Escaping Markdown</strong>: To display a Markdown character, precede it with a backslash (<code>\</code>). For example, <code>\*not italic\*</code>.</li>
+<li><strong>Escaping Markdown</strong>: To display a Markdown character, precede it with a backslash (<code>\</code>). For example, <code>\*demo italicizing\*</code>.</li>
 </ul>
 <h3 id="preview-and-save"><a class="header" href="#preview-and-save">Preview and Save</a></h3>
 <p>As you edit your README.md file, you can click the <strong>Preview</strong> tab to see how it will be rendered.</p>
-<p>Once you are finished editing, to save you:</p>
+<p>Once you are finished editing, save with the following steps:</p>
 <ul>
 <li>Click on the <strong>Commit changes...</strong> button.</li>
 <li>A pop-up will appear. Update the <strong>Commit message</strong> or leave as-is:
@@ -368,7 +381,7 @@ They help provide and ensure:</p>
 <ol>
 <li><strong>Clarity and Accessibility</strong>: To save time and reduce confusion, use well-named files:
 <ul>
-<li>This makes it easier to identify and understand your files at a glance.</li>
+<li>They make it easier to identify and understand your files at a glance.</li>
 </ul>
 </li>
 <li><strong>Ease of Navigation</strong>: Use consistent naming to aid navigating through files.</li>
@@ -376,15 +389,11 @@ They help provide and ensure:</p>
 <ul>
 <li>Avoid spaces in file names. They cause issues in URLs and command-line operations.</li>
 <li>Avoid special characters like <code>!</code>, <code>$</code>, <code>#</code>, <code>%</code>, etc. They have specific functions in certain environments or scripts, including shell environments.</li>
-<li>Name files with single words or combine words using camelCase, underscores (<code>_</code>), or hyphens (<code>-</code>):
+<li>Name files with single words or combine words using:
 <ul>
-<li>For example:
-<ul>
-<li><code>ServerSetupGuide.md</code>,</li>
-<li><code>server_setup_guide.md</code>, or</li>
-<li><code>server-setup-guide.md</code>.</li>
-</ul>
-</li>
+<li>camelCase: <code>serverSetupGuide.md</code>,</li>
+<li>underscores: <code>server_setup_guide.md</code>, or</li>
+<li>hyphens: <code>server-setup-guide.md</code>.</li>
 </ul>
 </li>
 </ul>
@@ -397,14 +406,16 @@ This helps in the following ways:</p>
 <ol>
 <li><strong>GitHub Rendering</strong>: GitHub automatically renders files with a <code>.md</code> extension as formatted Markdown.
 This means your documentation will be displayed with the intended formatting (like headers, lists, links, etc.) when viewing it on GitHub.</li>
-<li><strong>Editor Support</strong>: Most code editors recognize <code>.md</code> files and provide syntax highlighting.</li>
-<li><strong>Consistency and Recognition</strong>: Using the <code>.md</code> extension helps users identify the file type and its intended use.</li>
+<li><strong>Editor Support</strong>: Most code editors use file extensions, like <code>.md</code>, and provide appropriate syntax highlighting.</li>
+<li><strong>Consistency and Recognition</strong>: Using a file extension, like <code>.md</code>, helps users identify the file type and its intended use.</li>
 </ol>
-<p>For instance, naming a file <code>installation_guide.md</code> ensures that GitHub renders the file as a Markdown document and displays all formatting correctly in the browser.
-This enhances readability and makes the documentation more user-friendly.</p>
+<p>For instance, naming a file <code>installation_guide.md</code> ensures that GitHub renders the file as a Markdown document
+and displays all formatting correctly in the browser.
+This enhances readability and makes the documentation more user-friendly.
+Your text editor will also recognize the file extension and colorize the syntax appropriately.</p>
 <h2 id="gitting-started"><a class="header" href="#gitting-started"><em>Gitting</em> Started</a></h2>
 <p>Now that we've set up our GitHub repo, it's time to return to our virtual machines.
-Fortunately, <code>git</code> is already installed on these machines, but we can do some configuring to ease its use.</p>
+<code>git</code> is already installed on these machines, but it needs to be configured.</p>
 <h3 id="git-configuration"><a class="header" href="#git-configuration">Git Configuration</a></h3>
 <p>First, connect to your remote server and run the commands below to begin configuring <code>git</code>.
 In the example commands below, note the quotes around the <strong>Your Name</strong> command.
@@ -420,7 +431,8 @@ git config --global user.email youremail@example.com
 <p>Next, configure <code>git</code> to use the name <strong>main</strong> as your default branch.
 The second command instructs <code>git</code> to use <code>nano</code> as your default editor.
 Run these two commands as-is, but if you are using a different text editor (like <code>tilde</code> or <code>micro</code>),
-be sure to lookup the appropriate command for that editor.
+be sure to lookup the appropriate command for that editor
+(it's just <code>tilde</code> or <code>micro</code>, though).
 Keep the quotes around the editor name, which should be the name of the executable (i.e., program name) for your text editor.</p>
 <pre><code>git config --global init.defaultBranch main
 git config --global core.editor "nano"
@@ -432,8 +444,7 @@ git config --global core.editor "nano"
 <ul>
 <li><a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup">Getting Started - First-Time Git Setup</a></li>
 </ul>
-<p>We'll soon begin to use Git and GitHub when we start coding our websites.
-Next, we need to configure how <code>git</code> and GitHub work together.</p>
+<p>Next, we need to configure how <code>git</code> and GitHub work together.</p>
 <h3 id="generate-ssh-keys"><a class="header" href="#generate-ssh-keys">Generate SSH Keys</a></h3>
 <p>We need to secure our <code>git</code> and GitHub connection and repositories.
 We do that first by creating an SSH key.</p>
@@ -445,10 +456,11 @@ We do that first by creating an SSH key.</p>
 <li>Use the same email that you used when signing up with GitHub.</li>
 </ol>
 </li>
-<li>Copy your SSH public key to your clipboard:</li>
+<li>Copy your SSH public key to your clipboard:
+<ol>
 <li>View it with this command: <code>cat ~/.ssh/id_ed25519.pub</code>.</li>
 <li>Then select it with your mouse and copy it.</li>
-<li>Open GitHub and click on profile photo and then Settings.</li>
+<li>Open GitHub and visit Settings.</li>
 <li>In the Access section of sidebar, click <strong>SSH and GPG keys</strong></li>
 <li>Click <strong>New SSH key</strong> or <strong>Add SSH key</strong></li>
 <li>In the <strong>Title</strong> field, add a descriptive label for the new key:
@@ -456,26 +468,23 @@ We do that first by creating an SSH key.</p>
 <li>For example, the name of the machine you used to generate the key.</li>
 </ol>
 </li>
-<li>Select the key type: authentication</li>
+<li>Select the key type: authentication.</li>
 <li>Paste your SSH public key in the <strong>Key</strong> field.</li>
 <li>Click <strong>Add SSH key</strong></li>
 <li>See the official documentation here: <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">Adding a New SSH Key</a></li>
-<li>Setup the SSH public key as your signing key:</li>
-<li>Run the following commands:
+</ol>
+</li>
+<li>On your virtual machine, setup the SSH public key as your signing key:
 <ol>
 <li><code>git config --global gpg.format ssh</code></li>
 <li><code>git config --global user.signingkey $HOME/.ssh/id_ed25519.pub</code></li>
-<li>See the documentation at: <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key">Telling Git About Your Signing Key</a></li>
-</ol>
-</li>
-<li>Then run the following command to configure signing:
-<ol>
 <li><code>git config --global commit.gpgsign true</code></li>
+<li>See the documentation at: <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key">Telling Git About Your Signing Key</a></li>
 </ol>
 </li>
 </ol>
 <h3 id="clone-your-repo"><a class="header" href="#clone-your-repo">Clone Your Repo</a></h3>
-<p>Now that you have <code>git</code> configured to work with GitHub, you want to clone your repo to your virtual machine.</p>
+<p>Now that you have <code>git</code> configured to work with GitHub, clone your repo to your virtual machine.</p>
 <ul>
 <li>Return to GitHub and your repo's homepage.</li>
 <li>Click the green <strong>Code</strong> drop down button.</li>
@@ -517,7 +526,7 @@ First, <strong>stage</strong> the changes with the <code>git add</code> command:
 </code></pre>
 <p>Visit your repo's homepage on GitHub to see the update.</p>
 <p>Whenever we add, edit, or delete a file or directory in our local repo,
-we will want to follow the stage (add), commit, and push steps above.
+we follow the stage (add), commit, and push steps above.
 You can monitor the status of your local repository with the following command:</p>
 <pre><code>git status
 </code></pre>
@@ -547,7 +556,7 @@ The project directory contains all the project files and any sub-directories for
 <p>The remote repo is where we send, retrieve, or sync the files and directories that are contained in the local repo.
 We can retrieve projects from other repos that other people or organizations have created, if those repos are public.</p>
 <p>With Git and GitHub, we can start a project on the local system (i.e., our computers)
-or start a project by creating a remote repo on GitHub and then copying it to our local system.</p>
+or start a project by creating a remote repo on GitHub and then cloning it to our local system.</p>
 <h3 id="branches"><a class="header" href="#branches">Branches</a></h3>
 <p>The second Git concept to learn is:</p>
 <ul>
@@ -559,21 +568,12 @@ The default branch will be named <strong>main</strong>.</p>
 <p>However, since Git is a version control system,
 we can create additional branches to test or work on different components of our projects without messing with the main branch.
 For large or complex projects, we would work and switch among different branches.
-A large project might be a big website, an software application, or even an operating systems.
+A large project might be a big website, an software application, or even an operating system.
 Working in non-main branches (e.g., a testing branch),
 allows us to develop components of our project without interfering with the main branch, which might be at a stable version of our project. And then when we are ready, we can merge a testing branch with our main branch,
 or we can delete the testing branch if we don't want to use it.</p>
 <p>We will primarily work with the default, main branch with our projects,
 but you should read the <a href="https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell">Git documentation on branches</a>.</p>
-<p>Important note: If we create a new repository on our local machines using Git, the default branch might be called <strong>master</strong>.
-However, if we create a new repository on GitHub, the default branch will be called <strong>main</strong>.</p>
-<p>There is a long history of using terms like master and slave in various technologies,
-and the technology industry is beginning to come to terms with this and to use more inclusive terms.
-You can read more about the reasons here:</p>
-<ul>
-<li><a href="https://www.zdnet.com/article/github-to-replace-master-with-main-starting-next-month/">GitHub to replace 'master' with 'main' starting next month</a></li>
-<li><a href="https://www.wired.com/story/tech-confronts-use-labels-master-slave/">Tech Confronts Its Use of the Labels 'Master' and 'Slave'</a></li>
-</ul>
 <p>For future reference, here's a nice cheat sheet of <a href="https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html">Git commands</a>.</p>
 
                     </main>
