@@ -27,37 +27,6 @@ Let's start by creating an account on GitHub:
 - **Security**: Set up two-factor authentication for added security.
 - **Learning Resources**: GitHub has a [wealth of tutorials and guides][github_docs] to help you get started. Utilize these to familiarize yourself with GitHub's features and best practices.
 
-#### File Naming Conventions
-
-Name files well!
-Good file names help to organize and maintain a clear and efficient documentation system.
-Good file names add:
-
-1. **Clarity and Accessibility**: To save time and reduce confusion, use well-named files. This makes it easier to identify and understand your files at a glance.
-2. **Ease of Navigation**: Use consistent naming to aid navigating through files.
-3. **System Compatibility**: Avoid certain characters, like spaces and special characters, in file names. They will cause issues in different operating systems.
-    - Avoid spaces in file names. They cause issues in URLs and command-line operations.
-    - Avoid special characters like `!`, `$`, `#`, `%`, etc. They have specific functions in certain environments or scripts.
-    - Use single words or combine words using camelCase, underscores (`_`), or hyphens (`-`):
-        - For example:
-            - `ServerSetupGuide.md`,
-            - `server_setup_guide.md`, or
-            - `server-setup-guide.md`.
-
-#### The Importance of `.md` Extension for Markdown Files
-
-File name extensions are not always necessary, especially on Linux and Unix systems.
-However, when it comes to Markdown files, add the `.md` extension.
-This helps in the following ways:
-
-1. **GitHub Rendering**: GitHub automatically renders files with a `.md` extension as formatted Markdown.
-   This means your documentation will be displayed with the intended formatting (like headers, lists, links, etc.) when viewing it on GitHub.
-3. **Editor Support**: Most code editors recognize `.md` files and provide syntax highlighting.
-4. **Consistency and Recognition**: Using the `.md` extension helps users identify the file type and its intended use.
-
-For instance, naming a file `InstallationGuide.md` ensures that GitHub renders it as a Markdown document and displays all formatting correctly in the browser.
-This enhances readability and makes the documentation more user-friendly.
-
 ## Create a Repository (Repo) on GitHub
 
 Now that you have a GitHub account, your next step is to create a repository (repo) for your documentation project.
@@ -71,15 +40,14 @@ To get started:
 - Add an optional description:
     - This helps later in case you eventually create lots of repos.
 - Keep it public.
-- Click to add a README file
+- Click to add a README file:
+    - This will serve as the main page of your repository on GitHub.
 - Choose an open source license, if you want.
 - Then click the **Create repository** button.
 
-
 ### Edit README
 
-You should now see your repository's home page, and
-you should be viewing the default, but empty, README.md file.
+You should now see your repository's home page, and you should be viewing the default but empty README.md file.
 Let's edit this file on GitHub:
 
 - Click the pencil icon at the top right of that README.md file.
@@ -203,20 +171,60 @@ Once you are finished editing, to save you:
 
 - Click on the **Commit changes...** button.
 - A pop-up will appear. Update the **Commit message** or leave as-is:
-    - When you make more substantive edits, you will want to leave descriptive commit messages for help with version control.
+    - When you make more substantive edits, you will want to leave descriptive commit messages.
+    - This helps with with version control.
 - Press the **Commit changes** button.
 - Then click on the repo link to return to your repo's homepage.
 
+#### File Naming Conventions
+
+[README][readme] files serve as a *de facto* standard file.
+They provide a description of the project, outline its purpose, or provide instructions on using the repository.
+As you work on your projects, you can return to edit your README file to add more information about your work.
+
+In the process of working on your project, you will create other files, and you want to name them well.
+Good file names help to organize and maintain a clear and efficient documentation system.
+They help provide and ensure:
+
+1. **Clarity and Accessibility**: To save time and reduce confusion, use well-named files:
+    - This makes it easier to identify and understand your files at a glance.
+3. **Ease of Navigation**: Use consistent naming to aid navigating through files.
+4. **System Compatibility**:
+    - Avoid spaces in file names. They cause issues in URLs and command-line operations.
+    - Avoid special characters like `!`, `$`, `#`, `%`, etc. They have specific functions in certain environments or scripts, including shell environments.
+    - Name files with single words or combine words using camelCase, underscores (`_`), or hyphens (`-`):
+        - For example:
+            - `ServerSetupGuide.md`,
+            - `server_setup_guide.md`, or
+            - `server-setup-guide.md`.
+
+#### The Importance of `.md` Extension for Markdown Files
+
+File name extensions are not always necessary, especially on Linux and Unix systems.
+However, when it comes to Markdown files, add the `.md` extension (e.g., `README.md` rather than just `README`).
+This helps in the following ways:
+
+1. **GitHub Rendering**: GitHub automatically renders files with a `.md` extension as formatted Markdown.
+   This means your documentation will be displayed with the intended formatting (like headers, lists, links, etc.) when viewing it on GitHub.
+3. **Editor Support**: Most code editors recognize `.md` files and provide syntax highlighting.
+4. **Consistency and Recognition**: Using the `.md` extension helps users identify the file type and its intended use.
+
+For instance, naming a file `installation_guide.md` ensures that GitHub renders the file as a Markdown document and displays all formatting correctly in the browser.
+This enhances readability and makes the documentation more user-friendly.
+
 ## *Gitting* Started
 
-`git` is already installed on your Linux virtual machines!
+Now that we've set up our GitHub repo, it's time to return to our virtual machines.
+Fortunately, `git` is already installed on these machines, but we can do some configuring to ease its use.
 
 ### Git Configuration
 
 First, connect to your remote server and run the commands below to begin configuring `git`.
-Note the quotes around the **Your Name** command
-but not around the **github_username** or **email address** commands.
-Replace your name and email address with the name and email address you used for your GitHub accounts.
+In the example commands below, note the quotes around the **Your Name** command.
+Replace **Your Name** with your name and keep those quotes.
+You don't need quotes in the commands for setting your **github_username** and **email address**.
+Simply replace your info in the respective places.
+Use the same information you used when setting up your GitHub account.
 Run these commands separately:
 
 ```
@@ -225,10 +233,11 @@ git config --global user.name github_username
 git config --global user.email youremail@example.com
 ```
 
-Next, configure `git` to use **main** as your default branch name.
+Next, configure `git` to use the name **main** as your default branch.
 The second command instructs `git` to use `nano` as your default editor.
-Run these two commands as-is, but if you are using a different text editor,
-then be sure to lookup the appropriate command for that editor:
+Run these two commands as-is, but if you are using a different text editor (like `tilde` or `micro`),
+be sure to lookup the appropriate command for that editor.
+Keep the quotes around the editor name, which should be the name of the executable (i.e., program name) for your text editor.
 
 ```
 git config --global init.defaultBranch main
@@ -335,6 +344,11 @@ Visit your repo's homepage on GitHub to see the update.
 
 Whenever we add, edit, or delete a file or directory in our local repo,
 we will want to follow the stage (add), commit, and push steps above.
+You can monitor the status of your local repository with the following command:
+
+```
+git status
+```
 
 ### Pull
 
@@ -418,3 +432,4 @@ For future reference, here's a nice cheat sheet of [Git commands][git_commands].
 [gitlabels]:https://www.wired.com/story/tech-confronts-use-labels-master-slave/
 [gitmain]:https://www.zdnet.com/article/github-to-replace-master-with-main-starting-next-month/
 [gitstarted]:https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
+[readme]:https://en.wikipedia.org/wiki/README

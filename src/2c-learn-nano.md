@@ -122,29 +122,46 @@ Use it and get comfortable writing in it. Some quick tips:
 
 ## Other Editors
 
-It's important to be familiar with `nano` because it's generally the default text editor on Linux operating systems nowadays.
+It's good to be familiar with `nano` because it's often the default text editor on Linux operating systems nowadays.
 However, if you are interested in using a command line text editor with familiar keyboard shortcuts,
 then there are others you may want to try.
-In the meantime, here are a couple of more friendly editors to test out.
+Specifically, I suggest you investigate the `tilde` and/or the `micro` text editors.
+Both of these are really quite nice.
 
 ### tilde
 
 The [`tilde`](tilde) text editor is a user friendly text editor that uses conventional keybindings (like ctrl-s for saving, etc).
+`tilde` also offers a standard menu bar, which you can activate by pressing the `Alt` key and the letter for the menu option.
+For example, to open the File menu, press `Alt F`.
+Press the `Esc` key to exit the menus.
 
-You can install it via the `apt` command:
+You can install `tilde` via the `apt` command:
 
 ```
 sudo apt install tilde
 ```
 
+You can run `tilde` either by itself or by invoking a pre-existing or new file:
+
+```
+tilde
+```
+
+Or:
+
+```
+tilde newfile.md
+```
+
 ### micro
 
 The [`micro`](micro) text editor is also user friendly, and, like `tilde`, uses conventional key bindings.
-Press **ctrl-g** to enter its help menu.
-Use your arrow keys to read through it and learn more about its capabilities and its functions.
+Unlike `tilde`, there is no menu bar, but press **ctrl-g** to open a help menu.
+Use your arrow keys to read through the help documentation and learn more about its capabilities and its functions.
+One of the nice things about `micro` is that you can open multiple files in tabs.
 Press **ctrl-q** to exit the help menu.
 
-You can install it via the `apt` command:
+You can install it via the `apt` command and start the program like you can with the other editors:
 
 ```
 sudo apt install micro
@@ -173,7 +190,7 @@ Next, go to the line that starts with the text below, which is probably line 46:
 # force_color_prompt=yes
 ```
 
-And remove the comment character at the beginning (the pound sign).
+And remove the comment character (i.e., the pound sign, `#`) at the beginning of the line.
 The result should be:
 
 ```
@@ -205,26 +222,35 @@ LS_COLORS='rs=0:di=04;31:fi=00;00:ex=01;93';
 Feel free to play with the colors of the `ls` command.
 Remember to run `source ~/.bashrc` to put the changes into effect.
 
-## ed(1), Vi/Vim, Emacs
+## ed, Vi/Vim, Emacs
 
-ed(1), Vi/Vim, and Emacs are the traditional Unix and Linux text editors.
+The traditional Unix and Linux text editors are `ed`, `vim`, and `emacs`.
 I first started using Linux because I found `emacs`, but sometime during my early Linux years, I switched to `vim`.
 Vim is a descendant of the `vi` text editor, which itself is a descendant of the `ed` editor.
-None of these editors are user-friendly, but they are extremely powerful once you learn them, and they are still quite popular
-(well, `ed` probably isn't all that popular).
-There are plenty of online resources that provide tutorials on getting started with these text editors.
-I won't teach how to use them because it will take too much time, but they are worth knowing about
-because all three are important parts of Unix and Linux history.
+`ed` was used to write the first versions of the Unix operating system over 50 years ago when [teletypes][teleprinter]
+machines (and not video monitors) were the common input/output devices.
+It's still available, and I use it often.
+`vi` was an extension of `ed` and was written to take advantage of computer monitors.
+`vim` (or Vi Improved) added enhancements to `vi` and is my main editor.
+`emacs` is highly extensible text editor that can do about anything.
+The saying goes that Emacs is an "operating system posing as a text editor."
+
+These editors are extremely powerful once you learn them.
+Although they are quite popular, they are not user-friendly, though.
+(`ed` probably isn't all that popular, but it has a [dedicated following][ed_conference].)
+If interested, there are plenty of online resources that provide tutorials on getting started with these text editors.
+I won't teach you how to use them because it would take too much time,
+but they are worth knowing about because all three are important parts of Unix and Linux history.
 
 ## Conclusion
 
 In the prior lesson, we learned how to use the Bash interactive shell.
-We will continue to do that, but in the meantime, in this lesson, we begin to learn how to use a command line text editor, ``nano``.
-I also introduce you to friendlier editors, `tilde` and `micro`, that you might prefer over `nano`.
+We will continue to do that, but in the meantime, in this lesson, we begin to learn how to use a command line text editor, `nano`.
+I also introduced friendlier editors (`tilde` and `micro`) that you might prefer over `nano`.
 We will use a text editor to edit configuration files and publish text to GitHub.
 It's your choice what you want to use.
 
-## My .nanorc
+## Appendix: My `.nanorc`
 
 You can configure `nano` to look and behave in certain ways.
 If you want to mimic the setup I have, then create a file called **.nanorc** in your home directory, and add the following to it:
@@ -291,8 +317,10 @@ set tabstospaces
 [asciitable]:https://www.rapidtables.com/code/text/ascii-table.html
 [configuring_ls]:https://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors
 [cua]:https://www.ibm.com/docs/en/zos/3.1.0?topic=reference-common-user-access-cua-guidelines
+[ed_conference]:https://bsd.network/@ed1conf/
 [ide]:https://en.wikipedia.org/wiki/Integrated_development_environment
 [micro]:https://micro-editor.github.io/index.html
 [nano]:https://www.nano-editor.org/
+[teleprinter]:https://en.wikipedia.org/wiki/Teleprinter 
 [tilde]:https://os.ghalkes.nl/tilde/
 [tty]:https://www.youtube.com/watch?v=jxkygWI-Wfs
