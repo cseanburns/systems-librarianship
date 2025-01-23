@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light sidebar-visible" dir="ltr">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-
+        
         <meta name="description" content="Entry level book on systems librarianship.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -30,17 +30,15 @@
 
         <!-- Custom theme stylesheets -->
 
-
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-        <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
-    </head>
-    <body>
-    <div id="body-container">
+
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -62,16 +60,19 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            const html = document.documentElement;
+            var html = document.querySelector('html');
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add("js");
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
+            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -81,25 +82,45 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <!-- populated by js -->
-            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
-            <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
-            </noscript>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="p1-systems-librarianship.html"><strong aria-hidden="true">1.</strong> Systems Librarianship</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="1a-history-linux-unix.html"><strong aria-hidden="true">1.1.</strong> History of Unix and Linux</a></li><li class="chapter-item expanded "><a href="1b-what-is-linux.html"><strong aria-hidden="true">1.2.</strong> What is Linux?</a></li><li class="chapter-item expanded "><a href="1c-what-is-sysadmin.html"><strong aria-hidden="true">1.3.</strong> What is Systems Administration?</a></li><li class="chapter-item expanded "><a href="1d-what-is-syslib.html"><strong aria-hidden="true">1.4.</strong> What is Systems Librarianship?</a></li></ol></li><li class="chapter-item expanded "><a href="p2-project-management-and-CLI.html"><strong aria-hidden="true">2.</strong> Project Management and CLI (Command Line Interface) Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="2a-using-gcloud-virtual-machines.html"><strong aria-hidden="true">2.1.</strong> Using gcloud for Virtual Machines</a></li><li class="chapter-item expanded "><a href="2b-learn-the-cli.html"><strong aria-hidden="true">2.2.</strong> Learn the CLI</a></li><li class="chapter-item expanded "><a href="2c-learn-nano.html" class="active"><strong aria-hidden="true">2.3.</strong> Using the Nano Text Editor</a></li><li class="chapter-item expanded "><a href="2d-documenting-git-github-markdown.html"><strong aria-hidden="true">2.4.</strong> Documentating with Git, GitHub, and Markdown</a></li></ol></li><li class="chapter-item expanded "><a href="p3-working-on-the-CLI.html"><strong aria-hidden="true">3.</strong> Working on the CLI</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3a-searching-with-grep.html"><strong aria-hidden="true">3.1.</strong> Searching with grep</a></li><li class="chapter-item expanded "><a href="3b-managing-software.html"><strong aria-hidden="true">3.2.</strong> Managing Software</a></li><li class="chapter-item expanded "><a href="3c-library-search.html"><strong aria-hidden="true">3.3.</strong> Library Search</a></li></ol></li><li class="chapter-item expanded "><a href="p4-creating-a-lamp-server.html"><strong aria-hidden="true">4.</strong> Creating a LAMP Server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="4a-installing-the-apache-web-server.html"><strong aria-hidden="true">4.1.</strong> Installing the Apache Web Server</a></li><li class="chapter-item expanded "><a href="4b-installing-configuring-php.html"><strong aria-hidden="true">4.2.</strong> Installing and Configuring PHP</a></li><li class="chapter-item expanded "><a href="4c-installing-configuring-mysql.html"><strong aria-hidden="true">4.3.</strong> Installing and Configuring MySQL</a></li><li class="chapter-item expanded "><a href="4d-basic-opac.html"><strong aria-hidden="true">4.4.</strong> Creating a Bare Bones OPAC</a></li><li class="chapter-item expanded "><a href="4e-basic-opac-admin.html"><strong aria-hidden="true">4.5.</strong> Creating a Bare Bones Cataloging Module</a></li></ol></li><li class="chapter-item expanded "><a href="p5-installing-content-management-systems.html"><strong aria-hidden="true">5.</strong> Installing Content Management Systems</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="5a-install-wordpress.html"><strong aria-hidden="true">5.1.</strong> Install WordPress</a></li><li class="chapter-item expanded "><a href="5b-install-omeka.html"><strong aria-hidden="true">5.2.</strong> Install Omeka</a></li></ol></li><li class="chapter-item expanded "><a href="p6-installing-an-ILS.html"><strong aria-hidden="true">6.</strong> Installing an Integrated Library System</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="6a-install-koha.html"><strong aria-hidden="true">6.1.</strong> Install Koha</a></li></ol></li><li class="chapter-item expanded "><a href="p7-conclusion.html"><strong aria-hidden="true">7.</strong> Conclusion</a></li></ol>
+            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
+                                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -258,21 +279,32 @@ Use it and get comfortable writing in it. Some quick tips:</p>
 <li>Be sure to follow the prompts at the bottom of the screen.</li>
 </ol>
 <h2 id="other-editors"><a class="header" href="#other-editors">Other Editors</a></h2>
-<p>It's important to be familiar with <code>nano</code> because it's generally the default text editor on Linux operating systems nowadays.
+<p>It's good to be familiar with <code>nano</code> because it's often the default text editor on Linux operating systems nowadays.
 However, if you are interested in using a command line text editor with familiar keyboard shortcuts,
 then there are others you may want to try.
-In the meantime, here are a couple of more friendly editors to test out.</p>
+Specifically, I suggest you investigate the <code>tilde</code> and/or the <code>micro</code> text editors.
+Both of these are really quite nice.</p>
 <h3 id="tilde"><a class="header" href="#tilde">tilde</a></h3>
-<p>The <a href="tilde"><code>tilde</code></a> text editor is a user friendly text editor that uses conventional keybindings (like ctrl-s for saving, etc).</p>
-<p>You can install it via the <code>apt</code> command:</p>
+<p>The <a href="tilde"><code>tilde</code></a> text editor is a user friendly text editor that uses conventional keybindings (like ctrl-s for saving, etc).
+<code>tilde</code> also offers a standard menu bar, which you can activate by pressing the <code>Alt</code> key and the letter for the menu option.
+For example, to open the File menu, press <code>Alt F</code>.
+Press the <code>Esc</code> key to exit the menus.</p>
+<p>You can install <code>tilde</code> via the <code>apt</code> command:</p>
 <pre><code>sudo apt install tilde
+</code></pre>
+<p>You can run <code>tilde</code> either by itself or by invoking a pre-existing or new file:</p>
+<pre><code>tilde
+</code></pre>
+<p>Or:</p>
+<pre><code>tilde newfile.md
 </code></pre>
 <h3 id="micro"><a class="header" href="#micro">micro</a></h3>
 <p>The <a href="micro"><code>micro</code></a> text editor is also user friendly, and, like <code>tilde</code>, uses conventional key bindings.
-Press <strong>ctrl-g</strong> to enter its help menu.
-Use your arrow keys to read through it and learn more about its capabilities and its functions.
+Unlike <code>tilde</code>, there is no menu bar, but press <strong>ctrl-g</strong> to open a help menu.
+Use your arrow keys to read through the help documentation and learn more about its capabilities and its functions.
+One of the nice things about <code>micro</code> is that you can open multiple files in tabs.
 Press <strong>ctrl-q</strong> to exit the help menu.</p>
-<p>You can install it via the <code>apt</code> command:</p>
+<p>You can install it via the <code>apt</code> command and start the program like you can with the other editors:</p>
 <pre><code>sudo apt install micro
 </code></pre>
 <h2 id="editing-bashrc"><a class="header" href="#editing-bashrc">Editing <code>.bashrc</code></a></h2>
@@ -288,7 +320,7 @@ export LS_COLORS
 <p>Next, go to the line that starts with the text below, which is probably line 46:</p>
 <pre><code># force_color_prompt=yes
 </code></pre>
-<p>And remove the comment character at the beginning (the pound sign).
+<p>And remove the comment character (i.e., the pound sign, <code>#</code>) at the beginning of the line.
 The result should be:</p>
 <pre><code>force_color_prompt=yes
 </code></pre>
@@ -310,22 +342,30 @@ Let's break it down:</p>
 </ul>
 <p>Feel free to play with the colors of the <code>ls</code> command.
 Remember to run <code>source ~/.bashrc</code> to put the changes into effect.</p>
-<h2 id="ed1-vivim-emacs"><a class="header" href="#ed1-vivim-emacs">ed(1), Vi/Vim, Emacs</a></h2>
-<p>ed(1), Vi/Vim, and Emacs are the traditional Unix and Linux text editors.
+<h2 id="ed-vivim-emacs"><a class="header" href="#ed-vivim-emacs">ed, Vi/Vim, Emacs</a></h2>
+<p>The traditional Unix and Linux text editors are <code>ed</code>, <code>vim</code>, and <code>emacs</code>.
 I first started using Linux because I found <code>emacs</code>, but sometime during my early Linux years, I switched to <code>vim</code>.
 Vim is a descendant of the <code>vi</code> text editor, which itself is a descendant of the <code>ed</code> editor.
-None of these editors are user-friendly, but they are extremely powerful once you learn them, and they are still quite popular
-(well, <code>ed</code> probably isn't all that popular).
-There are plenty of online resources that provide tutorials on getting started with these text editors.
-I won't teach how to use them because it will take too much time, but they are worth knowing about
-because all three are important parts of Unix and Linux history.</p>
+<code>ed</code> was used to write the first versions of the Unix operating system over 50 years ago when <a href="https://en.wikipedia.org/wiki/Teleprinter">teletypes</a>
+machines (and not video monitors) were the common input/output devices.
+It's still available, and I use it often.
+<code>vi</code> was an extension of <code>ed</code> and was written to take advantage of computer monitors.
+<code>vim</code> (or Vi Improved) added enhancements to <code>vi</code> and is my main editor.
+<code>emacs</code> is highly extensible text editor that can do about anything.
+The saying goes that Emacs is an "operating system posing as a text editor."</p>
+<p>These editors are extremely powerful once you learn them.
+Although they are quite popular, they are not user-friendly, though.
+(<code>ed</code> probably isn't all that popular, but it has a <a href="https://bsd.network/@ed1conf/">dedicated following</a>.)
+If interested, there are plenty of online resources that provide tutorials on getting started with these text editors.
+I won't teach you how to use them because it would take too much time,
+but they are worth knowing about because all three are important parts of Unix and Linux history.</p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>In the prior lesson, we learned how to use the Bash interactive shell.
 We will continue to do that, but in the meantime, in this lesson, we begin to learn how to use a command line text editor, <code>nano</code>.
-I also introduce you to friendlier editors, <code>tilde</code> and <code>micro</code>, that you might prefer over <code>nano</code>.
+I also introduced friendlier editors (<code>tilde</code> and <code>micro</code>) that you might prefer over <code>nano</code>.
 We will use a text editor to edit configuration files and publish text to GitHub.
 It's your choice what you want to use.</p>
-<h2 id="my-nanorc"><a class="header" href="#my-nanorc">My .nanorc</a></h2>
+<h2 id="appendix-my-nanorc"><a class="header" href="#appendix-my-nanorc">Appendix: My <code>.nanorc</code></a></h2>
 <p>You can configure <code>nano</code> to look and behave in certain ways.
 If you want to mimic the setup I have, then create a file called <strong>.nanorc</strong> in your home directory, and add the following to it:</p>
 <pre><code># Syntax:
