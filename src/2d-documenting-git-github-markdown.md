@@ -7,7 +7,7 @@ It ensures that processes are understood, tasks are reproducible, and
 collaborators can contribute to shared goals.
 In this section, we learn how to use Git, GitHub, and Markdown as tools for managing and presenting documentation efficiently.
 Specifically, Git with GitHub offer robust version control and collaboration capabilities.
-Markdown is a markup language with a simple syntax that facilitates clean, professional documentation compatible with multiple platforms.
+Markdown, a markup language with a simple syntax, facilitates clean, professional documentation compatible with multiple platforms.
 
 ## Create a GitHub Account
 
@@ -41,13 +41,13 @@ To get started:
     - This helps later in case you eventually create lots of repos.
 - Keep it public.
 - Click to add a README file:
-    - This will serve as the main page of your repository on GitHub.
+    - This serves as the main page of your repository on GitHub.
 - Choose an open source license, if you want.
-- Then click the **Create repository** button.
+- Click the **Create repository** button.
 
 ### Edit README
 
-You should now see your repository's home page, and you should be viewing the default but empty README.md file.
+You should now see your repository's home page, and you will be viewing the default, empty README.md file.
 Let's edit this file on GitHub:
 
 - Click the pencil icon at the top right of that README.md file.
@@ -65,8 +65,9 @@ Here's a quick guide to the most commonly used Markdown syntax:
 
 ##### Headings
 
-Headings are created using the `#` symbol before your text.
-The number of `#` symbols indicates the level of the heading:
+Create headings using the pound `#` symbol before your text.
+The number of pound `#` symbols indicates the level of the heading.
+Heading level 1 indicates the main heading and so forth.
 
 ```markdown
 # Heading 1
@@ -86,14 +87,14 @@ The number of `#` symbols indicates the level of the heading:
 
 ##### Lists
 
-- **Unordered Lists**: Use asterisks, plus signs, or hyphens to create bullet points.
+- **Unordered Lists**: Use asterisks, plus signs, or hyphens to create bullet point lists.
 - Use indentation to create sub-items in a list.
   
-  ```markdown
+      ```markdown
   * Item 1
   * Item 2
-    * Subitem 2.1
-    * Subitem 2.2
+    * Subitem 1
+    * Subitem 2
   ```
 
 - **Ordered Lists**: Use numbers followed by periods for an ordered list.
@@ -109,14 +110,16 @@ The number of `#` symbols indicates the level of the heading:
 
 - **Links**: To create a named link, wrap the link text in brackets `[ ]`, and then wrap the URL in parentheses `( )`. 
     - For example, `[GitHub](https://github.com)` will be [GitHub](https://github.com).
+    - Add a link title: `[GitHub](https://github.com "GitHub Code Repo")`.
+    - Use reference-style links: `[GitHub][github]`. Then refer to the full URL elsewhere in the document. For example, I usually add the reference at the end: `[github]:https://github.com`.
 - **Images**: Similar to links, but start with an exclamation mark, followed by the alt text in brackets, and the URL in parentheses. 
     - For example, `![Alt text](image-url.jpg)`.
-    - In this example, the file **image-url.jpg** must be in the same directory as the Markdown file.
+    - In this example, the file **image-url.jpg** must be in the same directory as the Markdown file. It's good practice to organize project files. In this case, I would suggest creating an images directory in the project home and storing images there, with good, descriptive names. Then use a relative path to link to the image: `![Alt text](images/image-url.jpg)` where `images/` is the directory name and `image-url.jpg` is the image file name.
 
 ##### Code
 
 - **Inline Code**: Use a single backtick to wrap your code in text.
-    - For example, this is an example of `` `inline code` ``.
+    - For example: `` `inline code` ``.
 - **Code Blocks**: For larger sections of code, use three backticks or indent
   with four spaces.
   
@@ -157,17 +160,21 @@ Create a horizontal line or rule by using three or more asterisks, dashes, or un
 ---
 ```
 
+The above will render as:
+
+---
+
 ##### Additional Tips
 
 - **Whitespace and Line Breaks**: In Markdown, paragraphs are automatically created when text is separated by an empty line.
   To create a new line without starting a new paragraph, end a line with two or more spaces.
-- **Escaping Markdown**: To display a Markdown character, precede it with a backslash (`\`). For example, `\*not italic\*`.
+- **Escaping Markdown**: To display a Markdown character, precede it with a backslash (`\`). For example, `\*demo italicizing\*`.
 
 ### Preview and Save
 
 As you edit your README.md file, you can click the **Preview** tab to see how it will be rendered.
 
-Once you are finished editing, to save you:
+Once you are finished editing, save with the following steps:
 
 - Click on the **Commit changes...** button.
 - A pop-up will appear. Update the **Commit message** or leave as-is:
@@ -187,16 +194,15 @@ Good file names help to organize and maintain a clear and efficient documentatio
 They help provide and ensure:
 
 1. **Clarity and Accessibility**: To save time and reduce confusion, use well-named files:
-    - This makes it easier to identify and understand your files at a glance.
+    - They make it easier to identify and understand your files at a glance.
 3. **Ease of Navigation**: Use consistent naming to aid navigating through files.
 4. **System Compatibility**:
     - Avoid spaces in file names. They cause issues in URLs and command-line operations.
     - Avoid special characters like `!`, `$`, `#`, `%`, etc. They have specific functions in certain environments or scripts, including shell environments.
-    - Name files with single words or combine words using camelCase, underscores (`_`), or hyphens (`-`):
-        - For example:
-            - `ServerSetupGuide.md`,
-            - `server_setup_guide.md`, or
-            - `server-setup-guide.md`.
+    - Name files with single words or combine words using:
+        - camelCase: `serverSetupGuide.md`,
+        - underscores: `server_setup_guide.md`, or
+        - hyphens: `server-setup-guide.md`.
 
 #### The Importance of `.md` Extension for Markdown Files
 
@@ -206,16 +212,18 @@ This helps in the following ways:
 
 1. **GitHub Rendering**: GitHub automatically renders files with a `.md` extension as formatted Markdown.
    This means your documentation will be displayed with the intended formatting (like headers, lists, links, etc.) when viewing it on GitHub.
-3. **Editor Support**: Most code editors recognize `.md` files and provide syntax highlighting.
-4. **Consistency and Recognition**: Using the `.md` extension helps users identify the file type and its intended use.
+3. **Editor Support**: Most code editors use file extensions, like `.md`, and provide appropriate syntax highlighting.
+4. **Consistency and Recognition**: Using a file extension, like `.md`, helps users identify the file type and its intended use.
 
-For instance, naming a file `installation_guide.md` ensures that GitHub renders the file as a Markdown document and displays all formatting correctly in the browser.
+For instance, naming a file `installation_guide.md` ensures that GitHub renders the file as a Markdown document
+and displays all formatting correctly in the browser.
 This enhances readability and makes the documentation more user-friendly.
+Your text editor will also recognize the file extension and colorize the syntax appropriately.
 
 ## *Gitting* Started
 
 Now that we've set up our GitHub repo, it's time to return to our virtual machines.
-Fortunately, `git` is already installed on these machines, but we can do some configuring to ease its use.
+`git` is already installed on these machines, but it needs to be configured.
 
 ### Git Configuration
 
@@ -236,7 +244,8 @@ git config --global user.email youremail@example.com
 Next, configure `git` to use the name **main** as your default branch.
 The second command instructs `git` to use `nano` as your default editor.
 Run these two commands as-is, but if you are using a different text editor (like `tilde` or `micro`),
-be sure to lookup the appropriate command for that editor.
+be sure to lookup the appropriate command for that editor
+(it's just `tilde` or `micro`, though).
 Keep the quotes around the editor name, which should be the name of the executable (i.e., program name) for your text editor.
 
 ```
@@ -252,9 +261,8 @@ git config --list
 
 For additional details, see the Git documentation on getting started:
 
-- [Getting Started - First-Time Git Setup][gitstarted]
+- [Getting Started - First-Time Git Setup][git_started]
 
-We'll soon begin to use Git and GitHub when we start coding our websites.
 Next, we need to configure how `git` and GitHub work together.
 
 ### Generate SSH Keys
@@ -268,28 +276,26 @@ On the server:
     1. `ssh-keygen -t ed25519 -C "your_email@example.com"`
     2. Use the same email that you used when signing up with GitHub.
 2. Copy your SSH public key to your clipboard:
-  1. View it with this command: `cat ~/.ssh/id_ed25519.pub`.
-  2. Then select it with your mouse and copy it.
-  3. Open GitHub and click on profile photo and then Settings.
-  4. In the Access section of sidebar, click **SSH and GPG keys**
-  5. Click **New SSH key** or **Add SSH key**
-  6. In the **Title** field, add a descriptive label for the new key:
-      1. For example, the name of the machine you used to generate the key.
-  7. Select the key type: authentication
-  8. Paste your SSH public key in the **Key** field.
-  9. Click **Add SSH key**
-  10. See the official documentation here: [Adding a New SSH Key][github_ssh_add]
-3. Setup the SSH public key as your signing key:
-  1. Run the following commands:
-      1. `git config --global gpg.format ssh`
-      2. `git config --global user.signingkey $HOME/.ssh/id_ed25519.pub`
-      3. See the documentation at: [Telling Git About Your Signing Key][github_signing_key]
-4. Then run the following command to configure signing:
-    1. `git config --global commit.gpgsign true`
+    1. View it with this command: `cat ~/.ssh/id_ed25519.pub`.
+    2. Then select it with your mouse and copy it.
+    3. Open GitHub and visit Settings.
+    4. In the Access section of sidebar, click **SSH and GPG keys**
+    5. Click **New SSH key** or **Add SSH key**
+    6. In the **Title** field, add a descriptive label for the new key:
+        1. For example, the name of the machine you used to generate the key.
+    7. Select the key type: authentication.
+    8. Paste your SSH public key in the **Key** field.
+    9. Click **Add SSH key**
+    10. See the official documentation here: [Adding a New SSH Key][github_ssh_add]
+3. On your virtual machine, setup the SSH public key as your signing key:
+    1. `git config --global gpg.format ssh`
+    2. `git config --global user.signingkey $HOME/.ssh/id_ed25519.pub`
+    3. `git config --global commit.gpgsign true`
+    4. See the documentation at: [Telling Git About Your Signing Key][github_signing_key]
 
 ### Clone Your Repo
 
-Now that you have `git` configured to work with GitHub, you want to clone your repo to your virtual machine.
+Now that you have `git` configured to work with GitHub, clone your repo to your virtual machine.
 
 - Return to GitHub and your repo's homepage.
 - Click the green **Code** drop down button.
@@ -343,7 +349,7 @@ git push origin main
 Visit your repo's homepage on GitHub to see the update.
 
 Whenever we add, edit, or delete a file or directory in our local repo,
-we will want to follow the stage (add), commit, and push steps above.
+we follow the stage (add), commit, and push steps above.
 You can monitor the status of your local repository with the following command:
 
 ```
@@ -386,7 +392,7 @@ The remote repo is where we send, retrieve, or sync the files and directories th
 We can retrieve projects from other repos that other people or organizations have created, if those repos are public.
 
 With Git and GitHub, we can start a project on the local system (i.e., our computers)
-or start a project by creating a remote repo on GitHub and then copying it to our local system.
+or start a project by creating a remote repo on GitHub and then cloning it to our local system.
 
 ### Branches
 
@@ -401,23 +407,13 @@ The default branch will be named **main**.
 However, since Git is a version control system,
 we can create additional branches to test or work on different components of our projects without messing with the main branch.
 For large or complex projects, we would work and switch among different branches.
-A large project might be a big website, an software application, or even an operating systems.
+A large project might be a big website, an software application, or even an operating system.
 Working in non-main branches (e.g., a testing branch),
 allows us to develop components of our project without interfering with the main branch, which might be at a stable version of our project. And then when we are ready, we can merge a testing branch with our main branch,
 or we can delete the testing branch if we don't want to use it.
 
 We will primarily work with the default, main branch with our projects,
 but you should read the [Git documentation on branches][git_branches].
-
-Important note: If we create a new repository on our local machines using Git, the default branch might be called **master**.
-However, if we create a new repository on GitHub, the default branch will be called **main**.
-
-There is a long history of using terms like master and slave in various technologies,
-and the technology industry is beginning to come to terms with this and to use more inclusive terms.
-You can read more about the reasons here:
-
-- [GitHub to replace 'master' with 'main' starting next month][gitmain]
-- [Tech Confronts Its Use of the Labels 'Master' and 'Slave'][gitlabels]
 
 For future reference, here's a nice cheat sheet of [Git commands][git_commands].
 
@@ -429,7 +425,5 @@ For future reference, here's a nice cheat sheet of [Git commands][git_commands].
 [github_repo]:https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository
 [github_signing_key]:https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
 [github_ssh_add]:https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
-[gitlabels]:https://www.wired.com/story/tech-confronts-use-labels-master-slave/
-[gitmain]:https://www.zdnet.com/article/github-to-replace-master-with-main-starting-next-month/
-[gitstarted]:https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
+[git_started]:https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
 [readme]:https://en.wikipedia.org/wiki/README
