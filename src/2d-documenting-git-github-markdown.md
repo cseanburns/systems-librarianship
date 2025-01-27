@@ -237,7 +237,6 @@ Run these commands separately:
 
 ```
 git config --global user.name "Your Name"
-git config --global user.name github_username
 git config --global user.email youremail@example.com
 ```
 
