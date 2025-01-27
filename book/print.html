@@ -1367,14 +1367,15 @@ Embodied Interaction</em>. MIT Press.
 <a href="https://doi.org/10.7551/mitpress/7221.001.0001">https://doi.org/10.7551/mitpress/7221.001.0001</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="text-editors"><a class="header" href="#text-editors">Text editors</a></h1>
 <p>As we learn more about how to work on the command line, we will acquire the need to write in plain text or edit configuration files.
-Most configuration files for Linux applications exist in the <code>/etc</code> directory, and are regular text files.
+Most configuration files for Linux applications exist in the <code>/etc</code> directory and are regular text files.
 For example, later in the semester we will install the <a href="https://httpd.apache.org/">Apache Web Server</a>,
 and we will need to edit Apache's configuration files in the process.</p>
-<p>In order to edit and save text files, we need a text editor.
+<p>In order to edit and save text files, like the Apache configuration files, we need a text editor.
 Programmers use text editors to write programs, but because programmers often work in graphical user environments,
 they may often use graphical text editors or graphical <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated Development Environments (IDEs)</a>.
 It might be that if you work in systems librarianship, that you will often use a graphical text editor,
-but knowing something about how to use command line-based editors can be helpful.</p>
+but knowing something about how to use command line-based editors can be helpful.
+For a variety of reasons, a GUI text editor or IDE isn't always available.</p>
 <h2 id="what-is-a-plain-text"><a class="header" href="#what-is-a-plain-text">What is a Plain Text?</a></h2>
 <p>Plain text is the most basic way to store human-readable textual information.
 Whenever we use a word processor program, like Microsoft Office, we are creating a complex series
@@ -1401,57 +1402,65 @@ Software is written in plain text files because programming languages cannot eva
 Those of you who have learned how to use the R programming language wrote your R code in plain text likely using the RStudio IDE.
 For our purposes, we need plain text files to modify configuration files for the various programs that we will install later.</p>
 <h2 id="why-edit-in-plain-text"><a class="header" href="#why-edit-in-plain-text">Why Edit in Plain Text</a></h2>
-<p>Most of the time when we configure software, we might do it, for example,
-by using our mouse to find the settings menu in some application that we are using.
-All that does, for the most part, is make changes to some text file somewhere.
-We will have to be more direct since we are working on the command line only.
-That is, the kind of settings configurations we will do will require editing a variety
-of plain text files that the programs will use to modify how they work.
+<p>Most of the time when we configure software, we might use our mouse to find the settings menu
+in an application that we are using.
+Then we'll make a change in those settings.
+For the most part, all we're really doing is making a change in some text file somewhere.
+The application's GUI-ness simply obscures that process.</p>
+<p>We have to be more direct when we are working on the command line.
+That is, the setting configurations we will do require editing plain text files
+that modify how the programs will use work.
 Often the settings for programs can only be modified by editing their plain text configuration files.</p>
 <h2 id="nano"><a class="header" href="#nano"><code>nano</code></a></h2>
-<p>The <a href="https://www.nano-editor.org/"><code>nano</code></a> text editor is a fairly user-friendly command line text editor, but it requires some learning as a new command line user.
-The friendliest thing about <code>nano</code> is that it is modeless,
-which is what you're already accustomed to using.
-This means <code>nano</code> can be used to enter and manipulate text without changing to insert or command mode.
-It is also friendly because, like many graphical text editors and software, it uses control keys to perform its operations.</p>
+<p>The most common text editor on many Linux systems is <code>nano</code>.
+The <a href="https://www.nano-editor.org/"><code>nano</code></a> text editor is a user-friendly command line text editor,
+but it requires some learning as a new command line user.
+The friendliest thing about <code>nano</code> is that it is modeless.
+You are already accustomed to using modeless editors.
+It means that <code>nano</code> can be used to enter and manipulate text without modes,
+like insert mode or command mode.
+It is also friendly because, like many graphical text editors and software,
+it uses control keys to perform its operations.</p>
 <blockquote>
 <p>A modal text editor has modes such as insert mode or command mode.
 In insert mode, the user types text as anyone would in any kind of editor or word processor.
 The user switches to command mode to perform operations on the text,
-such as find and replace, saving, cutting and pasting but cannot insert text as they would in insert mode.
-Switching between modes usually involves pressing some specific keys.
+such as find and replace, saving, and cutting and pasting.
+Switching between modes usually involves pressing specific keys.
 In Vim and ed(1), my text editors of choice,
-the user starts in command mode and switches to insert mode by pressing the letter <strong>i</strong> or the letter <strong>a</strong>.
-The user may switch back to command mode by pressing the <strong>Esc</strong> key in Vim or by pressing the period in a new line in ed(1).</p>
+users start in command mode and switch to insert mode by pressing the letter <strong>i</strong> or the letter <strong>a</strong>.
+The user returns to command mode by pressing the <strong>Esc</strong> key in Vim or by pressing the period in a new line in ed(1).</p>
 </blockquote>
 <p>The tricky part to learning <code>nano</code> is that the control keys are assigned to different keystroke combinations than what
 many graphical editors (or word processors) use by convention today.
 For example, instead of Ctrl-c or Cmd-c to copy text, in <code>nano</code> you press the <code>M-6</code> key
 (press <code>Alt, Cmd, or Esc key</code> and <code>6</code>) to copy.
-Then to paste, you press <code>Ctrl-u</code> instead of the more common <code>Ctrl-v</code>.
+To paste, press <code>Ctrl-u</code> instead of the more common <code>Ctrl-v</code>.
 Fortunately, <code>nano</code> lists the shortcuts at the bottom of the screen.</p>
 <blockquote>
 <p><code>nano</code> is a text-editor with old origins.
 Specifically, it's a fork of the Unix <code>pico</code> editor.
 The keyboard shortcuts used by <code>nano</code> were carried over from the <code>pico</code> editor.
-These keyboard shortcuts were designed before the <a href="cua">Common User Access</a> guidelines helped standardize the common keyboard
-shortcuts we use today for opening, saving, closing, etc files.</p>
+These keyboard shortcuts were designed before the <a href="cua">Common User Access</a> guidelines
+helped standardize the common keyboard shortcuts we use today for opening, saving, closing, etc files.</p>
 </blockquote>
-<p>The shortcuts listed need some explanation, though.
+<p>The shortcuts listed need some explanation.
 The carat mark is shorthand for the keyboard's <strong>Control (Ctrl)</strong> key.
-Therefore to <strong>Save As</strong> a file, we <strong>write</strong> out the file by pressing <code>Ctrl-o</code> (although <code>Ctrl-s</code> will work, too).
-The <strong>M-</strong> key is also important, and depending on your keyboard configuration, it may correspond to your <code>Alt, Cmd, or Esc</code> keys.
-To search for text, you press <code>^W</code>.
-If your goal is to copy, then press <strong>M-6</strong> to copy a line.
-Move to where you want to paste the text, and press <strong>Ctrl-u</strong> to paste.</p>
-<p>We can start <code>nano</code> simply by typing <code>nano</code> on the command line.
+Therefore to perform the <strong>Save As</strong> operation on a file,
+we <strong>write</strong> out the file by pressing <code>Ctrl-o</code> (although <code>Ctrl-s</code> will work these days, too).
+The <strong>M-</strong> key is important.
+Depending on your keyboard configuration, it may correspond to your <code>Alt</code>, <code>Cmd</code>, or <code>Esc</code> keys.
+To search for text, you press <code>^W</code> or <code>Ctrl</code> and <code>W</code>; that is, <code>Ctrl-W</code> (lowercase <code>w</code> will work).
+If your goal is to copy, then press <code>M-6</code> to copy a line.
+Move to where you want to paste the text, and press <code>Ctrl-U</code> to paste.</p>
+<p>We start <code>nano</code> simply by typing <code>nano</code> on the command line.
 This will open a new, unsaved file with no content.
 Alternatively, we can start <code>nano</code> by specifying a file name after typing <code>nano</code>.
 For example, if I want to open a file called <strong>example.txt</strong>, then I type the following command:</p>
 <pre><code>nano example.txt
 </code></pre>
-<p>If the file doesn't exist, this will start it.
-If it does exit, then the above command will open it.</p>
+<p>If the file doesn't exist, this will create it.
+If it does exit, then the command will open it.</p>
 <p>One of the other tricky things about <code>nano</code> is that the <em>menu bar</em> (really just a crib sheet, so to speak)
 is at the bottom of the screen instead of at the top, which is where we are mostly accustomed to finding it these days.
 Also, the <code>nano</code> program does not provide pop up dialog boxes.
@@ -1471,13 +1480,15 @@ Use it and get comfortable writing in it. Some quick tips:</p>
 <p>It's good to be familiar with <code>nano</code> because it's often the default text editor on Linux operating systems nowadays.
 However, if you are interested in using a command line text editor with familiar keyboard shortcuts,
 then there are others you may want to try.
-Specifically, I suggest you investigate the <code>tilde</code> and/or the <code>micro</code> text editors.
+Specifically, I suggest you investigate the <code>tilde</code> and the <code>micro</code> text editors.
 Both of these are really quite nice.</p>
 <h3 id="tilde"><a class="header" href="#tilde">tilde</a></h3>
-<p>The <a href="tilde"><code>tilde</code></a> text editor is a user friendly text editor that uses conventional keybindings (like ctrl-s for saving, etc).
-<code>tilde</code> also offers a standard menu bar, which you can activate by pressing the <code>Alt</code> key and the letter for the menu option.
-For example, to open the File menu, press <code>Alt F</code>.
-Press the <code>Esc</code> key to exit the menus.</p>
+<p>The <a href="tilde"><code>tilde</code></a> text editor is a user friendly text editor that uses conventional keybindings
+(like ctrl-s for saving, etc).
+<code>tilde</code> also offers a standard menu bar,
+which you activate by pressing the <code>Alt</code> key and the letter for the menu option.
+For example, to open the File menu, press <code>Alt-F</code>.
+Press the <code>Esc</code> key to exit the menu.</p>
 <p>You can install <code>tilde</code> via the <code>apt</code> command:</p>
 <pre><code>sudo apt install tilde
 </code></pre>
@@ -1488,9 +1499,11 @@ Press the <code>Esc</code> key to exit the menus.</p>
 <pre><code>tilde newfile.md
 </code></pre>
 <h3 id="micro"><a class="header" href="#micro">micro</a></h3>
-<p>The <a href="micro"><code>micro</code></a> text editor is also user friendly, and, like <code>tilde</code>, uses conventional key bindings.
-Unlike <code>tilde</code>, there is no menu bar, but press <strong>ctrl-g</strong> to open a help menu.
-Use your arrow keys to read through the help documentation and learn more about its capabilities and its functions.
+<p>The <a href="micro"><code>micro</code></a> text editor is another user friendly editor.
+Like <code>tilde</code>, it uses conventional key bindings.
+Unlike <code>tilde</code>, there is no menu bar, but you can press <strong>ctrl-g</strong> to open a help menu.
+With the help menu open,
+use your arrow keys to read through the documentation and learn more about its capabilities and its functions.
 One of the nice things about <code>micro</code> is that you can open multiple files in tabs.
 Press <strong>ctrl-q</strong> to exit the help menu.</p>
 <p>You can install it via the <code>apt</code> command and start the program like you can with the other editors:</p>
@@ -1499,7 +1512,7 @@ Press <strong>ctrl-q</strong> to exit the help menu.</p>
 <h2 id="editing-bashrc"><a class="header" href="#editing-bashrc">Editing <code>.bashrc</code></a></h2>
 <p>By default, your Bash shell is probably white text on a black background.
 We can add some color to this by modifying our Bash shell configuration file.
-To do so, open the <code>.bashrc</code> file with <code>nano</code> or your text editor of choice:</p>
+To do so, open the <code>.bashrc</code> file with <code>nano</code> or your text editor of choice, like <code>tilde</code> or <code>micro</code>:</p>
 <pre><code>nano ~/.bashrc
 </code></pre>
 <p>Scroll to the end of the file and add these two lines:</p>
@@ -1509,7 +1522,7 @@ export LS_COLORS
 <p>Next, go to the line that starts with the text below, which is probably line 46:</p>
 <pre><code># force_color_prompt=yes
 </code></pre>
-<p>And remove the comment character (i.e., the pound sign, <code>#</code>) at the beginning of the line.
+<p>Remove the comment character (i.e., the pound sign, <code>#</code>) at the beginning of the line.
 The result should be:</p>
 <pre><code>force_color_prompt=yes
 </code></pre>
@@ -1517,7 +1530,10 @@ The result should be:</p>
 <pre><code>source ~/.bashrc
 </code></pre>
 <h3 id="ls_colors-note"><a class="header" href="#ls_colors-note">LS_COLORS Note</a></h3>
-<p>The LS_COLORS setting is a bit complicated.
+<p>Although the above modification will enable color in our terminals,
+we don't have to settle for the defaults.
+To change the colors when listing files and directories, we modify the <code>LS_COLORS</code> variable.
+The <code>LS_COLORS</code> setting is a bit complicated.
 It contains several parameters separated by colons.
 Let's break it down:</p>
 <pre><code>LS_COLORS='rs=0:di=04;31:fi=00;00:ex=01;93';
@@ -1531,7 +1547,7 @@ Let's break it down:</p>
 </ul>
 <p>Feel free to play with the colors of the <code>ls</code> command.
 Remember to run <code>source ~/.bashrc</code> to put the changes into effect.</p>
-<h2 id="ed-vivim-emacs"><a class="header" href="#ed-vivim-emacs">ed, Vi/Vim, Emacs</a></h2>
+<h2 id="a-note-about-other-text-editors-ed-vivim-emacs"><a class="header" href="#a-note-about-other-text-editors-ed-vivim-emacs">A note about other text editors: ed, Vi/Vim, Emacs</a></h2>
 <p>The traditional Unix and Linux text editors are <code>ed</code>, <code>vim</code>, and <code>emacs</code>.
 I first started using Linux because I found <code>emacs</code>, but sometime during my early Linux years, I switched to <code>vim</code>.
 Vim is a descendant of the <code>vi</code> text editor, which itself is a descendant of the <code>ed</code> editor.
@@ -1541,33 +1557,38 @@ It's still available, and I use it often.
 <code>vi</code> was an extension of <code>ed</code> and was written to take advantage of computer monitors.
 <code>vim</code> (or Vi Improved) added enhancements to <code>vi</code> and is my main editor.
 <code>emacs</code> is highly extensible text editor that can do about anything.
-The saying goes that Emacs is an "operating system posing as a text editor."</p>
+It's so versatile, the saying goes that <code>emacs</code> is an "operating system posing as a text editor."</p>
 <p>These editors are extremely powerful once you learn them.
-Although they are quite popular, they are not user-friendly, though.
+Even though they are quite popular, they are not user-friendly.
 (<code>ed</code> probably isn't all that popular, but it has a <a href="https://bsd.network/@ed1conf/">dedicated following</a>.)
 If interested, there are plenty of online resources that provide tutorials on getting started with these text editors.
 I won't teach you how to use them because it would take too much time,
 but they are worth knowing about because all three are important parts of Unix and Linux history.</p>
 <h2 id="conclusion-4"><a class="header" href="#conclusion-4">Conclusion</a></h2>
 <p>In the prior lesson, we learned how to use the Bash interactive shell.
-We will continue to do that, but in the meantime, in this lesson, we begin to learn how to use a command line text editor, <code>nano</code>.
-I also introduced friendlier editors (<code>tilde</code> and <code>micro</code>) that you might prefer over <code>nano</code>.
+We will continue to do that, but in the meantime, we begin to learn how to use a command line text editor.
+These include <code>nano</code>, <code>tilde</code>, and <code>micro</code>.
 We will use a text editor to edit configuration files and publish text to GitHub.
 It's your choice what you want to use.</p>
 <h2 id="appendix-my-nanorc"><a class="header" href="#appendix-my-nanorc">Appendix: My <code>.nanorc</code></a></h2>
-<p>You can configure <code>nano</code> to look and behave in certain ways.
-If you want to mimic the setup I have, then create a file called <strong>.nanorc</strong> in your home directory, and add the following to it:</p>
+<p>You can configure the look and feel of <code>tilde</code> and <code>micro</code> through their menus or help options.
+You can configure <code>nano</code> to look and behave in certain ways, too.
+If you decide to use <code>nano</code> and want to mimic the setup I have,
+then create a file called <strong>.nanorc</strong> in your home directory:</p>
+<pre><code>nano ~/.nanorc
+</code></pre>
+<p>And add the following to the file:</p>
 <pre><code># Syntax:
 # set element fgcolor,bgcolor
-set titlecolor brightwhite,blue
-set statuscolor brightwhite,green
-set errorcolor brightwhite,red
-set selectedcolor brightwhite,magenta
+set titlecolor red,black
+set statuscolor blue,white
+set errorcolor white,red
+set selectedcolor white,black
 
-set stripecolor yellow
-set numbercolor cyan
-set keycolor cyan
-set functioncolor green
+set numbercolor lightblue
+set stripecolor red
+set keycolor black,white
+set functioncolor white,black 
 
 set speller "aspell -x -c"
 
@@ -1612,6 +1633,9 @@ set tabsize 8
 
 ## Convert typed tabs to spaces.
 set tabstospaces
+</code></pre>
+<p>You can read about how to make such settings in the <code>man</code> page for the <code>nano</code> configuration file:</p>
+<pre><code>man nanorc
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="documenting-with-git-github-and-markdown"><a class="header" href="#documenting-with-git-github-and-markdown">Documenting with Git, GitHub, and Markdown</a></h1>
 <h2 id="introduction-4"><a class="header" href="#introduction-4">Introduction</a></h2>
@@ -1712,18 +1736,10 @@ Heading level 1 indicates the main heading and so forth.</p>
 </li>
 <li>
 <p>Use indentation to create sub-items in a list.</p>
-<pre><code>```markdown
-</code></pre>
-<ul>
-<li>Item 1</li>
-<li>Item 2
-<ul>
-<li>Subitem 1</li>
-<li>Subitem 2</li>
-</ul>
-</li>
-</ul>
-<pre><code>
+<pre><code class="language-markdown">* Item 1
+* Item 2
+  * Subitem 1
+  * Subitem 2
 </code></pre>
 </li>
 <li>
@@ -1808,7 +1824,7 @@ To create a new line without starting a new paragraph, end a line with two or mo
 <li>Press the <strong>Commit changes</strong> button.</li>
 <li>Then click on the repo link to return to your repo's homepage.</li>
 </ul>
-<h4 id="file-naming-conventions"><a class="header" href="#file-naming-conventions">File Naming Conventions</a></h4>
+<h3 id="file-naming-conventions"><a class="header" href="#file-naming-conventions">File Naming Conventions</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/README">README</a> files serve as a <em>de facto</em> standard file.
 They provide a description of the project, outline its purpose, or provide instructions on using the repository.
 As you work on your projects, you can return to edit your README file to add more information about your work.</p>
@@ -1836,7 +1852,7 @@ They help provide and ensure:</p>
 </ul>
 </li>
 </ol>
-<h4 id="the-importance-of-md-extension-for-markdown-files"><a class="header" href="#the-importance-of-md-extension-for-markdown-files">The Importance of <code>.md</code> Extension for Markdown Files</a></h4>
+<h3 id="the-importance-of-md-extension-for-markdown-files"><a class="header" href="#the-importance-of-md-extension-for-markdown-files">The Importance of <code>.md</code> Extension for Markdown Files</a></h3>
 <p>File name extensions are not always necessary, especially on Linux and Unix systems.
 However, when it comes to Markdown files, add the <code>.md</code> extension (e.g., <code>README.md</code> rather than just <code>README</code>).
 This helps in the following ways:</p>
