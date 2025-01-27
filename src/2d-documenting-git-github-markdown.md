@@ -90,7 +90,7 @@ Heading level 1 indicates the main heading and so forth.
 - **Unordered Lists**: Use asterisks, plus signs, or hyphens to create bullet point lists.
 - Use indentation to create sub-items in a list.
   
-      ```markdown
+  ```markdown
   * Item 1
   * Item 2
     * Subitem 1
@@ -183,7 +183,7 @@ Once you are finished editing, save with the following steps:
 - Press the **Commit changes** button.
 - Then click on the repo link to return to your repo's homepage.
 
-#### File Naming Conventions
+### File Naming Conventions
 
 [README][readme] files serve as a *de facto* standard file.
 They provide a description of the project, outline its purpose, or provide instructions on using the repository.
@@ -204,7 +204,7 @@ They help provide and ensure:
         - underscores: `server_setup_guide.md`, or
         - hyphens: `server-setup-guide.md`.
 
-#### The Importance of `.md` Extension for Markdown Files
+### The Importance of `.md` Extension for Markdown Files
 
 File name extensions are not always necessary, especially on Linux and Unix systems.
 However, when it comes to Markdown files, add the `.md` extension (e.g., `README.md` rather than just `README`).
