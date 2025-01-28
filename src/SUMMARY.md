@@ -9,7 +9,7 @@
     - [Using gcloud for Virtual Machines](2a-using-gcloud-virtual-machines.md)
     - [Learn the CLI](2b-learn-the-cli.md)
     - [Using the Nano Text Editor](2c-learn-nano.md)
-    - [Documentating with Git, GitHub, and Markdown](2d-documenting-git-github-markdown.md)
+    - [Documenting with Git, GitHub, and Markdown](2d-documenting-git-github-markdown.md)
 - [Working on the CLI](p3-working-on-the-CLI.md)
     - [Searching with ``grep``](3a-searching-with-grep.md)
     - [Managing Software](3b-managing-software.md)
