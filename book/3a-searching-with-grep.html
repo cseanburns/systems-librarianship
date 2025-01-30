@@ -177,35 +177,23 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="searching-with-grep"><a class="header" href="#searching-with-grep">Searching with grep</a></h1>
-<p>We have available some powerful utilities and programs
-to process, manipulate, and analyze text files.
-In this section, we will focus on the <code>grep</code> utility,
-which offers some advanced methods for searching
-the contents of text files.</p>
+<p>We have available some powerful utilities and programs to process, manipulate, and analyze text files.
+In this section, we will focus on the <code>grep</code> utility, which offers some advanced methods for searching the contents of text files.</p>
 <h2 id="grep"><a class="header" href="#grep">Grep</a></h2>
 <p>The <code>grep</code> command is one of my most often used commands.
-The purpose of <code>grep</code> is to "print lines that match patterns"
-(see <code>man grep</code>).
-In other words, it searches text, and
-it's super powerful.</p>
+The purpose of <code>grep</code> is to "print lines that match patterns" (see <code>man grep</code>).
+In other words, it searches text, and it's super powerful.</p>
 <p><code>grep</code> works line by line.
-So when we use it to search a file for a <strong>string</strong> of text,
-it will return the whole line that matches the string.
-This <strong>line by line</strong> idea is part of the history of
-Unix-like operating systems,
-and it's important to remember that most utilities
-and programs that we use on the commandline
-are line oriented.</p>
+So when we use it to search a file for a <strong>string</strong> of text, it will return the whole line that matches the string.
+This <strong>line by line</strong> idea is part of the history of Unix-like operating systems, and it's important to remember that most utilities
+and programs that we use on the commandline are line oriented.</p>
 <blockquote>
-<p>"A string is any series of characters that are interpreted
-literally by a script. For example, 'hello world' and 'LKJH019283'
-are both examples of strings." -- <a href="https://www.computerhope.com/jargon/s/string.htm">Computer Hope</a>.
+<p>"A string is any series of characters that are interpreted literally by a script. For example, 'hello world' and 'LKJH019283' are both examples of strings"
+(<a href="https://www.computerhope.com/jargon/s/string.htm">Computer Hope</a>).
 More generally, it's a type of data structure.</p>
 </blockquote>
-<p>To visualize how <code>grep</code> works,
-let's consider a file called
-<strong>operating-systems.csv</strong> with content
-as seen below:</p>
+<p>To visualize how <code>grep</code> works, let's consider a file called <strong>operating-systems.csv</strong> with content as seen below.
+It's helps to learn something like <code>grep</code> when working with easy, clear examples.</p>
 <pre><code>OS, License, Year
 Chrome OS, Proprietary, 2009
 FreeBSD, BSD, 1993
@@ -214,12 +202,9 @@ macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 Android, Apache, 2008
 </code></pre>
-<p>We can use <code>grep</code> to search
-for anything in that file.
+<p>We can use <code>grep</code> to search for anything in that file.
 Let's start with a search for the string <strong>Chrome</strong>.
-Notice that even though the string <strong>Chrome</strong> only appears once,
-and in one part of a line,
-<code>grep</code> returns the entire line.</p>
+Notice that even though the string <strong>Chrome</strong> only appears once, and in one part of a line, <code>grep</code> returns the entire line.</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep "Chrome" operating-systems.csv
 </code></pre>
@@ -227,21 +212,12 @@ and in one part of a line,
 <pre><code>Chrome OS, Proprietary, 2009
 </code></pre>
 <h3 id="case-matching"><a class="header" href="#case-matching">Case Matching</a></h3>
-<p>Be aware that, <em>by default</em>, <code>grep</code> is case-sensitive,
-which means a search for the string <strong>chrome</strong>,
-with a lower case <strong>c</strong>,
-would return no results.
-However, many Linux command line utilities
-can have their functionality extended
-through command line options.
-<code>grep</code> has an <code>-i</code> option
-that can be used to
-to ignore the case of the search string.
-In the following examples,
-<code>grep</code> returns nothing in the first search
-since we do not capitalize the string <strong>chrome</strong>.
-However, adding the <code>-i</code> option results in success
-since <code>grep</code> is instructed to ignore case:</p>
+<p>Be aware that, <em>by default</em>, <code>grep</code> is case-sensitive, which means a search for the string <strong>chrome</strong>, with a lower case <strong>c</strong>, returns no results.
+However, many Linux command line utilities can have their functionality extended through command line options.
+<code>grep</code> has an <code>-i</code> option that can be used to to ignore the case of the search string.
+You can learn about <code>grep</code>'s other command line options in its man page: <code>man grep</code>.
+In the following examples, <code>grep</code> returns nothing in the first search since we do not capitalize the string <strong>chrome</strong>.
+However, adding the <code>-i</code> option results in success since <code>grep</code> is instructed to ignore case:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep "chrome" operating-systems.csv
 </code></pre>
@@ -255,18 +231,10 @@ since <code>grep</code> is instructed to ignore case:</p>
 </code></pre>
 <h3 id="invert-matching"><a class="header" href="#invert-matching">Invert Matching</a></h3>
 <p><code>grep</code> can do inverse searching.
-That is, we can search for lines
-that <strong>do not</strong> match our string
-using the <code>-v</code> option.
-Options can often be combined
-for additional functionality.
-We can combine <code>-v</code> to inverse search
-with <code>-i</code> to ignore the case.
-In the following example,
-we search for
-all lines that
-do not contain the
-string <strong>chrome</strong>:</p>
+That is, we can search for lines that <strong>do not</strong> match our string using the <code>-v</code> option.
+Options can often be combined for additional functionality.
+We can combine <code>-v</code> to inverse search with <code>-i</code> to ignore the case.
+In the following example, we search for all lines that do not contain the string <strong>chrome</strong>:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -vi "chrome" operating-systems.csv
 </code></pre>
@@ -279,22 +247,10 @@ Windows NT, Proprietary, 1993
 Android, Apache, 2008
 </code></pre>
 <h3 id="regular-expressions"><a class="header" href="#regular-expressions">Regular Expressions</a></h3>
-<p>Sometimes data files,
-like spreadsheets,
-contain header columns in the
-first row.
-We can use <code>grep</code> to remove
-the first line of a file by
-inverting our search and
-selecting all lines not matching
-"OS" at the start of a line.
-Here the carat key <code>^</code> is
-a <strong>regex</strong> indicating the
-start of a line.
-Again, this <code>grep</code> command returns
-all lines that do not match the
-string <strong>os</strong> at the start of a line,
-ignoring case:</p>
+<p>Sometimes data files, like spreadsheets, contain header columns in the first row.
+We can use <code>grep</code> to remove the first line of a file by inverting our search and selecting all lines not matching "OS" at the start of a line.
+Here the carat key <code>^</code> is a <strong>regex</strong> indicating the start of a line.
+Again, this <code>grep</code> command returns all lines that do not match the string <strong>os</strong> at the start of a line, ignoring case:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -vi "^os" operating-systems.csv
 </code></pre>
@@ -307,21 +263,10 @@ macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 Android, Apache, 2008
 </code></pre>
-<p>Alternatively, since we know that
-the string <strong>Year</strong> comes
-at the end of the first line,
-we can use <code>grep</code> to invert search for that.
-Here the dollar sign key <code>$</code>
-is a <strong>regex</strong> indicating the
-end of a line.
-Like the above,
-this <code>grep</code> command returns all lines that
-do not match the string <strong>year</strong>
-at the end of a line,
-ignoring case.
-The result,
-in this specific instance,
-is exactly the same as the last command:</p>
+<p>Alternatively, since we know that the string <strong>Year</strong> comes at the end of the first line, we can use <code>grep</code> to invert search for that.
+Here the dollar sign key <code>$</code> is a <strong>regex</strong> indicating the end of a line.
+Like above, this <code>grep</code> command returns all lines that do not match the string <strong>year</strong> at the end of a line, ignoring case.
+The result, in this specific instance, is exactly the same as the last command, indicating that there are sometimes many ways to achieve the same outcome with various commands:</p>
 <p><strong>Command</strong>:</p>
 <pre><code>grep -vi "year$" operating-systems.csv
 </code></pre>
@@ -334,27 +279,22 @@ macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 Android, Apache, 2008
 </code></pre>
-<p>The <code>man grep</code> page lists other options,
-but a couple of other good ones include:</p>
+<p>The <code>man grep</code> page lists other options, but a couple of other good ones include:</p>
 <h3 id="count-matches"><a class="header" href="#count-matches">Count Matches</a></h3>
-<p>Get a count of the matching lines
-with the <code>-c</code> option.
-For example,
-let's get a total count of rows
-in our file excluding the header
-by adding the <code>-c</code> option:</p>
+<p>If we're looking for patterns in a data file, we may also be interested in their frequency.
+Fortunately, we can get a count of the matching lines with the <code>-c</code> option.</p>
+<p>In the next example, I get a total count of lines that contain the word <em>Proprietary</em>:</p>
+<pre><code>grep -ic "proprietary" operating-systems.csv
+</code></pre>
+<p>More broadly, we can get a total count of rows in our file after excluding the header.
+In other words, we can get the total number of data rows or records:</p>
 <pre><code>grep -vic "year$" operating-systems.csv
 </code></pre>
 <h3 id="alternate-matching"><a class="header" href="#alternate-matching">Alternate Matching</a></h3>
-<p>We separate the strings with a vertical bar <code>|</code>
-(the <strong>infix operator</strong>)
-to match any string on either side.
-This is similar to a Boolean OR search.
-Since there's at least one match in the following string,
-there is at least one result.</p>
-<p>Here is an example where only one string
-returns a true value since
-the file contains <strong>bsd</strong> but not <strong>atari</strong>:</p>
+<p>We can do a sort of Boolean OR search by using the vertical bar <code>|</code>, also called the <strong>infix operator</strong>.
+This is called an alternate expression.
+That is, using alternate matching, we can search for at least one string among multiple options.</p>
+<p>Here is an example where only one string returns a true value since the file contains <strong>bsd</strong> but not <strong>atari</strong>:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -Ei "(bsd|atari)" operating-systems.csv
 </code></pre>
@@ -369,10 +309,11 @@ the file contains <strong>bsd</strong> but not <strong>atari</strong>:</p>
 <pre><code>FreeBSD, BSD, 1993
 Linux, GPL, 1991
 </code></pre>
+<p>You can use more than two strings:</p>
+<pre><code>grep -Ei "(bsd|gpl|apache)" operating-systems.csv
+</code></pre>
 <h3 id="whole-word-matching"><a class="header" href="#whole-word-matching">Whole Word Matching</a></h3>
-<p>By default, <code>grep</code> will return results where the
-string appears within a larger word,
-like <strong>OS</strong> in <strong>macOS</strong>.</p>
+<p>By default, <code>grep</code> will return results where the string appears within a larger word, like <strong>OS</strong> in <strong>macOS</strong>.</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -i "os" operating-systems.csv
 </code></pre>
@@ -382,10 +323,8 @@ Chrome OS, Proprietary, 2009
 iOS, Proprietary, 2007
 macOS, Proprietary, 2001
 </code></pre>
-<p>However, we might want to limit results so that
-we only return results where <strong>OS</strong> is a complete word.
-To do that, we can surround the string with
-special characters:</p>
+<p>However, we might want to limit results so that we only return results where <strong>OS</strong> is a complete word.
+To do that, we can surround the string with special characters:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -i "\&lt;os\&gt;" operating-systems.csv
 </code></pre>
@@ -393,12 +332,9 @@ special characters:</p>
 <pre><code>OS, License, Year
 Chrome OS, Proprietary, 2009
 </code></pre>
-<p>Sometimes I find it hard to remember
-the backslash and angle bracket combinations
-because they're too much alike HTML syntax but
-not exactly like HTML syntax.
-Fortunately, <code>grep</code> has a <code>-w</code> option
-to match whole words:</p>
+<p>Sometimes I find it hard to remember the backslash and angle bracket combinations because they're too much alike HTML syntax but not exactly like HTML syntax.
+Fortunately, <code>grep</code> has a <code>-w</code> option to match whole words.
+This functions as another way of searching for whole words:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -wi "os" operating-systems.csv
 </code></pre>
@@ -407,15 +343,8 @@ to match whole words:</p>
 Chrome OS, Proprietary, 2009
 </code></pre>
 <h3 id="context-matches"><a class="header" href="#context-matches">Context Matches</a></h3>
-<p>Sometimes we want the context for a result;
-that is,
-we might want to print lines
-that surround our matches.
-For example,
-to print the matching line plus the two lines
-after the matching line using the <code>-A NUM</code> option,
-where <strong>NUM</strong> equals the number of lines
-to return after the matching line:</p>
+<p>Sometimes we want the context for a result; that is, we might want to print lines that surround our matches.
+For example, to print the matching line plus the two lines after the matching line using the <code>-A NUM</code> option, where <strong>NUM</strong> equals the number of lines to return after the matching line:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -i "linux" -A2 operating-systems.csv
 </code></pre>
@@ -424,8 +353,7 @@ to return after the matching line:</p>
 macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 </code></pre>
-<p>Or, print the matching line plus the two lines
-before the matching line using the <code>-B NUM</code> option:</p>
+<p>Or, print the matching line plus the two lines before the matching line using the <code>-B NUM</code> option:</p>
 <p><strong>Command</strong></p>
 <pre><code>grep -i "linux" -B2 operating-systems.csv
 </code></pre>
@@ -435,10 +363,7 @@ FreeBSD, BSD, 1993
 Linux, GPL, 1991
 </code></pre>
 <p>We can combine many of the variations.
-Here I search for the whole word <strong>BSD</strong>,
-case insensitive, and
-print the line before and the line after
-the match:</p>
+Here I search for the whole word <strong>BSD</strong>, case insensitive, and print the line before and the line after the match:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -iw -C1 "bsd" operating-systems.csv
 </code></pre>
@@ -448,12 +373,8 @@ FreeBSD, BSD, 1993
 Linux, GPL, 1991
 </code></pre>
 <h3 id="halt-matching"><a class="header" href="#halt-matching">Halt Matching</a></h3>
-<p>We can use another option to
-stop returning results after some
-number of hits.
-Here I use <code>grep</code> to return
-a search for the string "proprietary"
-and stop after the first hit:</p>
+<p>We can use another option to stop returning results after some number of hits.
+Here I use <code>grep</code> to return a search for the string "proprietary" and stop after the first hit:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -i -m1 "proprietary" operating-systems.csv
 </code></pre>
@@ -461,12 +382,8 @@ and stop after the first hit:</p>
 <pre><code>Chrome OS, Proprietary, 2009
 </code></pre>
 <h3 id="returning-line-numbers"><a class="header" href="#returning-line-numbers">Returning Line Numbers</a></h3>
-<p>We can add the <code>-n</code> option to
-instruct <code>grep</code> to tell us the
-line number for each hit.
-Below we see that the string
-"proprietary" is found on lines
-2, 5, and 6.</p>
+<p>We can add the <code>-n</code> option to instruct <code>grep</code> to tell us the line number for each hit.
+Below we see that the string "proprietary" is found on lines 2, 5, and 6.</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -in "proprietary" operating-systems.csv
 </code></pre>
@@ -476,11 +393,8 @@ Below we see that the string
 6:Windows NT, Proprietary, 1993
 </code></pre>
 <h3 id="character-class-matching"><a class="header" href="#character-class-matching">Character Class Matching</a></h3>
-<p>We can use <code>grep</code> to search for
-patterns in strings instead of literal words.
-Here we use what's called <strong>character classes</strong>
-and <strong>repetition</strong> to search for five letter words
-that contain any English character <strong>a through z</strong>:</p>
+<p>We can use <code>grep</code> to search for patterns in strings instead of literal words.
+Here we use what's called <strong>character classes</strong> and <strong>repetition</strong> to search for five letter words that contain any English character <strong>a through z</strong>:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -Eiw "[a-z]{5}" operating-systems.csv
 </code></pre>
@@ -488,8 +402,7 @@ that contain any English character <strong>a through z</strong>:</p>
 <pre><code>Linux, GPL, 1991
 macOS, Proprietary, 2001
 </code></pre>
-<p>Or four letter numbers,
-which highlights the years:</p>
+<p>Or four letter numbers, which highlights the years:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -Eiw "[0-9]{4}" operating-systems.csv
 </code></pre>
@@ -501,11 +414,8 @@ macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 Android, Apache, 2008
 </code></pre>
-<p><code>grep</code> can also search for words that
-begin with some letter and end with some letter
-and with a specified number of letters between.
-Here we search for words that start with <strong>m</strong>,
-end with <strong>s</strong>, and have three letters in the middle:</p>
+<p><code>grep</code> can also search for words that begin with some letter and end with some letter and with a specified number of letters between.
+Here we search for words that start with <strong>m</strong>, end with <strong>s</strong>, and have three letters in the middle:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -Eiw "m.{3}s" operating-systems.csv
 </code></pre>
@@ -513,8 +423,7 @@ end with <strong>s</strong>, and have three letters in the middle:</p>
 <pre><code>macOS, Proprietary, 2001
 </code></pre>
 <h2 id="practice"><a class="header" href="#practice">Practice</a></h2>
-<p>Let's use the <code>grep</code> command
-to investigate bibliographic data.
+<p>Let's use the <code>grep</code> command to investigate bibliographic data.
 Our task is to:</p>
 <ol>
 <li>Search <em>Scopus</em>.</li>
@@ -522,10 +431,7 @@ Our task is to:</p>
 <li>Use the <code>grep</code> command to search the downloaded <em>BibTeX</em> file, which should be named <strong>scopus.bib</strong>.</li>
 </ol>
 <h3 id="download-data"><a class="header" href="#download-data">Download Data</a></h3>
-<p>I'm using Scopus data
-in this example, but
-other bibliographic data can
-be downloaded from other databases.</p>
+<p>I'm using Scopus data in this example, but other bibliographic data can be downloaded from other databases.</p>
 <ol>
 <li>From your university's website, find Scopus.</li>
 <li>In Scopus, perform a search.</li>
@@ -535,251 +441,117 @@ be downloaded from other databases.</p>
 <li>Select all <strong>Citation Information</strong> and <strong>Bibliographic Information</strong>. Select more in interested.</li>
 <li>Click on <strong>Export</strong>.</li>
 </ol>
-<p>The file should be saved
-to your Downloads folder
-and titled <strong>scopus.bib</strong>.</p>
+<p>The file should be saved to your Downloads folder and titled <strong>scopus.bib</strong>.
+The next step is to upload the file to your virtual instance.
+See the steps below.</p>
 <h3 id="upload-to-gcloud"><a class="header" href="#upload-to-gcloud">Upload to gcloud</a></h3>
-<p>To upload to <code>gcloud</code>,
-you use a similar command
-as the <code>gcloud compute ssh</code>
-command that you use
-to connect to your servers.</p>
-<p>However, there are some differences.
-The <code>gcloud</code> copy command uses
-<code>scp</code> instead of <code>ssh</code> and
-then specifies the local file to transfer
-and the remote location.
-The following command
-copies the local file
-titled <strong>file_name</strong>
-to the remote server.
-Simply replace the file name,
-server, zone, and project names
-with those specific
-to your virtual instances.</p>
+<p>There are several methods for uploading and downloading files to your Google Cloud instance.
+The two main ones I cover below depend on how you connect to your virtual instances, but see the full documentation at:
+<a href="https://cloud.google.com/compute/docs/instances/transfer-files">Transfer files to Linux VMs</a>.</p>
+<h4 id="gcloud-compute-scp"><a class="header" href="#gcloud-compute-scp"><code>gcloud compute scp</code></a></h4>
+<p>If you use the <code>gcloud compute</code> command to connect to your virtual instance, you use a similar command to upload and download files.
+However, there are some differences between the two commands.
+The <code>gcloud</code> copy command uses <code>scp</code> instead of <code>ssh</code> and then specifies the local file to transfer and the remote location.
+The following command copies the local file titled <strong>file_name</strong> to the remote server.
+Simply replace the file name, server, zone, and project names with those specific to your virtual instances.</p>
 <pre><code>gcloud compute scp file_name "server_name":~/ --zone "zone_name" --project "project_name"
 </code></pre>
-<p>There are other ways
-to transfer files to the
-virtual instance from your
-local computer, but
-they raise some complications.
-If interested, see
-<a href="https://cloud.google.com/compute/docs/instances/transfer-files">Transfer files to Linux VMs</a>.</p>
+<h4 id="ssh-in-browser"><a class="header" href="#ssh-in-browser">SSH-in-browser</a></h4>
+<p>To upload to your virtual instance using the web browser, connect via the <strong>Open in browser window</strong> method from your VM instances console.
+Once you've established a connection, then click on the <strong>UPLOAD FILE</strong>.
+Select the file and proceed.
+(If you get an error, then try again.)</p>
 <h3 id="investigate"><a class="header" href="#investigate">Investigate</a></h3>
-<p>Now that the file
-is uploaded,
-the first task is to
-to get an understanding of
-the structure of the data.
-<em>BibTeX</em> (.bib) files are structured
-files that contain bibliographic data.
-It's important to understand
-how files are structured
-if we want to search them efficiently.</p>
-<p>The <strong>scopus.bib</strong> file begins with
-information about the source
-(<em>Scopus</em>) of the records
-and the date the records
-were exported.
-These two lines and the
-empty line after them can
-be safely deleted or ignored.</p>
-<p>Each bibliographic record
-in the file begins with
-an <strong>entry type</strong> (or document type) preceded
-by an at <strong>@</strong> sign.
-Example entry types include:
-<a href="https://www.bibtex.com/e/entry-types/">article, book, booklet, conference, and more</a>.
-There is a opening curly brace
-after the entry or document type.
-These curly braces mark
-the beginning and ending of each record.</p>
-<p>The cite key follows
-the opening curly brace.
-The cite key is an identifier that
-often refers to the author's name and
-includes publication date information.
-For example, a cite key might look
-as follows and
-would stand for the author <strong>Budd</strong>
-and the date <strong>2020-11-23</strong>.</p>
+<p>Now that the file is uploaded, the first task is to to get an understanding of the structure of the data.
+<em>BibTeX</em> (.bib) files are structured files that contain bibliographic data.
+It's important to understand how files are structured if we want to search them efficiently.</p>
+<p>The <strong>scopus.bib</strong> file begins with information about the source (<em>Scopus</em>) of the records and the date the records were exported.
+These two lines and the empty line after them can be safely deleted or ignored.</p>
+<p>Each bibliographic record in the file begins with an <strong>entry type</strong> (or document type) preceded by an at <strong>@</strong> sign.
+Example entry types include: <a href="https://www.bibtex.com/e/entry-types/">article, book, booklet, conference, and more</a>.
+There is a opening curly brace after the entry or document type.
+These curly braces mark the beginning and ending of each record.</p>
+<p>The cite key follows the opening curly brace.
+The cite key is an identifier that often refers to the author's name and includes publication date information.
+For example, a cite key might look as follows and would stand for the author <strong>Budd</strong> and the date <strong>2020-11-23</strong>.</p>
 <pre><code>Budd20201123
 </code></pre>
-<p>The rows below the entry type
-contain the metadata for the record.
-Each row begins with a tag or field name
-followed by an equal sign,
-which is then followed by
-the values or content for that tag.
-For example,
-there's an author tag,
-an equal sign, and
-then a list of authors.
-There is a standard list
-of <em>BibTeX</em> fields.
-Example fields include:
-<a href="https://bibtex.eu/fields/">author, doi, publisher, title, journal, year, and more</a>.
-The fields are standardized because
-some programs use <em>BibTeX</em> records
-to manage and generate
-bibliographies, in-text citations, footnotes, etc..</p>
-<p>The content of each field
-is enclosed in
-additional curly braces.
-Each line ends with a comma,
-except for the last line.
-The record ends
-with a closing curly brace.</p>
+<p>The rows below the entry type contain the metadata for the record.
+Each row begins with a tag or field name followed by an equal sign, which is then followed by the values or content for that tag.
+For example, there's an author tag, an equal sign, and then a list of authors.
+There is a standard list of <em>BibTeX</em> fields.
+Example fields include: <a href="https://bibtex.eu/fields/">author, doi, publisher, title, journal, year, and more</a>.
+The fields are standardized because some programs use <em>BibTeX</em> records to manage and generate bibliographies, in-text citations, footnotes, etc.</p>
+<p>The content of each field is enclosed in additional curly braces.
+Each line ends with a comma, except for the last line.
+The record ends with a closing curly brace.</p>
 <h4 id="document-types"><a class="header" href="#document-types">Document Types</a></h4>
-<p>We can use <code>grep</code> to
-examine the types of documents
-the records point to.
-In the following command,
-I use the carat key <strong>^</strong>,
-which is a regular expression
-to signify the start of a line,
-to search for lines beginning
-with the at <strong>@</strong> symbol.
-The following <code>grep</code> command
-therefore means:
-return all lines that begin
-with the at <strong>@</strong> symbol:</p>
+<p>We can use <code>grep</code> to examine the types of documents in the list of records.
+In the following command, I use the carat key <code>^</code>, which is a regular expression to signify the start of a line, to search for lines beginning with the at <code>@</code> symbol.
+The following <code>grep</code> command therefore means: return all lines that begin with the at <code>@</code> symbol:</p>
 <pre><code>grep "^@" scopus.bib
 </code></pre>
-<p>The results show,
-for this particular data,
-that I have BOOK and ARTICLE entry types.
-The data I'm using does not contain
-many records, but
-if it contained thousands or more,
-then it would be helpful to
-filter these results.</p>
-<p>Thus, below I use the <strong>-E</strong> option
-to extend <code>grep</code>'s regular expression engine.
-I use the <strong>(A|B)</strong> to tell <code>grep</code> to search
-for letters after the at sign <strong>@</strong>
-that start with either A or B,
-for ARTICLE or BOOK.
-Then I use regular expression
-character class matching
-with <strong>[A-Z]*</strong> to match any letters
-after the initial A or B characters.
-The <strong>-i</strong> option turns off case sensitivity,
-and the <strong>-o</strong> option returns
-only matching results from the lines.
-I pipe the output of the <code>grep</code> command
-to the <code>sort</code> command to sort the
-results alphabetically:</p>
+<p>The results show, for this particular data, that I have BOOK and ARTICLE entry types.
+The data I'm using does not contain many records, but if it contained thousands or more, then it would be helpful to filter these results.</p>
+<p>Thus, below I use the <code>-E</code> option to extend <code>grep</code>'s regular expression engine.
+I use the <code>(A|B)</code> to tell <code>grep</code> to search for letters after the at sign <code>@</code> that start with either A or B, for ARTICLE or BOOK.
+Then I use regular expression character class matching with <code>[A-Z]</code> to match any letters after the initial A or B characters.
+The <code>-i</code> option turns off case sensitivity, and the <code>-o</code> option returns only matching results from the lines.
+I pipe the output of the <code>grep</code> command to the <code>sort</code> command to sort the results alphabetically:</p>
 <pre><code>grep -Eio "^@(A|B)[A-Z]*" scopus.bib | sort
 </code></pre>
 <blockquote>
-<p>Tip: Without using the <code>sort</code> command, the <code>grep</code> command returns the results
-in the order it finds them. To see this, run the above command with and
-without piping to the <code>sort</code> command to examine how the output changes.</p>
+<p>Tip: Without using the <code>sort</code> command, the <code>grep</code> command returns the results in the order it finds them.
+To see this, run the above command with and without piping to the <code>sort</code> command to examine how the output changes.</p>
 </blockquote>
 <p>Now let's get a frequency of the document types.
-Here I <strong>pipe</strong> <code>|</code> the output from the <code>grep</code>
-command to the <code>sort</code> command,
-in order to sort the output alphabetically.
-Then I <strong>pipe</strong> the output from the <code>sort</code>
-command to the <code>uniq</code> command.
-The <code>uniq</code> command will deduplicate
-the results, and
-the <strong>-c</strong> option will count the
-number of duplicates.
-As a result,
-it will provide an overall
-count of the document or entry types
-we searched.</p>
+Here I <strong>pipe</strong> <code>|</code> the output from the <code>grep</code> command to the <code>sort</code> command, in order to sort the output alphabetically.
+Then I <strong>pipe</strong> the output from the <code>sort</code> command to the <code>uniq</code> command.
+The <code>uniq</code> command will deduplicate the results, and the <strong>-c</strong> option will count the number of duplicates.
+As a result, it will provide an overall count of the document or entry types we searched.</p>
 <pre><code>grep -Eio "^@(A|B)[A-Z]*" scopus.bib | sort | uniq -c
 </code></pre>
 <h4 id="journal-titles"><a class="header" href="#journal-titles">Journal Titles</a></h4>
 <p>We can parse the data for other information.
-For example,
-we can get a list of journal titles by
-querying for the <strong>journal</strong> tag:</p>
+For example, we can get a list of journal titles by querying for the <strong>journal</strong> tag:</p>
 <pre><code>grep "journal" scopus.bib
 </code></pre>
-<p>Even though that works,
-the data contains
-the word <strong>Journal</strong>
-in the name of some journals.
-If we were searching thousands
-or more records,
-we might want to construct a more
-unique <code>grep</code> search.</p>
-<p>To rectify this,
-we can modify our <code>grep</code> search
-in two ways.
-First, the rows of data fields
-begin with a tab character.
-The regular expression
-for the tab character is <strong>\t</strong>.
-Therefore, we can search
-the file using this expression
-with the <strong>-P</strong> option:</p>
+<p>Even though that works, the data contains the word <strong>Journal</strong> in the name of some journals.
+If we were searching thousands or more records, we might want to construct a more unique <code>grep</code> search.</p>
+<p>To rectify this, we can modify our <code>grep</code> search in two ways.
+First, the rows of data fields begin with a tab character.
+The regular expression for the tab character is <code>\t</code>.
+Therefore, we can search the file using this expression with the <strong>-P</strong> option:</p>
 <pre><code>grep -P "\tjournal" scopus.bib
 </code></pre>
-<p>Second, we can simply add more
-unique terms to our <code>grep</code> search.
-Since each tag includes a space,
-an equal sign,
-followed by another space,
-we can use that in our <code>grep</code> query:</p>
+<p>Second, we can simply add more unique terms to our <code>grep</code> search.
+Since each tag includes a space, an equal sign, followed by another space, we can use that in our <code>grep</code> query:</p>
 <pre><code>grep "journal =" scopus.bib
 </code></pre>
-<p>Using either method above,
-we can extract the journal title information.
-Here I use two new commands,
-<code>cut</code> and <code>sed</code>.
-The <code>cut</code> command takes
-the results of the <code>grep</code> command,
-removes the first column based on
-the comma as the column delimiter.
-In the first <code>sed</code> command,
-I remove the space and opening
-curly brace and replace it with nothing.
-In the second <code>sed</code> command,
-I remove the closing curly brace and
-the comma and replace it with nothing.
-The result is list of only the journal titles
-without any extraneous characters.
-I then pipe the output to the <code>sort</code> command,
-which sorts the list alphabetically,
-to the <code>uniq -c</code> command,
-which deduplicates and counts the results,
-and again to the <code>sort</code> command,
-which sorts numerically,
-since the first character is a number:</p>
+<p>Using either method above, we can extract the journal title information.
+Here I use two new commands, <code>cut</code> and <code>sed</code>.
+The <code>cut</code> command takes the results of the <code>grep</code> command, removes the first column based on the comma as the column delimiter.
+In the first <code>sed</code> command, I remove the space and opening curly brace and replace it with nothing.
+In the second <code>sed</code> command, I remove the closing curly brace and the comma and replace it with nothing.
+The result is list of only the journal titles without any extraneous characters.
+I then pipe the output to the <code>sort</code> command, which sorts the list alphabetically, to the <code>uniq -c</code> command, which deduplicates and counts the results,
+and again to the <code>sort</code> command, which sorts numerically, since the first character is a number:</p>
 <pre><code>grep "journal =" scopus.bib | cut -d"=" -f2 | \
     sed 's/ {//' | sed 's/},//' | \
     sort | uniq -c | sort
 </code></pre>
 <h4 id="total-citations"><a class="header" href="#total-citations">Total Citations</a></h4>
-<p>There are other things we can
-do if we want to learn more powerful technologies.
-While I will not cover <code>awk</code>,
-I do want to introduce it to you.
-With the <code>awk</code> command,
-based on the <em>BibTeX</em> tag that
-includes citation counts
-at the time of the download
-(e.g., <strong>note = {Cited by: 2}</strong>),
-we can extract the number from
-that field for each record and
-sum the total citations for
-the records in the file:</p>
+<p>There are other things we can do if we want to learn more powerful technologies.
+While I will not cover <code>awk</code>, I do want to introduce it to you.
+With the <code>awk</code> command, based on the <em>BibTeX</em> tag that includes citation counts at the time of the download (e.g., <code>note = {Cited by: 2}</code>),
+we can extract the number from that field for each record and sum the total citations for the records in the file:</p>
 <pre><code> grep -o "Cited by: [0-9]*" scopus.bib | \
     awk -F":" \
     'BEGIN { printf "Total Citations: "} \
     { sum += $2; } \
     END { print sum }'
 </code></pre>
-<p>In the above command,
-we use the pipe operator
-to connect a series of commands
-to each other:</p>
+<p>In the above command, we use the pipe operator to connect a series of commands to each other:</p>
 <ol>
 <li>use <code>grep</code> to search for the string "Cited by: " and to include any number of digits</li>
 <li>use <code>awk</code> to use the colon as the column or field delimiter</li>
@@ -788,22 +560,16 @@ to each other:</p>
 <li>use the <code>awk</code> END statement to print the sum.</li>
 </ol>
 <blockquote>
-<p>If you want to learn more about <code>sed</code> and <code>awk</code>, please see my <a href="https://cseanburns.github.io/linux_sysadmin/10-text-processing-part-2.html">text
-processing chapter for my Linux Systems Administration</a>.
+<p>If you want to learn more about <code>sed</code> and <code>awk</code>, please see my <a href="https://cseanburns.github.io/linux_sysadmin/3e-text-processing-part-2.html">text processing chapter for my Linux Systems Administration</a>.
 There are also many tutorials on the web.</p>
 </blockquote>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
-<p><code>grep</code> is very powerful, and
-there are more options listed in its <code>man</code> page.</p>
-<p>The Linux (and other Unix-like OSes) command line
-offers a lot of utilities to examine data.
+<p><code>grep</code> is very powerful, and there are more options listed in its <code>man</code> page.</p>
+<p>The Linux (and other Unix-like OSes) command line offers a lot of utilities to examine data.
 It's fun to learn and practice these.
-Despite this, you do not have to become
-an advanced <code>grep</code> user.
-For most cases,
-simple <code>grep</code> searches work well.</p>
-<p>There are many <code>grep</code> tutorials on the web
-if you want to see other examples.</p>
+Despite this, you do not have to become an advanced <code>grep</code> user.
+For most cases, simple <code>grep</code> searches work well.</p>
+<p>There are many <code>grep</code> tutorials on the web if you want to see other examples.</p>
 
                     </main>
 
