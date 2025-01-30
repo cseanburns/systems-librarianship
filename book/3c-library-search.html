@@ -177,177 +177,244 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="library-search"><a class="header" href="#library-search">Library Search</a></h1>
-<p>We're going to explore the <code>yaz-client</code>,
-a tool that serves
-as a gateway to
-information retrieval
-using the Z39.50 protocol.
-For those unfamiliar,
-Z39.50 is a standard protocol
-in libraries for
-sharing, querying, and retrieving bibliographic information
-between library databases.
-Development and usage
-began in the 1970s,
-which of course pre-dates the web,
-and this is a testament to the evolution of
-information retrieval systems since the 1970s.
-The protocol is maintained by the
-<a href="https://www.loc.gov/z3950/agency/"><em>Library of Congress</em></a>.</p>
-<p>SRU (Search/Retrieve via URL) and
-SRW (Search/Retrieve Web service)
-are modern web-based successors to Z39.50.
-They offer more flexibility
-in accessing and sharing bibliographic records.
-The <code>yaz-client</code> allows us to interact
-with these protocols
-directly from the command line,
-which provides a hands-on experience
-with the underlying mechanics of
-digital library searches and data retrieval.</p>
-<p>This exploration is not
-only about learning a tool;
-it's about understanding the
-history and ongoing development
-of information retrieval systems,
-a crucial aspect in
-library and information science.</p>
+<p>We're going to explore the <code>yaz-client</code>, a tool that serves as a gateway to information retrieval using the Z39.50 protocol.
+For those unfamiliar, Z39.50 is a standard protocol in libraries for sharing, querying,
+and retrieving bibliographic information between library databases.
+Development and usage began in the 1970s, which of course pre-dates the web.
+Its continued use is a testament to the evolution of information retrieval systems since the 1970s.
+The protocol is maintained by the <a href="https://www.loc.gov/z3950/agency/"><em>Library of Congress</em></a>.</p>
+<p>SRU (Search/Retrieve via URL) and SRW (Search/Retrieve Web service) are modern web-based successors to Z39.50.
+They offer more flexibility in accessing and sharing bibliographic records.
+The <code>yaz-client</code> allows us to interact with these protocols directly from the command line.
+This provides a hands-on opportunity with the underlying mechanics of digital library searches and data retrieval.</p>
+<p>This exploration is not only about learning a tool;
+it's about understanding the history and ongoing development of information retrieval systems.
+This is a crucial part of library and information science.</p>
 <blockquote>
 <p>SRU uses URL query strings, which is similar to web searches.
 SRW utilizes <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a>, which is more complex but allows for more data exchange.</p>
 </blockquote>
 <h2 id="installing-yaz"><a class="header" href="#installing-yaz">Installing <code>yaz</code></a></h2>
-<p>Use the <code>apt</code> instructions
-from the prior lesson
-to install the <code>yaz</code> client.</p>
-<p>First we need to search
-for the name of the software:</p>
+<p>Use the <code>apt</code> instructions from the prior lesson to install the <code>yaz</code> client.</p>
+<p>First search for the name of the software:</p>
 <pre><code>apt search yaz
 </code></pre>
-<p>The program that we are
-interested in is called <code>yaz</code>.
-To get information about the program,
-we use the <code>apt show</code> command:</p>
+<p>The package name happens to be <code>yaz</code>, but you never know!
+To get information about the program, we use the <code>apt show</code> command:</p>
 <pre><code>apt show yaz
 </code></pre>
-<p>The details help confirm
-that this is the program
-we want to install.
-Note that the output also
-returns a URL to the program's
-homepage on the web.
-Visit that link to
-read more about the software.</p>
-<p>To install it,
-we use the <code>sudo apt install</code> command:</p>
+<p>The details help confirm that this is the program we want to install.
+Note that the output also returns a URL to the program's homepage on the web.
+Visit that link to read more about the software.</p>
+<p>To install <code>yaz</code>, run the following command:</p>
 <pre><code>sudo apt install yaz
 </code></pre>
 <h2 id="documentation"><a class="header" href="#documentation">Documentation</a></h2>
-<p>The documentation for the
-<code>yaz-client</code> can be accessed
-via its manual page or on the web.
-See:</p>
+<p>The documentation for the <code>yaz-client</code> can be accessed via its manual page or on the web.
+To access the man page, see:</p>
 <pre><code>man yaz-client
 </code></pre>
-<p>For attribute documentation:</p>
+<p><code>yaz</code> is able to search quite a few bibliographic attributes, otherwise called <strong>metadata</strong>.
+To see which attributes are available to <code>yaz</code>, see:</p>
 <pre><code>man bib1-attr
 </code></pre>
-<p>The Library of Congress also
-provides an overview of the <strong>bib1-attr</strong>,
-but it's less comprehensive:</p>
-<p><a href="https://www.loc.gov/z3950/agency/defns/bib1.html">https://www.loc.gov/z3950/agency/defns/bib1.html</a></p>
-<p>Complete documentation for the
-<code>yaz-client</code> can be found on its
-homepage:</p>
-<p><a href="https://www.indexdata.com/resources/software/yaz/">https://www.indexdata.com/resources/software/yaz/</a></p>
+<p>The Library of Congress also provides an overview of the <strong>bib1-attr</strong> documentation, but it's less comprehensive:
+<a href="https://www.loc.gov/z3950/agency/defns/bib1.html">Bib-1 Attribute Set</a></p>
+<p>Complete documentation for the <code>yaz-client</code> can be found on its homepage: <a href="https://www.indexdata.com/resources/software/yaz/">YAZ</a></p>
 <h2 id="using-yaz"><a class="header" href="#using-yaz">Using <code>yaz</code></a></h2>
-<p>The command to start
-the <code>yaz</code> program is
-<code>yaz-client</code>.</p>
-<p>Open yaz-client:</p>
+<p>The start the <code>yaz</code> program, run the <code>yaz-client</code> command.</p>
 <pre><code>yaz-client
 </code></pre>
-<p>This starts a separate command line
-interface with a new prompt:</p>
+<p>This starts a separate command line interface with a new prompt:</p>
 <pre><code>Z&gt;
 </code></pre>
-<p>In this new interface,
-we can connect to a library's
-OPAC or discovery service.
-To do so,
-we use  the <code>open</code> command
-followed by the server address:</p>
-<pre><code>open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
+<p>In this new interface, we can connect to a library's OPAC or discovery service.
+To do so, we use the <code>open</code> command followed by the server address.
+The following <code>open</code> command establishes a connection to the University of Kentucky's library catalog:</p>
+<pre><code>Z&gt; open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
 </code></pre>
 <h2 id="queries"><a class="header" href="#queries">Queries</a></h2>
-<p>Queries are constructed
-using Prefix Query Notation (PQN).
-In the context of PQN,
-this is a way of structuring
-queries where the operator
-(e.g., AND, NOT, OR)
-precedes the operands
-(e.g., search terms, attributes, fields).</p>
+<p>Queries are constructed using Prefix Query Notation (PQN).
+In the context of PQN, this is a way of structuring queries where the operator (e.g., AND, NOT, OR)
+precedes the operands (e.g., search terms, attributes, fields).</p>
 <p>Each query begins with a <em>command</em>.
-The list of commands are
-described in <code>man yaz-client</code>
-in the COMMANDS section.
-The main command we'll use
-is the <code>find</code> command,
-which may be abbreviated
-down to the <code>f</code> command.
+The list of commands are described in <code>man yaz-client</code> in the COMMANDS section.
+The main command we'll use is the <code>find</code> command, which may be abbreviated as <code>f</code>.
 Let's see some examples:</p>
 <h3 id="example-1"><a class="header" href="#example-1">Example 1</a></h3>
-<p>To find title with word
-'information' and
-the Library of Congress Subject Heading
-'library science',
+<p>To find title with word 'information' and the Library of Congress Subject Heading 'library science',
 we use the following query:</p>
-<pre><code>find @and @attr 1=4 "information" @attr 1=21 "library science"
+<pre><code>Z&gt; find @and @attr 1=4 "information" @attr 1=21 "library science"
 </code></pre>
-<p>In the above:</p>
+<p>Let's break that down:</p>
 <ul>
 <li><code>find</code> is the command that sends a search request</li>
-<li><code>@and</code> is the operator signifying a Boolean AND search of multiple attributes</li>
+<li><code>@and</code> is the operator signifying a Boolean AND search of the next two attributes</li>
 <li><code>@attr 1=4</code> instructs the query to search for the term in the Title</li>
 <li><code>"information"</code> is the first search term for the Title search</li>
 <li><code>@attr 1=21</code> instructs the query to search for the term in the Subject-heading</li>
 <li><code>"library science"</code> is the second search term for the subject heading search</li>
 </ul>
 <p>The search does not reveal the results.
-To peruse the results,
-we use the <code>show</code> command.
+To peruse the results, we use the <code>show</code> command.
 To show the first record:</p>
 <pre><code>show 1
 </code></pre>
+<p>To show the second record:</p>
+<pre><code>show 2
+</code></pre>
+<p>And so forth.</p>
 <h3 id="example-2"><a class="header" href="#example-2">Example 2</a></h3>
-<p>Find with subject headings "library science" and "philosophy"</p>
-<pre><code>f @and @attr 1=21 "library science" @attr 1=21 "philosophy"
+<p>Find with subject headings "library science" and "philosophy".
+In this example, I abbreviate the <code>find</code> command as <code>f</code>:</p>
+<pre><code>Z&gt; f @and @attr 1=21 "library science" @attr 1=21 "philosophy"
 </code></pre>
+<ul>
+<li><code>@attr 1=21</code> instructs the query to search for the term "library science" in the Subject-heading</li>
+<li><code>@attr 1=21</code> instructs the query to search for the term "philosophy" in the Subject-heading</li>
+</ul>
 <h3 id="example-3"><a class="header" href="#example-3">Example 3</a></h3>
-<p>Find where personal name is "mcmurtry, larry"</p>
-<pre><code>f @attr 1=1 "mcmurtry, larry"
+<p>Find where personal name is "mcmurtry, larry".</p>
+<pre><code>Z&gt; f @attr 1=1 "mcmurtry, larry"
 </code></pre>
+<ul>
+<li><code>@attr 1=1</code> instructs the query to search for the term in the Personal-name attribute.</li>
+</ul>
 <h3 id="example-4"><a class="header" href="#example-4">Example 4</a></h3>
-<p>Find any for "c programming language"</p>
-<pre><code>f @attr 1=1016 "c programming language"
+<p>Find any for "c programming language".</p>
+<pre><code>Z&gt; f @attr 1=1016 "c programming language"
 </code></pre>
+<ul>
+<li><code>@attr 1=1016</code> instructs the query to search for the term in <em>Any</em> field.</li>
+</ul>
+<p>Finally, we can exit the <code>yaz</code> client with the <code>quit</code> command:</p>
+<pre><code>Z&gt; quit
+</code></pre>
+<h2 id="advanced-usage"><a class="header" href="#advanced-usage">Advanced Usage</a></h2>
+<p>Let's open the <code>yaz-client</code> again but with the <code>-m</code> option.
+According to the <code>yaz-client</code> man page, the <code>-m</code> option
+option instructs the client to append bibliographic records to a file.
+In the example below, I arbitrarily name the file <code>records.marc</code>.</p>
+<pre><code>$ yaz-client -m records.marc
+</code></pre>
+<p>Again, we use the <code>open</code> command to connect to the library's catalog.
+Then use the <code>find</code> command to search the catalog.
+Use the <code>show</code> command to examine some of the retrieved records.
+Then use the <code>quit</code> command to exit the <code>yaz-client</code>.</p>
+<pre><code>Z&gt; open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
+Z&gt; find @and @attr 1=4 "information" @attr 1=21 "library science"
+Z&gt; show 1
+Z&gt; show 2
+Z&gt; show 3
+Z&gt; quit
+</code></pre>
+<p>However, this time when we exit the <code>yaz-client</code>, we can examine all the records we retrieved.
+The default file type isn't human friendly.
+We can take a look at the first few lines of the file first:</p>
+<pre><code>head records.marc
+</code></pre>
+<p>Then we can use the <code>file</code> command to determine its file type:</p>
+<pre><code>file records.marc
+records.marc: MARC21 Bibliographic
+</code></pre>
+<p>Fortunately, we can convert the MARC file to friendlier formats.
+For example, using the <code>yaz-marcdump</code> command, we can convert the file to JSON,
+which is a <q>standard text-based format for representing structured data</q>
+(<a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON">JSON</a>).</p>
+<pre><code>yaz-marcdump -o json records.marc &gt; records.json
+</code></pre>
+<p>We then use the <code>jq</code> command, a JSON processor, to format the JSON for better readability:</p>
+<pre><code>jq . records.json &gt; records-formatted.json
+</code></pre>
+<p>With the records formatted, we can use the <code>less</code> command to scan the file, but
+the <code>jq</code> command is quite powerful and we can use it to query and examine specific fields in the JSON-formatted MARC records.</p>
+<p>Note: learning <code>jq</code> and MARC is beyond the scope of this work.
+However, if you are new to MARC or need a reminder, see:
+<a href="https://www.loc.gov/marc/bibliographic/">MARC 21 Format for Bibliographic Data</a>.
+The <code>jq</code> homepage also provides a nice tutorial: <a href="https://jqlang.github.io/jq/tutorial/">jq Tutorial</a>.</p>
+<p>But as an example,
+the following command extracts the <strong>650 Subject</strong> field with the <strong>a</strong> (Topical term) subfields for our entries:</p>
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records.formatted.json
+</code></pre>
+<p>If we want to see if there were any geographic subdivisions for the 650 field, then we would change <strong>a</strong> to <strong>z</strong>:</p>
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("z")) | .z' records.formatted.json
+</code></pre>
+<p>Or we can examine general subdivisions of the 650 subfields and tabulate the data
+by piping through <code>sort</code>, <code>uniq -c</code>, and <code>sort</code>:</p>
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records.formatted.json | sort | uniq -c | sort
+</code></pre>
+<p>For other fields to examine, see the <a href="https://www.loc.gov/marc/umb/um07to10.html">MARC 21 Reference Materials sheet</a>.</p>
+<h3 id="jq-breakdown"><a class="header" href="#jq-breakdown"><code>jq</code> breakdown</a></h3>
+<p>Selects all fields:</p>
+<pre><code>jq '.fields[]' records.formatted.json
+</code></pre>
+<p>Selects all <strong>650</strong> fields:</p>
+<pre><code>jq '.fields[] | select(has("650"))' records.formatted.json
+</code></pre>
+<p>Selects only but all the subfields from the <strong>650</strong> fields:</p>
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[]' records.formatted.json
+</code></pre>
+<p>Selects only the <strong>x</strong> subfields from the <strong>650</strong> fields:</p>
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records.formatted.json
+</code></pre>
+<h3 id="other-formats"><a class="header" href="#other-formats">Other formats</a></h3>
+<p>We can the original MARC data to XML:</p>
+<pre><code>yaz-marcdump -o marcxml records.marc &gt; records.xml
+</code></pre>
+<p>We can query the XML data with <code>xmlstarlet</code> command, which is similar to <code>jq</code> but for XML structured data.</p>
+<h3 id="downloading-all-results"><a class="header" href="#downloading-all-results">Downloading All Results</a></h3>
+<p>The process above saved only records we examined with the <code>show</code> command.
+The following <code>find</code> query locates 120 records and then the <code>show</code> command below allows us to save to file all 120 records.</p>
+<pre><code>$ yaz-client
+&gt; set_marcdump records.new
+&gt; open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
+&gt; find @and @attr 1=4 "technology" @attr 1=21 "library science"
+&gt; show 1 +120
+&gt; quit
+</code></pre>
+<p>Then we can follow the steps above to convert to JSON and examine the file with <code>jq</code>.
+One thing we learn with bigger data sets is that data gets messy.
+In the 120 records, I found differences in capitalization, usage of punctuation, and other variations that are mistakes.
+The following command helps to clean some of that up.
+The command is technically a one-liner, but I've broken it up on multiple lines by including a backslash at the end <code>\</code>.</p>
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json |\
+sort | \
+sed 's/\.//g' | \
+awk '{ print tolower($0) }' | \
+sort | \
+uniq -c | \
+sort -n
+</code></pre>
+<p>In the following, I add a final <code>sed</code> and <code>awk</code> command on the last two lines.
+The final <code>sed</code> command deletes the most common subject heading, which is <strong>library science</strong>.
+Since these are all <strong>library science</strong> records, including it in the results is meaningless.
+The final <code>awk</code> command sums the number of records from the tabulated count.</p>
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json |\
+sort | \
+sed 's/\.//g' | \
+awk '{ print tolower($0) }' | \
+sort | \
+uniq -c | \
+sort -n | \
+sed '$d' | \
+awk '{ sum+=$1 } END{print sum}'
+</code></pre>
+<p>Because these commands are query agnostic, they can be used to examine subject headings in the catalog from other queries.
+We can even select for other subfields, like the <code>z</code> <strong>650</strong> subfield to get the geographical divisions and
+use that to map out the geographies reported in the subject headings in a catalog.</p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
-<p>Z39.50 is often presented as an abstract
-information retrieval concept
-even though it has played a central
-part of searching online catalogs and database
-for nearly 50 years.
-The protocol,
-along with tools like <code>yaz</code>
-can be used to build
-search interfaces to bibliographic data.
-For example,
-see:</p>
+<p>Z39.50 is often presented as an abstract information retrieval concept even though it has played a central
+part of searching online catalogs and database for nearly 50 years.
+The protocol, using tools like <code>yaz</code>, can be used to build search interfaces to bibliographic data.
+For example, see:</p>
 <ul>
 <li><a href="https://reintech.io/blog/guide-to-php-yaz-library-information-retrieval">A Guide to the PHP YAZ Library for Information Retrieval</a></li>
-<li><a href="https://sites.nd.edu/emorgan/2013/11/fun/">Fun with bibliographic indexes, bibliographic data management software, and Z39.50</a></li>
+<li><a href="https://sites.nd.edu/emorgan/2013/11/fun/">Fun with bibliographic indexes, bibliographic data management software, and Z39.50</a>
+If you are interested in establishing a connection to the Library of Congress's catalog,
+use the following server address:</li>
 </ul>
+<pre><code>Z&gt; open z3950.loc.gov:7090/voyager
+</code></pre>
 
                     </main>
 
