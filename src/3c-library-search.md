@@ -1,27 +1,32 @@
 # Library Search
 
-We're going to explore the `yaz-client`, a tool that serves as a gateway to information retrieval using the Z39.50 protocol.
-For those unfamiliar, Z39.50 is a standard protocol in libraries for sharing, querying,
-and retrieving bibliographic information between library databases.
-Development and usage began in the 1970s, which of course pre-dates the web.
-Its continued use is a testament to the evolution of information retrieval systems since the 1970s.
+In this section, we're going to explore the `yaz-client`.
+The `yaz-client` is an information retrieval client that uses the Z39.50/SRU protocols to query bibliographic databases, like library catalogs and repositories.
+For those unfamiliar, Z39.50 is a standard protocol in libraries for sharing, querying, and retrieving bibliographic information between library databases.
+Its development in the 1970s pre-dates the web, and its continued use illustrates the evolution of information retrieval systems since the 1970s.
 The protocol is maintained by the [*Library of Congress*][locz3950].
 
-SRU (Search/Retrieve via URL) and SRW (Search/Retrieve Web service) are modern web-based successors to Z39.50.
-They offer more flexibility in accessing and sharing bibliographic records.
+The `yaz-client` is an SRU client, as well.
+SRU (Search/Retrieve via URL) and SRW (Search/Retrieve Web service) are modern internet and web-based successors to Z39.50.
+These protocols offer modern flexibility and more simplicity in accessing and sharing bibliographic records than Z39.50.
+See OCLC's page on [SRW/U][srw_u_oclc] for more information and The Library of Congress's documentation page: [SRU/CQL][sru_loc].
+
 The `yaz-client` allows us to interact with these protocols directly from the command line.
 This provides a hands-on opportunity with the underlying mechanics of digital library searches and data retrieval.
 
-This exploration is not only about learning a tool;
-it's about understanding the history and ongoing development of information retrieval systems.
-This is a crucial part of library and information science.
+However, this exploration is only partly about learning a tool.
+More so, it's about understanding the history and ongoing development of information retrieval systems.
+This is a crucial (and fun!) part of library and information science.
 
-> SRU uses URL query strings, which is similar to web searches.
-> SRW utilizes [SOAP][soap], which is more complex but allows for more data exchange.
+In order for us to use the `yaz-client`, we will need to connect to a library database.
+Fortunately, LSPs (library service platforms) can function as **SRU** targets for applications like `yaz-client`.
+For example, see [ExLibris provides a tutorial][sru_exlibris] on enabling and using SRU in Alma, its LSP product.
+We will connect to an Alma database in the following tutorial.
 
 ## Installing `yaz`
 
-Use the `apt` instructions from the prior lesson to install the `yaz` client.
+First, let's get started by installing the `yaz-client`.
+Use the `apt` instructions from the prior lesson to locate the name of the `yaz` client.
 
 First search for the name of the software:
 
@@ -366,5 +371,7 @@ Z> open z3950.loc.gov:7090/voyager
 [loc_marc]:https://www.loc.gov/marc/umb/um07to10.html
 [locz3950]:https://www.loc.gov/z3950/agency/
 [marc_loc]:https://www.loc.gov/marc/bibliographic/
-[soap]:https://en.wikipedia.org/wiki/SOAP
+[sru_exlibris]:https://developers.exlibrisgroup.com/alma/integrations/SRU/
+[sru_loc]:https://www.loc.gov/standards/sru/
+[srw_u_oclc]:https://www.oclc.org/research/areas/data-science/srw.html
 [yaz_client]:https://www.indexdata.com/resources/software/yaz/
