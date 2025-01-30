@@ -1,79 +1,46 @@
 # Library Search
 
-We're going to explore the `yaz-client`,
-a tool that serves
-as a gateway to
-information retrieval
-using the Z39.50 protocol.
-For those unfamiliar,
-Z39.50 is a standard protocol
-in libraries for
-sharing, querying, and retrieving bibliographic information
-between library databases.
-Development and usage
-began in the 1970s,
-which of course pre-dates the web,
-and this is a testament to the evolution of
-information retrieval systems since the 1970s.
-The protocol is maintained by the
-[*Library of Congress*][locz3950].
+We're going to explore the `yaz-client`, a tool that serves as a gateway to information retrieval using the Z39.50 protocol.
+For those unfamiliar, Z39.50 is a standard protocol in libraries for sharing, querying,
+and retrieving bibliographic information between library databases.
+Development and usage began in the 1970s, which of course pre-dates the web.
+Its continued use is a testament to the evolution of information retrieval systems since the 1970s.
+The protocol is maintained by the [*Library of Congress*][locz3950].
 
-SRU (Search/Retrieve via URL) and
-SRW (Search/Retrieve Web service)
-are modern web-based successors to Z39.50.
-They offer more flexibility
-in accessing and sharing bibliographic records.
-The `yaz-client` allows us to interact
-with these protocols
-directly from the command line,
-which provides a hands-on experience
-with the underlying mechanics of
-digital library searches and data retrieval.
+SRU (Search/Retrieve via URL) and SRW (Search/Retrieve Web service) are modern web-based successors to Z39.50.
+They offer more flexibility in accessing and sharing bibliographic records.
+The `yaz-client` allows us to interact with these protocols directly from the command line.
+This provides a hands-on opportunity with the underlying mechanics of digital library searches and data retrieval.
 
-This exploration is not
-only about learning a tool;
-it's about understanding the
-history and ongoing development
-of information retrieval systems,
-a crucial aspect in
-library and information science.
+This exploration is not only about learning a tool;
+it's about understanding the history and ongoing development of information retrieval systems.
+This is a crucial part of library and information science.
 
 > SRU uses URL query strings, which is similar to web searches.
 > SRW utilizes [SOAP][soap], which is more complex but allows for more data exchange.
 
 ## Installing `yaz`
 
-Use the `apt` instructions
-from the prior lesson
-to install the `yaz` client.
+Use the `apt` instructions from the prior lesson to install the `yaz` client.
 
-First we need to search
-for the name of the software:
+First search for the name of the software:
 
 ```
 apt search yaz
 ```
 
-The program that we are
-interested in is called `yaz`.
-To get information about the program,
-we use the `apt show` command:
+The package name happens to be `yaz`, but you never know!
+To get information about the program, we use the `apt show` command:
 
 ```
 apt show yaz
 ```
 
-The details help confirm
-that this is the program
-we want to install.
-Note that the output also
-returns a URL to the program's
-homepage on the web.
-Visit that link to
-read more about the software.
+The details help confirm that this is the program we want to install.
+Note that the output also returns a URL to the program's homepage on the web.
+Visit that link to read more about the software.
 
-To install it,
-we use the `sudo apt install` command:
+To install `yaz`, run the following command:
 
 ```
 sudo apt install yaz
@@ -81,155 +48,323 @@ sudo apt install yaz
 
 ## Documentation
 
-The documentation for the
-`yaz-client` can be accessed
-via its manual page or on the web.
-See:
+The documentation for the `yaz-client` can be accessed via its manual page or on the web.
+To access the man page, see:
 
 ```
 man yaz-client
 ```
 
-For attribute documentation:
+`yaz` is able to search quite a few bibliographic attributes, otherwise called **metadata**.
+To see which attributes are available to `yaz`, see:
 
 ```
 man bib1-attr
 ```
 
-The Library of Congress also
-provides an overview of the **bib1-attr**,
-but it's less comprehensive:
+The Library of Congress also provides an overview of the **bib1-attr** documentation, but it's less comprehensive:
+[Bib-1 Attribute Set][bib1_attr]
 
-[https://www.loc.gov/z3950/agency/defns/bib1.html][bib1_attr]
+Complete documentation for the `yaz-client` can be found on its homepage: [YAZ][yaz_client]
 
-Complete documentation for the
-`yaz-client` can be found on its
-homepage:
-
-[https://www.indexdata.com/resources/software/yaz/][yaz_client]
 ## Using `yaz`
 
-The command to start
-the `yaz` program is
-`yaz-client`.
-
-Open yaz-client:
+The start the `yaz` program, run the `yaz-client` command.
 
 ```
 yaz-client
 ```
 
-This starts a separate command line
-interface with a new prompt:
+This starts a separate command line interface with a new prompt:
 
 ```
 Z>
 ```
 
-In this new interface,
-we can connect to a library's
-OPAC or discovery service.
-To do so,
-we use  the `open` command
-followed by the server address:
+In this new interface, we can connect to a library's OPAC or discovery service.
+To do so, we use the `open` command followed by the server address.
+The following `open` command establishes a connection to the University of Kentucky's library catalog:
 
 ```
-open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
+Z> open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
 ```
 
 ## Queries
 
-Queries are constructed
-using Prefix Query Notation (PQN).
-In the context of PQN,
-this is a way of structuring
-queries where the operator
-(e.g., AND, NOT, OR)
-precedes the operands
-(e.g., search terms, attributes, fields).
+Queries are constructed using Prefix Query Notation (PQN).
+In the context of PQN, this is a way of structuring queries where the operator (e.g., AND, NOT, OR)
+precedes the operands (e.g., search terms, attributes, fields).
 
 Each query begins with a *command*.
-The list of commands are
-described in `man yaz-client`
-in the COMMANDS section.
-The main command we'll use
-is the `find` command,
-which may be abbreviated
-down to the `f` command.
+The list of commands are described in `man yaz-client` in the COMMANDS section.
+The main command we'll use is the `find` command, which may be abbreviated as `f`.
 Let's see some examples:
 
 ### Example 1
 
-To find title with word
-'information' and
-the Library of Congress Subject Heading
-'library science',
+To find title with word 'information' and the Library of Congress Subject Heading 'library science',
 we use the following query:
 
 ```
-find @and @attr 1=4 "information" @attr 1=21 "library science"
+Z> find @and @attr 1=4 "information" @attr 1=21 "library science"
 ```
 
-In the above:
+Let's break that down:
 
 - `find` is the command that sends a search request
-- `@and` is the operator signifying a Boolean AND search of multiple attributes
+- `@and` is the operator signifying a Boolean AND search of the next two attributes
 - `@attr 1=4` instructs the query to search for the term in the Title
 - `"information"` is the first search term for the Title search
 - `@attr 1=21` instructs the query to search for the term in the Subject-heading
 - `"library science"` is the second search term for the subject heading search
 
 The search does not reveal the results.
-To peruse the results,
-we use the `show` command.
+To peruse the results, we use the `show` command.
 To show the first record:
 
 ```
 show 1
 ```
 
+To show the second record:
+
+```
+show 2
+```
+
+And so forth.
+
 ### Example 2
 
-Find with subject headings "library science" and "philosophy"
+Find with subject headings "library science" and "philosophy".
+In this example, I abbreviate the `find` command as `f`:
 
 ```
-f @and @attr 1=21 "library science" @attr 1=21 "philosophy"
+Z> f @and @attr 1=21 "library science" @attr 1=21 "philosophy"
 ```
+
+- `@attr 1=21` instructs the query to search for the term "library science" in the Subject-heading
+- `@attr 1=21` instructs the query to search for the term "philosophy" in the Subject-heading
 
 ### Example 3
 
-Find where personal name is "mcmurtry, larry"
+Find where personal name is "mcmurtry, larry".
 
 ```
-f @attr 1=1 "mcmurtry, larry"
+Z> f @attr 1=1 "mcmurtry, larry"
 ```
+
+- `@attr 1=1` instructs the query to search for the term in the Personal-name attribute.
 
 ### Example 4
 
-Find any for "c programming language"
+Find any for "c programming language".
 
 ```
-f @attr 1=1016 "c programming language"
+Z> f @attr 1=1016 "c programming language"
 ```
+
+- `@attr 1=1016` instructs the query to search for the term in *Any* field.
+
+Finally, we can exit the `yaz` client with the `quit` command:
+
+```
+Z> quit
+```
+
+## Advanced Usage
+
+Let's open the `yaz-client` again but with the `-m` option.
+According to the `yaz-client` man page, the `-m` option
+option instructs the client to append bibliographic records to a file.
+In the example below, I arbitrarily name the file `records.marc`. 
+
+```
+$ yaz-client -m records.marc
+```
+
+Again, we use the `open` command to connect to the library's catalog.
+Then use the `find` command to search the catalog.
+Use the `show` command to examine some of the retrieved records.
+Then use the `quit` command to exit the `yaz-client`.
+
+```
+Z> open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
+Z> find @and @attr 1=4 "information" @attr 1=21 "library science"
+Z> show 1
+Z> show 2
+Z> show 3
+Z> quit
+```
+
+However, this time when we exit the `yaz-client`, we can examine all the records we retrieved.
+The default file type isn't human friendly.
+We can take a look at the first few lines of the file first:
+
+```
+head records.marc
+```
+
+Then we can use the `file` command to determine its file type:
+
+```
+file records.marc
+records.marc: MARC21 Bibliographic
+```
+
+Fortunately, we can convert the MARC file to friendlier formats.
+For example, using the `yaz-marcdump` command, we can convert the file to JSON,
+which is a <q>standard text-based format for representing structured data</q>
+([JSON][json_mdn]).
+
+```
+yaz-marcdump -o json records.marc > records.json
+```
+
+We then use the `jq` command, a JSON processor, to format the JSON for better readability:
+
+```
+jq . records.json > records-formatted.json
+```
+
+With the records formatted, we can use the `less` command to scan the file, but
+the `jq` command is quite powerful and we can use it to query and examine specific fields in the JSON-formatted MARC records.
+
+Note: learning `jq` and MARC is beyond the scope of this work.
+However, if you are new to MARC or need a reminder, see:
+[MARC 21 Format for Bibliographic Data][marc_loc].
+The `jq` homepage also provides a nice tutorial: [jq Tutorial][jq_tutorial].
+
+But as an example,
+the following command extracts the **650 Subject** field with the **a** (Topical term) subfields for our entries:
+
+```
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records.formatted.json
+```
+
+If we want to see if there were any geographic subdivisions for the 650 field, then we would change **a** to **z**:
+
+```
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("z")) | .z' records.formatted.json
+```
+
+Or we can examine general subdivisions of the 650 subfields and tabulate the data
+by piping through `sort`, `uniq -c`, and `sort`:
+
+```
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records.formatted.json | sort | uniq -c | sort
+```
+
+For other fields to examine, see the [MARC 21 Reference Materials sheet][loc_marc].
+
+### `jq` breakdown
+
+Selects all fields:
+
+```
+jq '.fields[]' records.formatted.json
+```
+
+Selects all **650** fields:
+
+```
+jq '.fields[] | select(has("650"))' records.formatted.json
+```
+
+Selects only but all the subfields from the **650** fields:
+
+```
+jq '.fields[] | select(has("650")) | .["650"].subfields[]' records.formatted.json
+```
+
+Selects only the **x** subfields from the **650** fields:
+
+```
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records.formatted.json
+```
+
+### Other formats
+
+We can the original MARC data to XML:
+
+```
+yaz-marcdump -o marcxml records.marc > records.xml
+```
+
+We can query the XML data with `xmlstarlet` command, which is similar to `jq` but for XML structured data.
+
+### Downloading All Results
+
+The process above saved only records we examined with the `show` command.
+The following `find` query locates 120 records and then the `show` command below allows us to save to file all 120 records.
+
+```
+$ yaz-client
+> set_marcdump records.new
+> open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
+> find @and @attr 1=4 "technology" @attr 1=21 "library science"
+> show 1 +120
+> quit
+```
+
+Then we can follow the steps above to convert to JSON and examine the file with `jq`.
+One thing we learn with bigger data sets is that data gets messy.
+In the 120 records, I found differences in capitalization, usage of punctuation, and other variations that are mistakes.
+The following command helps to clean some of that up.
+The command is technically a one-liner, but I've broken it up on multiple lines by including a backslash at the end `\`.
+
+```
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json |\
+sort | \
+sed 's/\.//g' | \
+awk '{ print tolower($0) }' | \
+sort | \
+uniq -c | \
+sort -n
+```
+
+In the following, I add a final `sed` and `awk` command on the last two lines.
+The final `sed` command deletes the most common subject heading, which is **library science**.
+Since these are all **library science** records, including it in the results is meaningless.
+The final `awk` command sums the number of records from the tabulated count.
+
+```
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json |\
+sort | \
+sed 's/\.//g' | \
+awk '{ print tolower($0) }' | \
+sort | \
+uniq -c | \
+sort -n | \
+sed '$d' | \
+awk '{ sum+=$1 } END{print sum}'
+```
+
+Because these commands are query agnostic, they can be used to examine subject headings in the catalog from other queries.
+We can even select for other subfields, like the `z` **650** subfield to get the geographical divisions and
+use that to map out the geographies reported in the subject headings in a catalog.
 
 ## Conclusion
 
-Z39.50 is often presented as an abstract
-information retrieval concept
-even though it has played a central
-part of searching online catalogs and database
-for nearly 50 years.
-The protocol,
-along with tools like `yaz`
-can be used to build
-search interfaces to bibliographic data.
-For example,
-see:
+Z39.50 is often presented as an abstract information retrieval concept even though it has played a central
+part of searching online catalogs and database for nearly 50 years.
+The protocol, using tools like `yaz`, can be used to build search interfaces to bibliographic data.
+For example, see:
 
 - [A Guide to the PHP YAZ Library for Information Retrieval](https://reintech.io/blog/guide-to-php-yaz-library-information-retrieval)
 - [Fun with bibliographic indexes, bibliographic data management software, and Z39.50](https://sites.nd.edu/emorgan/2013/11/fun/)
+If you are interested in establishing a connection to the Library of Congress's catalog,
+use the following server address:
 
-[locz3950]:https://www.loc.gov/z3950/agency/
-[soap]:https://en.wikipedia.org/wiki/SOAP
+```
+Z> open z3950.loc.gov:7090/voyager
+```
+  
 [bib1_attr]:https://www.loc.gov/z3950/agency/defns/bib1.html
+[jq_tutorial]:https://jqlang.github.io/jq/tutorial/
+[json_mdn]:https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON
+[loc_marc]:https://www.loc.gov/marc/umb/um07to10.html
+[locz3950]:https://www.loc.gov/z3950/agency/
+[marc_loc]:https://www.loc.gov/marc/bibliographic/
+[soap]:https://en.wikipedia.org/wiki/SOAP
 [yaz_client]:https://www.indexdata.com/resources/software/yaz/
