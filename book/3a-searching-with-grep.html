@@ -177,9 +177,19 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="searching-with-grep"><a class="header" href="#searching-with-grep">Searching with grep</a></h1>
-<p>We have available some powerful utilities and programs to process, manipulate, and analyze text files.
-In this section, we will focus on the <code>grep</code> utility, which offers some advanced methods for searching the contents of text files.</p>
-<h2 id="grep"><a class="header" href="#grep">Grep</a></h2>
+<p>As a systems librarian, you might deal with large amounts of text-based data:
+logs from library systems, metadata files, MARC records, exported citation data, and configuration files for tools that you manage.
+Searching these efficiently is crucial when troubleshooting issues, extracting insights, or automating repetitive tasks.
+Graphical interface-based applications exist for some of these tasks, but they can be slow, inflexible, or unavailable when working on a remote server.
+Fortunately we have <code>grep</code>, which is a command-line tool that allows for fast and precise searching.
+Using <code>grep</code>, we can accomplish all of the above.</p>
+<p>There are other powerful utilities and programs to process, manipulate, and analyze text files (e.g., <code>awk</code>, <code>sed</code>, and more).
+However, in this section, we will focus on the <code>grep</code> utility, which offers advanced methods for searching the contents of text files.
+Specifically, we'll work through an introduction of <code>grep</code> using a small data file that will help us understand how <code>grep</code> works.
+Then we will use <code>grep</code> to analyze bibliographic data downloaded as a <code>.bib</code> file from Scopus.
+This will demonstrate how <code>grep</code> can help you filter specific information from a structured dataset—an approach that can also be applied to processing
+catalog records, debugging system errors, or analyzing usage logs (e.g., see <a href="https://doi.org/10.1080/00987913.2017.1281788">Arneson, 2017</a>).</p>
+<h2 id="grep"><a class="header" href="#grep"><code>grep</code></a></h2>
 <p>The <code>grep</code> command is one of my most often used commands.
 The purpose of <code>grep</code> is to "print lines that match patterns" (see <code>man grep</code>).
 In other words, it searches text, and it's super powerful.</p>
@@ -570,6 +580,11 @@ It's fun to learn and practice these.
 Despite this, you do not have to become an advanced <code>grep</code> user.
 For most cases, simple <code>grep</code> searches work well.</p>
 <p>There are many <code>grep</code> tutorials on the web if you want to see other examples.</p>
+<h2 id="references"><a class="header" href="#references">References</a></h2>
+<p>Arneson, J. (2017).
+Determining usage when vendors do not provide data.
+<em>Serials Review, 43</em>(1), 46–50.
+<a href="https://doi.org/10.1080/00987913.2017.1281788">doi.org/10.1080/00987913.2017.1281788</a></p>
 
                     </main>
 
