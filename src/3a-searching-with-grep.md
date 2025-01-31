@@ -1,9 +1,20 @@
 # Searching with grep
 
-We have available some powerful utilities and programs to process, manipulate, and analyze text files.
-In this section, we will focus on the `grep` utility, which offers some advanced methods for searching the contents of text files.
+As a systems librarian, you might deal with large amounts of text-based data:
+logs from library systems, metadata files, MARC records, exported citation data, and configuration files for tools that you manage.
+Searching these efficiently is crucial when troubleshooting issues, extracting insights, or automating repetitive tasks.
+Graphical interface-based applications exist for some of these tasks, but they can be slow, inflexible, or unavailable when working on a remote server.
+Fortunately we have `grep`, which is a command-line tool that allows for fast and precise searching.
+Using `grep`, we can accomplish all of the above.
 
-## Grep
+There are other powerful utilities and programs to process, manipulate, and analyze text files (e.g., `awk`, `sed`, and more).
+However, in this section, we will focus on the `grep` utility, which offers advanced methods for searching the contents of text files.
+Specifically, we'll work through an introduction of `grep` using a small data file that will help us understand how `grep` works.
+Then we will use `grep` to analyze bibliographic data downloaded as a `.bib` file from Scopus.
+This will demonstrate how `grep` can help you filter specific information from a structured dataset&mdash;an approach that can also be applied to processing
+catalog records, debugging system errors, or analyzing usage logs (e.g., see [Arneson, 2017][arneson_2017]).
+
+## `grep`
 
 The `grep` command is one of my most often used commands.
 The purpose of `grep` is to "print lines that match patterns" (see `man grep`).
@@ -602,6 +613,14 @@ For most cases, simple `grep` searches work well.
 
 There are many `grep` tutorials on the web if you want to see other examples.
 
+## References
+
+Arneson, J. (2017).
+Determining usage when vendors do not provide data.
+*Serials Review, 43*(1), 46–50.
+[doi.org/10.1080/00987913.2017.1281788][arneson_2017]
+
+[arneson_2017]:https://doi.org/10.1080/00987913.2017.1281788
 [bibtex_entries]:https://www.bibtex.com/e/entry-types/
 [bibtex_fields]:https://bibtex.eu/fields/
 [bibtex]:https://www.bibtex.org/Format/
