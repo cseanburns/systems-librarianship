@@ -191,9 +191,9 @@ This provides a hands-on opportunity with the underlying mechanics of digital li
 <p>However, this exploration is only partly about learning a tool.
 More so, it's about understanding the history and ongoing development of information retrieval systems.
 This is a crucial (and fun!) part of library and information science.</p>
-<p>In order for us to use the <code>yaz-client</code>, we will need to connect to a library database.
+<p>In order for us to use the <code>yaz-client</code>, we need to connect to a library database.
 Fortunately, LSPs (library service platforms) can function as <strong>SRU</strong> targets for applications like <code>yaz-client</code>.
-For example, see <a href="https://developers.exlibrisgroup.com/alma/integrations/SRU/">ExLibris provides a tutorial</a> on enabling and using SRU in Alma, its LSP product.
+For example, see the <a href="https://developers.exlibrisgroup.com/alma/integrations/SRU/">ExLibris tutorial</a> on enabling and using SRU in Alma, its LSP product.
 We will connect to an Alma database in the following tutorial.</p>
 <h2 id="installing-yaz"><a class="header" href="#installing-yaz">Installing <code>yaz</code></a></h2>
 <p>First, let's get started by installing the <code>yaz-client</code>.
@@ -207,7 +207,7 @@ To get information about the program, we use the <code>apt show</code> command:<
 </code></pre>
 <p>The details help confirm that this is the program we want to install.
 Note that the output also returns a URL to the program's homepage on the web.
-Visit that link to read more about the software.</p>
+Visit that link to read more about the software and its documentation.</p>
 <p>To install <code>yaz</code>, run the following command:</p>
 <pre><code>sudo apt install yaz
 </code></pre>
@@ -216,18 +216,20 @@ Visit that link to read more about the software.</p>
 To access the man page, see:</p>
 <pre><code>man yaz-client
 </code></pre>
-<p><code>yaz</code> is able to search quite a few bibliographic attributes, otherwise called <strong>metadata</strong>.
+<p><code>yaz</code> is able to search quite a few bibliographic attributes, including many <strong>metadata</strong> fields.
 To see which attributes are available to <code>yaz</code>, see:</p>
 <pre><code>man bib1-attr
 </code></pre>
-<p>The Library of Congress also provides an overview of the <strong>bib1-attr</strong> documentation, but it's less comprehensive:
+<p>The Library of Congress also provides an overview of the <strong>bib1-attr</strong> documentation,
+but it's less comprehensive:
 <a href="https://www.loc.gov/z3950/agency/defns/bib1.html">Bib-1 Attribute Set</a></p>
-<p>Complete documentation for the <code>yaz-client</code> can be found on its homepage: <a href="https://www.indexdata.com/resources/software/yaz/">YAZ</a></p>
+<p>Complete documentation for the <code>yaz-client</code> can be found on its homepage:
+<a href="https://www.indexdata.com/resources/software/yaz/">YAZ</a></p>
 <h2 id="using-yaz"><a class="header" href="#using-yaz">Using <code>yaz</code></a></h2>
 <p>The start the <code>yaz</code> program, run the <code>yaz-client</code> command.</p>
 <pre><code>yaz-client
 </code></pre>
-<p>This starts a separate command line interface with a new prompt:</p>
+<p>This creates a new command line interface with a new prompt:</p>
 <pre><code>Z&gt;
 </code></pre>
 <p>In this new interface, we can connect to a library's OPAC or discovery service.
@@ -239,12 +241,13 @@ The following <code>open</code> command establishes a connection to the Universi
 <p>Queries are constructed using Prefix Query Notation (PQN).
 In the context of PQN, this is a way of structuring queries where the operator (e.g., AND, NOT, OR)
 precedes the operands (e.g., search terms, attributes, fields).</p>
-<p>Each query begins with a <em>command</em>.
+<p>Each query begins with a <em>command</em> followed by a search syntax articulated by its PQN.
 The list of commands are described in <code>man yaz-client</code> in the COMMANDS section.
 The main command we'll use is the <code>find</code> command, which may be abbreviated as <code>f</code>.
 Let's see some examples:</p>
 <h3 id="example-1"><a class="header" href="#example-1">Example 1</a></h3>
-<p>To find title with word 'information' and the Library of Congress Subject Heading 'library science',
+<p>To search for the term <strong>information</strong> in the <em>title</em> field
+and the term <strong>library science</strong> in the <em>Library of Congress Subject Heading</em> (LCSH) field,
 we use the following query:</p>
 <pre><code>Z&gt; find @and @attr 1=4 "information" @attr 1=21 "library science"
 </code></pre>
@@ -252,9 +255,9 @@ we use the following query:</p>
 <ul>
 <li><code>find</code> is the command that sends a search request</li>
 <li><code>@and</code> is the operator signifying a Boolean AND search of the next two attributes</li>
-<li><code>@attr 1=4</code> instructs the query to search for the term in the Title</li>
-<li><code>"information"</code> is the first search term for the Title search</li>
-<li><code>@attr 1=21</code> instructs the query to search for the term in the Subject-heading</li>
+<li><code>@attr 1=4</code> instructs the query to search for the term in the Title field</li>
+<li><code>"information"</code> is the term for the Title search</li>
+<li><code>@attr 1=21</code> instructs the query to search for the term in the subject heading field</li>
 <li><code>"library science"</code> is the second search term for the subject heading search</li>
 </ul>
 <p>The search does not reveal the results.
@@ -267,27 +270,27 @@ To show the first record:</p>
 </code></pre>
 <p>And so forth.</p>
 <h3 id="example-2"><a class="header" href="#example-2">Example 2</a></h3>
-<p>Find with subject headings "library science" and "philosophy".
+<p>Search for works with subject headings <em>library science</em> and <em>philosophy</em>.
 In this example, I abbreviate the <code>find</code> command as <code>f</code>:</p>
 <pre><code>Z&gt; f @and @attr 1=21 "library science" @attr 1=21 "philosophy"
 </code></pre>
 <ul>
-<li><code>@attr 1=21</code> instructs the query to search for the term "library science" in the Subject-heading</li>
-<li><code>@attr 1=21</code> instructs the query to search for the term "philosophy" in the Subject-heading</li>
+<li><code>@attr 1=21</code> instructs the query to search for the term <em>library science</em> in the subject heading field</li>
+<li><code>@attr 1=21</code> instructs the query to search for the term <em>philosophy</em> in the subject heading field</li>
 </ul>
 <h3 id="example-3"><a class="header" href="#example-3">Example 3</a></h3>
 <p>Find where personal name is "mcmurtry, larry".</p>
 <pre><code>Z&gt; f @attr 1=1 "mcmurtry, larry"
 </code></pre>
 <ul>
-<li><code>@attr 1=1</code> instructs the query to search for the term in the Personal-name attribute.</li>
+<li><code>@attr 1=1</code> instructs the query to search for the term <em>mcmurtry, larry</em> in the personal name field.</li>
 </ul>
 <h3 id="example-4"><a class="header" href="#example-4">Example 4</a></h3>
-<p>Find any for "c programming language".</p>
+<p>Find where the term "c programming language" appears in the <strong>Any</strong> field.</p>
 <pre><code>Z&gt; f @attr 1=1016 "c programming language"
 </code></pre>
 <ul>
-<li><code>@attr 1=1016</code> instructs the query to search for the term in <em>Any</em> field.</li>
+<li><code>@attr 1=1016</code> instructs the query to search for the term in <strong>Any</strong> field.</li>
 </ul>
 <p>Finally, we can exit the <code>yaz</code> client with the <code>quit</code> command:</p>
 <pre><code>Z&gt; quit
@@ -330,10 +333,12 @@ which is a <q>standard text-based format for representing structured data</q>
 </code></pre>
 <p>With the records formatted, we can use the <code>less</code> command to scan the file, but
 the <code>jq</code> command is quite powerful and we can use it to query and examine specific fields in the JSON-formatted MARC records.</p>
+<blockquote>
 <p>Note: learning <code>jq</code> and MARC is beyond the scope of this work.
 However, if you are new to MARC or need a reminder, see:
 <a href="https://www.loc.gov/marc/bibliographic/">MARC 21 Format for Bibliographic Data</a>.
 The <code>jq</code> homepage also provides a nice tutorial: <a href="https://jqlang.github.io/jq/tutorial/">jq Tutorial</a>.</p>
+</blockquote>
 <p>But as an example,
 the following command extracts the <strong>650 Subject</strong> field with the <strong>a</strong> (Topical term) subfields for our entries:</p>
 <pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records.formatted.json
