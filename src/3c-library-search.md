@@ -18,9 +18,9 @@ However, this exploration is only partly about learning a tool.
 More so, it's about understanding the history and ongoing development of information retrieval systems.
 This is a crucial (and fun!) part of library and information science.
 
-In order for us to use the `yaz-client`, we will need to connect to a library database.
+In order for us to use the `yaz-client`, we need to connect to a library database.
 Fortunately, LSPs (library service platforms) can function as **SRU** targets for applications like `yaz-client`.
-For example, see [ExLibris provides a tutorial][sru_exlibris] on enabling and using SRU in Alma, its LSP product.
+For example, see the [ExLibris tutorial][sru_exlibris] on enabling and using SRU in Alma, its LSP product.
 We will connect to an Alma database in the following tutorial.
 
 ## Installing `yaz`
@@ -43,7 +43,7 @@ apt show yaz
 
 The details help confirm that this is the program we want to install.
 Note that the output also returns a URL to the program's homepage on the web.
-Visit that link to read more about the software.
+Visit that link to read more about the software and its documentation.
 
 To install `yaz`, run the following command:
 
@@ -60,17 +60,19 @@ To access the man page, see:
 man yaz-client
 ```
 
-`yaz` is able to search quite a few bibliographic attributes, otherwise called **metadata**.
+`yaz` is able to search quite a few bibliographic attributes, including many **metadata** fields.
 To see which attributes are available to `yaz`, see:
 
 ```
 man bib1-attr
 ```
 
-The Library of Congress also provides an overview of the **bib1-attr** documentation, but it's less comprehensive:
+The Library of Congress also provides an overview of the **bib1-attr** documentation,
+but it's less comprehensive:
 [Bib-1 Attribute Set][bib1_attr]
 
-Complete documentation for the `yaz-client` can be found on its homepage: [YAZ][yaz_client]
+Complete documentation for the `yaz-client` can be found on its homepage:
+[YAZ][yaz_client]
 
 ## Using `yaz`
 
@@ -80,7 +82,7 @@ The start the `yaz` program, run the `yaz-client` command.
 yaz-client
 ```
 
-This starts a separate command line interface with a new prompt:
+This creates a new command line interface with a new prompt:
 
 ```
 Z>
@@ -100,14 +102,15 @@ Queries are constructed using Prefix Query Notation (PQN).
 In the context of PQN, this is a way of structuring queries where the operator (e.g., AND, NOT, OR)
 precedes the operands (e.g., search terms, attributes, fields).
 
-Each query begins with a *command*.
+Each query begins with a *command* followed by a search syntax articulated by its PQN.
 The list of commands are described in `man yaz-client` in the COMMANDS section.
 The main command we'll use is the `find` command, which may be abbreviated as `f`.
 Let's see some examples:
 
 ### Example 1
 
-To find title with word 'information' and the Library of Congress Subject Heading 'library science',
+To search for the term **information** in the *title* field
+and the term **library science** in the *Library of Congress Subject Heading* (LCSH) field,
 we use the following query:
 
 ```
@@ -118,9 +121,9 @@ Let's break that down:
 
 - `find` is the command that sends a search request
 - `@and` is the operator signifying a Boolean AND search of the next two attributes
-- `@attr 1=4` instructs the query to search for the term in the Title
-- `"information"` is the first search term for the Title search
-- `@attr 1=21` instructs the query to search for the term in the Subject-heading
+- `@attr 1=4` instructs the query to search for the term in the Title field
+- `"information"` is the term for the Title search
+- `@attr 1=21` instructs the query to search for the term in the subject heading field
 - `"library science"` is the second search term for the subject heading search
 
 The search does not reveal the results.
@@ -141,15 +144,15 @@ And so forth.
 
 ### Example 2
 
-Find with subject headings "library science" and "philosophy".
+Search for works with subject headings *library science* and *philosophy*.
 In this example, I abbreviate the `find` command as `f`:
 
 ```
 Z> f @and @attr 1=21 "library science" @attr 1=21 "philosophy"
 ```
 
-- `@attr 1=21` instructs the query to search for the term "library science" in the Subject-heading
-- `@attr 1=21` instructs the query to search for the term "philosophy" in the Subject-heading
+- `@attr 1=21` instructs the query to search for the term *library science* in the subject heading field
+- `@attr 1=21` instructs the query to search for the term *philosophy* in the subject heading field
 
 ### Example 3
 
@@ -159,17 +162,17 @@ Find where personal name is "mcmurtry, larry".
 Z> f @attr 1=1 "mcmurtry, larry"
 ```
 
-- `@attr 1=1` instructs the query to search for the term in the Personal-name attribute.
+- `@attr 1=1` instructs the query to search for the term *mcmurtry, larry* in the personal name field.
 
 ### Example 4
 
-Find any for "c programming language".
+Find where the term "c programming language" appears in the **Any** field.
 
 ```
 Z> f @attr 1=1016 "c programming language"
 ```
 
-- `@attr 1=1016` instructs the query to search for the term in *Any* field.
+- `@attr 1=1016` instructs the query to search for the term in **Any** field.
 
 Finally, we can exit the `yaz` client with the `quit` command:
 
@@ -235,10 +238,10 @@ jq . records.json > records-formatted.json
 With the records formatted, we can use the `less` command to scan the file, but
 the `jq` command is quite powerful and we can use it to query and examine specific fields in the JSON-formatted MARC records.
 
-Note: learning `jq` and MARC is beyond the scope of this work.
-However, if you are new to MARC or need a reminder, see:
-[MARC 21 Format for Bibliographic Data][marc_loc].
-The `jq` homepage also provides a nice tutorial: [jq Tutorial][jq_tutorial].
+> Note: learning `jq` and MARC is beyond the scope of this work.
+> However, if you are new to MARC or need a reminder, see:
+> [MARC 21 Format for Bibliographic Data][marc_loc].
+> The `jq` homepage also provides a nice tutorial: [jq Tutorial][jq_tutorial].
 
 But as an example,
 the following command extracts the **650 Subject** field with the **a** (Topical term) subfields for our entries:
