@@ -250,13 +250,7 @@ the following command extracts the **650 Subject** field with the **a** (Topical
 jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json
 ```
 
-If we want to see if there were any geographic subdivisions for the 650 field, then we would change **a** to **z**:
-
-```
-jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("z")) | .z' records-formatted.json
-```
-
-Or we can examine general subdivisions of the 650 subfields and tabulate the data
+Or we can examine general subdivisions (`$x` subfield) of the 650 subfields and tabulate the data
 by piping through `sort`, `uniq -c`, and `sort`:
 
 ```
@@ -279,7 +273,7 @@ Selects all **650** fields:
 jq '.fields[] | select(has("650"))' records-formatted.json
 ```
 
-Selects only but all the subfields from the **650** fields:
+Selects only the subfields from the **650** fields:
 
 ```
 jq '.fields[] | select(has("650")) | .["650"].subfields[]' records-formatted.json
@@ -289,6 +283,12 @@ Selects only the **x** subfields from the **650** fields:
 
 ```
 jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records-formatted.json
+```
+
+Selects only the **z** subfields (Geographic subdivision) from the **650** fields:
+
+```
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("z")) | .z' records-formatted.json
 ```
 
 ### Other formats
