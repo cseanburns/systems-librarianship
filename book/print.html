@@ -2825,28 +2825,28 @@ The <code>jq</code> homepage also provides a nice tutorial: <a href="https://jql
 </blockquote>
 <p>But as an example,
 the following command extracts the <strong>650 Subject</strong> field with the <strong>a</strong> (Topical term) subfields for our entries:</p>
-<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records.formatted.json
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json
 </code></pre>
 <p>If we want to see if there were any geographic subdivisions for the 650 field, then we would change <strong>a</strong> to <strong>z</strong>:</p>
-<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("z")) | .z' records.formatted.json
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("z")) | .z' records-formatted.json
 </code></pre>
 <p>Or we can examine general subdivisions of the 650 subfields and tabulate the data
 by piping through <code>sort</code>, <code>uniq -c</code>, and <code>sort</code>:</p>
-<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records.formatted.json | sort | uniq -c | sort
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records-formatted.json | sort | uniq -c | sort
 </code></pre>
 <p>For other fields to examine, see the <a href="https://www.loc.gov/marc/umb/um07to10.html">MARC 21 Reference Materials sheet</a>.</p>
 <h3 id="jq-breakdown"><a class="header" href="#jq-breakdown"><code>jq</code> breakdown</a></h3>
 <p>Selects all fields:</p>
-<pre><code>jq '.fields[]' records.formatted.json
+<pre><code>jq '.fields[]' records-formatted.json
 </code></pre>
 <p>Selects all <strong>650</strong> fields:</p>
-<pre><code>jq '.fields[] | select(has("650"))' records.formatted.json
+<pre><code>jq '.fields[] | select(has("650"))' records-formatted.json
 </code></pre>
 <p>Selects only but all the subfields from the <strong>650</strong> fields:</p>
-<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[]' records.formatted.json
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[]' records-formatted.json
 </code></pre>
 <p>Selects only the <strong>x</strong> subfields from the <strong>650</strong> fields:</p>
-<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records.formatted.json
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records-formatted.json
 </code></pre>
 <h3 id="other-formats"><a class="header" href="#other-formats">Other formats</a></h3>
 <p>We can the original MARC data to XML:</p>
