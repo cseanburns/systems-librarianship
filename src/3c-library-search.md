@@ -247,20 +247,20 @@ But as an example,
 the following command extracts the **650 Subject** field with the **a** (Topical term) subfields for our entries:
 
 ```
-jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records.formatted.json
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json
 ```
 
 If we want to see if there were any geographic subdivisions for the 650 field, then we would change **a** to **z**:
 
 ```
-jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("z")) | .z' records.formatted.json
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("z")) | .z' records-formatted.json
 ```
 
 Or we can examine general subdivisions of the 650 subfields and tabulate the data
 by piping through `sort`, `uniq -c`, and `sort`:
 
 ```
-jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records.formatted.json | sort | uniq -c | sort
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records-formatted.json | sort | uniq -c | sort
 ```
 
 For other fields to examine, see the [MARC 21 Reference Materials sheet][loc_marc].
@@ -270,25 +270,25 @@ For other fields to examine, see the [MARC 21 Reference Materials sheet][loc_mar
 Selects all fields:
 
 ```
-jq '.fields[]' records.formatted.json
+jq '.fields[]' records-formatted.json
 ```
 
 Selects all **650** fields:
 
 ```
-jq '.fields[] | select(has("650"))' records.formatted.json
+jq '.fields[] | select(has("650"))' records-formatted.json
 ```
 
 Selects only but all the subfields from the **650** fields:
 
 ```
-jq '.fields[] | select(has("650")) | .["650"].subfields[]' records.formatted.json
+jq '.fields[] | select(has("650")) | .["650"].subfields[]' records-formatted.json
 ```
 
 Selects only the **x** subfields from the **650** fields:
 
 ```
-jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records.formatted.json
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("x")) | .x' records-formatted.json
 ```
 
 ### Other formats
