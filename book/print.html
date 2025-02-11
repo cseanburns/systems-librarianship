@@ -2917,41 +2917,24 @@ content management systems and
 integrated library systems.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="installing-the-apache-web-server"><a class="header" href="#installing-the-apache-web-server">Installing the Apache Web Server</a></h1>
 <h2 id="introduction-6"><a class="header" href="#introduction-6">Introduction</a></h2>
-<p>In this section,
-we focus on a fundamental component
-of the internet's infrastructure:
-the web server,
-or alternatively,
-the HTTP server.</p>
-<p>The web server is software
-that makes websites available.
-The basic function is
-to make files accessible on
-at least one computer
-to anyone with a web browser.
-Thus, at a basic level,
-the web is essentially
-a world wide file system, and
-the web browser is essentially
-a file explorer,
-like Windows Explorer on Windows
-or Finder on macOS.</p>
-<p>Understanding how an HTTP server
-functions is crucial for anyone
-wanting to manage or deploy web services.
-This session will guide
-you through installing <a href="https://httpd.apache.org/">Apache</a>,
-one of the most popular web server applications,
-conducting basic checks to ensure its operation,
-and creating your first web page.</p>
-<p>It's important to understand
-the basics of an HTTP server, and
-therefore I ask you to read Apache's
-<a href="https://httpd.apache.org/docs/2.4/getting-started.html">Getting Started</a> page before
-proceeding with the rest of this section.
-Each of the main sections on that page describe
-the important elements that make up and serve a website,
-including:</p>
+<p>In this section, we focus on a fundamental component of the internet's infrastructure:
+the web server, or alternatively called the HTTP server.</p>
+<p>The web server is the software that makes websites available in your browsers.
+The basic function is to make files on the web server accessible to others via their web browsers.
+At a basic level, the web is essentially a world wide file system, and
+the web browser is essentially a file explorer, like Windows Explorer on Windows or Finder on macOS.</p>
+<p>Knowing how a web server functions is crucial for anyone wanting to manage or deploy web services.
+There are many <a href="https://en.wikipedia.org/wiki/Comparison_of_web_server_software">web servers available</a>, but in this session,
+I will guide you through installing and using the <a href="https://httpd.apache.org/">Apache</a> web server.
+Apache is one of the most popular web server applications.
+We will learn how to install it, configure it, and conduct basic checks to ensure its operation.
+We will end this lesson by creating your first web page on your first web server.</p>
+<p>It's important to understand the basics of an HTTP server,
+and therefore I ask you to read Apache's <a href="https://httpd.apache.org/docs/2.4/getting-started.html">Getting Started</a>
+page before proceeding with the rest of this section.
+Each of the main sections on that page describe the important elements
+that make up and serve a website.
+These elements include:</p>
 <ul>
 <li>clients, servers, and URLs</li>
 <li>hostnames and DNS</li>
@@ -2960,188 +2943,115 @@ including:</p>
 <li>log files and troubleshooting</li>
 </ul>
 <h2 id="installation-1"><a class="header" href="#installation-1">Installation</a></h2>
-<p>Before we install Apache,
-we need to update our systems first.</p>
+<p>Before we install Apache, we need to update our systems first.
+This ensures we will be downloading and installing the most recent, secure version of the package.</p>
 <pre><code>sudo apt update
 sudo apt -y upgrade
 </code></pre>
-<p>Once the machine is updated,
-we can install Apache2 using <code>apt</code>.
-First we'll use <code>apt search</code> to identify
-the specific package name.
-I already know that a lot of results
-will be returned,
-so I will <strong>pipe</strong> the <code>apt search</code> command
+<p>Once the machine is updated, we can install Apache2 using <code>apt</code>.
+First we'll use <code>apt search</code> to identify the specific package name.
+I know that a lot of results will be returned, so I will <strong>pipe</strong> <code>|</code> the <code>apt search</code> command
 through <code>head</code> to look at the initial results:</p>
 <pre><code>apt search apache2 | head
 </code></pre>
-<p>The package that we're interested in
-happens to be named <strong>apache2</strong> on Ubuntu.
-This package name is not a given.
-On other distributions,
-like Fedora,
-the Apache package is called <strong>httpd</strong>.
-To learn more about the <strong>apache2</strong> package,
-we can examine it with the <code>apt show</code> command:</p>
+<p>The package that we're interested in happens to be named <code>apache2</code> on Ubuntu.
+The name of this package is not a given, though.
+On other distributions, like Fedora, the Apache package is called <code>httpd</code>.
+This is why it's important to use <code>apt search &lt;package_name&gt;</code> and <code>apt show &lt;package_name&gt;</code>
+to locate the desired package before installing.</p>
 <pre><code>apt show apache2
 </code></pre>
-<p>Once we've confirmed that <strong>apache2</strong> is the package
-that we want,
-we install it with the <code>apt install</code> command.
-Press <strong>Y</strong> to agree to continue after running
-the command below:</p>
+<p>Once we've confirmed that <code>apache2</code> is the package that we want,
+install it with the <code>apt install &lt;package_name&gt;</code> command.
+Press <strong>Y</strong> to agree to continue after running the command below:</p>
 <pre><code>sudo apt install apache2
 </code></pre>
 <h2 id="basic-checks"><a class="header" href="#basic-checks">Basic checks</a></h2>
-<p>One thing that makes Apache2, and
-some other web servers,
-powerful is the library of modules that
-extend Apache's functionality.
-We'll come back to modules soon.
-For now,
-we're going to make sure the
-server is up and running,
-configure some basic things, and
-then create a basic web site.</p>
-<p>To start,
-I will use the <code>systemctl</code> command
-to acquire some info about <strong>apache2</strong> and
+<p>Once it is installed, we need to make sure the server is up and running,
+configure some basic things, and create a basic web site.</p>
+<p>To start, I use the <code>systemctl</code> command to acquire status info about <code>apache2</code> and
 make sure it is <em>enabled</em> and <em>running</em>:</p>
 <pre><code>systemctl status apache2
 </code></pre>
-<p>The output shows that <strong>apache2</strong> is enabled,
-which is the default for this software.
-The <code>systemctl</code> command's use of the term <strong>enabled</strong>
-means that the software
-will start automatically on reboot.
-However, it may not be running.
-The output should state that
-the software is <strong>active</strong> if it is running.</p>
+<p>The output shows that <code>apache2</code> is <strong>enabled</strong>, which is the default for this software.
+The term <strong>enabled</strong> means that the software starts automatically on reboot.
+The output should also state that the software is <strong>active</strong>.
+This means that the <code>apache2</code> is running and live.</p>
 <h2 id="creating-a-web-page"><a class="header" href="#creating-a-web-page">Creating a web page</a></h2>
-<p>Since <strong>apache2</strong> is running,
-let's look at the default web page.</p>
-<p>There are two ways we can look
-at the default web page.
-We can use a text based web browser
-or a graphical web browser like
-Firefox, Chrome, etc.</p>
+<p>Since <code>apache2</code> is active, let's look at the default web page.</p>
+<p>There are (at least) two ways we can look at the default web page.
+We can use a command line web browser or a graphical web browser, like Firefox, Chrome, etc.</p>
 <h3 id="text-based-web-browser"><a class="header" href="#text-based-web-browser">Text Based Web Browser</a></h3>
-<p>There are a number of
-text based web browsers available.
-I like <code>w3m</code> because it
-defaults to Vim keybindings,
-but many like <code>elinks</code>.</p>
-<p>To check the site with <code>w3m</code>,
-we have to install it first:</p>
+<p>We have lots of command line browsers to use.
+I like <code>w3m</code> because it defaults to Vim keybindings, but many like <code>elinks</code>.</p>
+<p>To check the site with <code>w3m</code>, we have to install it first:</p>
 <pre><code>sudo apt install w3m
 </code></pre>
-<blockquote>
-<p>If you want to try <code>elinks</code>, then run <code>sudo apt install elinks</code>.</p>
-</blockquote>
-<p>Once the text based browser is installed,
-we can visit our default site using its
-loopback IP address
-(aka, <em>localhost</em>).
-From the command line on our server,
-we can run either of these two commands:</p>
+<p>Or if you want to try <code>elinks</code>, run:</p>
+<pre><code>sudo apt install elinks
+</code></pre>
+<p>Once the text based browser is installed, we can visit our default site using its loopback IP address.
+The loopback address is named <code>localhost</code>.
+From the command line on our server, we can run either of these two commands to view localhost:</p>
 <pre><code>w3m 127.0.0.1
 </code></pre>
 <p>Or:</p>
 <pre><code>w3m localhost
 </code></pre>
-<p>We can also get the system's private IP address
-using the <code>ip a</code> command.
-This address will begin with the number <strong>10</strong> and
-look like <strong>10.128.0.99</strong>.
-To use that with <code>w3m</code> from the
-virtual machine's command line,
-we run:</p>
+<blockquote>
+<p>If you elected to use <code>elink</code>, just replace <code>w3m</code> with it.</p>
+</blockquote>
+<p>We can also acquire the system's <a href="https://en.wikipedia.org/wiki/Private_network">private IP address</a> using the <code>ip a</code> command.
+This address will begin with the number <strong>10</strong> and look like <code>10.128.0.99</code>.
+To use that with <code>w3m</code> from the virtual machine's command line, we run:</p>
 <pre><code>w3m 10.128.0.99
 </code></pre>
-<p>If the <strong>apache2</strong> installed and
-started correctly,
-then you should see the
-following text at the top
-of the screen:</p>
+<p>If <code>apache2</code> installed and started correctly, you should see the following text:</p>
 <p><strong>Apache2 Ubuntu Default Page</strong><br />
 <strong>It works!</strong></p>
-<p>To exit <code>w3m</code>,
-press <strong>q</strong> and then <strong>y</strong> to confirm exit.</p>
+<p>To exit <code>w3m</code> or <code>elinks</code>, press <strong>q</strong> and then <strong>y</strong> to confirm exit.</p>
 <h3 id="graphical-browser"><a class="header" href="#graphical-browser">Graphical Browser</a></h3>
-<p>To view the default web page using
-a regular web browser,
-like Firefox, Chrome, Safari, Edge, or etc.,
-you need to get your server's public IP address.
-To do that,
-log into the
-<a href="https://console.cloud.google.com/">Google Cloud Console</a>.
-In the left hand navigation panel,
-hover your cursor over the <strong>Compute Engine</strong> link, and
-then click on <strong>VM instances</strong>.
-You should see your <strong>External IP</strong> address
-in the table on that page.
-You can copy that external IP address or
-simply click on it to open it in a new browser tab.
-Then you should see the graphical version of the
-<strong>Apache2 Ubuntu Default Page</strong>.</p>
+<p>To view the default web page using a regular web browser,
+like Firefox, Chrome, Safari, Edge, or etc., you need to get your server's
+<a href="https://en.wikipedia.org/wiki/IP_address">public IP address</a>.
+To do that, log into the <a href="https://console.cloud.google.com/">Google Cloud Console</a>
+click on the <strong>Compute Engine</strong> link, and then click on <strong>VM instances</strong>.
+You should see your <strong>External IP</strong> address in the table on that page.
+You can copy that external IP address or simply click on it to open it in a new browser tab.
+If successful, you should see the graphical version of the <strong>Apache2 Ubuntu Default Page</strong>.</p>
 <blockquote>
-<p>Note that most browsers nowadays may try to force HTTPS
-mode, and they also often hide the protocol from the URL.
-If your web page is not loading, make sure your URL is
-<strong>http://IP-ADDRESS</strong> and not <strong>https://IP-ADDRESS</strong>.</p>
+<p>Note that most browsers nowadays try to force a secure HTTPS mode.
+If your web page is not loading, make sure your URL is <strong>http://IP-ADDRESS</strong>
+and not <strong>https://IP-ADDRESS</strong>.</p>
 </blockquote>
-<p>Please take a moment to read through
-the text on the default page.
-It provides important information about
-where Ubuntu stores configuration files and
-what those files do, and
-the document root,
-which is where website files are stored.</p>
+<p>Please take a moment to read through the text on the default page.
+It provides important information about where Ubuntu stores configuration files,
+what those files do, and the document root, which is where website files are stored.</p>
 <h2 id="create-a-web-page"><a class="header" href="#create-a-web-page">Create a Web Page</a></h2>
-<p>Let's create our first web page.
-The default page described above provides
-the location of the <strong>document root</strong> at
-<strong>/var/www/html</strong>.
-Remember that the web is,
-at its simplest,
-a filesystem that has been made
-available to the wide world.
-The web server is what provides
-access to part of the filesystem.
-That point of access is called
-the <strong>document root</strong>,
-which may be on a different location
-on a different machine,
-configured to be at a different location
-than the default,
-or web servers may also be configured
-to expose multiple parts of the
-filesystem to the web.</p>
-<p>When we navigate to the document root
-on the command line,
-we'll see that there is already an <strong>index.html</strong>
-file located in that directory.
-This is the <strong>Apache2 Ubuntu Default Page</strong>
-that we visited above in our browsers.
-Let's rename that <strong>index.html</strong> file,
-and create a new one:</p>
+<p>Let's create your first web page on your first web server.
+The default page described above provides the location of the <strong>document root</strong> at <code>/var/www/html</code>.
+The <strong>document root</strong> may reside at a different location on a different Linux operating system,
+so it's important to verify that location.
+Remember that the web is, at its simplest, a filesystem that has been made available to the wide world.
+The web server is what provides access to part of the filesystem.
+That point of access is called the <strong>document root</strong>.</p>
+<p>When we navigate to the document root on the command line,
+we'll see that there is an <code>index.html</code> file located in that directory.
+This is the <strong>Apache2 Ubuntu Default Page</strong> that we visited above in our browsers.
+Most web servers look for a file specifically named <code>index.html</code> and serve that as the default.
+Let's rename that <code>index.html</code> file, in order to back it up, and create a new one:</p>
 <pre><code>cd /var/www/html/
 sudo mv index.html index.html.original
 sudo nano index.html
 </code></pre>
 <blockquote>
-<p>Note: we use <code>sudo</code> in this directory because we are
-working on files and directories outside our home
-directories. Thus, be careful here about the commands you
-run. Any mistake may result in deleting necessary files or
-directories.</p>
+<p>Note: we use <code>sudo</code> in this directory
+because we are working on files and directories outside our home directories.
+Thus, be careful here about the commands you run.
+Any mistake may result in deleting necessary files or directories.</p>
 </blockquote>
-<p>If you know HTML,
-then feel free to write some
-basic HTML code to get started.
-Otherwise, you can re-type the content below
-in <code>nano</code>, and
-then save and exit out.</p>
+<p>If you know HTML, then feel free to write some basic HTML code to get started.
+Otherwise, you can re-type the content below in <code>nano</code> or like, and then save and exit out.</p>
 <pre><code>&lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;My first web page using Apache2&lt;/title&gt;
@@ -3156,37 +3066,22 @@ I created this site using the Apache2 HTTP server.&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>If you have your site open in your web browser,
-reload the page, and you should see
-the new text.</p>
-<p>You can still view the original default page by
-specifying its name in the URL.
-Remember that web browsers are,
-at their most basic,
-simply file viewers.
-So it makes sense that you simply
-have to specify the name of the file
-you want to view.
-For example, if your <strong>external IP address</strong> is
-<strong>55.222.55.222</strong>, then you'd specify it like so:</p>
+<p>If you have your site open in your web browser, reload the page, and you should see the new text.</p>
+<p>You can still view the original default page by specifying its name in the URL.
+Remember that web browsers are, at their most basic, simply file viewers.
+So it makes sense that you simply have to specify the name of the file you want to view.
+For example, if your <strong>public IP address</strong> is <code>55.222.55.222</code>, then you'd specify it like so:</p>
 <pre><code>http://55.222.55.222/index.html.original
 </code></pre>
 <h2 id="conclusion-8"><a class="header" href="#conclusion-8">Conclusion</a></h2>
-<p>In this section,
-we learned about the Apache2 HTTP server.
-We learned how to install it on Ubuntu,
-how to use a <code>systemctl</code> command
-to check its status,
+<p>In this section, we learned about the Apache2 HTTP server.
+We learned how to install it on Ubuntu, how to use a <code>systemctl</code> command to check its status,
 how to create a basic web page in <code>/var/www/html</code>,
-how to view that web page using the <code>w3m</code>
-command line browser and
-our regular graphical browser,</p>
-<p>In the next section,
-we will install PHP,
-which will provide the language
-needed to connect to MySQL,
-and thus enable more data
-driven web sites.</p>
+how to view that web page using the <code>w3m</code> command line browser and in our graphical browser,</p>
+<p>In the next section, we will install PHP,
+which will provide the language needed to connect to the relational database MySQL.
+This will enable more data driven web sites and begin to transform out sites
+from basic file viewers to full fledged applications.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="installing-and-configuring-php"><a class="header" href="#installing-and-configuring-php">Installing and Configuring PHP</a></h1>
 <h2 id="introduction-7"><a class="header" href="#introduction-7">Introduction</a></h2>
 <p>Client-side programming languages,
