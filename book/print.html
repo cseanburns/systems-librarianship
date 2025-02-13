@@ -2922,7 +2922,9 @@ the web server, or alternatively called the HTTP server.</p>
 <p>The web server is the software that makes websites available in your browsers.
 The basic function is to make files on the web server accessible to others via their web browsers.
 At a basic level, the web is essentially a world wide file system, and
-the web browser is essentially a file explorer, like Windows Explorer on Windows or Finder on macOS.</p>
+the web browser retrieves and displays files from web servers, much like a file explore does for local files.
+At a more advanced level, HTTP can also add more complexity beyond simple file access,
+such as providing dynamic content, APIs, and more.</p>
 <p>Knowing how a web server functions is crucial for anyone wanting to manage or deploy web services.
 There are many <a href="https://en.wikipedia.org/wiki/Comparison_of_web_server_software">web servers available</a>, but in this session,
 I will guide you through installing and using the <a href="https://httpd.apache.org/">Apache</a> web server.
@@ -2950,15 +2952,15 @@ sudo apt -y upgrade
 </code></pre>
 <p>Once the machine is updated, we can install Apache2 using <code>apt</code>.
 First we'll use <code>apt search</code> to identify the specific package name.
-I know that a lot of results will be returned, so I will <strong>pipe</strong> <code>|</code> the <code>apt search</code> command
-through <code>head</code> to look at the initial results:</p>
+I know that a lot of results will be returned, so I will <strong>pipe</strong> <code>|</code> the output from <code>apt search</code> command
+through the <code>head</code> command to look at the initial results:</p>
 <pre><code>apt search apache2 | head
 </code></pre>
 <p>The package that we're interested in happens to be named <code>apache2</code> on Ubuntu.
 The name of this package is not a given, though.
 On other distributions, like Fedora, the Apache package is called <code>httpd</code>.
-This is why it's important to use <code>apt search &lt;package_name&gt;</code> and <code>apt show &lt;package_name&gt;</code>
-to locate the desired package before installing.</p>
+This is why it's important to learn and use <code>apt search &lt;package_name&gt;</code> and <code>apt show &lt;package_name&gt;</code> commands
+to locate desired packages before installing.</p>
 <pre><code>apt show apache2
 </code></pre>
 <p>Once we've confirmed that <code>apache2</code> is the package that we want,
@@ -2973,7 +2975,9 @@ configure some basic things, and create a basic web site.</p>
 make sure it is <em>enabled</em> and <em>running</em>:</p>
 <pre><code>systemctl status apache2
 </code></pre>
-<p>The output shows that <code>apache2</code> is <strong>enabled</strong>, which is the default for this software.
+<p>The output may be overwhelming at first glance, so I advise you to read each line slowly.
+In particular, look for key lines that show its <strong>Active</strong> and <strong>Loaded</strong> status.
+For example, the output shows that <code>apache2</code> is <strong>enabled</strong>, which is the default for this software.
 The term <strong>enabled</strong> means that the software starts automatically on reboot.
 The output should also state that the software is <strong>active</strong>.
 This means that the <code>apache2</code> is running and live.</p>
@@ -2991,7 +2995,8 @@ I like <code>w3m</code> because it defaults to Vim keybindings, but many like <c
 <pre><code>sudo apt install elinks
 </code></pre>
 <p>Once the text based browser is installed, we can visit our default site using its loopback IP address.
-The loopback address is named <code>localhost</code>.
+The loopback address is named <code>localhost</code> and always points to the local machine.
+It is useful for testing services, connections, and more locally.
 From the command line on our server, we can run either of these two commands to view localhost:</p>
 <pre><code>w3m 127.0.0.1
 </code></pre>
@@ -2999,11 +3004,15 @@ From the command line on our server, we can run either of these two commands to 
 <pre><code>w3m localhost
 </code></pre>
 <blockquote>
-<p>If you elected to use <code>elink</code>, just replace <code>w3m</code> with it.</p>
+<p>If you elected to use <code>elinks</code>, just replace <code>w3m</code> with it.</p>
 </blockquote>
 <p>We can also acquire the system's <a href="https://en.wikipedia.org/wiki/Private_network">private IP address</a> using the <code>ip a</code> command.
-This address will begin with the number <strong>10</strong> and look like <code>10.128.0.99</code>.
-To use that with <code>w3m</code> from the virtual machine's command line, we run:</p>
+There are different address ranges for the private networks.
+On your home network, your private IP address for a your laptop or phone might begin with <code>192.168.x.x</code>.
+On our virtual instances, the address will begin with the number <strong>10</strong> and look like <code>10.128.0.99</code>.
+The difference deals with the size of the private networks.
+In any case, to use the private IP address with <code>w3m</code> from the virtual machine's command line, we run,
+assuming private IP address for my local machine is <code>10.128.0.99</code>:</p>
 <pre><code>w3m 10.128.0.99
 </code></pre>
 <p>If <code>apache2</code> installed and started correctly, you should see the following text:</p>
@@ -3084,311 +3093,244 @@ This will enable more data driven web sites and begin to transform out sites
 from basic file viewers to full fledged applications.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="installing-and-configuring-php"><a class="header" href="#installing-and-configuring-php">Installing and Configuring PHP</a></h1>
 <h2 id="introduction-7"><a class="header" href="#introduction-7">Introduction</a></h2>
-<p>Client-side programming languages,
-like JavaScript,
-are handled by the browser.
-Major browsers like Firefox, Chrome, Safari, Edge, etc.
-all include <a href="https://en.wikipedia.org/wiki/JavaScript_engine">JavaScript engines</a> that use
-just-in-time compilers to execute JavaScript code
-(Mozilla has a <a href="https://blog.mozilla.org/javascript/">nice description</a> of the process.)
-From an end user's perspective,
-you basically install JavaScript when you install a web browser.</p>
-<p><a href="https://www.php.net/">PHP</a>, on the other hand,
-is a server-side programming language,
-which means it must be installed on the server
-in order to be used.
-From a system or web administrator's perspective,
-this means that not only does PHP have be installed
-on a server, but
-it must also be configured to work with the HTTP server,
-which in our case is Apache2.</p>
-<p>The main use of PHP is to interact with databases,
-like MySQL, MariaDB, PostgreSQL, etc.,
+<p>Client-side programming languages, like JavaScript, are handled entirely by the browser.
+To do this, browsers like Firefox, Chrome, Safari, Edge, and others include <a href="https://en.wikipedia.org/wiki/JavaScript_engine">JavaScript engines</a> that use
+just-in-time compilers to execute JavaScript code (see <a href="https://blog.mozilla.org/javascript/">JavaScript Engine, Mozilla</a>).</p>
+<p>From an end user's perspective, you basically install JavaScript when you install a web browser.</p>
+<p><a href="https://www.php.net/">PHP</a>, on the other hand, is a server-side programming language.
+This means it must be installed on the server.
+Unlike with JavaScript, the browser does not execute PHP directly;
+instead, the web server processes the PHP and sends the resulting HTML or other content to the browser.</p>
+<p>From a system or web administrator's perspective,
+this means that PHP has be installed and configured to work with the web/HTTP server.
+In our case, we have to install and configure PHP on our virtual instances to work with the Apache2 web server software.</p>
+<p>One of the primary uses of PHP is to interact with databases, like MySQL, MariaDB, PostgreSQL, etc.,
 in order to create data-based page content.
-To begin to set this up,
-we have to:</p>
+To begin to set this up, we have to:</p>
 <ol>
 <li>Install PHP and relevant Apache2 modules</li>
 <li>Configure PHP and relevant modules to work with Apache2</li>
 <li>Configure PHP and relevant modules to work with MySQL</li>
 </ol>
 <h2 id="install-php"><a class="header" href="#install-php">Install PHP</a></h2>
-<p>As usual, we will use <code>apt install</code>
-to install PHP and relevant modules.
-Then we will restart Apache2
-using the <code>systemctl</code> command.
-Use <code>apt show [package_name]</code>
-to read more about each package
-we will install.
-The first command below installs
-the <strong>php</strong> and the <strong>libapache2-mod-php</strong>
-packages.
-The latter package is used to
-create a connection between PHP
-and Apache2.</p>
+<p>As usual, we will use <code>apt install</code> to install PHP and relevant modules.
+Then we will restart Apache2 using the <code>systemctl</code> command.
+Use <code>apt show [package_name]</code> to read more about each package we will install.
+The first command below installs the <strong>php</strong> and the <strong>libapache2-mod-php</strong> packages.
+The latter package is used to create a connection between PHP and the Apache2 web server.</p>
 <pre><code>sudo apt install php libapache2-mod-php
 sudo systemctl restart apache2
 </code></pre>
-<p>We can check its status and
-see if there are any errors:</p>
+<p>Once installed, you want to confirm the installed version with the following command.
+This is because other software (e.g., WordPress, etc.) might require a specific version before that other software to work.</p>
+<pre><code>php -v
+</code></pre>
+<p>After we restart Apache2, we need to check its status and see if there are any errors in the log output:</p>
 <pre><code>systemctl status apache2
 </code></pre>
 <h2 id="check-install"><a class="header" href="#check-install">Check Install</a></h2>
-<p>To check that it's been installed and that
-it's working with Apache2,
-we can create a small PHP file in our
-web document root.
-To do that,
-we <code>cd</code> to the <code>/var/www/html/</code> directory
-and create a file called <strong>info.php</strong>:</p>
+<p>Next we check that PHP has been installed and that it's working with Apache2.
+We can create a small PHP file in our web document root.
+To do that, we <code>cd</code> to the document root, <code>/var/www/html/</code>, and create a file called <strong>info.php</strong>:</p>
 <pre><code>cd /var/www/html/
 sudo nano info.php
 </code></pre>
-<p>In that file,
-add the following text,
-then save and close the file:</p>
+<p>In that file, add the following text, then save and close the file:</p>
 <pre><code>&lt;?php
 phpinfo();
 ?&gt;
 </code></pre>
-<p>No visit that file using the external IP address
-for your server.
-For example, in Firefox, Chrome, etc, go to:</p>
+<p>Now visit that file using the public IP address for your server.
+If the public IP address for my virtual machine is <code>55.333.55.33</code>, then in Firefox, Chrome, etc, I would open:</p>
 <pre><code>http://55.333.55.333/info.php
 </code></pre>
 <blockquote>
-<p>Again, be sure to replace the IP below with the IP address
-of your server and be sure to use <strong>http</strong> and not
-<strong>https</strong>.</p>
+<p>Again, be sure to replace the IP below with the IP address of your server and
+be sure to use <strong>http</strong> and not <strong>https</strong>.</p>
 </blockquote>
-<p>You should see a page that provides system information
-about PHP, Apache2, and the server.
+<p>You should see a page that provides system information about PHP, Apache2, and the server.
 The top of the page should look like Figure 1 below:</p>
 <figure>
-<img src="images/24-phpinstall.png"
+<img src="images/4b-phpinstall.png"
 alt="PHP install page"
 title="PHP install page">
 <figcaption>
 Fig. 1. A screenshot of the title of the PHP install page.
 </figcaption>
 </figure>
+<p>Once you've confirmed that PHP is installed and functioning,
+you should delete it since it exposes detailed systems information:</p>
+<pre><code>sudo rm /var/www/html/info.php
+</code></pre>
 <h2 id="basic-configurations"><a class="header" href="#basic-configurations">Basic Configurations</a></h2>
-<p>By default, when Apache2 serves a web page,
-it looks for and serves a
-<a href="https://httpd.apache.org/docs/current/mod/mod_dir.html">file titled <strong>index.html</strong></a>,
+<p>By default, when Apache2 serves a web page, it looks for a <a href="https://httpd.apache.org/docs/current/mod/mod_dir.html">file titled <code>index.html</code></a> and serves that,
 even if it does not display that file in the URL bar.
-Thus, <code>http://example.com/</code> actually
-resolves to <code>http://example.com/index.html</code>
-in such cases.</p>
-<p>However, if our plan is to provide for PHP,
-we want Apache2 to default to a file
-titled <strong>index.php</strong> instead of
-<strong>index.html</strong> file.
-To configure that,
-we need to edit the <strong>dir.conf</strong> file
-in the <strong>/etc/apache2/mods-enabled/</strong> directory.
-In that file there is a line that starts with
-<strong>DirectoryIndex</strong>.
-The first file in that line is <strong>index.html</strong>, and then
-there are a series of other files that Apache2 will
-look for in the order listed.
-If any of those files exist in the document root,
-then Apache2 will serve those before proceeding to the next.
-We simply want to put <strong>index.php</strong> first and let
-<strong>index.html</strong> be second on that line.
-Before modifying this file,
-it's good practice to create a backup
-of the original.
-So we will use the <code>cp</code> command
-to create a copy with a new name,
-and then we will use <code>nano</code>
-to edit the file.</p>
+Thus, <code>http://example.com/</code> actually resolves to <code>http://example.com/index.html</code> in such cases.
+However, if our plan is to provide for PHP,
+we want Apache2 to default to a file titled <code>index.php</code> instead of <code>index.html</code> file.
+In these cases, <code>http://example.com/</code> would actually resolves to <code>http://example.com/index.php</code>.</p>
+<p>To configure that, we need to edit the <code>dir.conf</code> file in the <code>/etc/apache2/mods-enabled/</code> directory.
+In that file there is a line that starts with <code>DirectoryIndex</code> followed by a list of files.
+The first file listed in that line is <code>index.html</code>,
+and then there are a series of other files that Apache2 looks for in the order listed.
+Apache checks that list list and prioritizes these in order of appearance on the list.
+If any of those files exist in the document root, then Apache2 serves those before proceeding to the next.
+We want Apache to prioritize the <code>index.php</code> file first and <code>index.html</code> second.
+Before modifying this file, it's good practice to create a backup of the original.
+So we will use the <code>cp</code> command to create a copy with a new name, and then we will use <code>nano</code> to edit the file.</p>
 <pre><code>cd /etc/apache2/mods-enabled/
 sudo cp dir.conf dir.conf.bak
 sudo nano dir.conf
 </code></pre>
-<p>Next we change the line to this:</p>
+<p>Next we change the line to this, so that <code>index.php</code> is first in line:</p>
 <pre><code>DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
 </code></pre>
-<p>Whenever we make a configuration change,
-we can use the <code>apachectl</code> command to
-check our configuration:</p>
+<p>Whenever we make a configuration change, we should use the <code>apachectl</code> command to check our configuration:</p>
 <pre><code>apachectl configtest
 </code></pre>
-<p>If we get a <strong>Syntax Ok</strong> message,
-we can reload the Apache2 configuration and
-restart the service:</p>
+<p>If we get a <code>Syntax Ok</code> message, we can reload the Apache2 configuration, restart the service, and check its status:</p>
 <pre><code>sudo systemctl reload apache2
 sudo systemctl restart apache2
+sudo systemctl status apache2
 </code></pre>
 <h2 id="create-an-indexphp-file"><a class="header" href="#create-an-indexphp-file">Create an index.php File</a></h2>
 <p>Now create a basic PHP page.
-<code>cd</code> back to the Apache2
-document root directory and
-use <code>nano</code> to create and
-open an <code>index.php</code> file:</p>
+<code>cd</code> back to the Apache2 document root directory and use <code>nano</code> to create and open an <code>index.php</code> file:</p>
 <pre><code>cd /var/www/html/
 sudo nano index.php
 </code></pre>
 <p>Let's add some HTML and PHP to it.
-We will add PHP that functions as a
-simple <a href="https://stackoverflow.com/questions/8754080/how-to-get-exact-browser-name-and-version">browser detector</a>.
+We will add PHP that functions as a simple <a href="https://stackoverflow.com/questions/8754080/how-to-get-exact-browser-name-and-version">browser detector</a>.
 Add the following code:</p>
-<pre><code>&lt;html&gt;
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
 &lt;head&gt;
-&lt;title&gt;Broswer Detector&lt;/title&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Browser Detector&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-&lt;p&gt;You are using the following browser to view this site:&lt;/p&gt;
+    &lt;h1&gt;Browser &amp; OS Detection&lt;/h1&gt;
+    &lt;p&gt;You are using the following browser to view this site:&lt;/p&gt;
 
-&lt;?php
-$user_agent = $_SERVER['HTTP_USER_AGENT'];
+    &lt;?php
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-if(strpos($user_agent, 'Edge') !== FALSE) {
-    $browser = 'Microsoft Edge';
-} elseif(strpos($user_agent, 'Firefox') !== FALSE) {
-    $browser = 'Mozilla Firefox';
-} elseif(strpos($user_agent, 'Chrome') !== FALSE) {
-    $browser = 'Google Chrome';
-} elseif(strpos($user_agent, 'Opera Mini') !== FALSE) {
-    $browser = "Opera Mini";
-} elseif(strpos($user_agent, 'Opera') !== FALSE) {
-    $browser = 'Opera';
-} elseif(strpos($user_agent, 'Safari') !== FALSE) {
-    $browser = 'Safari';
-} else {
-    $browser = 'Unknown';
-}
+    // Browser Detection
+    if (stripos($user_agent, 'Edge') !== false) {
+        $browser = 'Microsoft Edge';
+    } elseif (stripos($user_agent, 'Firefox') !== false) {
+        $browser = 'Mozilla Firefox';
+    } elseif (stripos($user_agent, 'Chrome') !== false &amp;&amp; stripos($user_agent, 'Chromium') === false) {
+        $browser = 'Google Chrome';
+    } elseif (stripos($user_agent, 'Chromium') !== false) {
+        $browser = 'Chromium';
+    } elseif (stripos($user_agent, 'Opera Mini') !== false) {
+        $browser = 'Opera Mini';
+    } elseif (stripos($user_agent, 'Opera') !== false || stripos($user_agent, 'OPR') !== false) {
+        $browser = 'Opera';
+    } elseif (stripos($user_agent, 'Safari') !== false &amp;&amp; stripos($user_agent, 'Chrome') === false) {
+        $browser = 'Safari';
+    } else {
+        $browser = 'Unknown Browser';
+    }
 
-if(strpos($user_agent, 'Windows') !== FALSE) {
-    $os = 'Windows';
-} elseif(strpos($user_agent, 'Linux') !== FALSE) {
-    $os = 'Linux';
-} elseif(strpos($user_agent, 'Mac') !== FALSE) {
-    $os = 'Mac';
-} elseif(strpos($user_agent, 'iOS') !== FALSE) {
-    $os = 'iOS';
-} elseif(strpos($user_agent, 'Android') !== FALSE) {
-    $os = 'Android';
-} else {
-    $os = 'Unknown';
-}
+    // OS Detection
+    if (stripos($user_agent, 'Windows') !== false) {
+        $os = 'Windows';
+    } elseif (stripos($user_agent, 'Mac') !== false || stripos($user_agent, 'Macintosh') !== false) {
+        $os = 'Mac';
+    } elseif (stripos($user_agent, 'Linux') !== false) {
+        $os = 'Linux';
+    } elseif (stripos($user_agent, 'iOS') !== false || stripos($user_agent, 'iPhone') !== false || stripos($user_agent, 'iPad') !== false) {
+        $os = 'iOS';
+    } elseif (stripos($user_agent, 'Android') !== false) {
+        $os = 'Android';
+    } else {
+        $os = 'Unknown OS';
+    }
 
-if($browser === 'Unknown' || $os === 'Unknown') {
-    echo 'No browser detected.';
-} else {
-    echo 'Your browser is ' . $browser . ' and your operating system is ' . $os . '.';
-}
-?&gt;
+    // Output Result
+    echo "&lt;p&gt;Your browser is &lt;strong&gt;$browser&lt;/strong&gt; and your operating system is &lt;strong&gt;$os&lt;/strong&gt;.&lt;/p&gt;";
+    ?&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
 <p>Next, save the file and exit <code>nano</code>.
-In your browser,
-visit your external IP address site
-(again, replace your server's IP address):</p>
+In your browser, visit your site at its public IP address (again, replace your server's IP address):</p>
 <pre><code>http://55.333.55.333/
 </code></pre>
-<p>Although your <strong>index.html</strong> file still exists
-in your document root,
-Apache2 now returns the <strong>index.php</strong> file
-instead.
-However, if for some reason the <strong>index.php</strong>
-was deleted,
-then Apache2 would revert to the <strong>index.html</strong> file
-since that's what is listed next in the <strong>dir.conf</strong>
-<strong>DirectoryIndex</strong> line.</p>
+<p>Although your <code>index.html</code> file still exists in your document root, Apache2 now returns the <code>index.php</code> file instead.
+If for some reason PHP fails, then the <code>index.html</code> file would be served next
+since that's what is listed next in the <code>dir.conf</code> file on the <code>DirectoryIndex</code> line.</p>
 <h2 id="conclusion-9"><a class="header" href="#conclusion-9">Conclusion</a></h2>
-<p>In this section,
-we installed PHP and configured it work with Apache2.
-We also created a simple PHP test page
-that reported our browser user agent information
-on our website.</p>
-<p>In the next section,
-we'll learn how to complete the LAMP stack
-by adding the MySQL relational database
-to our setup.</p>
+<p>In this section, we installed PHP and configured it to work with Apache2.
+We also created a simple PHP test page that reported our browser user agent information on our website.</p>
+<p>In the next section, we'll learn how to complete the LAMP stack by adding the MySQL relational database to our setup.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="installing-and-configuring-mysql"><a class="header" href="#installing-and-configuring-mysql">Installing and Configuring MySQL</a></h1>
 <h2 id="introduction-8"><a class="header" href="#introduction-8">Introduction</a></h2>
-<p>We started our LAMP stack when we installed
-Apache2 on Linux, and
-then we added extra functionality when
-we installed and configured PHP to work with Apache2.
-In this section,
-our objective is to complete
-the LAMP stack and install and
-configure <a href="https://en.wikipedia.org/wiki/MySQL">MySQL</a>.</p>
+<p>We started our LAMP stack when we installed Apache2 on Linux.
+We added extra functionality when we installed and configured PHP to work with Apache2.
+In this section, our objective is to complete the LAMP stack and install and configure <a href="https://en.wikipedia.org/wiki/MySQL">MySQL</a>.</p>
 <p>If you need a refresher on relational databases, see:
-<a href="https://mariadb.com/kb/en/introduction-to-relational-databases/">Introduction to Relational Databases</a>.</p>
+<a href="https://mariadb.com/kb/en/introduction-to-relational-databases/">Introduction to Relational Databases</a>.
+However in the next section, we will explore the database basics from the command line.</p>
 <h2 id="install-and-set-up-mysql"><a class="header" href="#install-and-set-up-mysql">Install and Set Up MySQL</a></h2>
-<p>In this section, we'll learn how to install,
-setup, secure, and configure the MySQL
-relational database so that it works
-with the Apache2 web server and
-the PHP programming language.</p>
-<p>First, let's install MySQL Community Server, and
-then log into the MySQL shell
-under the <strong>MySQL root</strong> account.</p>
+<p>In this section, we'll learn how to install, setup, secure, and
+configure the MySQL relational database so that it works with the Apache2 web server and the PHP programming language.</p>
+<p>First, we install the MySQL Community Server package.
+The MySQL Community Server package is a <strong>metapackage</strong> that installs the latest most secure version of MySQL,
+regardless of the software's version number, as well as its dependencies.</p>
 <pre><code>sudo apt install mysql-server
 </code></pre>
-<p>This should also start and
-enable the database server, but
-we can check if it's running and enabled
-using the <code>systemctl</code> command:</p>
+<p>The above install should be fine for us, but note that in some cases you first may want to specifically
+confirm which versions are available via the <code>apt</code> command since some software (e.g., WordPress)
+may require specific versions or above.
+You can check that with the following:</p>
+<pre><code>apt policy mysql-server
+</code></pre>
+<p>After installing, you can confirm the version number with the following command
+to ensure you know which version you are using:</p>
+<pre><code>mysql --version
+</code></pre>
+<p>The install process should start and enable the database server,
+but we can check if it's running and enabled using the <code>systemctl</code> command.
+Note that you are looking for the lines beginning with <code>Loaded</code> and <code>Active</code>.</p>
 <pre><code>systemctl status mysql 
 </code></pre>
-<p>Next we need to run a post installation script
-called <code>mysql_secure_installation</code>
-that performs some security checks.
+<p>Next we need to run a post installation script called <code>mysql_secure_installation</code>.
+The script performs some security checks and creates a secure, baseline configuration of MySQL.
 To do that, run the following command:</p>
 <pre><code>sudo mysql_secure_installation
 </code></pre>
-<p>When you run the above script,
-you'll get a series of prompts
-to respond to like below.
-As shown below,
-you will want to remove
-anonymous users,
-disallow root login remotely,
-remove the test database, and
-reload privileges.
-Press <strong>Y</strong> at these prompts.</p>
-<pre><code>Remove anonymous users: Y
+<p>When you run the above script, you'll get a series of prompts to respond to.
+For most responses, you will want to respond with a <strong>Y</strong> for yes.
+We will respond with a <strong>Y</strong> to the first question on validating passwords, but to keep things simple,
+select <strong>LOW</strong> when prompted for the password validation policy.
+This will enforce a weak password policy for testing, but note that in real-world scenarios,
+we might want to select a more secure policy.
+In the output below, I show how to respond to each question:</p>
+<pre><code>Validate passwords: Y
+Password validation policy: 0 (zero) for LOW
+Remove anonymous users: Y
 Disallow root login remotely: Y
 Remove test database and access to it: Y
 Reload privilege tables now: Y
 </code></pre>
-<p>We can login to the database to test it.
-In order to do so,
-we have to become the <strong>root Linux user</strong>,
-which we can do with the following command:</p>
-<pre><code>sudo su
+<p>We can login to the database now.
+In order to do so, we use the following command:</p>
+<pre><code>sudo mysql -u root
 </code></pre>
 <blockquote>
-<p>Note: we need to be careful when we enter commands on the
-command line, because it's a largely unforgiving computing
-environment. But we need to be especially careful when we
-are logged in as the Linux root user. This user can delete
-anything, including files that the system needs in order
-to boot and operate.</p>
+<p><strong>NOTE:</strong> we need to distinguish between the regular user prompt of our Linux accounts and the MySQL prompt below.
+The default promp for our user accounts has the following syntax: <code>user_name@computer_name:path$ </code>.
+In the following, I will indicate we are at the MySQL prompt with the following text: <code>mysql&gt;</code>.
+Do not type that prompt when you are using MySQL.</p>
 </blockquote>
-<p>After we are Linux root,
-we can login to MySQL,
-run the <code>show databases;</code> command, and
-then exit with the <code>\q</code> command:</p>
-<blockquote>
-<p><strong>NOTE:</strong> we need to distinguish between the regular user
-prompt of our Linux accounts and the MySQL prompt below.
-In the following, I will use the greater than symbol &gt; to
-represent the MySQL prompt. Do not type that prompt when
-you are using MySQL.</p>
-</blockquote>
-<p>First, connect to the MySQL server as the MySQL root user:</p>
-<pre><code>mysql -u root
-</code></pre>
-<p>Then request a list of the databases:</p>
-<pre><code>show databases;
+<p>Then request a list of the databases with the <code>show databases;</code> command.
+Note that MySQL commands end with a semicolon:</p>
+<pre><code>mysql&gt; show databases;
 </code></pre>
 <p>And the following databases should be returned:</p>
 <pre><code>+--------------------+
@@ -3397,152 +3339,131 @@ you are using MySQL.</p>
 | information_schema |
 | mysql              |
 | performance_schema |
+| sys                |
 +--------------------+
-3 rows in set (0.002 sec)
+4 rows in set (0.01 sec)
 </code></pre>
-<blockquote>
-<p>Note: If we are logging into the root database account
-as the root Linux user, we don't need to enter our password.</p>
-</blockquote>
+<p>To exit the MySQL server prompt and return to the Bash shell, we use the following command:</p>
+<pre><code>mysql&gt; \q
+</code></pre>
 <h2 id="create-and-set-up-a-regular-user-account"><a class="header" href="#create-and-set-up-a-regular-user-account">Create and Set Up a Regular User Account</a></h2>
-<p>We need to reserve the <strong>root MySQL user</strong> for
-special use cases and
-instead create a <strong>regular MySQL user</strong>, or
-more than one MySQL user, as needed.</p>
-<p>To create a regular MySQL user,
-we use the <code>create</code> command.
-In the command below,
-I'll create a new user called <strong>opacuser</strong>
-with a complex password within the single quotes
-at the end (marked with a series of Xs here for demo purposes).
-From the MySQL prompt:</p>
+<p>We need to reserve the <strong>root MySQL user</strong> for special administrative cases
+and create a <strong>regular MySQL user</strong> account for regular use cases.</p>
+<p>To create a regular MySQL user, we use the MySQL <code>create</code> command.
+In the command below, I create a new user called <code>opacuser</code> with a complex password.
+The single quotes are quoting the password and are not the password itself.
+Thus in the example below, the <strong>Xs</strong> indicate my password.</p>
+<p>First, log back into the MySQL server:</p>
+<pre><code>sudo mysql -u root
+</code></pre>
+<p>At the MySQL prompt, create the new user:</p>
 <pre><code>create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
 </code></pre>
 <p>If the prompt returns a <strong>Query OK</strong> message,
 then the new user should have been created without any issues.</p>
 <h2 id="create-a-practice-database"><a class="header" href="#create-a-practice-database">Create a Practice Database</a></h2>
-<p>As the root database user,
-let's create a new database for a regular, new user.</p>
-<p>The regular user will be
-granted <strong>all privileges</strong>
-on the new database,
-including all its tables.
-Other than granting <strong>all privileges</strong>,
-we could limit the user to specific privileges, including:
-<strong>CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, and GRANT OPTION</strong>.
-Such privileges may be called operations or functions, and
-they allow MySQL users to use and modify the databases,
-where appropriate.
-For example,
-we may want to limit the <strong>opacuser</strong> user to
-only be able to use <strong>SELECT</strong> commands.
-It totally depends on the purpose of the database and
-our security risks.</p>
-<p>From the MySQL query prompt,
-run the following commands to
-create a new database <strong>opacdb</strong>
-and to grant all privileges to <strong>opacdb</strong>
-to the MySQL user <strong>opacuser</strong>:</p>
-<pre><code>create database opacdb;
-grant all privileges on opacdb.* to 'opacuser'@'localhost';
+<p>As the root database user, we create a new database for the user account we just created.
+We'll call this database <code>opacdb</code> and set the character encoding to UTF-8 to support international characters.
+Then we run the MySQL <code>show</code> command to view the new database.
+Next we grant <code>all privileges</code> on the database to the user account <code>opacuser</code>.</p>
+<pre><code>create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
 show databases;
+grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant option;
 </code></pre>
-<p>Exit out of the MySQL database
-as the <strong>root MySQL user</strong>, and
-then exit out of the <strong>root
-Linux user account</strong>, and
-you should be back to your
-normal Linux user account:</p>
+<p>Other than granting <strong>all privileges</strong>, we could limit the user to specific privileges, including:
+<strong>CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, and GRANT OPTION</strong>.
+Such privileges may be called operations or functions.
+They allow MySQL users to use and modify the databases, where appropriate.
+For example, we may want to limit the <strong>opacuser</strong> user account to only be able to use <strong>SELECT</strong> commands.
+These decisions depend on the purpose of the database and our security risks.</p>
+<p>Exit out of the MySQL database as the <strong>root MySQL user</strong>, and then exit out of the <strong>root Linux user account</strong>.
+You should be back to your normal Linux user account:</p>
 <pre><code>\q
 </code></pre>
-<p>And then exit out of the Linux root user account:</p>
-<pre><code>exit
-</code></pre>
 <blockquote>
-<p>Note: relational database keywords are often written in
-all capital letters. As far as I know, this is simply a
-convention to make the code more readable. However, in
-most cases I'll write the keywords in lower case letters.
-This is simply because, by convention, I'm super lazy.</p>
+<p>Note: relational database keywords are often written in all capital letters: <code>CREATE</code>, <code>DROP</code>, <code>SELECT</code>, etc.
+As far as I know, this is simply a convention to make the code more readable.
+However, in most cases I'll write the keywords in lower case letters.
+This is simply because, by convention, <em>I'm lazy</em>.</p>
 </blockquote>
 <h2 id="logging-in-as-regular-user-and-creating-tables"><a class="header" href="#logging-in-as-regular-user-and-creating-tables">Logging in as Regular User and Creating Tables</a></h2>
 <p>We can now start doing MySQL work.
-As a reminder,
-we've created a new MySQL user named <strong>opacuser</strong> and
-a new database for <strong>opacuser</strong> that is called <strong>opacdb</strong>.
-When we run the <code>show databases</code> command as
-the <strong>opacuser</strong> user,
-we should see the <strong>opacdb</strong> database.
-Note below that I use the <code>-p</code> option.
-This instructs MySQL to request the password
-for the <strong>opacuser</strong> user, which
-is required to log in.</p>
+As a reminder, we've created a new MySQL user named <code>opacuser</code> and a new database for <code>opacuser</code> that is called <code>opacdb</code>.
+When we run the <code>show databases</code> command as the <code>opacuser</code> user, we should see the <code>opacdb</code> database.
+Note below that I use the <code>-p</code> option when logging back into MySQL as the <code>opacuser</code>.
+This instructs MySQL to request the password for this user, it is required.</p>
 <pre><code>mysql -u opacuser -p
 </code></pre>
-<p>Then from the MySQL prompt,
-list the available databases and
-switch to the new <strong>opacdb</strong> database:</p>
+<p>From the MySQL prompt, list the available databases and use the <code>use</code> command to switch to the new <code>opacdb</code> database:</p>
 <pre><code>show databases;
 use opacdb;
 </code></pre>
 <p>A database is not worth much without data.
-In the following code,
-I create and define a new table for our <strong>opacdb</strong> database.
-The table will be called <strong>books</strong>, and
-it will contain data describing some books.
-We will keep this table very simple and
-use only three fields:</p>
+In the following code, I create and define a new table for our <code>opacdb</code> database.
+The table will be called <code>books</code> that will contain data describing, er, some books.
+We will keep this table very simple and use only four fields: <code>id</code>, <code>author</code>, <code>title</code>, and <code>copyright</code>.
+The <code>id</code> field will function as a primary key (second to last line in the command below).
+This key is used as a unique identifier for a record in the field.
+When we create this key as a field called <code>id</code>, we state that it should be an integer <code>id</code> (or whole number),
+that it should only be a positive number <code>unsigned</code>,
+that it should not be empty <code>not null</code>, and
+that with each record, it should increment by a single integer <code>auto_increment</code>.
+When we create the <code>author</code> and <code>title</code> fields,
+we say that these fields can have a maximum length of 150 characters and should not be empty.
+When we create the <code>copyright</code> field, we limit it to the <code>year</code> data type,
+which means it has to adhere to a specific syntax <code>YYYY</code>, and should not be empty.</p>
 <pre><code>create table books (
-id int unsigned not null auto_increment,
-author varchar(150) not null,
-title varchar(150) not null,
-copyright date not null,
-primary key (id)
+    id int unsigned not null auto_increment,
+    author varchar(150) not null,
+    title varchar(150) not null,
+    copyright year(4) not null,
+    primary key (ID)
 );
 </code></pre>
-<p>You can confirm that the table
-was created by running the following
-two commands,
-which lists the available tables
-and then describes the <strong>books</strong> table:</p>
+<blockquote>
+<p>Note: A relational database contains tables.
+If you are unfamiliar with this, you can think of a database as an overall Excel spreadsheet file and
+tables as specific sheets in the Excel file.
+There is quite a bit that goes into creating proper tables in database because the composition dictates how well
+data is described and how tables connect and interact with (or <strong>relate to</strong>) each other.
+However, we are going to keep things rather simple in this exercise.</p>
+</blockquote>
+<p>You can confirm that the table was created by running the following two commands.
+The MySQL <code>show</code> command lists the tables in a database and the <code>describe</code> command describes a table's structure.</p>
 <pre><code>show tables;
 describe books;
 </code></pre>
 <p>Congratulations! Now create some records for that table.</p>
 <h3 id="adding-records-into-the-table"><a class="header" href="#adding-records-into-the-table">Adding records into the table</a></h3>
-<p>We can populate our <strong>opacdb</strong> database
-with some data.
-(I simply picked the first book listed from
-the NYTimes best lists of books for the years
-2019-2022.)
-We'll use the <code>insert</code> command to add our records
-into our <strong>distribution</strong> table:</p>
+<p>We can populate our <strong>opacdb</strong> database with some data.
+(I simply picked the first book listed from the NYTimes best lists of books for the years 2019-2022.)
+We'll use the MySQL <code>insert</code> command to add our records into our <code>books</code> table.
+We need to specify three fields when entering data: <code>author</code>, <code>title</code>, and <code>copyright</code>.
+The <code>copyright</code> field is a date field, and it should conform to the <code>YYYY</code> syntax.
+We do not need to specify data for the <code>id</code> field because that will be created and will increment automatically.</p>
 <pre><code>insert into books (author, title, copyright) values
-('Jennifer Egan', 'The Candy House', '2022-04-05'),
-('Imbolo Mbue', 'How Beautiful We Were', '2021-03-09'),
-('Lydia Millet', 'A Children\'s Bible', '2020-05-12'),
-('Julia Phillips', 'Disappearing Earth', '2019-05-14');
+('Jennifer Egan', 'The Candy House', '2022'),
+('Imbolo Mbue', 'How Beautiful We Were', '2021'),
+('Lydia Millet', 'A Children\'s Bible', '2020'),
+('Julia Phillips', 'Disappearing Earth', '2019');
 </code></pre>
-<p>Now we can view all the records
-that we just created with the MySQL
-<code>select</code> command:</p>
+<p>Now we can view all the records that we just created with the MySQL <code>select</code> command:</p>
 <pre><code>select * from books;
 </code></pre>
 <p>Success! Now let's test our table.</p>
 <h3 id="testing-commands"><a class="header" href="#testing-commands">Testing Commands</a></h3>
-<p>We will complete the following tasks
-to refresh our MySQL knowledge:</p>
+<p>We will complete the following tasks to refresh our MySQL knowledge:</p>
 <ul>
 <li>retrieve some records or parts of records,</li>
 <li>delete a record,</li>
 <li>alter the table structure so that it will hold more data, and</li>
 <li>add a record</li>
 </ul>
-<p><strong>Reminder: each MySQL command ends with a semi-colon.
-Some of the following MySQL commands are single-line,
-but others are multi-line.
-Regardless if a MySQL command is one-line or multi-line,
-it doesn't end until it ends with a semi-colon:</strong></p>
+<blockquote>
+<p>Note: each MySQL command ends with a semi-colon.
+Some of the following MySQL commands are single-line, but others are multi-line.
+Regardless if a MySQL command is one-line or multi-line, it doesn't end until it ends with a semi-colon.</p>
+</blockquote>
 <pre><code>select author from books;
 select copyright from books;
 select author, title from books;
@@ -3560,21 +3481,18 @@ select * from books;
 delete from books where author='Julia Phillips';
 insert into books
 (author, title, publisher, copyright) values
-('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010-08-06'),
-('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
+('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010'),
+('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
 select * from books;
-select author, publisher from books where copyright &lt; '2011-01-01';
+select author, publisher from books where copyright &lt; '2011';
 select author from books order by copyright;
 \q
 </code></pre>
 <h2 id="install-php-and-mysql-support"><a class="header" href="#install-php-and-mysql-support">Install PHP and MySQL Support</a></h2>
-<p>The next goal is to complete the connection
-between PHP and MySQL so that
-we can use both for our websites.</p>
+<p>The next goal is to complete the connection between PHP and MySQL so that we can use both for our websites.</p>
 <p>First install PHP support for MySQL.
 We're installing some modules alongside the basic support.
-These may or may not be needed,
-but I'm installing them to demonstrate some basics.</p>
+These may or may not be needed, but I'm installing them to demonstrate some basics.</p>
 <pre><code>sudo apt install php-mysql php-mysqli
 </code></pre>
 <p>And then restart Apache2 and MySQL:</p>
@@ -3582,30 +3500,22 @@ but I'm installing them to demonstrate some basics.</p>
 sudo systemctl restart mysql
 </code></pre>
 <h3 id="create-php-scripts"><a class="header" href="#create-php-scripts">Create PHP Scripts</a></h3>
-<p>In order for PHP to connect to MySQL,
-it needs to authenticate itself.
-To do that,
-we will create a <strong>login.php</strong> file
-in <strong>/var/www/html</strong>.
-We also need to change the group ownership
-of the file and its permissions so that
-the file can be read by the Apache2 web server
-but not by the world,
-since this file will store password information.</p>
-<pre><code>cd /var/www/html/
+<p>In order for PHP to connect to MySQL, it needs to authenticate itself.
+To do that, we will create a <code>login.php</code> file in in our document root's parent directory: <code>/var/www</code>.
+We also need to change the group ownership of the file and its permissions.
+This will allow the file can be read by the Apache2 web server but not by the world.
+This prevents the password information from being accessible to web users.</p>
+<pre><code>cd /var/www
 sudo touch login.php
 sudo chmod 640 login.php
 sudo chown :www-data login.php
 ls -l login.php
 sudo nano login.php
 </code></pre>
-<p>In the file,
-add the following credentials.
-If you used a different database name than <strong>opacdb</strong>
-and a different username than <strong>opacuser</strong>,
+<p>In the file, add the following credentials.
+If for some reason you used a different database name than <code>opacdb</code> and a different username than <code>opacuser</code>,
 then you need to substitute your names below.
-You need to use your own password where
-I have the Xs:</p>
+You need to use your own password where I have the <code>Xs</code>:</p>
 <pre><code>&lt;?php // login.php
 $db_hostname = "localhost";
 $db_database = "opacdb";
@@ -3614,100 +3524,87 @@ $db_password = "XXXXXXXXX";
 ?&gt;
 </code></pre>
 <p>Next we create a new PHP file for our website.
-This file will display HTML but
-will primarily be PHP interacting with our
-<strong>books</strong> database.</p>
-<p>Create a file titled <strong>opac.php</strong>.</p>
+This file will display HTML but will primarily be PHP interacting with our <code>opacdb</code> database.</p>
+<p>Create a file titled <code>opac.php</code>.</p>
 <pre><code>sudo nano opac.php
 </code></pre>
-<p>Then copy over the following text
-(I suggest you transcribe it, especially
-if you're interested in learning a bit of PHP, but
-you can simply copy and paste it into the <code>nano</code> buffer):</p>
-<pre><code>&lt;html&gt;
+<p>Then copy over the following text.
+I suggest you transcribe it, especially if you're interested in learning a bit of PHP.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
 &lt;head&gt;
-&lt;title&gt;MySQL Server Example&lt;/title&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;MySQL Server Example&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
 
-&lt;h1&gt;A Basic OPAC&lt;/h1&gt;
+    &lt;h1&gt;A Basic OPAC&lt;/h1&gt;
+    &lt;p&gt;We can retrieve all the data from our database and book table using a couple of different queries.&lt;/p&gt;
 
-&lt;p&gt;We can retrieve all the data from our database and book table
-using a couple of different queries.&lt;/p&gt;
+    &lt;?php
+    // Load MySQL credentials securely
+    require_once '/var/www/login.php';
 
-&lt;?php
+    // Enable detailed MySQL error reporting
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-// Load MySQL credentials
-require_once 'login.php';
+    // Establish database connection
+    $conn = new mysqli($db_hostname, $db_username, $db_password, $db_database);
 
-// Establish connection
-$conn = mysqli_connect($db_hostname, $db_username, $db_password) or
-  die("Unable to connect");
+    if ($conn-&gt;connect_error) {
+        die("Connection failed: " . $conn-&gt;connect_error);
+    }
 
-// Open database
-mysqli_select_db($conn, $db_database) or
-  die("Could not open database '$db_database'");
+    echo "&lt;h2&gt;Query 1: Retrieving Publisher and Author Data&lt;/h2&gt;";
 
-echo "&lt;h2&gt;Query 1: Retrieving Publisher and Author Data&lt;/h2&gt;";
+    // Query using prepared statement
+    $stmt = $conn-&gt;prepare("SELECT publisher, author FROM books");
+    $stmt-&gt;execute();
+    $result = $stmt-&gt;get_result();
 
-// Query 1
-$query1 = "select * from books";
-$result1 = mysqli_query($conn, $query1);
+    while ($row = $result-&gt;fetch_assoc()) {
+        echo "&lt;p&gt;Publisher " . htmlspecialchars($row["publisher"]) .
+             " published a book by " . htmlspecialchars($row["author"]) . ".&lt;/p&gt;";
+    }
 
-while($row = $result1-&gt;fetch_assoc()) {
-	echo "&lt;p&gt;Publisher " . $row["publisher"] .
-		" published a book by " . $row["author"] .
-		".&lt;/p&gt;";
-}
+    $stmt-&gt;close();
 
-mysqli_free_result($result1);
+    echo "&lt;h2&gt;Query 2: Retrieving Author, Title, and Date Published Data&lt;/h2&gt;";
 
-echo "&lt;h2&gt;Query 2: Retrieving Author, Title, Date Published Data&lt;/h2&gt;";
+    $stmt2 = $conn-&gt;prepare("SELECT author, title, copyright FROM books");
+    $stmt2-&gt;execute();
+    $result2 = $stmt2-&gt;get_result();
 
-$result2 = mysqli_query($conn, $query1);
-while($row = $result2-&gt;fetch_assoc()) {
-	echo "&lt;p&gt;A book by " . $row["author"] .
-		" titled &lt;em&gt;" . $row["title"] .
-		"&lt;/em&gt; was released on " . $row["copyright"] .
-		".&lt;/p&gt;";
-}
+    while ($row = $result2-&gt;fetch_assoc()) {
+        echo "&lt;p&gt;A book by " . htmlspecialchars($row["author"]) .
+             " titled &lt;em&gt;" . htmlspecialchars($row["title"]) .
+             "&lt;/em&gt; was released in " . htmlspecialchars($row["copyright"]) . ".&lt;/p&gt;";
+    }
 
-// Free result2 set
-mysqli_free_result($result2);
-
-/* Close connection */
-mysqli_close($conn);
-
-?&gt;
+    $stmt2-&gt;close();
+    $conn-&gt;close();
+    ?&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;
+
 </code></pre>
 <p>Save the file and exit out of <code>nano</code>.</p>
 <h3 id="test-syntax"><a class="header" href="#test-syntax">Test Syntax</a></h3>
-<p>After you save the file and exit the text editor,
-we need to test the PHP syntax.
-If there are any errors in our PHP,
-these commands will show the line numbers
-that are causing errors or leading up to errors.
+<p>After you save the file and exit the text editor, we need to test the PHP syntax.
+If there are any errors in our PHP, these commands will show the line numbers causing errors or leading up to errors.
 Nothing will output if all is well with the first command.
 If all is well with the second command, HTML should be outputted:</p>
 <pre><code>sudo php -f login.php
 sudo php -f opac.php
 </code></pre>
 <h2 id="conclusion-10"><a class="header" href="#conclusion-10">Conclusion</a></h2>
-<p>Congratulations! If you've reached this far,
-you have successfully created a LAMP stack.
-In the process,
-you have learned how to install and set up MySQL,
-how to create MySQL root and regular user accounts,
-how to create a test database
-with play data for practicing, and
-how to connect this with PHP for display on a webpage.</p>
-<p>In regular applications of these technologies,
-there's a lot more involved, but
-completing the above process is a great start to
-learning more.</p>
+<p>Congratulations! If you've reached this far, you have successfully created a LAMP stack.
+In the process, you have learned how to install and set up MySQL, how to create MySQL root and regular user accounts,
+how to create a test database with play data for practicing, and how to connect this with PHP for display on a webpage.</p>
+<p>In regular applications of these technologies, there's a lot more involved,
+but completing the above process is a great start to learning more.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="diy-integrated-library-systems"><a class="header" href="#diy-integrated-library-systems">DIY Integrated Library Systems</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-bare-bones-opac"><a class="header" href="#creating-a-bare-bones-opac">Creating a Bare Bones OPAC</a></h1>
 <p>In this section,

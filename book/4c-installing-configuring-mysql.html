@@ -178,84 +178,67 @@
                     <main>
                         <h1 id="installing-and-configuring-mysql"><a class="header" href="#installing-and-configuring-mysql">Installing and Configuring MySQL</a></h1>
 <h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
-<p>We started our LAMP stack when we installed
-Apache2 on Linux, and
-then we added extra functionality when
-we installed and configured PHP to work with Apache2.
-In this section,
-our objective is to complete
-the LAMP stack and install and
-configure <a href="https://en.wikipedia.org/wiki/MySQL">MySQL</a>.</p>
+<p>We started our LAMP stack when we installed Apache2 on Linux.
+We added extra functionality when we installed and configured PHP to work with Apache2.
+In this section, our objective is to complete the LAMP stack and install and configure <a href="https://en.wikipedia.org/wiki/MySQL">MySQL</a>.</p>
 <p>If you need a refresher on relational databases, see:
-<a href="https://mariadb.com/kb/en/introduction-to-relational-databases/">Introduction to Relational Databases</a>.</p>
+<a href="https://mariadb.com/kb/en/introduction-to-relational-databases/">Introduction to Relational Databases</a>.
+However in the next section, we will explore the database basics from the command line.</p>
 <h2 id="install-and-set-up-mysql"><a class="header" href="#install-and-set-up-mysql">Install and Set Up MySQL</a></h2>
-<p>In this section, we'll learn how to install,
-setup, secure, and configure the MySQL
-relational database so that it works
-with the Apache2 web server and
-the PHP programming language.</p>
-<p>First, let's install MySQL Community Server, and
-then log into the MySQL shell
-under the <strong>MySQL root</strong> account.</p>
+<p>In this section, we'll learn how to install, setup, secure, and
+configure the MySQL relational database so that it works with the Apache2 web server and the PHP programming language.</p>
+<p>First, we install the MySQL Community Server package.
+The MySQL Community Server package is a <strong>metapackage</strong> that installs the latest most secure version of MySQL,
+regardless of the software's version number, as well as its dependencies.</p>
 <pre><code>sudo apt install mysql-server
 </code></pre>
-<p>This should also start and
-enable the database server, but
-we can check if it's running and enabled
-using the <code>systemctl</code> command:</p>
+<p>The above install should be fine for us, but note that in some cases you first may want to specifically
+confirm which versions are available via the <code>apt</code> command since some software (e.g., WordPress)
+may require specific versions or above.
+You can check that with the following:</p>
+<pre><code>apt policy mysql-server
+</code></pre>
+<p>After installing, you can confirm the version number with the following command
+to ensure you know which version you are using:</p>
+<pre><code>mysql --version
+</code></pre>
+<p>The install process should start and enable the database server,
+but we can check if it's running and enabled using the <code>systemctl</code> command.
+Note that you are looking for the lines beginning with <code>Loaded</code> and <code>Active</code>.</p>
 <pre><code>systemctl status mysql 
 </code></pre>
-<p>Next we need to run a post installation script
-called <code>mysql_secure_installation</code>
-that performs some security checks.
+<p>Next we need to run a post installation script called <code>mysql_secure_installation</code>.
+The script performs some security checks and creates a secure, baseline configuration of MySQL.
 To do that, run the following command:</p>
 <pre><code>sudo mysql_secure_installation
 </code></pre>
-<p>When you run the above script,
-you'll get a series of prompts
-to respond to like below.
-As shown below,
-you will want to remove
-anonymous users,
-disallow root login remotely,
-remove the test database, and
-reload privileges.
-Press <strong>Y</strong> at these prompts.</p>
-<pre><code>Remove anonymous users: Y
+<p>When you run the above script, you'll get a series of prompts to respond to.
+For most responses, you will want to respond with a <strong>Y</strong> for yes.
+We will respond with a <strong>Y</strong> to the first question on validating passwords, but to keep things simple,
+select <strong>LOW</strong> when prompted for the password validation policy.
+This will enforce a weak password policy for testing, but note that in real-world scenarios,
+we might want to select a more secure policy.
+In the output below, I show how to respond to each question:</p>
+<pre><code>Validate passwords: Y
+Password validation policy: 0 (zero) for LOW
+Remove anonymous users: Y
 Disallow root login remotely: Y
 Remove test database and access to it: Y
 Reload privilege tables now: Y
 </code></pre>
-<p>We can login to the database to test it.
-In order to do so,
-we have to become the <strong>root Linux user</strong>,
-which we can do with the following command:</p>
-<pre><code>sudo su
+<p>We can login to the database now.
+In order to do so, we use the following command:</p>
+<pre><code>sudo mysql -u root
 </code></pre>
 <blockquote>
-<p>Note: we need to be careful when we enter commands on the
-command line, because it's a largely unforgiving computing
-environment. But we need to be especially careful when we
-are logged in as the Linux root user. This user can delete
-anything, including files that the system needs in order
-to boot and operate.</p>
+<p><strong>NOTE:</strong> we need to distinguish between the regular user prompt of our Linux accounts and the MySQL prompt below.
+The default promp for our user accounts has the following syntax: <code>user_name@computer_name:path$ </code>.
+In the following, I will indicate we are at the MySQL prompt with the following text: <code>mysql&gt;</code>.
+Do not type that prompt when you are using MySQL.</p>
 </blockquote>
-<p>After we are Linux root,
-we can login to MySQL,
-run the <code>show databases;</code> command, and
-then exit with the <code>\q</code> command:</p>
-<blockquote>
-<p><strong>NOTE:</strong> we need to distinguish between the regular user
-prompt of our Linux accounts and the MySQL prompt below.
-In the following, I will use the greater than symbol &gt; to
-represent the MySQL prompt. Do not type that prompt when
-you are using MySQL.</p>
-</blockquote>
-<p>First, connect to the MySQL server as the MySQL root user:</p>
-<pre><code>mysql -u root
-</code></pre>
-<p>Then request a list of the databases:</p>
-<pre><code>show databases;
+<p>Then request a list of the databases with the <code>show databases;</code> command.
+Note that MySQL commands end with a semicolon:</p>
+<pre><code>mysql&gt; show databases;
 </code></pre>
 <p>And the following databases should be returned:</p>
 <pre><code>+--------------------+
@@ -264,152 +247,131 @@ you are using MySQL.</p>
 | information_schema |
 | mysql              |
 | performance_schema |
+| sys                |
 +--------------------+
-3 rows in set (0.002 sec)
+4 rows in set (0.01 sec)
 </code></pre>
-<blockquote>
-<p>Note: If we are logging into the root database account
-as the root Linux user, we don't need to enter our password.</p>
-</blockquote>
+<p>To exit the MySQL server prompt and return to the Bash shell, we use the following command:</p>
+<pre><code>mysql&gt; \q
+</code></pre>
 <h2 id="create-and-set-up-a-regular-user-account"><a class="header" href="#create-and-set-up-a-regular-user-account">Create and Set Up a Regular User Account</a></h2>
-<p>We need to reserve the <strong>root MySQL user</strong> for
-special use cases and
-instead create a <strong>regular MySQL user</strong>, or
-more than one MySQL user, as needed.</p>
-<p>To create a regular MySQL user,
-we use the <code>create</code> command.
-In the command below,
-I'll create a new user called <strong>opacuser</strong>
-with a complex password within the single quotes
-at the end (marked with a series of Xs here for demo purposes).
-From the MySQL prompt:</p>
+<p>We need to reserve the <strong>root MySQL user</strong> for special administrative cases
+and create a <strong>regular MySQL user</strong> account for regular use cases.</p>
+<p>To create a regular MySQL user, we use the MySQL <code>create</code> command.
+In the command below, I create a new user called <code>opacuser</code> with a complex password.
+The single quotes are quoting the password and are not the password itself.
+Thus in the example below, the <strong>Xs</strong> indicate my password.</p>
+<p>First, log back into the MySQL server:</p>
+<pre><code>sudo mysql -u root
+</code></pre>
+<p>At the MySQL prompt, create the new user:</p>
 <pre><code>create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
 </code></pre>
 <p>If the prompt returns a <strong>Query OK</strong> message,
 then the new user should have been created without any issues.</p>
 <h2 id="create-a-practice-database"><a class="header" href="#create-a-practice-database">Create a Practice Database</a></h2>
-<p>As the root database user,
-let's create a new database for a regular, new user.</p>
-<p>The regular user will be
-granted <strong>all privileges</strong>
-on the new database,
-including all its tables.
-Other than granting <strong>all privileges</strong>,
-we could limit the user to specific privileges, including:
-<strong>CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, and GRANT OPTION</strong>.
-Such privileges may be called operations or functions, and
-they allow MySQL users to use and modify the databases,
-where appropriate.
-For example,
-we may want to limit the <strong>opacuser</strong> user to
-only be able to use <strong>SELECT</strong> commands.
-It totally depends on the purpose of the database and
-our security risks.</p>
-<p>From the MySQL query prompt,
-run the following commands to
-create a new database <strong>opacdb</strong>
-and to grant all privileges to <strong>opacdb</strong>
-to the MySQL user <strong>opacuser</strong>:</p>
-<pre><code>create database opacdb;
-grant all privileges on opacdb.* to 'opacuser'@'localhost';
+<p>As the root database user, we create a new database for the user account we just created.
+We'll call this database <code>opacdb</code> and set the character encoding to UTF-8 to support international characters.
+Then we run the MySQL <code>show</code> command to view the new database.
+Next we grant <code>all privileges</code> on the database to the user account <code>opacuser</code>.</p>
+<pre><code>create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
 show databases;
+grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant option;
 </code></pre>
-<p>Exit out of the MySQL database
-as the <strong>root MySQL user</strong>, and
-then exit out of the <strong>root
-Linux user account</strong>, and
-you should be back to your
-normal Linux user account:</p>
+<p>Other than granting <strong>all privileges</strong>, we could limit the user to specific privileges, including:
+<strong>CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, and GRANT OPTION</strong>.
+Such privileges may be called operations or functions.
+They allow MySQL users to use and modify the databases, where appropriate.
+For example, we may want to limit the <strong>opacuser</strong> user account to only be able to use <strong>SELECT</strong> commands.
+These decisions depend on the purpose of the database and our security risks.</p>
+<p>Exit out of the MySQL database as the <strong>root MySQL user</strong>, and then exit out of the <strong>root Linux user account</strong>.
+You should be back to your normal Linux user account:</p>
 <pre><code>\q
 </code></pre>
-<p>And then exit out of the Linux root user account:</p>
-<pre><code>exit
-</code></pre>
 <blockquote>
-<p>Note: relational database keywords are often written in
-all capital letters. As far as I know, this is simply a
-convention to make the code more readable. However, in
-most cases I'll write the keywords in lower case letters.
-This is simply because, by convention, I'm super lazy.</p>
+<p>Note: relational database keywords are often written in all capital letters: <code>CREATE</code>, <code>DROP</code>, <code>SELECT</code>, etc.
+As far as I know, this is simply a convention to make the code more readable.
+However, in most cases I'll write the keywords in lower case letters.
+This is simply because, by convention, <em>I'm lazy</em>.</p>
 </blockquote>
 <h2 id="logging-in-as-regular-user-and-creating-tables"><a class="header" href="#logging-in-as-regular-user-and-creating-tables">Logging in as Regular User and Creating Tables</a></h2>
 <p>We can now start doing MySQL work.
-As a reminder,
-we've created a new MySQL user named <strong>opacuser</strong> and
-a new database for <strong>opacuser</strong> that is called <strong>opacdb</strong>.
-When we run the <code>show databases</code> command as
-the <strong>opacuser</strong> user,
-we should see the <strong>opacdb</strong> database.
-Note below that I use the <code>-p</code> option.
-This instructs MySQL to request the password
-for the <strong>opacuser</strong> user, which
-is required to log in.</p>
+As a reminder, we've created a new MySQL user named <code>opacuser</code> and a new database for <code>opacuser</code> that is called <code>opacdb</code>.
+When we run the <code>show databases</code> command as the <code>opacuser</code> user, we should see the <code>opacdb</code> database.
+Note below that I use the <code>-p</code> option when logging back into MySQL as the <code>opacuser</code>.
+This instructs MySQL to request the password for this user, it is required.</p>
 <pre><code>mysql -u opacuser -p
 </code></pre>
-<p>Then from the MySQL prompt,
-list the available databases and
-switch to the new <strong>opacdb</strong> database:</p>
+<p>From the MySQL prompt, list the available databases and use the <code>use</code> command to switch to the new <code>opacdb</code> database:</p>
 <pre><code>show databases;
 use opacdb;
 </code></pre>
 <p>A database is not worth much without data.
-In the following code,
-I create and define a new table for our <strong>opacdb</strong> database.
-The table will be called <strong>books</strong>, and
-it will contain data describing some books.
-We will keep this table very simple and
-use only three fields:</p>
+In the following code, I create and define a new table for our <code>opacdb</code> database.
+The table will be called <code>books</code> that will contain data describing, er, some books.
+We will keep this table very simple and use only four fields: <code>id</code>, <code>author</code>, <code>title</code>, and <code>copyright</code>.
+The <code>id</code> field will function as a primary key (second to last line in the command below).
+This key is used as a unique identifier for a record in the field.
+When we create this key as a field called <code>id</code>, we state that it should be an integer <code>id</code> (or whole number),
+that it should only be a positive number <code>unsigned</code>,
+that it should not be empty <code>not null</code>, and
+that with each record, it should increment by a single integer <code>auto_increment</code>.
+When we create the <code>author</code> and <code>title</code> fields,
+we say that these fields can have a maximum length of 150 characters and should not be empty.
+When we create the <code>copyright</code> field, we limit it to the <code>year</code> data type,
+which means it has to adhere to a specific syntax <code>YYYY</code>, and should not be empty.</p>
 <pre><code>create table books (
-id int unsigned not null auto_increment,
-author varchar(150) not null,
-title varchar(150) not null,
-copyright date not null,
-primary key (id)
+    id int unsigned not null auto_increment,
+    author varchar(150) not null,
+    title varchar(150) not null,
+    copyright year(4) not null,
+    primary key (ID)
 );
 </code></pre>
-<p>You can confirm that the table
-was created by running the following
-two commands,
-which lists the available tables
-and then describes the <strong>books</strong> table:</p>
+<blockquote>
+<p>Note: A relational database contains tables.
+If you are unfamiliar with this, you can think of a database as an overall Excel spreadsheet file and
+tables as specific sheets in the Excel file.
+There is quite a bit that goes into creating proper tables in database because the composition dictates how well
+data is described and how tables connect and interact with (or <strong>relate to</strong>) each other.
+However, we are going to keep things rather simple in this exercise.</p>
+</blockquote>
+<p>You can confirm that the table was created by running the following two commands.
+The MySQL <code>show</code> command lists the tables in a database and the <code>describe</code> command describes a table's structure.</p>
 <pre><code>show tables;
 describe books;
 </code></pre>
 <p>Congratulations! Now create some records for that table.</p>
 <h3 id="adding-records-into-the-table"><a class="header" href="#adding-records-into-the-table">Adding records into the table</a></h3>
-<p>We can populate our <strong>opacdb</strong> database
-with some data.
-(I simply picked the first book listed from
-the NYTimes best lists of books for the years
-2019-2022.)
-We'll use the <code>insert</code> command to add our records
-into our <strong>distribution</strong> table:</p>
+<p>We can populate our <strong>opacdb</strong> database with some data.
+(I simply picked the first book listed from the NYTimes best lists of books for the years 2019-2022.)
+We'll use the MySQL <code>insert</code> command to add our records into our <code>books</code> table.
+We need to specify three fields when entering data: <code>author</code>, <code>title</code>, and <code>copyright</code>.
+The <code>copyright</code> field is a date field, and it should conform to the <code>YYYY</code> syntax.
+We do not need to specify data for the <code>id</code> field because that will be created and will increment automatically.</p>
 <pre><code>insert into books (author, title, copyright) values
-('Jennifer Egan', 'The Candy House', '2022-04-05'),
-('Imbolo Mbue', 'How Beautiful We Were', '2021-03-09'),
-('Lydia Millet', 'A Children\'s Bible', '2020-05-12'),
-('Julia Phillips', 'Disappearing Earth', '2019-05-14');
+('Jennifer Egan', 'The Candy House', '2022'),
+('Imbolo Mbue', 'How Beautiful We Were', '2021'),
+('Lydia Millet', 'A Children\'s Bible', '2020'),
+('Julia Phillips', 'Disappearing Earth', '2019');
 </code></pre>
-<p>Now we can view all the records
-that we just created with the MySQL
-<code>select</code> command:</p>
+<p>Now we can view all the records that we just created with the MySQL <code>select</code> command:</p>
 <pre><code>select * from books;
 </code></pre>
 <p>Success! Now let's test our table.</p>
 <h3 id="testing-commands"><a class="header" href="#testing-commands">Testing Commands</a></h3>
-<p>We will complete the following tasks
-to refresh our MySQL knowledge:</p>
+<p>We will complete the following tasks to refresh our MySQL knowledge:</p>
 <ul>
 <li>retrieve some records or parts of records,</li>
 <li>delete a record,</li>
 <li>alter the table structure so that it will hold more data, and</li>
 <li>add a record</li>
 </ul>
-<p><strong>Reminder: each MySQL command ends with a semi-colon.
-Some of the following MySQL commands are single-line,
-but others are multi-line.
-Regardless if a MySQL command is one-line or multi-line,
-it doesn't end until it ends with a semi-colon:</strong></p>
+<blockquote>
+<p>Note: each MySQL command ends with a semi-colon.
+Some of the following MySQL commands are single-line, but others are multi-line.
+Regardless if a MySQL command is one-line or multi-line, it doesn't end until it ends with a semi-colon.</p>
+</blockquote>
 <pre><code>select author from books;
 select copyright from books;
 select author, title from books;
@@ -427,21 +389,18 @@ select * from books;
 delete from books where author='Julia Phillips';
 insert into books
 (author, title, publisher, copyright) values
-('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010-08-06'),
-('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
+('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010'),
+('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
 select * from books;
-select author, publisher from books where copyright &lt; '2011-01-01';
+select author, publisher from books where copyright &lt; '2011';
 select author from books order by copyright;
 \q
 </code></pre>
 <h2 id="install-php-and-mysql-support"><a class="header" href="#install-php-and-mysql-support">Install PHP and MySQL Support</a></h2>
-<p>The next goal is to complete the connection
-between PHP and MySQL so that
-we can use both for our websites.</p>
+<p>The next goal is to complete the connection between PHP and MySQL so that we can use both for our websites.</p>
 <p>First install PHP support for MySQL.
 We're installing some modules alongside the basic support.
-These may or may not be needed,
-but I'm installing them to demonstrate some basics.</p>
+These may or may not be needed, but I'm installing them to demonstrate some basics.</p>
 <pre><code>sudo apt install php-mysql php-mysqli
 </code></pre>
 <p>And then restart Apache2 and MySQL:</p>
@@ -449,30 +408,22 @@ but I'm installing them to demonstrate some basics.</p>
 sudo systemctl restart mysql
 </code></pre>
 <h3 id="create-php-scripts"><a class="header" href="#create-php-scripts">Create PHP Scripts</a></h3>
-<p>In order for PHP to connect to MySQL,
-it needs to authenticate itself.
-To do that,
-we will create a <strong>login.php</strong> file
-in <strong>/var/www/html</strong>.
-We also need to change the group ownership
-of the file and its permissions so that
-the file can be read by the Apache2 web server
-but not by the world,
-since this file will store password information.</p>
-<pre><code>cd /var/www/html/
+<p>In order for PHP to connect to MySQL, it needs to authenticate itself.
+To do that, we will create a <code>login.php</code> file in in our document root's parent directory: <code>/var/www</code>.
+We also need to change the group ownership of the file and its permissions.
+This will allow the file can be read by the Apache2 web server but not by the world.
+This prevents the password information from being accessible to web users.</p>
+<pre><code>cd /var/www
 sudo touch login.php
 sudo chmod 640 login.php
 sudo chown :www-data login.php
 ls -l login.php
 sudo nano login.php
 </code></pre>
-<p>In the file,
-add the following credentials.
-If you used a different database name than <strong>opacdb</strong>
-and a different username than <strong>opacuser</strong>,
+<p>In the file, add the following credentials.
+If for some reason you used a different database name than <code>opacdb</code> and a different username than <code>opacuser</code>,
 then you need to substitute your names below.
-You need to use your own password where
-I have the Xs:</p>
+You need to use your own password where I have the <code>Xs</code>:</p>
 <pre><code>&lt;?php // login.php
 $db_hostname = "localhost";
 $db_database = "opacdb";
@@ -481,100 +432,87 @@ $db_password = "XXXXXXXXX";
 ?&gt;
 </code></pre>
 <p>Next we create a new PHP file for our website.
-This file will display HTML but
-will primarily be PHP interacting with our
-<strong>books</strong> database.</p>
-<p>Create a file titled <strong>opac.php</strong>.</p>
+This file will display HTML but will primarily be PHP interacting with our <code>opacdb</code> database.</p>
+<p>Create a file titled <code>opac.php</code>.</p>
 <pre><code>sudo nano opac.php
 </code></pre>
-<p>Then copy over the following text
-(I suggest you transcribe it, especially
-if you're interested in learning a bit of PHP, but
-you can simply copy and paste it into the <code>nano</code> buffer):</p>
-<pre><code>&lt;html&gt;
+<p>Then copy over the following text.
+I suggest you transcribe it, especially if you're interested in learning a bit of PHP.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
 &lt;head&gt;
-&lt;title&gt;MySQL Server Example&lt;/title&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;MySQL Server Example&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
 
-&lt;h1&gt;A Basic OPAC&lt;/h1&gt;
+    &lt;h1&gt;A Basic OPAC&lt;/h1&gt;
+    &lt;p&gt;We can retrieve all the data from our database and book table using a couple of different queries.&lt;/p&gt;
 
-&lt;p&gt;We can retrieve all the data from our database and book table
-using a couple of different queries.&lt;/p&gt;
+    &lt;?php
+    // Load MySQL credentials securely
+    require_once '/var/www/login.php';
 
-&lt;?php
+    // Enable detailed MySQL error reporting
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-// Load MySQL credentials
-require_once 'login.php';
+    // Establish database connection
+    $conn = new mysqli($db_hostname, $db_username, $db_password, $db_database);
 
-// Establish connection
-$conn = mysqli_connect($db_hostname, $db_username, $db_password) or
-  die("Unable to connect");
+    if ($conn-&gt;connect_error) {
+        die("Connection failed: " . $conn-&gt;connect_error);
+    }
 
-// Open database
-mysqli_select_db($conn, $db_database) or
-  die("Could not open database '$db_database'");
+    echo "&lt;h2&gt;Query 1: Retrieving Publisher and Author Data&lt;/h2&gt;";
 
-echo "&lt;h2&gt;Query 1: Retrieving Publisher and Author Data&lt;/h2&gt;";
+    // Query using prepared statement
+    $stmt = $conn-&gt;prepare("SELECT publisher, author FROM books");
+    $stmt-&gt;execute();
+    $result = $stmt-&gt;get_result();
 
-// Query 1
-$query1 = "select * from books";
-$result1 = mysqli_query($conn, $query1);
+    while ($row = $result-&gt;fetch_assoc()) {
+        echo "&lt;p&gt;Publisher " . htmlspecialchars($row["publisher"]) .
+             " published a book by " . htmlspecialchars($row["author"]) . ".&lt;/p&gt;";
+    }
 
-while($row = $result1-&gt;fetch_assoc()) {
-	echo "&lt;p&gt;Publisher " . $row["publisher"] .
-		" published a book by " . $row["author"] .
-		".&lt;/p&gt;";
-}
+    $stmt-&gt;close();
 
-mysqli_free_result($result1);
+    echo "&lt;h2&gt;Query 2: Retrieving Author, Title, and Date Published Data&lt;/h2&gt;";
 
-echo "&lt;h2&gt;Query 2: Retrieving Author, Title, Date Published Data&lt;/h2&gt;";
+    $stmt2 = $conn-&gt;prepare("SELECT author, title, copyright FROM books");
+    $stmt2-&gt;execute();
+    $result2 = $stmt2-&gt;get_result();
 
-$result2 = mysqli_query($conn, $query1);
-while($row = $result2-&gt;fetch_assoc()) {
-	echo "&lt;p&gt;A book by " . $row["author"] .
-		" titled &lt;em&gt;" . $row["title"] .
-		"&lt;/em&gt; was released on " . $row["copyright"] .
-		".&lt;/p&gt;";
-}
+    while ($row = $result2-&gt;fetch_assoc()) {
+        echo "&lt;p&gt;A book by " . htmlspecialchars($row["author"]) .
+             " titled &lt;em&gt;" . htmlspecialchars($row["title"]) .
+             "&lt;/em&gt; was released in " . htmlspecialchars($row["copyright"]) . ".&lt;/p&gt;";
+    }
 
-// Free result2 set
-mysqli_free_result($result2);
-
-/* Close connection */
-mysqli_close($conn);
-
-?&gt;
+    $stmt2-&gt;close();
+    $conn-&gt;close();
+    ?&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;
+
 </code></pre>
 <p>Save the file and exit out of <code>nano</code>.</p>
 <h3 id="test-syntax"><a class="header" href="#test-syntax">Test Syntax</a></h3>
-<p>After you save the file and exit the text editor,
-we need to test the PHP syntax.
-If there are any errors in our PHP,
-these commands will show the line numbers
-that are causing errors or leading up to errors.
+<p>After you save the file and exit the text editor, we need to test the PHP syntax.
+If there are any errors in our PHP, these commands will show the line numbers causing errors or leading up to errors.
 Nothing will output if all is well with the first command.
 If all is well with the second command, HTML should be outputted:</p>
 <pre><code>sudo php -f login.php
 sudo php -f opac.php
 </code></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
-<p>Congratulations! If you've reached this far,
-you have successfully created a LAMP stack.
-In the process,
-you have learned how to install and set up MySQL,
-how to create MySQL root and regular user accounts,
-how to create a test database
-with play data for practicing, and
-how to connect this with PHP for display on a webpage.</p>
-<p>In regular applications of these technologies,
-there's a lot more involved, but
-completing the above process is a great start to
-learning more.</p>
+<p>Congratulations! If you've reached this far, you have successfully created a LAMP stack.
+In the process, you have learned how to install and set up MySQL, how to create MySQL root and regular user accounts,
+how to create a test database with play data for practicing, and how to connect this with PHP for display on a webpage.</p>
+<p>In regular applications of these technologies, there's a lot more involved,
+but completing the above process is a great start to learning more.</p>
 
                     </main>
 

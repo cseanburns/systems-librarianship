@@ -183,7 +183,9 @@ the web server, or alternatively called the HTTP server.</p>
 <p>The web server is the software that makes websites available in your browsers.
 The basic function is to make files on the web server accessible to others via their web browsers.
 At a basic level, the web is essentially a world wide file system, and
-the web browser is essentially a file explorer, like Windows Explorer on Windows or Finder on macOS.</p>
+the web browser retrieves and displays files from web servers, much like a file explore does for local files.
+At a more advanced level, HTTP can also add more complexity beyond simple file access,
+such as providing dynamic content, APIs, and more.</p>
 <p>Knowing how a web server functions is crucial for anyone wanting to manage or deploy web services.
 There are many <a href="https://en.wikipedia.org/wiki/Comparison_of_web_server_software">web servers available</a>, but in this session,
 I will guide you through installing and using the <a href="https://httpd.apache.org/">Apache</a> web server.
@@ -211,15 +213,15 @@ sudo apt -y upgrade
 </code></pre>
 <p>Once the machine is updated, we can install Apache2 using <code>apt</code>.
 First we'll use <code>apt search</code> to identify the specific package name.
-I know that a lot of results will be returned, so I will <strong>pipe</strong> <code>|</code> the <code>apt search</code> command
-through <code>head</code> to look at the initial results:</p>
+I know that a lot of results will be returned, so I will <strong>pipe</strong> <code>|</code> the output from <code>apt search</code> command
+through the <code>head</code> command to look at the initial results:</p>
 <pre><code>apt search apache2 | head
 </code></pre>
 <p>The package that we're interested in happens to be named <code>apache2</code> on Ubuntu.
 The name of this package is not a given, though.
 On other distributions, like Fedora, the Apache package is called <code>httpd</code>.
-This is why it's important to use <code>apt search &lt;package_name&gt;</code> and <code>apt show &lt;package_name&gt;</code>
-to locate the desired package before installing.</p>
+This is why it's important to learn and use <code>apt search &lt;package_name&gt;</code> and <code>apt show &lt;package_name&gt;</code> commands
+to locate desired packages before installing.</p>
 <pre><code>apt show apache2
 </code></pre>
 <p>Once we've confirmed that <code>apache2</code> is the package that we want,
@@ -234,7 +236,9 @@ configure some basic things, and create a basic web site.</p>
 make sure it is <em>enabled</em> and <em>running</em>:</p>
 <pre><code>systemctl status apache2
 </code></pre>
-<p>The output shows that <code>apache2</code> is <strong>enabled</strong>, which is the default for this software.
+<p>The output may be overwhelming at first glance, so I advise you to read each line slowly.
+In particular, look for key lines that show its <strong>Active</strong> and <strong>Loaded</strong> status.
+For example, the output shows that <code>apache2</code> is <strong>enabled</strong>, which is the default for this software.
 The term <strong>enabled</strong> means that the software starts automatically on reboot.
 The output should also state that the software is <strong>active</strong>.
 This means that the <code>apache2</code> is running and live.</p>
@@ -252,7 +256,8 @@ I like <code>w3m</code> because it defaults to Vim keybindings, but many like <c
 <pre><code>sudo apt install elinks
 </code></pre>
 <p>Once the text based browser is installed, we can visit our default site using its loopback IP address.
-The loopback address is named <code>localhost</code>.
+The loopback address is named <code>localhost</code> and always points to the local machine.
+It is useful for testing services, connections, and more locally.
 From the command line on our server, we can run either of these two commands to view localhost:</p>
 <pre><code>w3m 127.0.0.1
 </code></pre>
@@ -260,11 +265,15 @@ From the command line on our server, we can run either of these two commands to 
 <pre><code>w3m localhost
 </code></pre>
 <blockquote>
-<p>If you elected to use <code>elink</code>, just replace <code>w3m</code> with it.</p>
+<p>If you elected to use <code>elinks</code>, just replace <code>w3m</code> with it.</p>
 </blockquote>
 <p>We can also acquire the system's <a href="https://en.wikipedia.org/wiki/Private_network">private IP address</a> using the <code>ip a</code> command.
-This address will begin with the number <strong>10</strong> and look like <code>10.128.0.99</code>.
-To use that with <code>w3m</code> from the virtual machine's command line, we run:</p>
+There are different address ranges for the private networks.
+On your home network, your private IP address for a your laptop or phone might begin with <code>192.168.x.x</code>.
+On our virtual instances, the address will begin with the number <strong>10</strong> and look like <code>10.128.0.99</code>.
+The difference deals with the size of the private networks.
+In any case, to use the private IP address with <code>w3m</code> from the virtual machine's command line, we run,
+assuming private IP address for my local machine is <code>10.128.0.99</code>:</p>
 <pre><code>w3m 10.128.0.99
 </code></pre>
 <p>If <code>apache2</code> installed and started correctly, you should see the following text:</p>
