@@ -8,7 +8,9 @@ the web server, or alternatively called the HTTP server.
 The web server is the software that makes websites available in your browsers.
 The basic function is to make files on the web server accessible to others via their web browsers.
 At a basic level, the web is essentially a world wide file system, and
-the web browser is essentially a file explorer, like Windows Explorer on Windows or Finder on macOS.
+the web browser retrieves and displays files from web servers, much like a file explore does for local files.
+At a more advanced level, HTTP can also add more complexity beyond simple file access,
+such as providing dynamic content, APIs, and more.
 
 Knowing how a web server functions is crucial for anyone wanting to manage or deploy web services.
 There are many [web servers available][web_servers_wiki], but in this session,
@@ -42,8 +44,8 @@ sudo apt -y upgrade
 
 Once the machine is updated, we can install Apache2 using `apt`.
 First we'll use `apt search` to identify the specific package name.
-I know that a lot of results will be returned, so I will **pipe** `|` the `apt search` command
-through `head` to look at the initial results:
+I know that a lot of results will be returned, so I will **pipe** `|` the output from `apt search` command
+through the `head` command to look at the initial results:
 
 ```
 apt search apache2 | head
@@ -52,8 +54,8 @@ apt search apache2 | head
 The package that we're interested in happens to be named `apache2` on Ubuntu.
 The name of this package is not a given, though.
 On other distributions, like Fedora, the Apache package is called `httpd`.
-This is why it's important to use `apt search <package_name>` and `apt show <package_name>`
-to locate the desired package before installing.
+This is why it's important to learn and use `apt search <package_name>` and `apt show <package_name>` commands
+to locate desired packages before installing.
 
 ```
 apt show apache2
@@ -79,7 +81,9 @@ make sure it is *enabled* and *running*:
 systemctl status apache2
 ```
 
-The output shows that `apache2` is **enabled**, which is the default for this software.
+The output may be overwhelming at first glance, so I advise you to read each line slowly.
+In particular, look for key lines that show its **Active** and **Loaded** status.
+For example, the output shows that `apache2` is **enabled**, which is the default for this software.
 The term **enabled** means that the software starts automatically on reboot.
 The output should also state that the software is **active**.
 This means that the `apache2` is running and live.
@@ -109,7 +113,8 @@ sudo apt install elinks
 ```
 
 Once the text based browser is installed, we can visit our default site using its loopback IP address.
-The loopback address is named `localhost`.
+The loopback address is named `localhost` and always points to the local machine.
+It is useful for testing services, connections, and more locally.
 From the command line on our server, we can run either of these two commands to view localhost:
 
 ```
@@ -122,11 +127,15 @@ Or:
 w3m localhost
 ```
 
-> If you elected to use `elink`, just replace `w3m` with it.
+> If you elected to use `elinks`, just replace `w3m` with it.
 
 We can also acquire the system's [private IP address][private_ip_wiki] using the `ip a` command.
-This address will begin with the number **10** and look like `10.128.0.99`.
-To use that with `w3m` from the virtual machine's command line, we run:
+There are different address ranges for the private networks.
+On your home network, your private IP address for a your laptop or phone might begin with `192.168.x.x`.
+On our virtual instances, the address will begin with the number **10** and look like `10.128.0.99`.
+The difference deals with the size of the private networks.
+In any case, to use the private IP address with `w3m` from the virtual machine's command line, we run,
+assuming private IP address for my local machine is `10.128.0.99`:
 
 ```
 w3m 10.128.0.99

@@ -2,31 +2,24 @@
 
 ## Introduction
 
-Client-side programming languages,
-like JavaScript,
-are handled by the browser.
-Major browsers like Firefox, Chrome, Safari, Edge, etc.
-all include [JavaScript engines][jsEngine] that use
-just-in-time compilers to execute JavaScript code
-(Mozilla has a [nice description][mozillaJS] of the process.)
-From an end user's perspective,
-you basically install JavaScript when you install a web browser.
+Client-side programming languages, like JavaScript, are handled entirely by the browser.
+To do this, browsers like Firefox, Chrome, Safari, Edge, and others include [JavaScript engines][js_engine] that use
+just-in-time compilers to execute JavaScript code (see [JavaScript Engine, Mozilla][js_mozilla]).
 
-[PHP][php], on the other hand,
-is a server-side programming language,
-which means it must be installed on the server
-in order to be used.
+From an end user's perspective, you basically install JavaScript when you install a web browser.
+
+[PHP][php], on the other hand, is a server-side programming language.
+This means it must be installed on the server.
+Unlike with JavaScript, the browser does not execute PHP directly;
+instead, the web server processes the PHP and sends the resulting HTML or other content to the browser.
+
 From a system or web administrator's perspective,
-this means that not only does PHP have be installed
-on a server, but
-it must also be configured to work with the HTTP server,
-which in our case is Apache2.
+this means that PHP has be installed and configured to work with the web/HTTP server.
+In our case, we have to install and configure PHP on our virtual instances to work with the Apache2 web server software.
 
-The main use of PHP is to interact with databases,
-like MySQL, MariaDB, PostgreSQL, etc.,
+One of the primary uses of PHP is to interact with databases, like MySQL, MariaDB, PostgreSQL, etc.,
 in order to create data-based page content.
-To begin to set this up,
-we have to:
+To begin to set this up, we have to:
 
 1. Install PHP and relevant Apache2 modules
 2. Configure PHP and relevant modules to work with Apache2
@@ -34,27 +27,25 @@ we have to:
 
 ## Install PHP 
 
-As usual, we will use ``apt install``
-to install PHP and relevant modules.
-Then we will restart Apache2
-using the ``systemctl`` command.
-Use ``apt show [package_name]``
-to read more about each package
-we will install.
-The first command below installs
-the **php** and the **libapache2-mod-php**
-packages.
-The latter package is used to
-create a connection between PHP
-and Apache2.
+As usual, we will use `apt install` to install PHP and relevant modules.
+Then we will restart Apache2 using the `systemctl` command.
+Use `apt show [package_name]` to read more about each package we will install.
+The first command below installs the **php** and the **libapache2-mod-php** packages.
+The latter package is used to create a connection between PHP and the Apache2 web server.
 
 ```
 sudo apt install php libapache2-mod-php
 sudo systemctl restart apache2
 ```
 
-We can check its status and
-see if there are any errors:
+Once installed, you want to confirm the installed version with the following command.
+This is because other software (e.g., WordPress, etc.) might require a specific version before that other software to work.
+
+```
+php -v
+```
+
+After we restart Apache2, we need to check its status and see if there are any errors in the log output:
 
 ```
 systemctl status apache2
@@ -62,22 +53,16 @@ systemctl status apache2
 
 ## Check Install
 
-To check that it's been installed and that
-it's working with Apache2,
-we can create a small PHP file in our
-web document root.
-To do that,
-we ``cd`` to the ``/var/www/html/`` directory
-and create a file called **info.php**:
+Next we check that PHP has been installed and that it's working with Apache2.
+We can create a small PHP file in our web document root.
+To do that, we `cd` to the document root, `/var/www/html/`, and create a file called **info.php**:
 
 ```
 cd /var/www/html/
 sudo nano info.php
 ```
 
-In that file,
-add the following text,
-then save and close the file:
+In that file, add the following text, then save and close the file:
 
 ```
 <?php
@@ -85,24 +70,21 @@ phpinfo();
 ?>
 ```
 
-No visit that file using the external IP address
-for your server.
-For example, in Firefox, Chrome, etc, go to:
+Now visit that file using the public IP address for your server.
+If the public IP address for my virtual machine is `55.333.55.33`, then in Firefox, Chrome, etc, I would open:
 
 ```
 http://55.333.55.333/info.php
 ```
 
-> Again, be sure to replace the IP below with the IP address
-> of your server and be sure to use **http** and not
-> **https**.
+> Again, be sure to replace the IP below with the IP address of your server and
+> be sure to use **http** and not **https**.
 
-You should see a page that provides system information
-about PHP, Apache2, and the server.
+You should see a page that provides system information about PHP, Apache2, and the server.
 The top of the page should look like Figure 1 below:
 
 <figure>
-<img src="images/24-phpinstall.png"
+<img src="images/4b-phpinstall.png"
 alt="PHP install page"
 title="PHP install page">
 <figcaption>
@@ -110,39 +92,31 @@ Fig. 1. A screenshot of the title of the PHP install page.
 </figcaption>
 </figure>
 
+Once you've confirmed that PHP is installed and functioning,
+you should delete it since it exposes detailed systems information:
+
+```
+sudo rm /var/www/html/info.php
+```
+
 ## Basic Configurations
 
-By default, when Apache2 serves a web page,
-it looks for and serves a
-[file titled **index.html**][modDirDocs],
+By default, when Apache2 serves a web page, it looks for a [file titled `index.html`][mod_dir_docs] and serves that,
 even if it does not display that file in the URL bar.
-Thus, ``http://example.com/`` actually
-resolves to ``http://example.com/index.html``
-in such cases.
-
+Thus, `http://example.com/` actually resolves to `http://example.com/index.html` in such cases.
 However, if our plan is to provide for PHP,
-we want Apache2 to default to a file
-titled **index.php** instead of
-**index.html** file.
-To configure that,
-we need to edit the **dir.conf** file
-in the **/etc/apache2/mods-enabled/** directory.
-In that file there is a line that starts with
-**DirectoryIndex**.
-The first file in that line is **index.html**, and then
-there are a series of other files that Apache2 will
-look for in the order listed.
-If any of those files exist in the document root,
-then Apache2 will serve those before proceeding to the next.
-We simply want to put **index.php** first and let
-**index.html** be second on that line.
-Before modifying this file,
-it's good practice to create a backup
-of the original.
-So we will use the ``cp`` command
-to create a copy with a new name,
-and then we will use ``nano``
-to edit the file.
+we want Apache2 to default to a file titled `index.php` instead of `index.html` file.
+In these cases, `http://example.com/` would actually resolves to `http://example.com/index.php`.
+
+To configure that, we need to edit the `dir.conf` file in the `/etc/apache2/mods-enabled/` directory.
+In that file there is a line that starts with `DirectoryIndex` followed by a list of files.
+The first file listed in that line is `index.html`,
+and then there are a series of other files that Apache2 looks for in the order listed.
+Apache checks that list list and prioritizes these in order of appearance on the list.
+If any of those files exist in the document root, then Apache2 serves those before proceeding to the next.
+We want Apache to prioritize the `index.php` file first and `index.html` second.
+Before modifying this file, it's good practice to create a backup of the original.
+So we will use the `cp` command to create a copy with a new name, and then we will use `nano` to edit the file.
 
 ```
 cd /etc/apache2/mods-enabled/
@@ -150,36 +124,30 @@ sudo cp dir.conf dir.conf.bak
 sudo nano dir.conf
 ```
 
-Next we change the line to this:
+Next we change the line to this, so that `index.php` is first in line:
 
 ```
 DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
 ```
 
-Whenever we make a configuration change,
-we can use the ``apachectl`` command to
-check our configuration:
+Whenever we make a configuration change, we should use the `apachectl` command to check our configuration:
 
 ```
 apachectl configtest
 ```
 
-If we get a **Syntax Ok** message,
-we can reload the Apache2 configuration and
-restart the service:
+If we get a `Syntax Ok` message, we can reload the Apache2 configuration, restart the service, and check its status:
 
 ```
 sudo systemctl reload apache2
 sudo systemctl restart apache2
+sudo systemctl status apache2
 ```
 
 ## Create an index.php File
 
 Now create a basic PHP page.
-``cd`` back to the Apache2
-document root directory and
-use ``nano`` to create and
-open an ``index.php`` file:
+`cd` back to the Apache2 document root directory and use `nano` to create and open an `index.php` file:
 
 ```
 cd /var/www/html/
@@ -187,96 +155,86 @@ sudo nano index.php
 ```
 
 Let's add some HTML and PHP to it.
-We will add PHP that functions as a
-simple [browser detector][httpUserAgent].
+We will add PHP that functions as a simple [browser detector][http_user_agent].
 Add the following code:
 
 ```
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Broswer Detector</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Detector</title>
 </head>
 <body>
-<p>You are using the following browser to view this site:</p>
+    <h1>Browser & OS Detection</h1>
+    <p>You are using the following browser to view this site:</p>
 
-<?php
-$user_agent = $_SERVER['HTTP_USER_AGENT'];
+    <?php
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-if(strpos($user_agent, 'Edge') !== FALSE) {
-    $browser = 'Microsoft Edge';
-} elseif(strpos($user_agent, 'Firefox') !== FALSE) {
-    $browser = 'Mozilla Firefox';
-} elseif(strpos($user_agent, 'Chrome') !== FALSE) {
-    $browser = 'Google Chrome';
-} elseif(strpos($user_agent, 'Opera Mini') !== FALSE) {
-    $browser = "Opera Mini";
-} elseif(strpos($user_agent, 'Opera') !== FALSE) {
-    $browser = 'Opera';
-} elseif(strpos($user_agent, 'Safari') !== FALSE) {
-    $browser = 'Safari';
-} else {
-    $browser = 'Unknown';
-}
+    // Browser Detection
+    if (stripos($user_agent, 'Edge') !== false) {
+        $browser = 'Microsoft Edge';
+    } elseif (stripos($user_agent, 'Firefox') !== false) {
+        $browser = 'Mozilla Firefox';
+    } elseif (stripos($user_agent, 'Chrome') !== false && stripos($user_agent, 'Chromium') === false) {
+        $browser = 'Google Chrome';
+    } elseif (stripos($user_agent, 'Chromium') !== false) {
+        $browser = 'Chromium';
+    } elseif (stripos($user_agent, 'Opera Mini') !== false) {
+        $browser = 'Opera Mini';
+    } elseif (stripos($user_agent, 'Opera') !== false || stripos($user_agent, 'OPR') !== false) {
+        $browser = 'Opera';
+    } elseif (stripos($user_agent, 'Safari') !== false && stripos($user_agent, 'Chrome') === false) {
+        $browser = 'Safari';
+    } else {
+        $browser = 'Unknown Browser';
+    }
 
-if(strpos($user_agent, 'Windows') !== FALSE) {
-    $os = 'Windows';
-} elseif(strpos($user_agent, 'Linux') !== FALSE) {
-    $os = 'Linux';
-} elseif(strpos($user_agent, 'Mac') !== FALSE) {
-    $os = 'Mac';
-} elseif(strpos($user_agent, 'iOS') !== FALSE) {
-    $os = 'iOS';
-} elseif(strpos($user_agent, 'Android') !== FALSE) {
-    $os = 'Android';
-} else {
-    $os = 'Unknown';
-}
+    // OS Detection
+    if (stripos($user_agent, 'Windows') !== false) {
+        $os = 'Windows';
+    } elseif (stripos($user_agent, 'Mac') !== false || stripos($user_agent, 'Macintosh') !== false) {
+        $os = 'Mac';
+    } elseif (stripos($user_agent, 'Linux') !== false) {
+        $os = 'Linux';
+    } elseif (stripos($user_agent, 'iOS') !== false || stripos($user_agent, 'iPhone') !== false || stripos($user_agent, 'iPad') !== false) {
+        $os = 'iOS';
+    } elseif (stripos($user_agent, 'Android') !== false) {
+        $os = 'Android';
+    } else {
+        $os = 'Unknown OS';
+    }
 
-if($browser === 'Unknown' || $os === 'Unknown') {
-    echo 'No browser detected.';
-} else {
-    echo 'Your browser is ' . $browser . ' and your operating system is ' . $os . '.';
-}
-?>
+    // Output Result
+    echo "<p>Your browser is <strong>$browser</strong> and your operating system is <strong>$os</strong>.</p>";
+    ?>
 
 </body>
 </html>
 ```
 
-Next, save the file and exit ``nano``.
-In your browser,
-visit your external IP address site
-(again, replace your server's IP address):
+Next, save the file and exit `nano`.
+In your browser, visit your site at its public IP address (again, replace your server's IP address):
 
 ```
 http://55.333.55.333/
 ```
 
-Although your **index.html** file still exists
-in your document root,
-Apache2 now returns the **index.php** file
-instead.
-However, if for some reason the **index.php**
-was deleted,
-then Apache2 would revert to the **index.html** file
-since that's what is listed next in the **dir.conf**
-**DirectoryIndex** line.
+Although your `index.html` file still exists in your document root, Apache2 now returns the `index.php` file instead.
+If for some reason PHP fails, then the `index.html` file would be served next
+since that's what is listed next in the `dir.conf` file on the `DirectoryIndex` line.
 
 ## Conclusion
 
-In this section,
-we installed PHP and configured it work with Apache2.
-We also created a simple PHP test page
-that reported our browser user agent information
-on our website.
+In this section, we installed PHP and configured it to work with Apache2.
+We also created a simple PHP test page that reported our browser user agent information on our website.
 
-In the next section,
-we'll learn how to complete the LAMP stack
-by adding the MySQL relational database
-to our setup.
+In the next section, we'll learn how to complete the LAMP stack by adding the MySQL relational database to our setup.
 
 [php]:https://www.php.net/
-[jsEngine]:https://en.wikipedia.org/wiki/JavaScript_engine
-[mozillaJS]:https://blog.mozilla.org/javascript/
-[modDirDocs]:https://httpd.apache.org/docs/current/mod/mod_dir.html
-[httpUserAgent]:https://stackoverflow.com/questions/8754080/how-to-get-exact-browser-name-and-version
+[js_engine]:https://en.wikipedia.org/wiki/JavaScript_engine
+[js_mozilla]:https://blog.mozilla.org/javascript/
+[mod_dir_docs]:https://httpd.apache.org/docs/current/mod/mod_dir.html
+[http_user_agent]:https://stackoverflow.com/questions/8754080/how-to-get-exact-browser-name-and-version
