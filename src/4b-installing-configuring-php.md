@@ -141,7 +141,7 @@ If we get a `Syntax Ok` message, we can reload the Apache2 configuration, restar
 ```
 sudo systemctl reload apache2
 sudo systemctl restart apache2
-sudo systemctl status apache2
+systemctl status apache2
 ```
 
 ## Create an index.php File
