@@ -316,7 +316,7 @@ sudo systemctl restart mysql
 
 In order for PHP to connect to MySQL, it needs to authenticate itself.
 To do that, we will create a `login.php` file in in our document root's parent directory: `/var/www`.
-We also need to change the group ownership of the file and its permissions.
+We also need to change the group ownership of the file and its permissions (see note below).
 This will allow the file can be read by the Apache2 web server but not by the world.
 This prevents the password information from being accessible to web users.
 
@@ -328,6 +328,25 @@ sudo chown :www-data login.php
 ls -l login.php
 sudo nano login.php
 ```
+
+> Note: we haven't covered in detail the concept of file ownership and permissions.
+> In short, files and directories are owned by users and by user groups.
+> When we run a command like `ls -l`, the output will show the file owner and the group owner, like so:
+    > `-rw-r----- 1 root www-data    0 Feb 14 02:44 login.php`
+> This command tells us that the user `root` is the file owner and the group `www-data` is the group owner of the file `login.php`.
+> We change the file permissions with the `chmod` command and the file ownership with the `chown` command.
+> In the above code snippet, the `chmod 640 login.php` command changes the file permissions to:
+    > user owner: read, write
+    > group owner: read only
+    > other/world: no permissions
+> When we created the file using the `sudo touch login.php` command, the use of `sudo` creates the file with `root` as the owner.
+> The `chown :www-data login.php` command changes the group ownership to `www-data`.
+> The `www:data` user is the Apache user.
+> Many services, like Apache, have corresponding users on the system.
+> Files placed in our document root `/var/www/html` will be served on the web.
+> Therefore, those files must have read access for **other/world**.
+> But we don't want the `login.php` file to be accessible to the world since it contains login information for our MySQL user.
+> Thus, in addition to modifying file ownership and permissions, we also place it in the parent directory `/var/www`.
 
 In the file, add the following credentials.
 If for some reason you used a different database name than `opacdb` and a different username than `opacuser`,
@@ -346,9 +365,10 @@ $db_password = "XXXXXXXXX";
 Next we create a new PHP file for our website.
 This file will display HTML but will primarily be PHP interacting with our `opacdb` database.
 
-Create a file titled `opac.php`.
+Create a file titled `opac.php` in `/var/www/html`.
 
 ```
+cd /var/www/html
 sudo nano opac.php
 ```
 
@@ -427,9 +447,12 @@ Nothing will output if all is well with the first command.
 If all is well with the second command, HTML should be outputted:
 
 ```
-sudo php -f login.php
-sudo php -f opac.php
+sudo php -f /var/www/login.php
+sudo php -f /var/www/html/opac.php
 ```
+
+Now view the site by opening the public IP address for your server in your browser.
+If all goes well, you should see the data in your `opacdb` database and `books` table rendered in your webpage.
 
 ## Conclusion
 
