@@ -3191,7 +3191,7 @@ sudo nano dir.conf
 <p>If we get a <code>Syntax Ok</code> message, we can reload the Apache2 configuration, restart the service, and check its status:</p>
 <pre><code>sudo systemctl reload apache2
 sudo systemctl restart apache2
-sudo systemctl status apache2
+systemctl status apache2
 </code></pre>
 <h2 id="create-an-indexphp-file"><a class="header" href="#create-an-indexphp-file">Create an index.php File</a></h2>
 <p>Now create a basic PHP page.
@@ -3502,7 +3502,7 @@ sudo systemctl restart mysql
 <h3 id="create-php-scripts"><a class="header" href="#create-php-scripts">Create PHP Scripts</a></h3>
 <p>In order for PHP to connect to MySQL, it needs to authenticate itself.
 To do that, we will create a <code>login.php</code> file in in our document root's parent directory: <code>/var/www</code>.
-We also need to change the group ownership of the file and its permissions.
+We also need to change the group ownership of the file and its permissions (see note below).
 This will allow the file can be read by the Apache2 web server but not by the world.
 This prevents the password information from being accessible to web users.</p>
 <pre><code>cd /var/www
@@ -3512,6 +3512,26 @@ sudo chown :www-data login.php
 ls -l login.php
 sudo nano login.php
 </code></pre>
+<blockquote>
+<p>Note: we haven't covered in detail the concept of file ownership and permissions.
+In short, files and directories are owned by users and by user groups.
+When we run a command like <code>ls -l</code>, the output will show the file owner and the group owner, like so:
+&gt; <code>-rw-r----- 1 root www-data    0 Feb 14 02:44 login.php</code>
+This command tells us that the user <code>root</code> is the file owner and the group <code>www-data</code> is the group owner of the file <code>login.php</code>.
+We change the file permissions with the <code>chmod</code> command and the file ownership with the <code>chown</code> command.
+In the above code snippet, the <code>chmod 640 login.php</code> command changes the file permissions to:
+&gt; user owner: read, write
+&gt; group owner: read only
+&gt; other/world: no permissions
+When we created the file using the <code>sudo touch login.php</code> command, the use of <code>sudo</code> creates the file with <code>root</code> as the owner.
+The <code>chown :www-data login.php</code> command changes the group ownership to <code>www-data</code>.
+The <code>www:data</code> user is the Apache user.
+Many services, like Apache, have corresponding users on the system.
+Files placed in our document root <code>/var/www/html</code> will be served on the web.
+Therefore, those files must have read access for <strong>other/world</strong>.
+But we don't want the <code>login.php</code> file to be accessible to the world since it contains login information for our MySQL user.
+Thus, in addition to modifying file ownership and permissions, we also place it in the parent directory <code>/var/www</code>.</p>
+</blockquote>
 <p>In the file, add the following credentials.
 If for some reason you used a different database name than <code>opacdb</code> and a different username than <code>opacuser</code>,
 then you need to substitute your names below.
@@ -3525,8 +3545,9 @@ $db_password = "XXXXXXXXX";
 </code></pre>
 <p>Next we create a new PHP file for our website.
 This file will display HTML but will primarily be PHP interacting with our <code>opacdb</code> database.</p>
-<p>Create a file titled <code>opac.php</code>.</p>
-<pre><code>sudo nano opac.php
+<p>Create a file titled <code>opac.php</code> in <code>/var/www/html</code>.</p>
+<pre><code>cd /var/www/html
+sudo nano opac.php
 </code></pre>
 <p>Then copy over the following text.
 I suggest you transcribe it, especially if you're interested in learning a bit of PHP.</p>
@@ -3596,9 +3617,11 @@ I suggest you transcribe it, especially if you're interested in learning a bit o
 If there are any errors in our PHP, these commands will show the line numbers causing errors or leading up to errors.
 Nothing will output if all is well with the first command.
 If all is well with the second command, HTML should be outputted:</p>
-<pre><code>sudo php -f login.php
-sudo php -f opac.php
+<pre><code>sudo php -f /var/www/login.php
+sudo php -f /var/www/html/opac.php
 </code></pre>
+<p>Now view the site by opening the public IP address for your server in your browser.
+If all goes well, you should see the data in your <code>opacdb</code> database and <code>books</code> table rendered in your webpage.</p>
 <h2 id="conclusion-10"><a class="header" href="#conclusion-10">Conclusion</a></h2>
 <p>Congratulations! If you've reached this far, you have successfully created a LAMP stack.
 In the process, you have learned how to install and set up MySQL, how to create MySQL root and regular user accounts,
