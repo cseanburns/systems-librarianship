@@ -150,7 +150,15 @@ grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant option;
 ```
 
 Other than granting **all privileges**, we could limit the user to specific privileges, including:
-**CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, and GRANT OPTION**.
+
+- CREATE
+- DROP
+- DELETE
+- INSERT
+- SELECT
+- UPDATE
+- GRANT OPTION
+  
 Such privileges may be called operations or functions.
 They allow MySQL users to use and modify the databases, where appropriate.
 For example, we may want to limit the **opacuser** user account to only be able to use **SELECT** commands.
@@ -329,19 +337,31 @@ ls -l login.php
 sudo nano login.php
 ```
 
-> Note: we haven't covered in detail the concept of file ownership and permissions.
-> In short, files and directories are owned by users and by user groups.
-> When we run a command like `ls -l`, the output will show the file owner and the group owner, like so:
-    > `-rw-r----- 1 root www-data    0 Feb 14 02:44 login.php`
-> This command tells us that the user `root` is the file owner and the group `www-data` is the group owner of the file `login.php`.
-> We change the file permissions with the `chmod` command and the file ownership with the `chown` command.
+> **A Short Aside on File Ownership and Permissions**
+> 
+> We haven't covered in detail the concept of file ownership and permissions.
+In short, files and directories are owned by users and by user groups.
+When we run a command like `ls -l`, the output will show the file owner and the group owner:
+> In the output below, the user `root` is the file owner and the group `www-data` is the group owner of the file `login.php`.
+>
+> ```
+> -rw-r----- 1 root www-data    0 Feb 14 02:44 login.php
+> ```
+> 
+> We change the file permissions with the `chmod` command.
+> We the file ownership with the `chown` command.
 > In the above code snippet, the `chmod 640 login.php` command changes the file permissions to:
-    > user owner: read, write
-    > group owner: read only
-    > other/world: no permissions
+>
+> - user owner: read, write
+> - group owner: read only
+> - other/world: no permissions
+>
+> For an in-depth tutorial, see [Linux Systems Administrations, Chapter 3.3 File Permissions and Ownership][files_burns]
+>  
 > When we created the file using the `sudo touch login.php` command, the use of `sudo` creates the file with `root` as the owner.
 > The `chown :www-data login.php` command changes the group ownership to `www-data`.
 > The `www:data` user is the Apache user.
+>  
 > Many services, like Apache, have corresponding users on the system.
 > Files placed in our document root `/var/www/html` will be served on the web.
 > Therefore, those files must have read access for **other/world**.
@@ -465,3 +485,4 @@ but completing the above process is a great start to learning more.
 
 [mysql_wikipedia]:https://en.wikipedia.org/wiki/MySQL
 [intro_rel_databases]:https://mariadb.com/kb/en/introduction-to-relational-databases/
+[files_burns]:https://cseanburns.github.io/linux_sysadmin/3c-file-perms-owns.html
