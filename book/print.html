@@ -3279,8 +3279,20 @@ However in the next section, we will explore the database basics from the comman
 <h2 id="install-and-set-up-mysql"><a class="header" href="#install-and-set-up-mysql">Install and Set Up MySQL</a></h2>
 <p>In this section, we'll learn how to install, setup, secure, and
 configure the MySQL relational database so that it works with the Apache2 web server and the PHP programming language.</p>
-<p>First, we install the MySQL Community Server package.
-The MySQL Community Server package is a <strong>metapackage</strong> that installs the latest most secure version of MySQL,
+<p>First, as normal, we make run the following commands to ensure our machines are fully updated:</p>
+<pre><code>sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+sudo apt clean
+</code></pre>
+<blockquote>
+<p>Note that sometimes you will have to reboot your machine, mostly when you get a Linux kernel update.
+To do so, run <code>sudo reboot now</code>.
+This command will disconnect you from your machine.
+Wait a minute or two, and then reconnect.</p>
+</blockquote>
+<p>Then we install the MySQL Community Server package.
+The MySQL Community Server package is a <strong>metapackage</strong> that installs the latest, most secure version of MySQL,
 regardless of the software's version number, as well as its dependencies.</p>
 <pre><code>sudo apt install mysql-server
 </code></pre>
@@ -3324,15 +3336,16 @@ In order to do so, we use the following command:</p>
 </code></pre>
 <blockquote>
 <p><strong>NOTE:</strong> we need to distinguish between the regular user prompt of our Linux accounts and the MySQL prompt below.
-The default promp for our user accounts has the following syntax: <code>user_name@computer_name:path$ </code>.
+The default prompt for our user accounts has the following syntax: <code>user_name@computer_name:path$ </code>.
 In the following, I will indicate we are at the MySQL prompt with the following text: <code>mysql&gt;</code>.
 Do not type that prompt when you are using MySQL.</p>
 </blockquote>
-<p>Then request a list of the databases with the <code>show databases;</code> command.
+<p>When I connect to a MySQL server, I like to list the available databases.
+To do this, we use the <code>show databases;</code> command.
 Note that MySQL commands end with a semicolon:</p>
 <pre><code>mysql&gt; show databases;
 </code></pre>
-<p>And the following databases should be returned:</p>
+<p>The following databases should be returned:</p>
 <pre><code>+--------------------+
 | Database           |
 +--------------------+
@@ -3357,7 +3370,7 @@ Thus in the example below, the <strong>Xs</strong> indicate my password.</p>
 <pre><code>sudo mysql -u root
 </code></pre>
 <p>At the MySQL prompt, create the new user:</p>
-<pre><code>create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
+<pre><code>mysql&gt; create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
 </code></pre>
 <p>If the prompt returns a <strong>Query OK</strong> message,
 then the new user should have been created without any issues.</p>
@@ -3366,9 +3379,9 @@ then the new user should have been created without any issues.</p>
 We'll call this database <code>opacdb</code> and set the character encoding to UTF-8 to support international characters.
 Then we run the MySQL <code>show</code> command to view the new database.
 Next we grant <code>all privileges</code> on the database to the user account <code>opacuser</code>.</p>
-<pre><code>create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
-show databases;
-grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant option;
+<pre><code>mysql&gt; create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
+mysql&gt; show databases;
+mysql&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant option;
 </code></pre>
 <p>Other than granting <strong>all privileges</strong>, we could limit the user to specific privileges, including:</p>
 <ul>
@@ -3386,7 +3399,7 @@ For example, we may want to limit the <strong>opacuser</strong> user account to 
 These decisions depend on the purpose of the database and our security risks.</p>
 <p>Exit out of the MySQL database as the <strong>root MySQL user</strong>, and then exit out of the <strong>root Linux user account</strong>.
 You should be back to your normal Linux user account:</p>
-<pre><code>\q
+<pre><code>mysql&gt; \q
 </code></pre>
 <blockquote>
 <p>Note: relational database keywords are often written in all capital letters: <code>CREATE</code>, <code>DROP</code>, <code>SELECT</code>, etc.
@@ -3396,15 +3409,27 @@ This is simply because, by convention, <em>I'm lazy</em>.</p>
 </blockquote>
 <h2 id="logging-in-as-regular-user-and-creating-tables"><a class="header" href="#logging-in-as-regular-user-and-creating-tables">Logging in as Regular User and Creating Tables</a></h2>
 <p>We can now start doing MySQL work.
-As a reminder, we've created a new MySQL user named <code>opacuser</code> and a new database for <code>opacuser</code> that is called <code>opacdb</code>.
+Note that when we login to the MySQL server, we leave the <code>bash</code> shell and enter the MySQL command line client.
+By default, the prompt for the client is bare-bones.
+We can make it more informative, though.
+To do so, open your <code>.bashrc</code> file:</p>
+<pre><code>nano .bashrc
+</code></pre>
+<p>Scroll to the bottom of the file and add the following:</p>
+<pre><code>export MYSQL_PS1="[\d]&gt; "
+</code></pre>
+<p>Then save and exit and source the file:</p>
+<pre><code>source ~/.bashrc
+</code></pre>
+<p>As a reminder, we've created a new MySQL user named <code>opacuser</code> and a new database for <code>opacuser</code> that is called <code>opacdb</code>.
 When we run the <code>show databases</code> command as the <code>opacuser</code> user, we should see the <code>opacdb</code> database.
 Note below that I use the <code>-p</code> option when logging back into MySQL as the <code>opacuser</code>.
 This instructs MySQL to request the password for this user, it is required.</p>
 <pre><code>mysql -u opacuser -p
 </code></pre>
 <p>From the MySQL prompt, list the available databases and use the <code>use</code> command to switch to the new <code>opacdb</code> database:</p>
-<pre><code>show databases;
-use opacdb;
+<pre><code>mysql&gt; show databases;
+mysql&gt; use opacdb;
 </code></pre>
 <p>A database is not worth much without data.
 In the following code, I create and define a new table for our <code>opacdb</code> database.
@@ -3420,12 +3445,12 @@ When we create the <code>author</code> and <code>title</code> fields,
 we say that these fields can have a maximum length of 150 characters and should not be empty.
 When we create the <code>copyright</code> field, we limit it to the <code>year</code> data type,
 which means it has to adhere to a specific syntax <code>YYYY</code>, and should not be empty.</p>
-<pre><code>create table books (
-    id int unsigned not null auto_increment,
-    author varchar(150) not null,
-    title varchar(150) not null,
-    copyright year(4) not null,
-    primary key (ID)
+<pre><code>mysql&gt; create table books (
+        id int unsigned not null auto_increment,
+        author varchar(150) not null,
+        title varchar(150) not null,
+        copyright year(4) not null,
+        primary key (ID)
 );
 </code></pre>
 <blockquote>
@@ -3438,8 +3463,8 @@ However, we are going to keep things rather simple in this exercise.</p>
 </blockquote>
 <p>You can confirm that the table was created by running the following two commands.
 The MySQL <code>show</code> command lists the tables in a database and the <code>describe</code> command describes a table's structure.</p>
-<pre><code>show tables;
-describe books;
+<pre><code>mysql&gt; show tables;
+mysql&gt; describe books;
 </code></pre>
 <p>Congratulations! Now create some records for that table.</p>
 <h3 id="adding-records-into-the-table"><a class="header" href="#adding-records-into-the-table">Adding records into the table</a></h3>
@@ -3449,20 +3474,21 @@ We'll use the MySQL <code>insert</code> command to add our records into our <cod
 We need to specify three fields when entering data: <code>author</code>, <code>title</code>, and <code>copyright</code>.
 The <code>copyright</code> field is a date field, and it should conform to the <code>YYYY</code> syntax.
 We do not need to specify data for the <code>id</code> field because that will be created and will increment automatically.</p>
-<pre><code>insert into books (author, title, copyright) values
+<pre><code>mysql&gt; insert into books (author, title, copyright) values
 ('Jennifer Egan', 'The Candy House', '2022'),
 ('Imbolo Mbue', 'How Beautiful We Were', '2021'),
 ('Lydia Millet', 'A Children\'s Bible', '2020'),
 ('Julia Phillips', 'Disappearing Earth', '2019');
 </code></pre>
 <p>Now we can view all the records that we just created with the MySQL <code>select</code> command:</p>
-<pre><code>select * from books;
+<pre><code>mysql&gt; select * from books;
 </code></pre>
 <p>Success! Now let's test our table.</p>
 <h3 id="testing-commands"><a class="header" href="#testing-commands">Testing Commands</a></h3>
-<p>We will complete the following tasks to refresh our MySQL knowledge:</p>
+<p>We will complete the following tasks to refresh our MySQL knowledge or begin to learn how it works.
+We will:</p>
 <ul>
-<li>retrieve some records or parts of records,</li>
+<li>retrieve records or parts of records,</li>
 <li>delete a record,</li>
 <li>alter the table structure so that it will hold more data, and</li>
 <li>add a record</li>
@@ -3472,29 +3498,30 @@ We do not need to specify data for the <code>id</code> field because that will b
 Some of the following MySQL commands are single-line, but others are multi-line.
 Regardless if a MySQL command is one-line or multi-line, it doesn't end until it ends with a semi-colon.</p>
 </blockquote>
-<pre><code>select author from books;
-select copyright from books;
-select author, title from books;
-select author from books where author like '%millet%';
-select title from books where author like '%mbue%';
-select author, title from books where title not like '%e';
-select * from books;
-alter table books add publisher varchar(75) after title;
-describe books;
-update books set publisher='Simon \&amp; Schuster' where id='1';
-update books set publisher='Penguin Random House' where id='2';
-update books set publisher='W. W. Norton \&amp; Company' where id='3';
-update books set publisher='Knopf' where id='4';
-select * from books;
-delete from books where author='Julia Phillips';
-insert into books
-(author, title, publisher, copyright) values
-('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010'),
-('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
-select * from books;
-select author, publisher from books where copyright &lt; '2011';
-select author from books order by copyright;
-\q
+<p>Please run the following commands, one at a time:</p>
+<pre><code>mysql&gt; select author from books;
+mysql&gt; select copyright from books;
+mysql&gt; select author, title from books;
+mysql&gt; select author from books where author like '%millet%';
+mysql&gt; select title from books where author like '%mbue%';
+mysql&gt; select author, title from books where title not like '%e';
+mysql&gt; select * from books;
+mysql&gt; alter table books add publisher varchar(75) after title;
+mysql&gt; describe books;
+mysql&gt; update books set publisher='Simon \&amp; Schuster' where id='1';
+mysql&gt; update books set publisher='Penguin Random House' where id='2';
+mysql&gt; update books set publisher='W. W. Norton \&amp; Company' where id='3';
+mysql&gt; update books set publisher='Knopf' where id='4';
+mysql&gt; select * from books;
+mysql&gt; delete from books where author='Julia Phillips';
+mysql&gt; insert into books
+mysql&gt; (author, title, publisher, copyright) values
+mysql&gt; ('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010'),
+mysql&gt; ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
+mysql&gt; select * from books;
+mysql&gt; select author, publisher from books where copyright &lt; '2011';
+mysql&gt; select author from books order by copyright;
+mysql&gt; \q
 </code></pre>
 <h2 id="install-php-and-mysql-support"><a class="header" href="#install-php-and-mysql-support">Install PHP and MySQL Support</a></h2>
 <p>The next goal is to complete the connection between PHP and MySQL so that we can use both for our websites.</p>
