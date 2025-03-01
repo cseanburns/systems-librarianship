@@ -15,8 +15,22 @@ However in the next section, we will explore the database basics from the comman
 In this section, we'll learn how to install, setup, secure, and
 configure the MySQL relational database so that it works with the Apache2 web server and the PHP programming language.
 
-First, we install the MySQL Community Server package.
-The MySQL Community Server package is a **metapackage** that installs the latest most secure version of MySQL,
+First, as normal, we make run the following commands to ensure our machines are fully updated:
+
+```
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+sudo apt clean
+```
+
+> Note that sometimes you will have to reboot your machine, mostly when you get a Linux kernel update.
+> To do so, run `sudo reboot now`.
+> This command will disconnect you from your machine.
+> Wait a minute or two, and then reconnect.
+
+Then we install the MySQL Community Server package.
+The MySQL Community Server package is a **metapackage** that installs the latest, most secure version of MySQL,
 regardless of the software's version number, as well as its dependencies.
 
 ```
@@ -80,18 +94,19 @@ sudo mysql -u root
 ```
 
 > **NOTE:** we need to distinguish between the regular user prompt of our Linux accounts and the MySQL prompt below.
-> The default promp for our user accounts has the following syntax: `user_name@computer_name:path$ `.
+> The default prompt for our user accounts has the following syntax: `user_name@computer_name:path$ `.
 > In the following, I will indicate we are at the MySQL prompt with the following text: `mysql>`.
 > Do not type that prompt when you are using MySQL.
 
-Then request a list of the databases with the `show databases;` command.
+When I connect to a MySQL server, I like to list the available databases.
+To do this, we use the `show databases;` command.
 Note that MySQL commands end with a semicolon:
 
 ```
 mysql> show databases;
 ```
 
-And the following databases should be returned:
+The following databases should be returned:
 
 ```
 +--------------------+
@@ -130,7 +145,7 @@ sudo mysql -u root
 At the MySQL prompt, create the new user:
 
 ```
-create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
+mysql> create user 'opacuser'@'localhost' identified by 'XXXXXXXXX';
 ```
 
 If the prompt returns a **Query OK** message,
@@ -144,9 +159,9 @@ Then we run the MySQL `show` command to view the new database.
 Next we grant `all privileges` on the database to the user account `opacuser`.
 
 ```
-create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
-show databases;
-grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant option;
+mysql> create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
+mysql> show databases;
+mysql> grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant option;
 ```
 
 Other than granting **all privileges**, we could limit the user to specific privileges, including:
@@ -168,7 +183,7 @@ Exit out of the MySQL database as the **root MySQL user**, and then exit out of 
 You should be back to your normal Linux user account:
 
 ```
-\q
+mysql> \q
 ```
 
 > Note: relational database keywords are often written in all capital letters: `CREATE`, `DROP`, `SELECT`, etc.
@@ -179,6 +194,27 @@ You should be back to your normal Linux user account:
 ## Logging in as Regular User and Creating Tables
 
 We can now start doing MySQL work.
+Note that when we login to the MySQL server, we leave the `bash` shell and enter the MySQL command line client.
+By default, the prompt for the client is bare-bones.
+We can make it more informative, though.
+To do so, open your `.bashrc` file:
+
+```
+nano .bashrc
+```
+
+Scroll to the bottom of the file and add the following:
+
+```
+export MYSQL_PS1="[\d]> "
+```
+
+Then save and exit and source the file:
+
+```
+source ~/.bashrc
+```
+
 As a reminder, we've created a new MySQL user named `opacuser` and a new database for `opacuser` that is called `opacdb`.
 When we run the `show databases` command as the `opacuser` user, we should see the `opacdb` database.
 Note below that I use the `-p` option when logging back into MySQL as the `opacuser`.
@@ -191,8 +227,8 @@ mysql -u opacuser -p
 From the MySQL prompt, list the available databases and use the `use` command to switch to the new `opacdb` database:
 
 ```
-show databases;
-use opacdb;
+mysql> show databases;
+mysql> use opacdb;
 ```
 
 A database is not worth much without data.
@@ -211,12 +247,12 @@ When we create the `copyright` field, we limit it to the `year` data type,
 which means it has to adhere to a specific syntax `YYYY`, and should not be empty. 
 
 ```
-create table books (
-    id int unsigned not null auto_increment,
-    author varchar(150) not null,
-    title varchar(150) not null,
-    copyright year(4) not null,
-    primary key (ID)
+mysql> create table books (
+        id int unsigned not null auto_increment,
+        author varchar(150) not null,
+        title varchar(150) not null,
+        copyright year(4) not null,
+        primary key (ID)
 );
 ```
 
@@ -231,8 +267,8 @@ You can confirm that the table was created by running the following two commands
 The MySQL `show` command lists the tables in a database and the `describe` command describes a table's structure.
 
 ```
-show tables;
-describe books;
+mysql> show tables;
+mysql> describe books;
 ```
 
 Congratulations! Now create some records for that table.
@@ -247,7 +283,7 @@ The `copyright` field is a date field, and it should conform to the `YYYY` synta
 We do not need to specify data for the `id` field because that will be created and will increment automatically.
 
 ```
-insert into books (author, title, copyright) values
+mysql> insert into books (author, title, copyright) values
 ('Jennifer Egan', 'The Candy House', '2022'),
 ('Imbolo Mbue', 'How Beautiful We Were', '2021'),
 ('Lydia Millet', 'A Children\'s Bible', '2020'),
@@ -257,16 +293,17 @@ insert into books (author, title, copyright) values
 Now we can view all the records that we just created with the MySQL `select` command:
 
 ```
-select * from books;
+mysql> select * from books;
 ```
 
 Success! Now let's test our table.
 
 ### Testing Commands
 
-We will complete the following tasks to refresh our MySQL knowledge:
+We will complete the following tasks to refresh our MySQL knowledge or begin to learn how it works.
+We will:
 
-- retrieve some records or parts of records, 
+- retrieve records or parts of records, 
 - delete a record,
 - alter the table structure so that it will hold more data, and
 - add a record
@@ -275,30 +312,32 @@ We will complete the following tasks to refresh our MySQL knowledge:
 > Some of the following MySQL commands are single-line, but others are multi-line.
 > Regardless if a MySQL command is one-line or multi-line, it doesn't end until it ends with a semi-colon.
 
+Please run the following commands, one at a time:
+
 ```
-select author from books;
-select copyright from books;
-select author, title from books;
-select author from books where author like '%millet%';
-select title from books where author like '%mbue%';
-select author, title from books where title not like '%e';
-select * from books;
-alter table books add publisher varchar(75) after title;
-describe books;
-update books set publisher='Simon \& Schuster' where id='1';
-update books set publisher='Penguin Random House' where id='2';
-update books set publisher='W. W. Norton \& Company' where id='3';
-update books set publisher='Knopf' where id='4';
-select * from books;
-delete from books where author='Julia Phillips';
-insert into books
-(author, title, publisher, copyright) values
-('Emma Donoghue', 'Room', 'Little, Brown \& Company', '2010'),
-('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
-select * from books;
-select author, publisher from books where copyright < '2011';
-select author from books order by copyright;
-\q
+mysql> select author from books;
+mysql> select copyright from books;
+mysql> select author, title from books;
+mysql> select author from books where author like '%millet%';
+mysql> select title from books where author like '%mbue%';
+mysql> select author, title from books where title not like '%e';
+mysql> select * from books;
+mysql> alter table books add publisher varchar(75) after title;
+mysql> describe books;
+mysql> update books set publisher='Simon \& Schuster' where id='1';
+mysql> update books set publisher='Penguin Random House' where id='2';
+mysql> update books set publisher='W. W. Norton \& Company' where id='3';
+mysql> update books set publisher='Knopf' where id='4';
+mysql> select * from books;
+mysql> delete from books where author='Julia Phillips';
+mysql> insert into books
+mysql> (author, title, publisher, copyright) values
+mysql> ('Emma Donoghue', 'Room', 'Little, Brown \& Company', '2010'),
+mysql> ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
+mysql> select * from books;
+mysql> select author, publisher from books where copyright < '2011';
+mysql> select author from books order by copyright;
+mysql> \q
 ```
 
 ## Install PHP and MySQL Support
