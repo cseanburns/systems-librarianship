@@ -3515,9 +3515,9 @@ mysql&gt; update books set publisher='Knopf' where id='4';
 mysql&gt; select * from books;
 mysql&gt; delete from books where author='Julia Phillips';
 mysql&gt; insert into books
-mysql&gt; (author, title, publisher, copyright) values
-mysql&gt; ('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010'),
-mysql&gt; ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
+       (author, title, publisher, copyright) values
+       ('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010'),
+       ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
 mysql&gt; select * from books;
 mysql&gt; select author, publisher from books where copyright &lt; '2011';
 mysql&gt; select author from books order by copyright;
@@ -3538,7 +3538,7 @@ sudo systemctl restart mysql
 <p>In order for PHP to connect to MySQL, it needs to authenticate itself.
 To do that, we will create a <code>login.php</code> file in in our document root's parent directory: <code>/var/www</code>.
 We also need to change the group ownership of the file and its permissions (see note below).
-This will allow the file can be read by the Apache2 web server but not by the world.
+This will allow the file to be read by the Apache2 web server but not by the world.
 This prevents the password information from being accessible to web users.</p>
 <pre><code>cd /var/www
 sudo touch login.php
@@ -3556,7 +3556,7 @@ In the output below, the user <code>root</code> is the file owner and the group 
 <pre><code>-rw-r----- 1 root www-data    0 Feb 14 02:44 login.php
 </code></pre>
 <p>We change the file permissions with the <code>chmod</code> command.
-We the file ownership with the <code>chown</code> command.
+We change the file ownership with the <code>chown</code> command.
 In the above code snippet, the <code>chmod 640 login.php</code> command changes the file permissions to:</p>
 <ul>
 <li>user owner: read, write</li>
