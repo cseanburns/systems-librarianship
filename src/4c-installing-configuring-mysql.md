@@ -2,8 +2,8 @@
 
 ## Introduction
 
-We started our LAMP stack when we installed Apache2 on Linux.
-We added extra functionality when we installed and configured PHP to work with Apache2.
+We started our LAMP stack when we installed Apache on Linux.
+We added extra functionality when we installed and configured PHP to work with Apache.
 In this section, our objective is to complete the LAMP stack and install and configure [MySQL][mysql_wikipedia].
 
 If you need a refresher on relational databases, see:
@@ -13,7 +13,7 @@ However in the next section, we will explore the database basics from the comman
 ## Install and Set Up MySQL
 
 In this section, we'll learn how to install, setup, secure, and
-configure the MySQL relational database so that it works with the Apache2 web server and the PHP programming language.
+configure the MySQL relational database so that it works with the Apache web server and the PHP programming language.
 
 First, as normal, we make run the following commands to ensure our machines are fully updated:
 
@@ -352,7 +352,7 @@ These may or may not be needed, but I'm installing them to demonstrate some basi
 sudo apt install php-mysql php-mysqli
 ```
 
-And then restart Apache2 and MySQL:
+And then restart Apache and MySQL:
 
 ```
 sudo systemctl restart apache2
@@ -364,7 +364,7 @@ sudo systemctl restart mysql
 In order for PHP to connect to MySQL, it needs to authenticate itself.
 To do that, we will create a `login.php` file in in our document root's parent directory: `/var/www`.
 We also need to change the group ownership of the file and its permissions (see note below).
-This will allow the file to be read by the Apache2 web server but not by the world.
+This will allow the file to be read by the Apache web server but not by the world.
 This prevents the password information from being accessible to web users.
 
 ```

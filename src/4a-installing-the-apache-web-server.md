@@ -42,7 +42,7 @@ sudo apt update
 sudo apt -y upgrade
 ```
 
-Once the machine is updated, we can install Apache2 using `apt`.
+Once the machine is updated, we can install Apache using `apt`.
 First we'll use `apt search` to identify the specific package name.
 I know that a lot of results will be returned, so I will **pipe** `|` the output from `apt search` command
 through the `head` command to look at the initial results:
@@ -200,14 +200,14 @@ Otherwise, you can re-type the content below in `nano` or like, and then save an
 ```
 <html>
 <head>
-<title>My first web page using Apache2</title>
+<title>My first web page using Apache</title>
 </head>
 <body>
 
 <h1>Welcome</h1>
 
 <p>Welcome to my web site.
-I created this site using the Apache2 HTTP server.</p>
+I created this site using the Apache HTTP server.</p>
 
 </body>
 </html>
@@ -226,7 +226,7 @@ http://55.222.55.222/index.html.original
 
 ## Conclusion
 
-In this section, we learned about the Apache2 HTTP server.
+In this section, we learned about the Apache HTTP server.
 We learned how to install it on Ubuntu, how to use a `systemctl` command to check its status,
 how to create a basic web page in `/var/www/html`,
 how to view that web page using the `w3m` command line browser and in our graphical browser,

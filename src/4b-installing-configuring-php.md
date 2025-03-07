@@ -15,23 +15,23 @@ instead, the web server processes the PHP and sends the resulting HTML or other 
 
 From a system or web administrator's perspective,
 this means that PHP has be installed and configured to work with the web/HTTP server.
-In our case, we have to install and configure PHP on our virtual instances to work with the Apache2 web server software.
+In our case, we have to install and configure PHP on our virtual instances to work with the Apache web server software.
 
 One of the primary uses of PHP is to interact with databases, like MySQL, MariaDB, PostgreSQL, etc.,
 in order to create data-based page content.
 To begin to set this up, we have to:
 
-1. Install PHP and relevant Apache2 modules
-2. Configure PHP and relevant modules to work with Apache2
+1. Install PHP and relevant Apache modules
+2. Configure PHP and relevant modules to work with Apache
 3. Configure PHP and relevant modules to work with MySQL
 
 ## Install PHP 
 
 As usual, we will use `apt install` to install PHP and relevant modules.
-Then we will restart Apache2 using the `systemctl` command.
+Then we will restart Apache using the `systemctl` command.
 Use `apt show [package_name]` to read more about each package we will install.
 The first command below installs the **php** and the **libapache2-mod-php** packages.
-The latter package is used to create a connection between PHP and the Apache2 web server.
+The latter package is used to create a connection between PHP and the Apache web server.
 
 ```
 sudo apt install php libapache2-mod-php
@@ -45,7 +45,7 @@ This is because other software (e.g., WordPress, etc.) might require a specific 
 php -v
 ```
 
-After we restart Apache2, we need to check its status and see if there are any errors in the log output:
+After we restart Apache, we need to check its status and see if there are any errors in the log output:
 
 ```
 systemctl status apache2
@@ -53,7 +53,7 @@ systemctl status apache2
 
 ## Check Install
 
-Next we check that PHP has been installed and that it's working with Apache2.
+Next we check that PHP has been installed and that it's working with Apache.
 We can create a small PHP file in our web document root.
 To do that, we `cd` to the document root, `/var/www/html/`, and create a file called **info.php**:
 
@@ -80,7 +80,7 @@ http://55.333.55.333/info.php
 > Again, be sure to replace the IP below with the IP address of your server and
 > be sure to use **http** and not **https**.
 
-You should see a page that provides system information about PHP, Apache2, and the server.
+You should see a page that provides system information about PHP, Apache, and the server.
 The top of the page should look like Figure 1 below:
 
 <figure>
@@ -101,19 +101,19 @@ sudo rm /var/www/html/info.php
 
 ## Basic Configurations
 
-By default, when Apache2 serves a web page, it looks for a [file titled `index.html`][mod_dir_docs] and serves that,
+By default, when Apache serves a web page, it looks for a [file titled `index.html`][mod_dir_docs] and serves that,
 even if it does not display that file in the URL bar.
 Thus, `http://example.com/` actually resolves to `http://example.com/index.html` in such cases.
 However, if our plan is to provide for PHP,
-we want Apache2 to default to a file titled `index.php` instead of `index.html` file.
+we want Apache to default to a file titled `index.php` instead of `index.html` file.
 In these cases, `http://example.com/` would actually resolves to `http://example.com/index.php`.
 
 To configure that, we need to edit the `dir.conf` file in the `/etc/apache2/mods-enabled/` directory.
 In that file there is a line that starts with `DirectoryIndex` followed by a list of files.
 The first file listed in that line is `index.html`,
-and then there are a series of other files that Apache2 looks for in the order listed.
+and then there are a series of other files that Apache looks for in the order listed.
 Apache checks that list list and prioritizes these in order of appearance on the list.
-If any of those files exist in the document root, then Apache2 serves those before proceeding to the next.
+If any of those files exist in the document root, then Apache serves those before proceeding to the next.
 We want Apache to prioritize the `index.php` file first and `index.html` second.
 Before modifying this file, it's good practice to create a backup of the original.
 So we will use the `cp` command to create a copy with a new name, and then we will use `nano` to edit the file.
@@ -136,7 +136,7 @@ Whenever we make a configuration change, we should use the `apachectl` command t
 apachectl configtest
 ```
 
-If we get a `Syntax Ok` message, we can reload the Apache2 configuration, restart the service, and check its status:
+If we get a `Syntax Ok` message, we can reload the Apache configuration, restart the service, and check its status:
 
 ```
 sudo systemctl reload apache2
@@ -147,7 +147,7 @@ systemctl status apache2
 ## Create an index.php File
 
 Now create a basic PHP page.
-`cd` back to the Apache2 document root directory and use `nano` to create and open an `index.php` file:
+`cd` back to the Apache document root directory and use `nano` to create and open an `index.php` file:
 
 ```
 cd /var/www/html/
@@ -222,13 +222,13 @@ In your browser, visit your site at its public IP address (again, replace your s
 http://55.333.55.333/
 ```
 
-Although your `index.html` file still exists in your document root, Apache2 now returns the `index.php` file instead.
+Although your `index.html` file still exists in your document root, Apache now returns the `index.php` file instead.
 If for some reason PHP fails, then the `index.html` file would be served next
 since that's what is listed next in the `dir.conf` file on the `DirectoryIndex` line.
 
 ## Conclusion
 
-In this section, we installed PHP and configured it to work with Apache2.
+In this section, we installed PHP and configured it to work with Apache.
 We also created a simple PHP test page that reported our browser user agent information on our website.
 
 In the next section, we'll learn how to complete the LAMP stack by adding the MySQL relational database to our setup.
