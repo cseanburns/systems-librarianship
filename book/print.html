@@ -3670,7 +3670,200 @@ how to create a test database with play data for practicing, and how to connect 
 <p>In regular applications of these technologies, there's a lot more involved,
 but completing the above process is a great start to learning more.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="diy-integrated-library-systems"><a class="header" href="#diy-integrated-library-systems">DIY Integrated Library Systems</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-bare-bones-opac"><a class="header" href="#creating-a-bare-bones-opac">Creating a Bare Bones OPAC</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="introduction-to-relational-databases"><a class="header" href="#introduction-to-relational-databases">Introduction to Relational Databases</a></h2>
+<p>In the last section, we installed, configured, and setup a Linux, Apache, MySQL, and PHP (LAMP) stack.
+While setting up MySQL, we created a basic <code>opacdb</code> database containing a <code>books</code> table.
+We learned a few queries to get a feel for how querying a relational database, like MySQL, works.</p>
+<p>In this section, we are going to spend a bit more time with MySQL simply to acquire a greater understanding of relational databases.
+The real power of relational databases lies in their ability to manage and retrieve data efficiently.
+This is accomplished by spreading data across multiple tables thus limiting data duplication.</p>
+<p>We'll create a new database for our <code>opacuser</code>.
+Unlike the <code>opacdb</code> database, our new database, which we'll call <code>DinnerDB</code>, will contain two tables.
+This will reduce the amount of data we need to add to our database.</p>
+<h2 id="create-database"><a class="header" href="#create-database">Create Database</a></h2>
+<p>First, we will create a new database.
+Our <code>opacuser</code> does not have the privileges to create a new database, so we must login as the root MySQL user:</p>
+<pre><code>sudo mysql -u root
+</code></pre>
+<p>Once logged in, we create a database called <code>DinnerDB</code>.
+We could create another user, but for our purposes, we can simply grant <code>opacuser</code> privileges on the new database.</p>
+<pre><code>mysql&gt; create database DinnerDB;
+mysql&gt; grant all privileges on DinnerDB.* to 'opacuser'@'localhost';
+</code></pre>
+<p>Now that we have given <code>opacuser</code> new privileges for a new database, we may want to track <code>opacuser</code>'s privileges:</p>
+<pre><code>mysql&gt; show grants for 'opacuser'@'localhost';
+</code></pre>
+<p>We are done and can exit as the root MySQL user:</p>
+<pre><code>mysql&gt; \q
+</code></pre>
+<h2 id="create-tables"><a class="header" href="#create-tables">Create Tables</a></h2>
+<p>Next we login as <code>opacuser</code>:</p>
+<pre><code>mysql -u opacuser -p
+</code></pre>
+<p>First, let's check if we can see if the new <code>DinnerDB</code> database is visible to <code>opacuser</code>.
+If so, we begin using it:</p>
+<pre><code>[(none)]&gt; show databases;
+[(none)]&gt; use DinnerDB;
+</code></pre>
+<h3 id="create-meals-table"><a class="header" href="#create-meals-table">Create <code>Meals</code> Table</a></h3>
+<p>We are going to create two tables in <code>DinnerDB</code>.
+We will call the first table <code>Meals</code> and the second table <code>Ingredients</code>.
+The second table will list the ingredients and quantities needed to make the meals named in the <code>Meals</code> table.</p>
+<p>The following command creates a table called <code>Meals</code>.
+The table has five values:</p>
+<ul>
+<li><code>meal_id</code> in an integer that serves as the primary key.</li>
+<li><code>meal_name</code> contains a variable-length string up to 100 characters.</li>
+<li><code>cuisine</code> contains a variable-length string up to 50 characters.</li>
+<li><code>cooking_time</code> is an integer that uses a CHECK constraint so that if a user enters a zero or a negative value, MySQL will reject it, or if a user enters no value, it will default to one.</li>
+<li><code>vegetarian</code> contains a BOOLEAN value, which means it must be TRUE or FALSE:
+<ul>
+<li>technically, BOOLEAN is synonymous with a data type called <code>TINYINT(1)</code>, but BOOLEAN better conveys what we mean.</li>
+</ul>
+</li>
+</ul>
+<pre><code>create table Meals (
+    meal_id int auto_increment primary key,
+    meal_name varchar(100) not null,
+    cuisine varchar(50),
+    cooking_time int not null default 1 check (cooking_time &gt; 0),
+    vegetarian boolean
+);
+</code></pre>
+<h3 id="create-ingredients-table"><a class="header" href="#create-ingredients-table">Create ingredients table</a></h3>
+<p>The following command creates the <code>Ingredients</code> table.
+The table has four values:</p>
+<ul>
+<li><code>ingredient_id</code> is the primary key.</li>
+<li><code>meal_id</code> is an integer:
+<ul>
+<li>the last line in the command declares the <code>meal_id</code> value to be a foreign key that references the <code>meal_id</code> in the <code>Meals</code> table</li>
+<li>foreign keys allow for cross-referencing.</li>
+<li>since we cross-reference <code>meal_id</code> here to <code>meal_id</code> to the <code>Meals</code> table, we make the <code>Ingredients</code> table a child of the <code>Meals</code> table, which functions as the parent table to the <code>Ingredients</code> table.</li>
+<li>the <code>on delete cascade</code> clause instructs MySQL to delete associated ingredients when deleting a meal in the <code>Meals</code> table.</li>
+</ul>
+</li>
+<li><code>ingredient_name</code> contains a variable-length string up to 100 characters.</li>
+<li><code>quantity</code> contains a variable-length string up to 50 characters.</li>
+</ul>
+<pre><code>CREATE TABLE Ingredients (
+    ingredient_id INT AUTO_INCREMENT PRIMARY KEY,
+    meal_id INT,
+    ingredient_name VARCHAR(100) NOT NULL,
+    quantity VARCHAR(50),
+    FOREIGN KEY (meal_id) REFERENCES Meals(meal_id) ON DELETE CASCADE
+);
+</code></pre>
+<h2 id="insert-data"><a class="header" href="#insert-data">Insert data</a></h2>
+<p>Now that we have created the structure of our two tables, we can begin adding data to them.
+The first command adds four records to the <code>Meals</code> table:</p>
+<pre><code>INSERT INTO Meals (meal_name, cuisine, cooking_time, vegetarian) VALUES
+('Spaghetti Bolognese', 'Italian', 45, FALSE),
+('Vegetable Stir Fry', 'Chinese', 20, TRUE),
+('Chicken Curry', 'Indian', 50, FALSE),
+('Mushroom Risotto', 'Italian', 35, TRUE);
+</code></pre>
+<p>And the second command adds the list of ingredients for the meals we added to the <code>Meals</code> table.
+The integers we use for <code>meal_id</code> match the values produced in the <code>Meals</code> table, which we can see with the <code>select * from Meals;</code> command.
+Therefore, <code>1</code> refers to <strong>Spaghetti Bolognese</strong>, <code>2</code> refers to <strong>Vegetable Stir Fry</strong>, and so on.</p>
+<pre><code>INSERT INTO Ingredients (meal_id, ingredient_name, quantity) VALUES
+(1, 'Spaghetti', '200g'),
+(1, 'Ground Beef', '250g'),
+(1, 'Tomato Sauce', '1 cup'),
+(2, 'Broccoli', '100g'),
+(2, 'Carrots', '50g'),
+(2, 'Soy Sauce', '2T'),
+(3, 'Chicken Breast', '300g'),
+(3, 'Curry Powder', '2T'),
+(3, 'Coconut Milk', '1 cup'),
+(4, 'Arborio Rice', '1 cup'),
+(4, 'Mushrooms', '1 cup'),
+(4, 'Parmesan Cheese', '1/2 cup');
+</code></pre>
+<p>In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
+This would result in better <a href="https://en.wikipedia.org/wiki/Database_normalization">database normalization</a>.</p>
+<h2 id="querying-data"><a class="header" href="#querying-data">Querying Data</a></h2>
+<p>Now that we have created our tables and added records to them, we can begin to query them.
+The next command is a simple <code>SELECT</code> statement:</p>
+<pre><code>select * from Meals;
+</code></pre>
+<p>By adding the <code>WHERE</code> clause, we can filter results.
+In this example, we filter results by whether a meal is vegetarian:</p>
+<pre><code>select * from Meals where vegetarian = TRUE;
+</code></pre>
+<p>We can sort the results by descending or ascending order.
+This works for both alphabetic and numeric characters.
+The following commands sort the Meals by length of cooking time:</p>
+<pre><code>select * from Meals order by cooking_time desc; 
+select * from Meals order by cooking_time asc; 
+</code></pre>
+<p>In the following command, we select three values:</p>
+<ul>
+<li><code>meal_name</code> from the <code>Meals</code> table and rename the resulting column <code>Meals</code>.</li>
+<li><code>ingredient_name</code> from the <code>Ingredients</code> table and rename the resulting column <code>Ingredients</code>.</li>
+<li><code>quantity</code> from the <code>Ingredients</code> table and rename the resulting column <code>Quantity</code>.</li>
+</ul>
+<p>We also use the <code>join</code> action to cross-reference the tables based on the shared <code>meal_id</code> value:</p>
+<pre><code>select Meals.meal_name as Meals, Ingredients.ingredient_name as Ingredients, Ingredients.quantity as Quantity
+from Meals
+join Ingredients on Meals.meal_id = Ingredients.meal_id;
+</code></pre>
+<p>In the following example, we list the ingredients and their quantities based on the name of a meal.
+In this case, we are looking to list the ingredients for the Chicken Curry dish:</p>
+<pre><code>SELECT ingredient_name as Ingredients, quantity as Quantity
+FROM Ingredients 
+WHERE meal_id = (SELECT meal_id FROM Meals WHERE meal_name = 'Chicken Curry');
+</code></pre>
+<p>In the following example, we instruct MySQL to provide a count of the Meals by cuisine:</p>
+<pre><code>select cuisine, count(*) as meal_count 
+FROM Meals
+group by cuisine;
+</code></pre>
+<p>And finally, it's been a tough day, and we want to identify Meals that don't take long to cook.
+The following command returns all Meals where the cooking time is less than or equal to 45 minutes:</p>
+<pre><code>select meal_name, cooking_time 
+from Meals 
+where cooking_time &lt;= 45
+order by cooking_time asc;
+</code></pre>
+<p>Once done querying our database, we can logout:</p>
+<pre><code>\q
+</code></pre>
+<h2 id="database-management"><a class="header" href="#database-management">Database Management</a></h2>
+<p>When we started, we logged into MySQL and created a database called <code>DinnerDB</code>.
+Then we granted all privileges to this database to <code>opacuser</code>.
+There might be times when we want to revoke those privileges.
+To do so, we first log back in as the root MySQL user:</p>
+<pre><code>sudo mysql -u root
+</code></pre>
+<p>Now we can re-review the privileges for <code>opacuser</code>:</p>
+<pre><code>mysql&gt; show grants for 'opacuser'@'localhost';
+</code></pre>
+<p>We can take away those privileges with the <code>REVOKE</code> command:</p>
+<pre><code>mysql&gt; revoke all privileges on DinnerDB.* from 'opacuser'@'localhost';
+</code></pre>
+<p>To confirm, we can re-run the <code>show grants</code> command.</p>
+<p>We can also delete the database using the <code>DROP</code> command:</p>
+<pre><code>mysql&gt; DROP database DinnerDB;
+</code></pre>
+<h2 id="conclusion-11"><a class="header" href="#conclusion-11">Conclusion</a></h2>
+<p>In this introduction, we explored the basics of relational databases using MySQL.
+We created a structured database (<code>DinnerDB</code>), defined two tables (<code>Meals</code> and <code>Ingredients</code>),
+inserted data, and performed various queries to retrieve information efficiently.</p>
+<p>The key takeaways from this exercise include:</p>
+<ul>
+<li><strong>Normalization</strong>: Breaking data into multiple tables reduces redundancy and improves consistency.</li>
+<li><strong>Relationships</strong>: Using foreign keys, we linked meals with their ingredients. This allows for more meaningful data retrieval.</li>
+<li><strong>Querying</strong>: We practiced <code>SELECT</code>, <code>JOIN</code>, <code>WHERE</code>, <code>ORDER_BY</code>, and <code>GROUP_BY</code> to manipulate and filter data results.</li>
+<li><strong>Management</strong>: We reviewed how to create a database, grant privileges to the database to a specific user, remove those privileges, and delete the database.</li>
+</ul>
+<p>This tutorial is only a start.
+Experiment with modifying the data, adding constraints, separating quantities from units, or
+creating additional tables to further your understanding.
+Databases are powerful tools for organizing and retrieving structured information.
+Understanding SQL and its logic will help you in other domains, too!
+Go play!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-bare-bones-opac"><a class="header" href="#creating-a-bare-bones-opac">Creating a Bare Bones OPAC</a></h1>
 <p>In this section,
 we're going to create a bare bones and
 very basic OPAC.
@@ -3896,7 +4089,7 @@ the data for the new records:</p>
 ('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010-08-06'),
 ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
 </code></pre>
-<h2 id="conclusion-11"><a class="header" href="#conclusion-11">Conclusion</a></h2>
+<h2 id="conclusion-12"><a class="header" href="#conclusion-12">Conclusion</a></h2>
 <p>In this lesson,
 we created a very bare bones OPAC
 simply to express the fundamental idea
@@ -4198,7 +4391,7 @@ subsequent files and directories will be the Linux <strong>root</strong> user.</
 <p>Now visit your cataloging module.
 You should be required to enter the username
 and password that you created with <code>htpasswd</code>.</p>
-<h2 id="conclusion-12"><a class="header" href="#conclusion-12">Conclusion</a></h2>
+<h2 id="conclusion-13"><a class="header" href="#conclusion-13">Conclusion</a></h2>
 <p>In the last lesson,
 we created a very bare bones OPAC
 that would allow patrons to
@@ -4643,7 +4836,7 @@ we are not doing that here.
 So if there are any problems accessing your
 site in the browser,
 be sure to check that the URL starts off with <strong>http</strong>.</p>
-<h2 id="conclusion-13"><a class="header" href="#conclusion-13">Conclusion</a></h2>
+<h2 id="conclusion-14"><a class="header" href="#conclusion-14">Conclusion</a></h2>
 <p>Congrats on setting up your WordPress library site.
 It's now time to explore and build a website.
 Use free themes and free plugins to alter
@@ -5147,7 +5340,7 @@ Some example tasks:</p>
 <li>Check out books to patrons</li>
 <li>Delete patron circulation history</li>
 </ul>
-<h2 id="conclusion-14"><a class="header" href="#conclusion-14">Conclusion</a></h2>
+<h2 id="conclusion-15"><a class="header" href="#conclusion-15">Conclusion</a></h2>
 <p>In this final section,
 you learned how to install
 and setup a Koha ILS installation
@@ -5159,7 +5352,7 @@ on a Linux server.</p>
 <li><a href="https://wiki.koha-community.org/wiki/Koha_on_Debian">Koha on Debian</a></li>
 <li><a href="https://www.youtube.com/watch?v=mzUop9R4sKc">Install Koha on Google Cloud Platform</a></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="conclusion-15"><a class="header" href="#conclusion-15">Conclusion</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="conclusion-16"><a class="header" href="#conclusion-16">Conclusion</a></h1>
 <h2 id="accomplishments"><a class="header" href="#accomplishments">Accomplishments</a></h2>
 <p>In this course, we learned how to:</p>
 <ul>
