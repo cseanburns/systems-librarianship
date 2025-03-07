@@ -188,21 +188,21 @@ Unlike with JavaScript, the browser does not execute PHP directly;
 instead, the web server processes the PHP and sends the resulting HTML or other content to the browser.</p>
 <p>From a system or web administrator's perspective,
 this means that PHP has be installed and configured to work with the web/HTTP server.
-In our case, we have to install and configure PHP on our virtual instances to work with the Apache2 web server software.</p>
+In our case, we have to install and configure PHP on our virtual instances to work with the Apache web server software.</p>
 <p>One of the primary uses of PHP is to interact with databases, like MySQL, MariaDB, PostgreSQL, etc.,
 in order to create data-based page content.
 To begin to set this up, we have to:</p>
 <ol>
-<li>Install PHP and relevant Apache2 modules</li>
-<li>Configure PHP and relevant modules to work with Apache2</li>
+<li>Install PHP and relevant Apache modules</li>
+<li>Configure PHP and relevant modules to work with Apache</li>
 <li>Configure PHP and relevant modules to work with MySQL</li>
 </ol>
 <h2 id="install-php"><a class="header" href="#install-php">Install PHP</a></h2>
 <p>As usual, we will use <code>apt install</code> to install PHP and relevant modules.
-Then we will restart Apache2 using the <code>systemctl</code> command.
+Then we will restart Apache using the <code>systemctl</code> command.
 Use <code>apt show [package_name]</code> to read more about each package we will install.
 The first command below installs the <strong>php</strong> and the <strong>libapache2-mod-php</strong> packages.
-The latter package is used to create a connection between PHP and the Apache2 web server.</p>
+The latter package is used to create a connection between PHP and the Apache web server.</p>
 <pre><code>sudo apt install php libapache2-mod-php
 sudo systemctl restart apache2
 </code></pre>
@@ -210,11 +210,11 @@ sudo systemctl restart apache2
 This is because other software (e.g., WordPress, etc.) might require a specific version before that other software to work.</p>
 <pre><code>php -v
 </code></pre>
-<p>After we restart Apache2, we need to check its status and see if there are any errors in the log output:</p>
+<p>After we restart Apache, we need to check its status and see if there are any errors in the log output:</p>
 <pre><code>systemctl status apache2
 </code></pre>
 <h2 id="check-install"><a class="header" href="#check-install">Check Install</a></h2>
-<p>Next we check that PHP has been installed and that it's working with Apache2.
+<p>Next we check that PHP has been installed and that it's working with Apache.
 We can create a small PHP file in our web document root.
 To do that, we <code>cd</code> to the document root, <code>/var/www/html/</code>, and create a file called <strong>info.php</strong>:</p>
 <pre><code>cd /var/www/html/
@@ -233,7 +233,7 @@ If the public IP address for my virtual machine is <code>55.333.55.33</code>, th
 <p>Again, be sure to replace the IP below with the IP address of your server and
 be sure to use <strong>http</strong> and not <strong>https</strong>.</p>
 </blockquote>
-<p>You should see a page that provides system information about PHP, Apache2, and the server.
+<p>You should see a page that provides system information about PHP, Apache, and the server.
 The top of the page should look like Figure 1 below:</p>
 <figure>
 <img src="images/4b-phpinstall.png"
@@ -248,18 +248,18 @@ you should delete it since it exposes detailed systems information:</p>
 <pre><code>sudo rm /var/www/html/info.php
 </code></pre>
 <h2 id="basic-configurations"><a class="header" href="#basic-configurations">Basic Configurations</a></h2>
-<p>By default, when Apache2 serves a web page, it looks for a <a href="https://httpd.apache.org/docs/current/mod/mod_dir.html">file titled <code>index.html</code></a> and serves that,
+<p>By default, when Apache serves a web page, it looks for a <a href="https://httpd.apache.org/docs/current/mod/mod_dir.html">file titled <code>index.html</code></a> and serves that,
 even if it does not display that file in the URL bar.
 Thus, <code>http://example.com/</code> actually resolves to <code>http://example.com/index.html</code> in such cases.
 However, if our plan is to provide for PHP,
-we want Apache2 to default to a file titled <code>index.php</code> instead of <code>index.html</code> file.
+we want Apache to default to a file titled <code>index.php</code> instead of <code>index.html</code> file.
 In these cases, <code>http://example.com/</code> would actually resolves to <code>http://example.com/index.php</code>.</p>
 <p>To configure that, we need to edit the <code>dir.conf</code> file in the <code>/etc/apache2/mods-enabled/</code> directory.
 In that file there is a line that starts with <code>DirectoryIndex</code> followed by a list of files.
 The first file listed in that line is <code>index.html</code>,
-and then there are a series of other files that Apache2 looks for in the order listed.
+and then there are a series of other files that Apache looks for in the order listed.
 Apache checks that list list and prioritizes these in order of appearance on the list.
-If any of those files exist in the document root, then Apache2 serves those before proceeding to the next.
+If any of those files exist in the document root, then Apache serves those before proceeding to the next.
 We want Apache to prioritize the <code>index.php</code> file first and <code>index.html</code> second.
 Before modifying this file, it's good practice to create a backup of the original.
 So we will use the <code>cp</code> command to create a copy with a new name, and then we will use <code>nano</code> to edit the file.</p>
@@ -273,14 +273,14 @@ sudo nano dir.conf
 <p>Whenever we make a configuration change, we should use the <code>apachectl</code> command to check our configuration:</p>
 <pre><code>apachectl configtest
 </code></pre>
-<p>If we get a <code>Syntax Ok</code> message, we can reload the Apache2 configuration, restart the service, and check its status:</p>
+<p>If we get a <code>Syntax Ok</code> message, we can reload the Apache configuration, restart the service, and check its status:</p>
 <pre><code>sudo systemctl reload apache2
 sudo systemctl restart apache2
 systemctl status apache2
 </code></pre>
 <h2 id="create-an-indexphp-file"><a class="header" href="#create-an-indexphp-file">Create an index.php File</a></h2>
 <p>Now create a basic PHP page.
-<code>cd</code> back to the Apache2 document root directory and use <code>nano</code> to create and open an <code>index.php</code> file:</p>
+<code>cd</code> back to the Apache document root directory and use <code>nano</code> to create and open an <code>index.php</code> file:</p>
 <pre><code>cd /var/www/html/
 sudo nano index.php
 </code></pre>
@@ -346,11 +346,11 @@ Add the following code:</p>
 In your browser, visit your site at its public IP address (again, replace your server's IP address):</p>
 <pre><code>http://55.333.55.333/
 </code></pre>
-<p>Although your <code>index.html</code> file still exists in your document root, Apache2 now returns the <code>index.php</code> file instead.
+<p>Although your <code>index.html</code> file still exists in your document root, Apache now returns the <code>index.php</code> file instead.
 If for some reason PHP fails, then the <code>index.html</code> file would be served next
 since that's what is listed next in the <code>dir.conf</code> file on the <code>DirectoryIndex</code> line.</p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
-<p>In this section, we installed PHP and configured it to work with Apache2.
+<p>In this section, we installed PHP and configured it to work with Apache.
 We also created a simple PHP test page that reported our browser user agent information on our website.</p>
 <p>In the next section, we'll learn how to complete the LAMP stack by adding the MySQL relational database to our setup.</p>
 

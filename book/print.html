@@ -2950,7 +2950,7 @@ This ensures we will be downloading and installing the most recent, secure versi
 <pre><code>sudo apt update
 sudo apt -y upgrade
 </code></pre>
-<p>Once the machine is updated, we can install Apache2 using <code>apt</code>.
+<p>Once the machine is updated, we can install Apache using <code>apt</code>.
 First we'll use <code>apt search</code> to identify the specific package name.
 I know that a lot of results will be returned, so I will <strong>pipe</strong> <code>|</code> the output from <code>apt search</code> command
 through the <code>head</code> command to look at the initial results:</p>
@@ -3063,14 +3063,14 @@ Any mistake may result in deleting necessary files or directories.</p>
 Otherwise, you can re-type the content below in <code>nano</code> or like, and then save and exit out.</p>
 <pre><code>&lt;html&gt;
 &lt;head&gt;
-&lt;title&gt;My first web page using Apache2&lt;/title&gt;
+&lt;title&gt;My first web page using Apache&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
 
 &lt;h1&gt;Welcome&lt;/h1&gt;
 
 &lt;p&gt;Welcome to my web site.
-I created this site using the Apache2 HTTP server.&lt;/p&gt;
+I created this site using the Apache HTTP server.&lt;/p&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;
@@ -3083,7 +3083,7 @@ For example, if your <strong>public IP address</strong> is <code>55.222.55.222</
 <pre><code>http://55.222.55.222/index.html.original
 </code></pre>
 <h2 id="conclusion-8"><a class="header" href="#conclusion-8">Conclusion</a></h2>
-<p>In this section, we learned about the Apache2 HTTP server.
+<p>In this section, we learned about the Apache HTTP server.
 We learned how to install it on Ubuntu, how to use a <code>systemctl</code> command to check its status,
 how to create a basic web page in <code>/var/www/html</code>,
 how to view that web page using the <code>w3m</code> command line browser and in our graphical browser,</p>
@@ -3103,21 +3103,21 @@ Unlike with JavaScript, the browser does not execute PHP directly;
 instead, the web server processes the PHP and sends the resulting HTML or other content to the browser.</p>
 <p>From a system or web administrator's perspective,
 this means that PHP has be installed and configured to work with the web/HTTP server.
-In our case, we have to install and configure PHP on our virtual instances to work with the Apache2 web server software.</p>
+In our case, we have to install and configure PHP on our virtual instances to work with the Apache web server software.</p>
 <p>One of the primary uses of PHP is to interact with databases, like MySQL, MariaDB, PostgreSQL, etc.,
 in order to create data-based page content.
 To begin to set this up, we have to:</p>
 <ol>
-<li>Install PHP and relevant Apache2 modules</li>
-<li>Configure PHP and relevant modules to work with Apache2</li>
+<li>Install PHP and relevant Apache modules</li>
+<li>Configure PHP and relevant modules to work with Apache</li>
 <li>Configure PHP and relevant modules to work with MySQL</li>
 </ol>
 <h2 id="install-php"><a class="header" href="#install-php">Install PHP</a></h2>
 <p>As usual, we will use <code>apt install</code> to install PHP and relevant modules.
-Then we will restart Apache2 using the <code>systemctl</code> command.
+Then we will restart Apache using the <code>systemctl</code> command.
 Use <code>apt show [package_name]</code> to read more about each package we will install.
 The first command below installs the <strong>php</strong> and the <strong>libapache2-mod-php</strong> packages.
-The latter package is used to create a connection between PHP and the Apache2 web server.</p>
+The latter package is used to create a connection between PHP and the Apache web server.</p>
 <pre><code>sudo apt install php libapache2-mod-php
 sudo systemctl restart apache2
 </code></pre>
@@ -3125,11 +3125,11 @@ sudo systemctl restart apache2
 This is because other software (e.g., WordPress, etc.) might require a specific version before that other software to work.</p>
 <pre><code>php -v
 </code></pre>
-<p>After we restart Apache2, we need to check its status and see if there are any errors in the log output:</p>
+<p>After we restart Apache, we need to check its status and see if there are any errors in the log output:</p>
 <pre><code>systemctl status apache2
 </code></pre>
 <h2 id="check-install"><a class="header" href="#check-install">Check Install</a></h2>
-<p>Next we check that PHP has been installed and that it's working with Apache2.
+<p>Next we check that PHP has been installed and that it's working with Apache.
 We can create a small PHP file in our web document root.
 To do that, we <code>cd</code> to the document root, <code>/var/www/html/</code>, and create a file called <strong>info.php</strong>:</p>
 <pre><code>cd /var/www/html/
@@ -3148,7 +3148,7 @@ If the public IP address for my virtual machine is <code>55.333.55.33</code>, th
 <p>Again, be sure to replace the IP below with the IP address of your server and
 be sure to use <strong>http</strong> and not <strong>https</strong>.</p>
 </blockquote>
-<p>You should see a page that provides system information about PHP, Apache2, and the server.
+<p>You should see a page that provides system information about PHP, Apache, and the server.
 The top of the page should look like Figure 1 below:</p>
 <figure>
 <img src="images/4b-phpinstall.png"
@@ -3163,18 +3163,18 @@ you should delete it since it exposes detailed systems information:</p>
 <pre><code>sudo rm /var/www/html/info.php
 </code></pre>
 <h2 id="basic-configurations"><a class="header" href="#basic-configurations">Basic Configurations</a></h2>
-<p>By default, when Apache2 serves a web page, it looks for a <a href="https://httpd.apache.org/docs/current/mod/mod_dir.html">file titled <code>index.html</code></a> and serves that,
+<p>By default, when Apache serves a web page, it looks for a <a href="https://httpd.apache.org/docs/current/mod/mod_dir.html">file titled <code>index.html</code></a> and serves that,
 even if it does not display that file in the URL bar.
 Thus, <code>http://example.com/</code> actually resolves to <code>http://example.com/index.html</code> in such cases.
 However, if our plan is to provide for PHP,
-we want Apache2 to default to a file titled <code>index.php</code> instead of <code>index.html</code> file.
+we want Apache to default to a file titled <code>index.php</code> instead of <code>index.html</code> file.
 In these cases, <code>http://example.com/</code> would actually resolves to <code>http://example.com/index.php</code>.</p>
 <p>To configure that, we need to edit the <code>dir.conf</code> file in the <code>/etc/apache2/mods-enabled/</code> directory.
 In that file there is a line that starts with <code>DirectoryIndex</code> followed by a list of files.
 The first file listed in that line is <code>index.html</code>,
-and then there are a series of other files that Apache2 looks for in the order listed.
+and then there are a series of other files that Apache looks for in the order listed.
 Apache checks that list list and prioritizes these in order of appearance on the list.
-If any of those files exist in the document root, then Apache2 serves those before proceeding to the next.
+If any of those files exist in the document root, then Apache serves those before proceeding to the next.
 We want Apache to prioritize the <code>index.php</code> file first and <code>index.html</code> second.
 Before modifying this file, it's good practice to create a backup of the original.
 So we will use the <code>cp</code> command to create a copy with a new name, and then we will use <code>nano</code> to edit the file.</p>
@@ -3188,14 +3188,14 @@ sudo nano dir.conf
 <p>Whenever we make a configuration change, we should use the <code>apachectl</code> command to check our configuration:</p>
 <pre><code>apachectl configtest
 </code></pre>
-<p>If we get a <code>Syntax Ok</code> message, we can reload the Apache2 configuration, restart the service, and check its status:</p>
+<p>If we get a <code>Syntax Ok</code> message, we can reload the Apache configuration, restart the service, and check its status:</p>
 <pre><code>sudo systemctl reload apache2
 sudo systemctl restart apache2
 systemctl status apache2
 </code></pre>
 <h2 id="create-an-indexphp-file"><a class="header" href="#create-an-indexphp-file">Create an index.php File</a></h2>
 <p>Now create a basic PHP page.
-<code>cd</code> back to the Apache2 document root directory and use <code>nano</code> to create and open an <code>index.php</code> file:</p>
+<code>cd</code> back to the Apache document root directory and use <code>nano</code> to create and open an <code>index.php</code> file:</p>
 <pre><code>cd /var/www/html/
 sudo nano index.php
 </code></pre>
@@ -3261,24 +3261,24 @@ Add the following code:</p>
 In your browser, visit your site at its public IP address (again, replace your server's IP address):</p>
 <pre><code>http://55.333.55.333/
 </code></pre>
-<p>Although your <code>index.html</code> file still exists in your document root, Apache2 now returns the <code>index.php</code> file instead.
+<p>Although your <code>index.html</code> file still exists in your document root, Apache now returns the <code>index.php</code> file instead.
 If for some reason PHP fails, then the <code>index.html</code> file would be served next
 since that's what is listed next in the <code>dir.conf</code> file on the <code>DirectoryIndex</code> line.</p>
 <h2 id="conclusion-9"><a class="header" href="#conclusion-9">Conclusion</a></h2>
-<p>In this section, we installed PHP and configured it to work with Apache2.
+<p>In this section, we installed PHP and configured it to work with Apache.
 We also created a simple PHP test page that reported our browser user agent information on our website.</p>
 <p>In the next section, we'll learn how to complete the LAMP stack by adding the MySQL relational database to our setup.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="installing-and-configuring-mysql"><a class="header" href="#installing-and-configuring-mysql">Installing and Configuring MySQL</a></h1>
 <h2 id="introduction-8"><a class="header" href="#introduction-8">Introduction</a></h2>
-<p>We started our LAMP stack when we installed Apache2 on Linux.
-We added extra functionality when we installed and configured PHP to work with Apache2.
+<p>We started our LAMP stack when we installed Apache on Linux.
+We added extra functionality when we installed and configured PHP to work with Apache.
 In this section, our objective is to complete the LAMP stack and install and configure <a href="https://en.wikipedia.org/wiki/MySQL">MySQL</a>.</p>
 <p>If you need a refresher on relational databases, see:
 <a href="https://mariadb.com/kb/en/introduction-to-relational-databases/">Introduction to Relational Databases</a>.
 However in the next section, we will explore the database basics from the command line.</p>
 <h2 id="install-and-set-up-mysql"><a class="header" href="#install-and-set-up-mysql">Install and Set Up MySQL</a></h2>
 <p>In this section, we'll learn how to install, setup, secure, and
-configure the MySQL relational database so that it works with the Apache2 web server and the PHP programming language.</p>
+configure the MySQL relational database so that it works with the Apache web server and the PHP programming language.</p>
 <p>First, as normal, we make run the following commands to ensure our machines are fully updated:</p>
 <pre><code>sudo apt update
 sudo apt upgrade
@@ -3530,7 +3530,7 @@ We're installing some modules alongside the basic support.
 These may or may not be needed, but I'm installing them to demonstrate some basics.</p>
 <pre><code>sudo apt install php-mysql php-mysqli
 </code></pre>
-<p>And then restart Apache2 and MySQL:</p>
+<p>And then restart Apache and MySQL:</p>
 <pre><code>sudo systemctl restart apache2
 sudo systemctl restart mysql
 </code></pre>
@@ -3538,7 +3538,7 @@ sudo systemctl restart mysql
 <p>In order for PHP to connect to MySQL, it needs to authenticate itself.
 To do that, we will create a <code>login.php</code> file in in our document root's parent directory: <code>/var/www</code>.
 We also need to change the group ownership of the file and its permissions (see note below).
-This will allow the file to be read by the Apache2 web server but not by the world.
+This will allow the file to be read by the Apache web server but not by the world.
 This prevents the password information from being accessible to web users.</p>
 <pre><code>cd /var/www
 sudo touch login.php
@@ -3670,13 +3670,21 @@ how to create a test database with play data for practicing, and how to connect 
 <p>In regular applications of these technologies, there's a lot more involved,
 but completing the above process is a great start to learning more.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="diy-integrated-library-systems"><a class="header" href="#diy-integrated-library-systems">DIY Integrated Library Systems</a></h1>
+<p>Libraries use integrated library systems (ILS) to manage and add to their collections and
+to provide online public access catalogs or discovery systems to their users to search those collections.
+In this chapter, based on the LAMP stack we created in the prior chapter, we will build a basic ILS.
+Specifically, we will create a bare bones OPAC and a bare bones cataloging module, two cornerstone modules in all ILSs.</p>
+<p>We start with an additional lesson in relational database usage.
+We then proceed to build the OPAC and cataloging modules.
+By the end of this chapter, you will have a deeper understanding of the fundamentals of these library technologies
+and how they are used in everyday practice.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="introduction-to-relational-databases"><a class="header" href="#introduction-to-relational-databases">Introduction to Relational Databases</a></h2>
 <p>In the last section, we installed, configured, and setup a Linux, Apache, MySQL, and PHP (LAMP) stack.
 While setting up MySQL, we created a basic <code>opacdb</code> database containing a <code>books</code> table.
-We learned a few queries to get a feel for how querying a relational database, like MySQL, works.</p>
+Then we learned a few queries to get a feel for how querying a relational database, like MySQL, works.</p>
 <p>In this section, we are going to spend a bit more time with MySQL simply to acquire a greater understanding of relational databases.
 The real power of relational databases lies in their ability to manage and retrieve data efficiently.
-This is accomplished by spreading data across multiple tables thus limiting data duplication.</p>
+This is accomplished by spreading data across multiple tables in order to limit data duplication and increase efficiency.</p>
 <p>We'll create a new database for our <code>opacuser</code>.
 Unlike the <code>opacdb</code> database, our new database, which we'll call <code>DinnerDB</code>, will contain two tables.
 This will reduce the amount of data we need to add to our database.</p>
@@ -3690,10 +3698,7 @@ We could create another user, but for our purposes, we can simply grant <code>op
 <pre><code>mysql&gt; create database DinnerDB;
 mysql&gt; grant all privileges on DinnerDB.* to 'opacuser'@'localhost';
 </code></pre>
-<p>Now that we have given <code>opacuser</code> new privileges for a new database, we may want to track <code>opacuser</code>'s privileges:</p>
-<pre><code>mysql&gt; show grants for 'opacuser'@'localhost';
-</code></pre>
-<p>We are done and can exit as the root MySQL user:</p>
+<p>We can now exit the root MySQL user account:</p>
 <pre><code>mysql&gt; \q
 </code></pre>
 <h2 id="create-tables"><a class="header" href="#create-tables">Create Tables</a></h2>
@@ -3712,10 +3717,10 @@ The second table will list the ingredients and quantities needed to make the mea
 <p>The following command creates a table called <code>Meals</code>.
 The table has five values:</p>
 <ul>
-<li><code>meal_id</code> in an integer that serves as the primary key.</li>
-<li><code>meal_name</code> contains a variable-length string up to 100 characters.</li>
+<li><code>meal_id</code> is an integer that serves as the <a href="https://dev.mysql.com/doc/refman/8.4/en/primary-key-optimization.html">primary key</a>.</li>
+<li><code>meal_name</code> contains a <a href="https://dev.mysql.com/doc/refman/8.4/en/char.html">variable-length string</a> up to 100 characters.</li>
 <li><code>cuisine</code> contains a variable-length string up to 50 characters.</li>
-<li><code>cooking_time</code> is an integer that uses a CHECK constraint so that if a user enters a zero or a negative value, MySQL will reject it, or if a user enters no value, it will default to one.</li>
+<li><code>cooking_time</code> is an integer that uses a <a href="https://dev.mysql.com/doc/refman/8.4/en/create-table-check-constraints.html">CHECK constraint</a> so that if a user enters a zero or a negative value, MySQL will reject it, or if a user enters no value, it will default to one.</li>
 <li><code>vegetarian</code> contains a BOOLEAN value, which means it must be TRUE or FALSE:
 <ul>
 <li>technically, BOOLEAN is synonymous with a data type called <code>TINYINT(1)</code>, but BOOLEAN better conveys what we mean.</li>
@@ -3737,9 +3742,9 @@ The table has four values:</p>
 <li><code>ingredient_id</code> is the primary key.</li>
 <li><code>meal_id</code> is an integer:
 <ul>
-<li>the last line in the command declares the <code>meal_id</code> value to be a foreign key that references the <code>meal_id</code> in the <code>Meals</code> table</li>
-<li>foreign keys allow for cross-referencing.</li>
-<li>since we cross-reference <code>meal_id</code> here to <code>meal_id</code> to the <code>Meals</code> table, we make the <code>Ingredients</code> table a child of the <code>Meals</code> table, which functions as the parent table to the <code>Ingredients</code> table.</li>
+<li>the last line in the command declares the <code>meal_id</code> value to be a foreign key that references the <code>meal_id</code> primary key in the <code>Meals</code> table</li>
+<li>foreign keys allow for cross-referencing to primary keys.</li>
+<li>since we cross-reference <code>meal_id</code> in the <code>Ingredients</code> table to <code>meal_id</code> in the <code>Meals</code> table, we make the <code>Ingredients</code> table a child of the <code>Meals</code> table, which by entailment functions as the parent table to the <code>Ingredients</code> table.</li>
 <li>the <code>on delete cascade</code> clause instructs MySQL to delete associated ingredients when deleting a meal in the <code>Meals</code> table.</li>
 </ul>
 </li>
@@ -3758,42 +3763,43 @@ The table has four values:</p>
 <p>Now that we have created the structure of our two tables, we can begin adding data to them.
 The first command adds four records to the <code>Meals</code> table:</p>
 <pre><code>INSERT INTO Meals (meal_name, cuisine, cooking_time, vegetarian) VALUES
-('Spaghetti Bolognese', 'Italian', 45, FALSE),
-('Vegetable Stir Fry', 'Chinese', 20, TRUE),
-('Chicken Curry', 'Indian', 50, FALSE),
-('Mushroom Risotto', 'Italian', 35, TRUE);
+    ('Spaghetti Bolognese', 'Italian', 45, FALSE),
+    ('Vegetable Stir Fry', 'Chinese', 20, TRUE),
+    ('Chicken Curry', 'Indian', 50, FALSE),
+    ('Mushroom Risotto', 'Italian', 35, TRUE);
 </code></pre>
 <p>And the second command adds the list of ingredients for the meals we added to the <code>Meals</code> table.
 The integers we use for <code>meal_id</code> match the values produced in the <code>Meals</code> table, which we can see with the <code>select * from Meals;</code> command.
 Therefore, <code>1</code> refers to <strong>Spaghetti Bolognese</strong>, <code>2</code> refers to <strong>Vegetable Stir Fry</strong>, and so on.</p>
 <pre><code>INSERT INTO Ingredients (meal_id, ingredient_name, quantity) VALUES
-(1, 'Spaghetti', '200g'),
-(1, 'Ground Beef', '250g'),
-(1, 'Tomato Sauce', '1 cup'),
-(2, 'Broccoli', '100g'),
-(2, 'Carrots', '50g'),
-(2, 'Soy Sauce', '2T'),
-(3, 'Chicken Breast', '300g'),
-(3, 'Curry Powder', '2T'),
-(3, 'Coconut Milk', '1 cup'),
-(4, 'Arborio Rice', '1 cup'),
-(4, 'Mushrooms', '1 cup'),
-(4, 'Parmesan Cheese', '1/2 cup');
+    (1, 'Spaghetti', '200g'),
+    (1, 'Ground Beef', '250g'),
+    (1, 'Tomato Sauce', '1 cup'),
+    (2, 'Broccoli', '100g'),
+    (2, 'Carrots', '50g'),
+    (2, 'Soy Sauce', '2T'),
+    (3, 'Chicken Breast', '300g'),
+    (3, 'Curry Powder', '2T'),
+    (3, 'Coconut Milk', '1 cup'),
+    (4, 'Arborio Rice', '1 cup'),
+    (4, 'Mushrooms', '1 cup'),
+    (4, 'Parmesan Cheese', '1/2 cup');
 </code></pre>
-<p>In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
-This would result in better <a href="https://en.wikipedia.org/wiki/Database_normalization">database normalization</a>.</p>
+<pre><code>In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
+This would result in better [database normalization][db_normalization_wiki].
+</code></pre>
 <h2 id="querying-data"><a class="header" href="#querying-data">Querying Data</a></h2>
 <p>Now that we have created our tables and added records to them, we can begin to query them.
-The next command is a simple <code>SELECT</code> statement:</p>
+The next command is a simple <code>SELECT</code> statement that returns the entire contents of the <code>Meals</code> table:</p>
 <pre><code>select * from Meals;
 </code></pre>
-<p>By adding the <code>WHERE</code> clause, we can filter results.
+<p>We can filter results with the <code>WHERE</code> clause.
 In this example, we filter results by whether a meal is vegetarian:</p>
 <pre><code>select * from Meals where vegetarian = TRUE;
 </code></pre>
 <p>We can sort the results by descending or ascending order.
 This works for both alphabetic and numeric characters.
-The following commands sort the Meals by length of cooking time:</p>
+The following commands sort the Meals by length of cooking time, which is an integer:</p>
 <pre><code>select * from Meals order by cooking_time desc; 
 select * from Meals order by cooking_time asc; 
 </code></pre>
@@ -3803,35 +3809,42 @@ select * from Meals order by cooking_time asc;
 <li><code>ingredient_name</code> from the <code>Ingredients</code> table and rename the resulting column <code>Ingredients</code>.</li>
 <li><code>quantity</code> from the <code>Ingredients</code> table and rename the resulting column <code>Quantity</code>.</li>
 </ul>
-<p>We also use the <code>join</code> action to cross-reference the tables based on the shared <code>meal_id</code> value:</p>
-<pre><code>select Meals.meal_name as Meals, Ingredients.ingredient_name as Ingredients, Ingredients.quantity as Quantity
-from Meals
-join Ingredients on Meals.meal_id = Ingredients.meal_id;
+<p>We also use the <code>join</code> action to cross-reference the tables based on the shared <code>meal_id</code> value.
+Note that I use the <code>table_name.column_name</code> syntax in the query.
+For example, <code>Meals.meal_name</code> refers to the column <code>meal_name</code> in the <code>Meals</code> table, and so forth.
+The <code>as</code> in <code>as Meals</code>, <code>as Ingredients</code>, and <code>as Quantity</code> instructs MySQL to rename the columns.
+This is useful for the presentation of the data:</p>
+<pre><code>select Meals.meal_name as Meals,
+    Ingredients.ingredient_name as Ingredients,
+    Ingredients.quantity as Quantity
+    from Meals
+    join Ingredients on Meals.meal_id = Ingredients.meal_id;
 </code></pre>
 <p>In the following example, we list the ingredients and their quantities based on the name of a meal.
 In this case, we are looking to list the ingredients for the Chicken Curry dish:</p>
-<pre><code>SELECT ingredient_name as Ingredients, quantity as Quantity
-FROM Ingredients 
-WHERE meal_id = (SELECT meal_id FROM Meals WHERE meal_name = 'Chicken Curry');
+<pre><code>select ingredient_name as Ingredients,
+    quantity as Quantity
+    from Ingredients 
+    where meal_id = (select meal_id from Meals where meal_name = 'Chicken Curry');
 </code></pre>
 <p>In the following example, we instruct MySQL to provide a count of the Meals by cuisine:</p>
 <pre><code>select cuisine, count(*) as meal_count 
-FROM Meals
-group by cuisine;
+    from Meals
+    group by cuisine;
 </code></pre>
 <p>And finally, it's been a tough day, and we want to identify Meals that don't take long to cook.
 The following command returns all Meals where the cooking time is less than or equal to 45 minutes:</p>
 <pre><code>select meal_name, cooking_time 
-from Meals 
-where cooking_time &lt;= 45
-order by cooking_time asc;
+    from Meals 
+    where cooking_time &lt;= 45
+    order by cooking_time asc;
 </code></pre>
 <p>Once done querying our database, we can logout:</p>
 <pre><code>\q
 </code></pre>
 <h2 id="database-management"><a class="header" href="#database-management">Database Management</a></h2>
-<p>When we started, we logged into MySQL and created a database called <code>DinnerDB</code>.
-Then we granted all privileges to this database to <code>opacuser</code>.
+<p>When we started this lesson, we logged into MySQL and created a database called <code>DinnerDB</code>.
+Then we granted <code>opacuser</code> all privileges to this database.
 There might be times when we want to revoke those privileges.
 To do so, we first log back in as the root MySQL user:</p>
 <pre><code>sudo mysql -u root
@@ -3843,8 +3856,16 @@ To do so, we first log back in as the root MySQL user:</p>
 <pre><code>mysql&gt; revoke all privileges on DinnerDB.* from 'opacuser'@'localhost';
 </code></pre>
 <p>To confirm, we can re-run the <code>show grants</code> command.</p>
+<p>If we want to track other users in with accounts in the MySQL server,
+the following command queries the <code>user</code> table in the <code>mysql</code> database and will return all user accounts:</p>
+<pre><code>select user, host from mysql.user;
+</code></pre>
 <p>We can also delete the database using the <code>DROP</code> command:</p>
-<pre><code>mysql&gt; DROP database DinnerDB;
+<pre><code>mysql&gt; drop database DinnerDB;
+</code></pre>
+<p>If desired, we can delete user accounts (but <strong>don't do this</strong> with <code>opacuser</code>).
+For example, if had a user named <code>sean</code>, then we could use the following command to remove their account:</p>
+<pre><code>mysql&gt; drop user `sean`@`localhost`;
 </code></pre>
 <h2 id="conclusion-11"><a class="header" href="#conclusion-11">Conclusion</a></h2>
 <p>In this introduction, we explored the basics of relational databases using MySQL.
@@ -3858,11 +3879,14 @@ inserted data, and performed various queries to retrieve information efficiently
 <li><strong>Management</strong>: We reviewed how to create a database, grant privileges to the database to a specific user, remove those privileges, and delete the database.</li>
 </ul>
 <p>This tutorial is only a start.
-Experiment with modifying the data, adding constraints, separating quantities from units, or
-creating additional tables to further your understanding.
-Databases are powerful tools for organizing and retrieving structured information.
-Understanding SQL and its logic will help you in other domains, too!
-Go play!</p>
+You should experiment with modifying the data, adding constraints, separating quantities from units, or
+creating additional tables to further your understanding.</p>
+<p>Databases are powerful tools for organizing and retrieving structured information.
+If you understand SQL and its logic, it will help you in other domains, too!
+So go play!</p>
+<p>And if interested, I encourage you to learn other SQL implementation, like <a href="https://www.sqlite.org/">SQLite</a>,
+which you can download and install on your personal machines fairly easily.
+SQLite is probably the most popular SQL application, but it uses <a href="https://www.sqlite.org/cli.html">a slightly different command syntax</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-bare-bones-opac"><a class="header" href="#creating-a-bare-bones-opac">Creating a Bare Bones OPAC</a></h1>
 <p>In this section,
 we're going to create a bare bones and

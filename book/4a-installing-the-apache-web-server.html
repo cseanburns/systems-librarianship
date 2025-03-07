@@ -211,7 +211,7 @@ This ensures we will be downloading and installing the most recent, secure versi
 <pre><code>sudo apt update
 sudo apt -y upgrade
 </code></pre>
-<p>Once the machine is updated, we can install Apache2 using <code>apt</code>.
+<p>Once the machine is updated, we can install Apache using <code>apt</code>.
 First we'll use <code>apt search</code> to identify the specific package name.
 I know that a lot of results will be returned, so I will <strong>pipe</strong> <code>|</code> the output from <code>apt search</code> command
 through the <code>head</code> command to look at the initial results:</p>
@@ -324,14 +324,14 @@ Any mistake may result in deleting necessary files or directories.</p>
 Otherwise, you can re-type the content below in <code>nano</code> or like, and then save and exit out.</p>
 <pre><code>&lt;html&gt;
 &lt;head&gt;
-&lt;title&gt;My first web page using Apache2&lt;/title&gt;
+&lt;title&gt;My first web page using Apache&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
 
 &lt;h1&gt;Welcome&lt;/h1&gt;
 
 &lt;p&gt;Welcome to my web site.
-I created this site using the Apache2 HTTP server.&lt;/p&gt;
+I created this site using the Apache HTTP server.&lt;/p&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;
@@ -344,7 +344,7 @@ For example, if your <strong>public IP address</strong> is <code>55.222.55.222</
 <pre><code>http://55.222.55.222/index.html.original
 </code></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
-<p>In this section, we learned about the Apache2 HTTP server.
+<p>In this section, we learned about the Apache HTTP server.
 We learned how to install it on Ubuntu, how to use a <code>systemctl</code> command to check its status,
 how to create a basic web page in <code>/var/www/html</code>,
 how to view that web page using the <code>w3m</code> command line browser and in our graphical browser,</p>

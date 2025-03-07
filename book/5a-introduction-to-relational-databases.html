@@ -179,10 +179,10 @@
                         <h2 id="introduction-to-relational-databases"><a class="header" href="#introduction-to-relational-databases">Introduction to Relational Databases</a></h2>
 <p>In the last section, we installed, configured, and setup a Linux, Apache, MySQL, and PHP (LAMP) stack.
 While setting up MySQL, we created a basic <code>opacdb</code> database containing a <code>books</code> table.
-We learned a few queries to get a feel for how querying a relational database, like MySQL, works.</p>
+Then we learned a few queries to get a feel for how querying a relational database, like MySQL, works.</p>
 <p>In this section, we are going to spend a bit more time with MySQL simply to acquire a greater understanding of relational databases.
 The real power of relational databases lies in their ability to manage and retrieve data efficiently.
-This is accomplished by spreading data across multiple tables thus limiting data duplication.</p>
+This is accomplished by spreading data across multiple tables in order to limit data duplication and increase efficiency.</p>
 <p>We'll create a new database for our <code>opacuser</code>.
 Unlike the <code>opacdb</code> database, our new database, which we'll call <code>DinnerDB</code>, will contain two tables.
 This will reduce the amount of data we need to add to our database.</p>
@@ -196,10 +196,7 @@ We could create another user, but for our purposes, we can simply grant <code>op
 <pre><code>mysql&gt; create database DinnerDB;
 mysql&gt; grant all privileges on DinnerDB.* to 'opacuser'@'localhost';
 </code></pre>
-<p>Now that we have given <code>opacuser</code> new privileges for a new database, we may want to track <code>opacuser</code>'s privileges:</p>
-<pre><code>mysql&gt; show grants for 'opacuser'@'localhost';
-</code></pre>
-<p>We are done and can exit as the root MySQL user:</p>
+<p>We can now exit the root MySQL user account:</p>
 <pre><code>mysql&gt; \q
 </code></pre>
 <h2 id="create-tables"><a class="header" href="#create-tables">Create Tables</a></h2>
@@ -218,10 +215,10 @@ The second table will list the ingredients and quantities needed to make the mea
 <p>The following command creates a table called <code>Meals</code>.
 The table has five values:</p>
 <ul>
-<li><code>meal_id</code> in an integer that serves as the primary key.</li>
-<li><code>meal_name</code> contains a variable-length string up to 100 characters.</li>
+<li><code>meal_id</code> is an integer that serves as the <a href="https://dev.mysql.com/doc/refman/8.4/en/primary-key-optimization.html">primary key</a>.</li>
+<li><code>meal_name</code> contains a <a href="https://dev.mysql.com/doc/refman/8.4/en/char.html">variable-length string</a> up to 100 characters.</li>
 <li><code>cuisine</code> contains a variable-length string up to 50 characters.</li>
-<li><code>cooking_time</code> is an integer that uses a CHECK constraint so that if a user enters a zero or a negative value, MySQL will reject it, or if a user enters no value, it will default to one.</li>
+<li><code>cooking_time</code> is an integer that uses a <a href="https://dev.mysql.com/doc/refman/8.4/en/create-table-check-constraints.html">CHECK constraint</a> so that if a user enters a zero or a negative value, MySQL will reject it, or if a user enters no value, it will default to one.</li>
 <li><code>vegetarian</code> contains a BOOLEAN value, which means it must be TRUE or FALSE:
 <ul>
 <li>technically, BOOLEAN is synonymous with a data type called <code>TINYINT(1)</code>, but BOOLEAN better conveys what we mean.</li>
@@ -243,9 +240,9 @@ The table has four values:</p>
 <li><code>ingredient_id</code> is the primary key.</li>
 <li><code>meal_id</code> is an integer:
 <ul>
-<li>the last line in the command declares the <code>meal_id</code> value to be a foreign key that references the <code>meal_id</code> in the <code>Meals</code> table</li>
-<li>foreign keys allow for cross-referencing.</li>
-<li>since we cross-reference <code>meal_id</code> here to <code>meal_id</code> to the <code>Meals</code> table, we make the <code>Ingredients</code> table a child of the <code>Meals</code> table, which functions as the parent table to the <code>Ingredients</code> table.</li>
+<li>the last line in the command declares the <code>meal_id</code> value to be a foreign key that references the <code>meal_id</code> primary key in the <code>Meals</code> table</li>
+<li>foreign keys allow for cross-referencing to primary keys.</li>
+<li>since we cross-reference <code>meal_id</code> in the <code>Ingredients</code> table to <code>meal_id</code> in the <code>Meals</code> table, we make the <code>Ingredients</code> table a child of the <code>Meals</code> table, which by entailment functions as the parent table to the <code>Ingredients</code> table.</li>
 <li>the <code>on delete cascade</code> clause instructs MySQL to delete associated ingredients when deleting a meal in the <code>Meals</code> table.</li>
 </ul>
 </li>
@@ -264,42 +261,43 @@ The table has four values:</p>
 <p>Now that we have created the structure of our two tables, we can begin adding data to them.
 The first command adds four records to the <code>Meals</code> table:</p>
 <pre><code>INSERT INTO Meals (meal_name, cuisine, cooking_time, vegetarian) VALUES
-('Spaghetti Bolognese', 'Italian', 45, FALSE),
-('Vegetable Stir Fry', 'Chinese', 20, TRUE),
-('Chicken Curry', 'Indian', 50, FALSE),
-('Mushroom Risotto', 'Italian', 35, TRUE);
+    ('Spaghetti Bolognese', 'Italian', 45, FALSE),
+    ('Vegetable Stir Fry', 'Chinese', 20, TRUE),
+    ('Chicken Curry', 'Indian', 50, FALSE),
+    ('Mushroom Risotto', 'Italian', 35, TRUE);
 </code></pre>
 <p>And the second command adds the list of ingredients for the meals we added to the <code>Meals</code> table.
 The integers we use for <code>meal_id</code> match the values produced in the <code>Meals</code> table, which we can see with the <code>select * from Meals;</code> command.
 Therefore, <code>1</code> refers to <strong>Spaghetti Bolognese</strong>, <code>2</code> refers to <strong>Vegetable Stir Fry</strong>, and so on.</p>
 <pre><code>INSERT INTO Ingredients (meal_id, ingredient_name, quantity) VALUES
-(1, 'Spaghetti', '200g'),
-(1, 'Ground Beef', '250g'),
-(1, 'Tomato Sauce', '1 cup'),
-(2, 'Broccoli', '100g'),
-(2, 'Carrots', '50g'),
-(2, 'Soy Sauce', '2T'),
-(3, 'Chicken Breast', '300g'),
-(3, 'Curry Powder', '2T'),
-(3, 'Coconut Milk', '1 cup'),
-(4, 'Arborio Rice', '1 cup'),
-(4, 'Mushrooms', '1 cup'),
-(4, 'Parmesan Cheese', '1/2 cup');
+    (1, 'Spaghetti', '200g'),
+    (1, 'Ground Beef', '250g'),
+    (1, 'Tomato Sauce', '1 cup'),
+    (2, 'Broccoli', '100g'),
+    (2, 'Carrots', '50g'),
+    (2, 'Soy Sauce', '2T'),
+    (3, 'Chicken Breast', '300g'),
+    (3, 'Curry Powder', '2T'),
+    (3, 'Coconut Milk', '1 cup'),
+    (4, 'Arborio Rice', '1 cup'),
+    (4, 'Mushrooms', '1 cup'),
+    (4, 'Parmesan Cheese', '1/2 cup');
 </code></pre>
-<p>In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
-This would result in better <a href="https://en.wikipedia.org/wiki/Database_normalization">database normalization</a>.</p>
+<pre><code>In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
+This would result in better [database normalization][db_normalization_wiki].
+</code></pre>
 <h2 id="querying-data"><a class="header" href="#querying-data">Querying Data</a></h2>
 <p>Now that we have created our tables and added records to them, we can begin to query them.
-The next command is a simple <code>SELECT</code> statement:</p>
+The next command is a simple <code>SELECT</code> statement that returns the entire contents of the <code>Meals</code> table:</p>
 <pre><code>select * from Meals;
 </code></pre>
-<p>By adding the <code>WHERE</code> clause, we can filter results.
+<p>We can filter results with the <code>WHERE</code> clause.
 In this example, we filter results by whether a meal is vegetarian:</p>
 <pre><code>select * from Meals where vegetarian = TRUE;
 </code></pre>
 <p>We can sort the results by descending or ascending order.
 This works for both alphabetic and numeric characters.
-The following commands sort the Meals by length of cooking time:</p>
+The following commands sort the Meals by length of cooking time, which is an integer:</p>
 <pre><code>select * from Meals order by cooking_time desc; 
 select * from Meals order by cooking_time asc; 
 </code></pre>
@@ -309,35 +307,42 @@ select * from Meals order by cooking_time asc;
 <li><code>ingredient_name</code> from the <code>Ingredients</code> table and rename the resulting column <code>Ingredients</code>.</li>
 <li><code>quantity</code> from the <code>Ingredients</code> table and rename the resulting column <code>Quantity</code>.</li>
 </ul>
-<p>We also use the <code>join</code> action to cross-reference the tables based on the shared <code>meal_id</code> value:</p>
-<pre><code>select Meals.meal_name as Meals, Ingredients.ingredient_name as Ingredients, Ingredients.quantity as Quantity
-from Meals
-join Ingredients on Meals.meal_id = Ingredients.meal_id;
+<p>We also use the <code>join</code> action to cross-reference the tables based on the shared <code>meal_id</code> value.
+Note that I use the <code>table_name.column_name</code> syntax in the query.
+For example, <code>Meals.meal_name</code> refers to the column <code>meal_name</code> in the <code>Meals</code> table, and so forth.
+The <code>as</code> in <code>as Meals</code>, <code>as Ingredients</code>, and <code>as Quantity</code> instructs MySQL to rename the columns.
+This is useful for the presentation of the data:</p>
+<pre><code>select Meals.meal_name as Meals,
+    Ingredients.ingredient_name as Ingredients,
+    Ingredients.quantity as Quantity
+    from Meals
+    join Ingredients on Meals.meal_id = Ingredients.meal_id;
 </code></pre>
 <p>In the following example, we list the ingredients and their quantities based on the name of a meal.
 In this case, we are looking to list the ingredients for the Chicken Curry dish:</p>
-<pre><code>SELECT ingredient_name as Ingredients, quantity as Quantity
-FROM Ingredients 
-WHERE meal_id = (SELECT meal_id FROM Meals WHERE meal_name = 'Chicken Curry');
+<pre><code>select ingredient_name as Ingredients,
+    quantity as Quantity
+    from Ingredients 
+    where meal_id = (select meal_id from Meals where meal_name = 'Chicken Curry');
 </code></pre>
 <p>In the following example, we instruct MySQL to provide a count of the Meals by cuisine:</p>
 <pre><code>select cuisine, count(*) as meal_count 
-FROM Meals
-group by cuisine;
+    from Meals
+    group by cuisine;
 </code></pre>
 <p>And finally, it's been a tough day, and we want to identify Meals that don't take long to cook.
 The following command returns all Meals where the cooking time is less than or equal to 45 minutes:</p>
 <pre><code>select meal_name, cooking_time 
-from Meals 
-where cooking_time &lt;= 45
-order by cooking_time asc;
+    from Meals 
+    where cooking_time &lt;= 45
+    order by cooking_time asc;
 </code></pre>
 <p>Once done querying our database, we can logout:</p>
 <pre><code>\q
 </code></pre>
 <h2 id="database-management"><a class="header" href="#database-management">Database Management</a></h2>
-<p>When we started, we logged into MySQL and created a database called <code>DinnerDB</code>.
-Then we granted all privileges to this database to <code>opacuser</code>.
+<p>When we started this lesson, we logged into MySQL and created a database called <code>DinnerDB</code>.
+Then we granted <code>opacuser</code> all privileges to this database.
 There might be times when we want to revoke those privileges.
 To do so, we first log back in as the root MySQL user:</p>
 <pre><code>sudo mysql -u root
@@ -349,8 +354,16 @@ To do so, we first log back in as the root MySQL user:</p>
 <pre><code>mysql&gt; revoke all privileges on DinnerDB.* from 'opacuser'@'localhost';
 </code></pre>
 <p>To confirm, we can re-run the <code>show grants</code> command.</p>
+<p>If we want to track other users in with accounts in the MySQL server,
+the following command queries the <code>user</code> table in the <code>mysql</code> database and will return all user accounts:</p>
+<pre><code>select user, host from mysql.user;
+</code></pre>
 <p>We can also delete the database using the <code>DROP</code> command:</p>
-<pre><code>mysql&gt; DROP database DinnerDB;
+<pre><code>mysql&gt; drop database DinnerDB;
+</code></pre>
+<p>If desired, we can delete user accounts (but <strong>don't do this</strong> with <code>opacuser</code>).
+For example, if had a user named <code>sean</code>, then we could use the following command to remove their account:</p>
+<pre><code>mysql&gt; drop user `sean`@`localhost`;
 </code></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>In this introduction, we explored the basics of relational databases using MySQL.
@@ -364,11 +377,14 @@ inserted data, and performed various queries to retrieve information efficiently
 <li><strong>Management</strong>: We reviewed how to create a database, grant privileges to the database to a specific user, remove those privileges, and delete the database.</li>
 </ul>
 <p>This tutorial is only a start.
-Experiment with modifying the data, adding constraints, separating quantities from units, or
-creating additional tables to further your understanding.
-Databases are powerful tools for organizing and retrieving structured information.
-Understanding SQL and its logic will help you in other domains, too!
-Go play!</p>
+You should experiment with modifying the data, adding constraints, separating quantities from units, or
+creating additional tables to further your understanding.</p>
+<p>Databases are powerful tools for organizing and retrieving structured information.
+If you understand SQL and its logic, it will help you in other domains, too!
+So go play!</p>
+<p>And if interested, I encourage you to learn other SQL implementation, like <a href="https://www.sqlite.org/">SQLite</a>,
+which you can download and install on your personal machines fairly easily.
+SQLite is probably the most popular SQL application, but it uses <a href="https://www.sqlite.org/cli.html">a slightly different command syntax</a>.</p>
 
                     </main>
 

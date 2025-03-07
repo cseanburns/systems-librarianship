@@ -178,15 +178,15 @@
                     <main>
                         <h1 id="installing-and-configuring-mysql"><a class="header" href="#installing-and-configuring-mysql">Installing and Configuring MySQL</a></h1>
 <h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
-<p>We started our LAMP stack when we installed Apache2 on Linux.
-We added extra functionality when we installed and configured PHP to work with Apache2.
+<p>We started our LAMP stack when we installed Apache on Linux.
+We added extra functionality when we installed and configured PHP to work with Apache.
 In this section, our objective is to complete the LAMP stack and install and configure <a href="https://en.wikipedia.org/wiki/MySQL">MySQL</a>.</p>
 <p>If you need a refresher on relational databases, see:
 <a href="https://mariadb.com/kb/en/introduction-to-relational-databases/">Introduction to Relational Databases</a>.
 However in the next section, we will explore the database basics from the command line.</p>
 <h2 id="install-and-set-up-mysql"><a class="header" href="#install-and-set-up-mysql">Install and Set Up MySQL</a></h2>
 <p>In this section, we'll learn how to install, setup, secure, and
-configure the MySQL relational database so that it works with the Apache2 web server and the PHP programming language.</p>
+configure the MySQL relational database so that it works with the Apache web server and the PHP programming language.</p>
 <p>First, as normal, we make run the following commands to ensure our machines are fully updated:</p>
 <pre><code>sudo apt update
 sudo apt upgrade
@@ -438,7 +438,7 @@ We're installing some modules alongside the basic support.
 These may or may not be needed, but I'm installing them to demonstrate some basics.</p>
 <pre><code>sudo apt install php-mysql php-mysqli
 </code></pre>
-<p>And then restart Apache2 and MySQL:</p>
+<p>And then restart Apache and MySQL:</p>
 <pre><code>sudo systemctl restart apache2
 sudo systemctl restart mysql
 </code></pre>
@@ -446,7 +446,7 @@ sudo systemctl restart mysql
 <p>In order for PHP to connect to MySQL, it needs to authenticate itself.
 To do that, we will create a <code>login.php</code> file in in our document root's parent directory: <code>/var/www</code>.
 We also need to change the group ownership of the file and its permissions (see note below).
-This will allow the file to be read by the Apache2 web server but not by the world.
+This will allow the file to be read by the Apache web server but not by the world.
 This prevents the password information from being accessible to web users.</p>
 <pre><code>cd /var/www
 sudo touch login.php
