@@ -233,7 +233,7 @@ The table has five values:</p>
     vegetarian boolean
 );
 </code></pre>
-<h3 id="create-ingredients-table"><a class="header" href="#create-ingredients-table">Create ingredients table</a></h3>
+<h3 id="create-ingredients-table"><a class="header" href="#create-ingredients-table">Create <code>Ingredients</code> table</a></h3>
 <p>The following command creates the <code>Ingredients</code> table.
 The table has four values:</p>
 <ul>
@@ -249,18 +249,18 @@ The table has four values:</p>
 <li><code>ingredient_name</code> contains a variable-length string up to 100 characters.</li>
 <li><code>quantity</code> contains a variable-length string up to 50 characters.</li>
 </ul>
-<pre><code>CREATE TABLE Ingredients (
-    ingredient_id INT AUTO_INCREMENT PRIMARY KEY,
-    meal_id INT,
-    ingredient_name VARCHAR(100) NOT NULL,
-    quantity VARCHAR(50),
-    FOREIGN KEY (meal_id) REFERENCES Meals(meal_id) ON DELETE CASCADE
+<pre><code>create table Ingredients (
+    ingredient_id int auto_increment primary key,
+    meal_id int,
+    ingredient_name varchar(100) not null,
+    quantity varchar(50),
+    foreign key (meal_id) references Meals(meal_id) on delete cascade
 );
 </code></pre>
 <h2 id="insert-data"><a class="header" href="#insert-data">Insert data</a></h2>
 <p>Now that we have created the structure of our two tables, we can begin adding data to them.
 The first command adds four records to the <code>Meals</code> table:</p>
-<pre><code>INSERT INTO Meals (meal_name, cuisine, cooking_time, vegetarian) VALUES
+<pre><code>insert into Meals (meal_name, cuisine, cooking_time, vegetarian) values
     ('Spaghetti Bolognese', 'Italian', 45, FALSE),
     ('Vegetable Stir Fry', 'Chinese', 20, TRUE),
     ('Chicken Curry', 'Indian', 50, FALSE),
@@ -269,7 +269,7 @@ The first command adds four records to the <code>Meals</code> table:</p>
 <p>And the second command adds the list of ingredients for the meals we added to the <code>Meals</code> table.
 The integers we use for <code>meal_id</code> match the values produced in the <code>Meals</code> table, which we can see with the <code>select * from Meals;</code> command.
 Therefore, <code>1</code> refers to <strong>Spaghetti Bolognese</strong>, <code>2</code> refers to <strong>Vegetable Stir Fry</strong>, and so on.</p>
-<pre><code>INSERT INTO Ingredients (meal_id, ingredient_name, quantity) VALUES
+<pre><code>insert into Ingredients (meal_id, ingredient_name, quantity) values
     (1, 'Spaghetti', '200g'),
     (1, 'Ground Beef', '250g'),
     (1, 'Tomato Sauce', '1 cup'),
