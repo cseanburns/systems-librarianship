@@ -77,7 +77,7 @@ create table Meals (
 );
 ```
 
-### Create ingredients table
+### Create `Ingredients` table
 
 The following command creates the `Ingredients` table.
 The table has four values:
@@ -92,12 +92,12 @@ The table has four values:
 - `quantity` contains a variable-length string up to 50 characters.
 
 ```
-CREATE TABLE Ingredients (
-    ingredient_id INT AUTO_INCREMENT PRIMARY KEY,
-    meal_id INT,
-    ingredient_name VARCHAR(100) NOT NULL,
-    quantity VARCHAR(50),
-    FOREIGN KEY (meal_id) REFERENCES Meals(meal_id) ON DELETE CASCADE
+create table Ingredients (
+    ingredient_id int auto_increment primary key,
+    meal_id int,
+    ingredient_name varchar(100) not null,
+    quantity varchar(50),
+    foreign key (meal_id) references Meals(meal_id) on delete cascade
 );
 ```
 
@@ -107,7 +107,7 @@ Now that we have created the structure of our two tables, we can begin adding da
 The first command adds four records to the `Meals` table:
 
 ```
-INSERT INTO Meals (meal_name, cuisine, cooking_time, vegetarian) VALUES
+insert into Meals (meal_name, cuisine, cooking_time, vegetarian) values
     ('Spaghetti Bolognese', 'Italian', 45, FALSE),
     ('Vegetable Stir Fry', 'Chinese', 20, TRUE),
     ('Chicken Curry', 'Indian', 50, FALSE),
@@ -119,7 +119,7 @@ The integers we use for `meal_id` match the values produced in the `Meals` table
 Therefore, `1` refers to **Spaghetti Bolognese**, `2` refers to **Vegetable Stir Fry**, and so on.
 
 ```
-INSERT INTO Ingredients (meal_id, ingredient_name, quantity) VALUES
+insert into Ingredients (meal_id, ingredient_name, quantity) values
     (1, 'Spaghetti', '200g'),
     (1, 'Ground Beef', '250g'),
     (1, 'Tomato Sauce', '1 cup'),
