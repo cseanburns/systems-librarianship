@@ -258,7 +258,7 @@ If desired, we can delete user accounts (but **don't do this** with `opacuser`).
 For example, if had a user named `sean`, then we could use the following command to remove their account:
 
 ```
-mysql> drop user `sean`@`localhost`;
+mysql> drop user 'sean'@'localhost';
 ```
 
 ## Conclusion
