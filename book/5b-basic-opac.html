@@ -177,253 +177,192 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="creating-a-bare-bones-opac"><a class="header" href="#creating-a-bare-bones-opac">Creating a Bare Bones OPAC</a></h1>
-<p>In this section,
-we're going to create a bare bones and
-very basic OPAC.
-The idea is simply to acquire an
-intuition and understanding of how data
-from a relational database is
-retrieved and entered using
-various technologies.</p>
-<p>A real integrated library system
-is much more complex than what
-we are doing here, but
+<p>In this section, we're going to create a bare bones, very basic OPAC.
+The idea is simple: to acquire an intuition and understanding of how data
+from a relational database is retrieved and entered using LAMP technologies.</p>
+<p>A real integrated library system (ILS) is much more complex than what we are doing here, but
 the fundamental ideas are the same:
-we enter data into a database,
-and we retrieve data from a database.
-And then a whole slew of other technologies
-are added to present the data in a user-friendly
-way: HTML, CSS, and JavaScript.</p>
-<p>Integrated library systems (ILS) also provide
-multiple modules for patron management,
-acquisitions, circulation, cataloging,
-serials management, authorities, reporting,
-and so forth
-(see <a href="https://koha-community.org/about/">Koha: About</a>).
-All those modules rely on some kind
-of underlying relational database,
-like MySQL
-(which is what Koha uses).
-And this results in a complex,
-interconnected set of tables.
-We are working with only one table
-in our database,
-the <strong>books</strong> table.
-In reality, an ILS will rely on
-dozens of tables.</p>
-<p>In the prior section,
-we created a MySQL database
-called <strong>opacdb</strong>.
-That database has one table,
-called <strong>books</strong>.
-Then we created a file that
-used PHP to retrieve the data
-from the <strong>books</strong> table
-and present it on a web page.</p>
-<p>In this section,
-we are going to use different
-PHP code that will allow us
-to search the <strong>books</strong> table
-and retrieve results based
-on our search query.
-In this way,
-we are more closely mimicking
-an OPAC,
-even though we're still far from
-creating anything that's full fledged.</p>
+we enter data into a database, and we retrieve data from a database.
+In practice, a whole slew of other technologies are added to present the data in a user-friendly way: HTML, CSS, and JavaScript.</p>
+<p>ILSes provide modules for patron management, acquisitions, circulation, cataloging,
+serials management, authorities, reporting, and sometimes more (see <a href="https://koha-community.org/about/">Koha: About</a>).
+Those modules rely on some kind of underlying relational database, like MySQL (which is what Koha uses).
+And this results in a complex, interconnected set of tables.
+We are working with only one table in our database, the <strong>books</strong> table.
+In reality, an ILS will rely on dozens of tables.</p>
+<p>In the prior section, we created a MySQL database called <strong>opacdb</strong>, which has one table, called <strong>books</strong>.
+We also created a PHP file to retrieve the data from the <strong>books</strong> table and present it on a web page.</p>
+<p>In this section, we are going to use different PHP code that will allow us to search the <strong>books</strong> table.
+In this way, we more closely mimic an OPAC.</p>
 <h2 id="creating-the-html-page-and-a-php-search-page"><a class="header" href="#creating-the-html-page-and-a-php-search-page">Creating the HTML Page and a PHP Search Page</a></h2>
-<p>The first thing we do is
-create a basic HTML page that
-contains a form for entering queries.
-We'll call this HTML page with the form
-<strong>mylibrary.html</strong>.
-When a user clicks on the submit button
-in the form,
-the form will activate a PHP script
-called <strong>search.php</strong>.
-That <strong>search.php</strong> will establish
-a connection to the OPAC database
-that we already have created.
-Our PHP script will contain a special
-MySQL query that will allow us to
-search all the fields in our <strong>books</strong> table.
-Then it will iterate through each row of
-the <strong>books</strong> table and return results
-that match our query.
-We also add two date fields to our form
-to limit results by publication dates,
-which we labeled as <strong>copyright</strong> in our
-MySQL <strong>books</strong> table.</p>
+<p>The first thing we do is create a basic HTML page that contains a form for entering queries.
+We'll call this HTML page with the form <strong>mylibrary.html</strong>.
+When a user clicks on the submit button in the form, the form will activate a PHP script called <strong>search.php</strong>.
+That <strong>search.php</strong> will establish a connection to the OPAC database that we already have created.
+Our PHP script will contain a special MySQL query that will allow us to search all the fields in our <strong>books</strong> table.
+Then it will iterate through each row of the <strong>books</strong> table and return results that match our query.
+We also add two date fields to our form to limit results by publication dates,
+which we labeled as <strong>copyright</strong> in our MySQL <strong>books</strong> table.</p>
 <h3 id="html-form"><a class="header" href="#html-form">HTML Form</a></h3>
-<p>Here is the HTML for our search page,
-titled <strong>mylibrary.html</strong>:</p>
-<pre><code>&lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;MySQL Server Example&lt;/title&gt;
-&lt;/head&gt;
+<p>Here is the HTML for our search page, titled <strong>mylibrary.html</strong>:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta charset="UTF-8"&gt;
+		&lt;title&gt;MySQL Server Example&lt;/title&gt;
+	&lt;/head&gt;
 &lt;body&gt;
 
-&lt;h1&gt;A Basic OPAC&lt;/h1&gt;
+	&lt;h1&gt;A Basic OPAC&lt;/h1&gt;
 
-&lt;p&gt;In the form below,
-&lt;b&gt;optionally&lt;/b&gt; enter text in the search field.
-You can search by author, title, or publisher.
-Capitalization is not necessary.
-It's okay to enter partial information,
-like part of an author's, title's, or publisher's name.&lt;/p&gt;
+	&lt;p&gt;In the form below, &lt;b&gt;optionally&lt;/b&gt; enter text in the search field.
+	You can search by author, title, or publisher.
+	Capitalization is not necessary.
+	It's okay to enter partial information, like part of an author's, title's, or publisher's name.&lt;/p&gt;
 
-&lt;p&gt;The date fields are &lt;b&gt;required&lt;/b&gt;.
-You can use the date fields to limit results.
-I added some extra records,
-which you can view to know what you can query:&lt;/p&gt;
+	&lt;p&gt;The date fields are &lt;b&gt;required&lt;/b&gt;.
+	You can use the date fields to limit results.
+	I added some extra records, which you can view to know what you can query:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href="http://11.111.222.222/opac.php"&gt;http://11.111.222.222/opac.php&lt;/a&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;a href="opac.php"&gt;OPAC&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;This is very much a toy,
-stripped down
-&lt;a href="https://en.wikipedia.org/wiki/Online_public_access_catalog"&gt;OPAC&lt;/a&gt;.
-The records are basic.
-Not only do they not conform to
-&lt;a href="https://www.loc.gov/marc/"&gt;MARC&lt;/a&gt;,
-but they don't even conform to something
-as simple as
-&lt;a href="https://www.dublincore.org/"&gt;Dublin Core&lt;/a&gt;.
+	&lt;p&gt;This is very much a toy, stripped down
+	&lt;a href="https://en.wikipedia.org/wiki/Online_public_access_catalog"&gt;OPAC&lt;/a&gt;.
+	The records are basic.
+	Not only do they not conform to &lt;a href="https://www.loc.gov/marc/"&gt;MARC&lt;/a&gt;,
+	they don't even conform to something as simple as &lt;a href="https://www.dublincore.org/"&gt;Dublin Core&lt;/a&gt;.
 
-&lt;p&gt;I also don't provide options
-to select different fields,
-like author, title, or publisher fields.
-Instead the search field below searches
-all the fields
-(author, title, publisher)
-in our &lt;b&gt;books&lt;/b&gt; table.&lt;/p&gt;
+	&lt;p&gt;I also don't provide options to select different fields, like author, title, or publisher fields.
+	Instead the search field below searches all the fields (author, title, publisher) in our &lt;b&gt;books&lt;/b&gt; table.&lt;/p&gt;
 
-&lt;p&gt;The key idea is to get a sense
-of how an OPAC works, though.&lt;/p&gt;
+	&lt;p&gt;The key idea is to get a sense of how an OPAC works, though.&lt;/p&gt;
 
-&lt;h2&gt;My Basic Library OPAC&lt;/h2&gt;
-&lt;form method="post" action="search.php"&gt;
-    &lt;label for="search"&gt;Search:&lt;/label&gt;
-    &lt;input type="text" name="search" id="search"&gt;
-    &lt;br&gt;
-    &lt;label for="start_date"&gt;Start Date:&lt;/label&gt;
-    &lt;input type="date" name="start_date" id="start_date"&gt;
-    &lt;br&gt;
-    &lt;label for="end_date"&gt;End Date:&lt;/label&gt;
-    &lt;input type="date" name="end_date" id="end_date"&gt;
-    &lt;br&gt;
-    &lt;input type="submit" value="Search"&gt;
-&lt;/form&gt;
+	&lt;h2&gt;My Basic Library OPAC&lt;/h2&gt;
 
+	&lt;form method="post" action="search.php"&gt;
+		&lt;label for="search"&gt;Search (optional):&lt;/label&gt;
+		&lt;input type="text" name="search" id="search"&gt;
+		&lt;br&gt;
+		&lt;label for="start_date"&gt;Start Date:&lt;/label&gt;
+		&lt;input type="date" name="start_date" id="start_date" required&gt;
+		&lt;br&gt;
+		&lt;label for="end_date"&gt;End Date:&lt;/label&gt;
+		&lt;input type="date" name="end_date" id="end_date" required&gt;
+		&lt;br&gt;
+		&lt;input type="submit" value="Search"&gt;
+	&lt;/form&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
 <h3 id="php-search-script"><a class="header" href="#php-search-script">PHP Search Script</a></h3>
-<p>Here is the PHP for our search script,
-which should be named <strong>search.php</strong>:</p>
-<pre><code>&lt;?php
-// Load MySQL credentials
-require_once 'login.php';
+<p>Here is the PHP for our search script, which should be named <strong>search.php</strong>:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Search Results&lt;/title&gt;
+&lt;style&gt;
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-// Establish connection
-$conn = mysqli_connect($db_hostname, $db_username, $db_password) or
-  die("Unable to connect");
+    &lt;h1&gt;Search Results&lt;/h1&gt;
 
-// Open database
-mysqli_select_db($conn, $db_database) or
-  die("Could not open database '$db_database'");
+    &lt;?php
+    // Load MySQL credentials
+    require_once '/var/www/login.php';
 
-// Check if search query was submitted
-if (isset($_POST['search'])) {
-    // Sanitize user input to prevent SQL injection attacks
-    $search = mysqli_real_escape_string($conn, $_POST['search']);
+    // Enable MySQL error reporting
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-    // Get the start and end dates for the date range
-    $start_date = mysqli_real_escape_string($conn, $_POST['start_date']);
-    $end_date = mysqli_real_escape_string($conn, $_POST['end_date']);
-
-    // Build the MySQL query with a WHERE
-    // clause that includes the date range filter
-    $query = "SELECT * FROM books WHERE
-	    (author LIKE '%$search%' OR
-		title LIKE '%$search%' OR
-		publisher LIKE '%$search%') AND
-		copyright BETWEEN '$start_date' AND '$end_date'";
-
-    // Execute the query
-    $result = mysqli_query($conn, $query);
-
-    // Check if any results were returned
-    if (mysqli_num_rows($result) &gt; 0) {
-        // Loop through the results and output them
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "ID: " . $row["id"] . "&lt;br&gt;";
-            echo "Author: " . $row["author"] . "&lt;br&gt;";
-            echo "Title: " . $row["title"] . "&lt;br&gt;";
-            echo "Publisher: " . $row["publisher"] . "&lt;br&gt;";
-            echo "Copyright: " . $row["copyright"] . "&lt;br&gt;&lt;br&gt;";
-        }
-    } else {
-        echo "No results found.";
+    // Establish connection
+    $conn = new mysqli($db_hostname, $db_username, $db_password, $db_database);
+    if ($conn-&gt;connect_error) {
+        die("Connection failed: " . $conn-&gt;connect_error);
     }
 
-    // Free up memory by closing the MySQL result set
-    mysqli_free_result($result);
-}
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $search = trim($_POST['search']);
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
 
-// Close the MySQL connection
-mysqli_close($conn);
+        // Prepared statement to prevent SQL injection
+        $stmt = $conn-&gt;prepare("SELECT * FROM books 
+                                WHERE (author LIKE ? OR title LIKE ? OR publisher LIKE ?) 
+                                AND copyright BETWEEN ? AND ?");
 
-echo "&lt;p&gt;Return to search page: &lt;a href='http://11.111.222.222/mylibrary.html'&gt;http://11.111.222.222/mylibrary.html&lt;/a&gt;&lt;/p&gt;";
+        // Use wildcard search
+        $search_param = "%$search%";
+        $stmt-&gt;bind_param("sssss", $search_param, $search_param, $search_param, $start_date, $end_date);
+        $stmt-&gt;execute();
+        $result = $stmt-&gt;get_result();
 
-?&gt;
+        if ($result-&gt;num_rows &gt; 0) {
+            echo "&lt;table&gt;";
+            echo "&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Author&lt;/th&gt;&lt;th&gt;Title&lt;/th&gt;&lt;th&gt;Publisher&lt;/th&gt;&lt;th&gt;Copyright&lt;/th&gt;&lt;/tr&gt;";
+
+            while ($row = $result-&gt;fetch_assoc()) {
+                echo "&lt;tr&gt;";
+                echo "&lt;td&gt;" . htmlspecialchars($row["id"]) . "&lt;/td&gt;";
+                echo "&lt;td&gt;" . htmlspecialchars($row["author"]) . "&lt;/td&gt;";
+                echo "&lt;td&gt;" . htmlspecialchars($row["title"]) . "&lt;/td&gt;";
+                echo "&lt;td&gt;" . htmlspecialchars($row["publisher"]) . "&lt;/td&gt;";
+                echo "&lt;td&gt;" . htmlspecialchars($row["copyright"]) . "&lt;/td&gt;";
+                echo "&lt;/tr&gt;";
+            }
+
+            echo "&lt;/table&gt;";
+        } else {
+            echo "&lt;p&gt;No results found.&lt;/p&gt;";
+        }
+
+        $stmt-&gt;close();
+    }
+
+    $conn-&gt;close();
+    ?&gt;
+
+    &lt;p&gt;&lt;a href="mylibrary.html"&gt;Return to search page&lt;/a&gt;&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
 <h2 id="modifications"><a class="header" href="#modifications">Modifications</a></h2>
-<p>Replace the example IP address
-(11.111.222.222 above)
-with the external IP address
-of your machine.
-Add more records,
-using MySQL,
-to your <strong>books</strong> table,
-and test your queries.</p>
-<p>To add records to your <strong>books</strong> table,
-recall that we used the <strong>insert into</strong>
-MySQL statements.
+<p>Add more records, using MySQL, to your <strong>books</strong> table, and test your queries.
+To add records to your <strong>books</strong> table, recall that we used the <strong>insert into</strong> MySQL statements.
 Here's the example from the prior lesson.
 Use it to add titles that are of interest to you.</p>
 <p>First connect to the MySQL server:</p>
 <pre><code>mysql -u opacuser -p
 </code></pre>
-<p>Then run the <code>insert</code> command with
-the data for the new records:</p>
+<p>Then run the <code>insert</code> command with the data for the new records:</p>
 <pre><code>insert into books
 (author, title, publisher, copyright) values
-('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010-08-06'),
-('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-27');
+('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010'),
+('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
 </code></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
-<p>In this lesson,
-we created a very bare bones OPAC
-simply to express the fundamental idea
+<p>In this lesson, we created a very bare bones OPAC simply to express the fundamental idea
 of how data is stored and retrieved on the web.
-In reality, what separates an OPAC,
-or a discovery service in a modern
-integrated library system
-or library service platform,
-from other databases on the web
-is the structure of the records
+In reality, what separates an OPAC, or a discovery service in a modern integrated library system
+or library service platform, from other databases on the web is the structure of the records
 that are stored in the relational database.
 Such records are structured using MARC.
-Our records are very simply structured,
-but still,
-I hope this helps in creating an intuition
+Our records are very simply structured, but still, I hope this helps in creating an intuition
 about how OPACs and like function.
-In the next section,
-we will learn how to enter data
-into our catalog,
-thereby mimicking the cataloging
-module of an integrated library system.</p>
+In the next section, we will learn how to enter data into our catalog,
+thereby mimicking the cataloging module of an integrated library system.</p>
 
                     </main>
 
