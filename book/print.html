@@ -3927,12 +3927,13 @@ which we labeled as <strong>copyright</strong> in our MySQL <strong>books</stron
 	&lt;h1&gt;A Basic OPAC&lt;/h1&gt;
 
 	&lt;p&gt;In the form below, &lt;b&gt;optionally&lt;/b&gt; enter text in the search field.
-	You can search by author, title, or publisher.
+	Your search query will search by author, title, or publisher.
 	Capitalization is not necessary.
 	It's okay to enter partial information, like part of an author's, title's, or publisher's name.&lt;/p&gt;
 
-	&lt;p&gt;The date fields are &lt;b&gt;required&lt;/b&gt;.
-	You can use the date fields to limit results.
+	&lt;p&gt;You can leave the search field empty and only enter dates.
+    Regardless, both start and end dates are required for all searches.
+	You can use the date fields to limit results, too.
 	I added some extra records, which you can view to know what you can query:&lt;/p&gt;
 
 	&lt;p&gt;&lt;a href="opac.php"&gt;OPAC&lt;/a&gt;&lt;/p&gt;
@@ -3951,15 +3952,21 @@ which we labeled as <strong>copyright</strong> in our MySQL <strong>books</stron
 	&lt;h2&gt;My Basic Library OPAC&lt;/h2&gt;
 
 	&lt;form method="post" action="search.php"&gt;
-		&lt;label for="search"&gt;Search (optional):&lt;/label&gt;
+		&lt;label for="search"&gt;Search Terms (optional):&lt;/label&gt;
 		&lt;input type="text" name="search" id="search"&gt;
+        
 		&lt;br&gt;
+        
 		&lt;label for="start_date"&gt;Start Date:&lt;/label&gt;
 		&lt;input type="date" name="start_date" id="start_date" required&gt;
+        
 		&lt;br&gt;
+        
 		&lt;label for="end_date"&gt;End Date:&lt;/label&gt;
 		&lt;input type="date" name="end_date" id="end_date" required&gt;
+        
 		&lt;br&gt;
+        
 		&lt;input type="submit" value="Search"&gt;
 	&lt;/form&gt;
 
