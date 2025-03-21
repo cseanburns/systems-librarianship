@@ -49,12 +49,13 @@ Here is the HTML for our search page, titled **mylibrary.html**:
 	<h1>A Basic OPAC</h1>
 
 	<p>In the form below, <b>optionally</b> enter text in the search field.
-	You can search by author, title, or publisher.
+	Your search query will search by author, title, or publisher.
 	Capitalization is not necessary.
 	It's okay to enter partial information, like part of an author's, title's, or publisher's name.</p>
 
-	<p>The date fields are <b>required</b>.
-	You can use the date fields to limit results.
+	<p>You can leave the search field empty and only enter dates.
+    Regardless, both start and end dates are required for all searches.
+	You can use the date fields to limit results, too.
 	I added some extra records, which you can view to know what you can query:</p>
 
 	<p><a href="opac.php">OPAC</a></p>
@@ -73,15 +74,21 @@ Here is the HTML for our search page, titled **mylibrary.html**:
 	<h2>My Basic Library OPAC</h2>
 
 	<form method="post" action="search.php">
-		<label for="search">Search (optional):</label>
+		<label for="search">Search Terms (optional):</label>
 		<input type="text" name="search" id="search">
+        
 		<br>
+        
 		<label for="start_date">Start Date:</label>
 		<input type="date" name="start_date" id="start_date" required>
+        
 		<br>
+        
 		<label for="end_date">End Date:</label>
 		<input type="date" name="end_date" id="end_date" required>
+        
 		<br>
+        
 		<input type="submit" value="Search">
 	</form>
 
