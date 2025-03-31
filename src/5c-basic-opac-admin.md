@@ -7,7 +7,7 @@ Other modules include acquisitions, authority files, circulation, course reserve
 In the prior section, we created one of those modules: a bare bones OPAC.
 In this section, we are going to create a bare bones cataloging module in the same kind of way.
 
-Up until this point, you have add records to your OPAC using the MySQL command interface.
+Up until this point, you have added records to your OPAC using the MySQL command interface.
 But unless you are a full time database administrator or programmer,
 it's unlikely that you would add data to your system via that interface.
 Instead you would use an application via a fancy graphical user interface, i.e., integrated library system.
