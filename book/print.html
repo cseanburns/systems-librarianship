@@ -4450,20 +4450,19 @@ We can install these using the <code>apt</code> command:</p>
 sudo systemctl restart mysql
 </code></pre>
 <h3 id="step-2-download-and-extract"><a class="header" href="#step-2-download-and-extract">Step 2: Download and Extract</a></h3>
-<p>The next step is to download and extract the WordPress software, which is downloaded as a <strong>tar.gz</strong> file.
-A <code>tar.gz</code> file is a compressed archive file, and is very much like a compressed <strong>zip</strong> file.
-Although we only download one file, when we extract it with the <code>tar</code> command,
+<p>The next step is to download and extract the WordPress software, which is downloaded as a <code>zip</code> file.
+Although we only download one file, when we extract it with the <code>unzip</code> command,
 the extraction will result in a new directory that contains multiple files and subdirectories.
 The general instructions include:</p>
 <ol>
 <li>Change to the <strong>/var/www/html</strong> directory.</li>
 <li>Download the latest version of WordPress using the <code>wget</code> program.</li>
-<li>Extract the package using the <code>tar</code> program.</li>
+<li>Extract the package using the <code>unzip</code> program.</li>
 </ol>
 <p>Specifically, we do the following on the command line:</p>
 <pre><code>cd /var/www/html
 sudo wget https://wordpress.org/latest.tar.gz
-sudo tar -xzvf latest.tar.gz
+sudo unzip latest.zip
 </code></pre>
 <p>As noted in the WordPress documentation, this will create a directory called <code>wordpress</code> in the same directory.
 Therefore the full path of your installation will located at <code>/var/www/html/wordpress</code>.</p>
