@@ -4668,34 +4668,18 @@ Pay attention to the details.
 Use this textbook to search for how we did things in prior installations.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="install-the-koha-ils"><a class="header" href="#install-the-koha-ils">Install the Koha ILS</a></h1>
 <h2 id="introduction-10"><a class="header" href="#introduction-10">Introduction</a></h2>
-<p>In the last section,
-we built a WordPress site that functions as
-our library's front-facing presence, and
-then we built an Omeka site that could serve as
-our library's digital library.
-In this section,
-we complete our infrastructure building by installing
-the <a href="https://koha-community.org/">Koha ILS</a>.</p>
-<p>Koha is a free and open source library system that
-provides modules for patron accounts, circulation,
-cataloging, serials, an OPAC, and more.
-The process of installing and using Koha is more
-complicated than the processes we used to installing
-and using WordPress and Omeka.
-This is because Koha,
-like other ILS software,
-is a complex project that must provide a lot of different
+<p>In the last section, we built a WordPress site that functions as our library's front-facing presence, and
+then we built an Omeka site that could serve as our library's digital library.
+In this section, we complete our infrastructure building by installing the <a href="https://koha-community.org/">Koha ILS</a>.</p>
+<p>Koha is a free and open source library system that provides modules for patron accounts, circulation, cataloging, serials, an OPAC, and more.
+The process of installing and using Koha is more complicated than the processes we used to install and use WordPress and Omeka.
+This is because Koha, like other ILS software, is a complex project that must provide a lot of different
 functionality for a library and its patrons.
-Fortunately, the documentation makes the process pretty
-straightforward.
-We will rely on that documentation and other resources
-to install Koha and complete our library's interconnected web presence.</p>
+Fortunately, the documentation makes the process pretty straightforward.
+We will rely on that documentation and other resources to install Koha and complete our library's interconnected web presence.</p>
 <h2 id="koha-ils"><a class="header" href="#koha-ils">Koha ILS</a></h2>
-<p><a href="https://koha-community.org/">Koha</a> is an open source
-"library management system",
-otherwise called an integrated library system (ILS).
-These kinds of systems provide modules
-that perform specific kinds of functionality.
+<p><a href="https://koha-community.org/">Koha</a> is an open source <q>library management system</q>, otherwise called an <a href="https://en.wikipedia.org/wiki/Integrated_library_system">integrated library system (ILS)</a>.
+These systems provide modules that perform specific ranges of functionality.
 Koha's modules include:</p>
 <ul>
 <li>Administration</li>
@@ -4709,149 +4693,81 @@ Koha's modules include:</p>
 <li>Reports</li>
 <li>OPAC</li>
 </ul>
-<p>According to <a href="https://librarytechnology.org/product/koha">Library Technology Guides</a>,
-Koha is installed in
-"4,040 libraries [around the world],
-spanning 5,677 facilities or branches".
-Most installations are in medium sized
-or small libraries.
-Koha is well represented in academic libraries,
-but the majority of installations are in public libraries.</p>
-<p>Although Koha is an open source ILS and
-free to download, install, and administer
-without external support,
-librarians can hire companies that support
-open source library management solutions, like
-<a href="https://bywatersolutions.com/">ByWater Solutions</a> or
-the <a href="https://www.equinoxoli.org/">Equinox Open Library Initiative</a>
-These companies support ILS migration,
-hosting, training, and more.
-They also provide support for
-other library software services, such as
-open source discovery systems and
-electronic resource management systems.</p>
-<p>In addition to Koha,
-<a href="https://evergreen-ils.org/">Evergreen</a>
-is also an open source integrated library system.
-According to <a href="https://librarytechnology.org/product/evergreen-equinox">Library Technology Guides</a>,
-Evergreen is primarily installed at small and medium
-size public libraries, and
-most installations are in the U.S. and Canada.</p>
-<p>There is currently a migration to what has been
-called <em>library service platforms (LSP)</em> in recent years.
-The LSP is a next generation ILS that is designed
-from the start to integrate electronic resources.
-For example, the ILS has an OPAC which was designed
-to search a library's print collections.
-Modern OPACs have been adapted for
-electronic resources,
-but they are still limited because of the older design model.
+<p>According to <a href="https://librarytechnology.org/product/koha">Library Technology Guides</a> (April 2025),
+<q>Koha has been installed in 4,484 libraries [around the world], spanning 6,273 facilities or branches.</q>
+Most installations are in medium sized or small libraries.
+Koha is well represented in academic libraries, but the majority of installations are in public libraries.</p>
+<p>Although Koha is an open source ILS and free to download, install, and administer without external support,
+librarians can hire companies that support open source library management solutions, like
+<a href="https://bywatersolutions.com/">ByWater Solutions</a> or the <a href="https://www.equinoxoli.org/">Equinox Open Library Initiative</a>
+These companies support ILS migration, hosting, training, and more.
+They also provide support for other library software services, such as open source discovery systems and electronic resource management systems.</p>
+<p>In addition to Koha, <a href="https://evergreen-ils.org/">Evergreen</a> is an open source integrated library system.
+According to <a href="https://librarytechnology.org/product/evergreen-equinox">Library Technology Guides</a>, Evergreen is primarily installed at small and medium
+size public libraries, and most installations are in the U.S. and Canada.</p>
+<p>There is currently a migration to what has been called <em>library service platforms (LSP)</em> in recent years.
+The LSP is a next generation ILS designed from the start to integrate electronic resources.
+For example, the ILS has an OPAC that was designed to search a library's print collections.
+Modern OPACs have been adapted for electronic resources, but they are still limited because of the older design model.
 LSPs use a <em>discovery service</em> instead of an OPAC.
-Discovery services are designed to search a
-library's entire collection,
-including the content in third party databases
-and journals.
-Example LSPs include
-Ex Libris Primo (used by UK Libraries),
-OCLC's WorldCat Discovery Service,
-and open source solutions
+Discovery services are designed to search a library's entire collection, including the content in third party databases and journals.
+Example LSPs include Ex Libris Primo (used by UK Libraries), OCLC's WorldCat Discovery Service, and open source solutions
 like <a href="https://bywatersolutions.com/products/aspen-discovery">Aspen Discovery</a> and <a href="https://vufind.org/vufind/">VuFind</a>.</p>
-<p>It is probably unnecessary to state that
-integration of library systems like the ILS
-and the LSP is a major part of modern libraries.
-When we visit a library's website,
-we will first interact with a normal website that
-might be built on WordPress, <a href="https://www.drupal.org/">Drupal</a>,
+<p>The integration of library systems like the ILS and the LSP is a major aspect of library services.
+When we visit a library's website, we first interact with a normal website that might be built on WordPress, <a href="https://www.drupal.org/">Drupal</a>,
 or some other content management system.
-But these websites will link to the public
-facing components of an ILS or LSP,
-as well as other services, such
-as bibliographic database, journal publishers,
-ebook services, and more.
-It may therefore be the systems librarians
-job to help build and connect these services.
-In this demo,
-we will continue that work by installing,
-configuring, and setting up the Koha ILS.</p>
+But these websites will link to the public facing components of an ILS or LSP, as well as other services,
+such as bibliographic database, journal publishers, ebook services, and more.
+It may therefore be the systems librarians job to help build and connect these services.
+In this demo, we will continue that work by installing, configuring, and setting up the Koha ILS.</p>
 <h2 id="google-cloud-setup"><a class="header" href="#google-cloud-setup">Google Cloud Setup</a></h2>
-<p>Before we begin to install Koha,
-we need to create a new virtual machine instance
-and configure the Google firewall to allow HTTP
-traffic to our Koha install.</p>
+<p>Before we begin to install Koha, we need to create a new virtual machine instance
+and configure the Google firewall to allow HTTP traffic to our Koha install.</p>
 <h3 id="new-virtual-instance"><a class="header" href="#new-virtual-instance">New Virtual Instance</a></h3>
-<p>The virtual instance we have been using does not meet
-the memory (RAM) needs required by the
-Koha integrated library system.
-We therefore need to create a new virtual instance
-that has more RAM.
-As a refresher,
-see the section titled <strong>gcloud VM Instance</strong> at
-<a href="05-using-gcloud-virtual-machines.html">Using gcloud Virtual Machines</a>.
-However, we will modify the <strong>Series</strong> to <strong>E2</strong>
-and set the <strong>Machine Type</strong> to <strong>2 vCPU, 4 GB memory</strong>.
-All else,
-including the operating system (Ubuntu 20.04),
-should remain the same.
+<p>The virtual instance we have been using does not meet the memory (RAM) needs required by the Koha integrated library system.
+We therefore need to create a new virtual instance that has more RAM.
+As a refresher, see the section titled <strong>gcloud VM Instance</strong> at <a href="05-using-gcloud-virtual-machines.html">Using gcloud Virtual Machines</a>.
+In this lesson, we will modify the <strong>Series</strong> to <strong>E2</strong> and set the <strong>Machine Type</strong> to <strong>2 vCPU, 4 GB memory</strong>.
+All else, including the operating system (Ubuntu 22.04), should remain the same.
 Note that this is a more expensive setup.
-Therefore, feel free to delete this instance
-at the end of the semester.</p>
+Therefore, feel free to delete this instance at the end of the semester to avoid incurring extra costs.</p>
 <h3 id="google-cloud-firewall"><a class="header" href="#google-cloud-firewall">Google Cloud firewall</a></h3>
-<p>Later, after we install Koha,
-we will need to access the staff interface
-on a special port for HTTP data.
-All internet traffic to a server contains
-metadata that identifies itself by port numbers.
-The default port for HTTP is 80, and
-the default port for HTTPS (encrypted) is 443.
-Since we do not have encryption enabled,
-this means we will only use port 80, but
+<p>Later, after we install Koha, we will need to access the staff interface on a special port for HTTP data.
+All internet traffic to a server contains metadata that identifies itself by port numbers.
+The default port for HTTP is 80, and the default port for HTTPS (encrypted) is 443.
+Since we do not have encryption enabled, this means we will only use port 80, but
 the staff interface will be identified by port 8080.</p>
 <blockquote>
 <p>How does a server know where to send internet traffic?
 Internet data is <em>packaged</em> in many forms.
 One of the most common forms are TCP packets.
-These packets contain <em>header</em> information that
-names the source IP, destination IP, source port, and destination port.
-When TCP packets arrive at a destination server,
-the operating system inspects the packet header for the port number.
-The OS then looks up the port number in a table that
-contains a mapping of ports to applications.
-When the OS makes the match,
-it sends the TCP packets to the application.
-In its default setup,
-the Apache2 web server
-handles traffic on port 80.</p>
+These packets contain <em>header</em> information that names the source IP, destination IP, source port, and destination port.
+When TCP packets arrive at a destination server,the operating system inspects the packet header for the port number.
+The OS looks up the port number in a table that contains a mapping of ports to applications.
+When the OS makes the match, it sends the TCP packets to the application.
+In its default setup, the Apache2 web server handles traffic on port 80.</p>
 </blockquote>
-<p>Firewalls are used to control incoming and
-outgoing traffic via ports.
-When we selected <strong>Allow HTTP traffic</strong> when
-we created our virtual instance,
-we instructed the Google Console firewall
-to allow traffic through port 80.
-We need to add a firewall rule to allow
-web traffic through port 8080.
-We will use port 8080 to access
-the Koha staff interface.</p>
+<p>Firewalls are used to control incoming and outgoing traffic via ports.
+When we selected <strong>Allow HTTP traffic</strong> when we created our virtual instance on Google Cloud,
+we instructed the Google Console firewall to allow traffic through port 80.
+We need to add a firewall rule to allow web traffic through port 8080.
+We will use port 8080 to access the Koha staff interface.</p>
 <blockquote>
-<p>Please take a moment to read more about ports: <a href="https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/">What is a
-computer port? | Ports in networking</a>.</p>
+<p>Please take a moment to read more about ports: <a href="https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/">What is a computer port? | Ports in networking</a>.</p>
 </blockquote>
-<p>To create a firewall rule to allow traffic
-to port 8080,
-go to the Google Cloud Console:</p>
+<p>To create a firewall rule to allow traffic to port 8080, go to the Google Cloud Console:</p>
 <ul>
 <li>Click on the <em>hamburger</em> ☰ icon at the top left.</li>
 <li>Click on <strong>VPN Network</strong></li>
 <li>Click on <strong>Firewall</strong></li>
 <li>At the top of the page, choose <strong>Create a firewall rule</strong>
-(do not choose <strong>Create a firewall policy</strong>)
+(Do not choose <strong>Create a firewall policy</strong>)
 <ul>
 <li>Add name: <strong>koha</strong></li>
 <li>Add description: <strong>open port 8080</strong></li>
 </ul>
 </li>
-<li>Next to <strong>Targets</strong>, click on <strong>All instances in the
-network</strong></li>
+<li>Next to <strong>Targets</strong>, click on <strong>All instances in the network</strong></li>
 <li>In the <strong>Source IPv4 ranges</strong>, add <strong>0.0.0.0/0</strong></li>
 <li>Click on <strong>Specified protocols and ports</strong>
 <ul>
@@ -4863,8 +4779,7 @@ network</strong></li>
 </ul>
 <h2 id="install-koha-repo"><a class="header" href="#install-koha-repo">Install Koha Repo</a></h2>
 <h3 id="server-setup"><a class="header" href="#server-setup">Server setup</a></h3>
-<p>Now let's log onto our new server and prepare
-it for the Koha installation.</p>
+<p>Now let's log onto our new server and prepare it for the Koha installation.</p>
 <p>First we need to update our local repositories:</p>
 <pre><code>sudo apt update
 </code></pre>
@@ -4872,53 +4787,33 @@ it for the Koha installation.</p>
 <pre><code>sudo apt upgrade
 </code></pre>
 <p>The next two commands help save disk space.
-The <code>apt autoremove</code> command "is used
-to remove packages that were automatically
-installed to satisfy dependencies for other
-packages and are now no longer needed
-as dependencies changed or the package(s)
-needing them were removed in the meantime"
-(see <code>man apt</code>).
-The <code>apt clean</code> command
-"clears out the local repository
-of retrieved package files" (see <code>man apt-get</code>).
-In the following example,
-I combine both commands on one line:</p>
+As a reminder, the <code>apt autoremove</code> command
+<q>is used to remove packages that were automatically installed to satisfy dependencies for other packages and
+are now no longer needed as dependencies changed or the package(s) needing them were removed in the meantime</q> (see <code>man apt</code>).
+The <code>apt clean</code> command <q>clears out the local repository of retrieved package files</q> (see <code>man apt-get</code>).
+In the following example, I combine both commands on one line:</p>
 <pre><code>sudo apt autoremove -y &amp;&amp; sudo apt clean
 </code></pre>
-<p>Next we need to install <strong>gnupg2</strong>,
-which is used to create digital signatures,
-encrypt data, and aid in secure communication.</p>
+<p>Next we need to install <code>gnupg2</code>, which is used to create digital signatures, encrypt data, and aid in secure communication.</p>
 <pre><code>sudo apt install gnupg2
 </code></pre>
-<p>At the time of this demo,
-the update above downloaded a new Linux kernel.
+<p>At the time of this demo, the update above downloaded a new Linux kernel.
 Using the new kernel requires a reboot.
-The reboot command will disconnect
-you from the server.
-Just wait a minute or so and then re-connect.</p>
+The reboot command will disconnect you from the server.
+If you need to reboot your server, use the command below, then wait a minute or so and re-connect.</p>
 <pre><code>sudo reboot now
 </code></pre>
 <h3 id="add-koha-repository"><a class="header" href="#add-koha-repository">Add Koha Repository</a></h3>
-<p>When you run the <code>sudo apt update</code> command,
-Ubuntu syncs the local repository database with
-several remote repositories.
-These remote repositories contain metadata about the
-packages they contain.
-The syncing process identifies if any new software
-updates are available.
+<p>When you run the <code>sudo apt update</code> command, Ubuntu syncs the local repository database with several remote repositories.
+These remote repositories contain metadata about the packages they contain.
+The syncing process identifies if any new software updates are available.
 The remote repositories are also used to retrieve software.</p>
-<p>We can add repositories to sync with and
-to use to download software, and
-this includes the Koha ILS.
-To add the special Koha repository to
-our system,
-we use the following command:</p>
+<p>We can add repositories to sync with and to use to download software, and this includes the Koha ILS.
+To add the special Koha repository to our system, we use the following command:</p>
 <blockquote>
-<p>Most of the following commands require administrator
-access. Therefore, I will login as the <strong>root</strong> user to
-make it a bit easier. If you do not log in as the root
-user, be sure to use the <code>sudo</code> command.</p>
+<p>Most of the following commands require administrator access.
+Therefore, I will login as the <code>root</code> user to make it a bit easier.
+If you do not want to log in as the root user, be sure to use the <code>sudo</code> command.</p>
 </blockquote>
 <pre><code>sudo su
 </code></pre>
@@ -4926,16 +4821,15 @@ user, be sure to use the <code>sudo</code> command.</p>
 <pre><code>echo 'deb http://debian.koha-community.org/koha stable main' | sudo tee /etc/apt/sources.list.d/koha.list
 </code></pre>
 <p>We then add the digital signature that verifies the above repo:</p>
-<!-- use for Ubuntu 22.04 or later 
+<pre><code>wget -qO - https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor -o /usr/share/keyrings/koha-keyring.gpg
+</code></pre>
+<!-- for Ubuntu 20.04 or earlier
 ```
-wget -qO - https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor -o /usr/share/keyrings/koha-keyring.gpg
+wget -q -O- https://debian.koha-community.org/koha/gpg.asc | sudo apt-key add -
 ```
 -->
-<pre><code>wget -q -O- https://debian.koha-community.org/koha/gpg.asc | sudo apt-key add -
-</code></pre>
 <h2 id="install-koha"><a class="header" href="#install-koha">Install Koha</a></h2>
-<p>Next we need to update/sync the new repository
-with the Koha remote repository.
+<p>Next we need to update/sync the new repository with the Koha remote repository.
 This just means that we use <code>apt update</code> again.</p>
 <pre><code>apt update
 </code></pre>
@@ -4945,35 +4839,26 @@ This just means that we use <code>apt update</code> again.</p>
 <p>And install it:</p>
 <pre><code>apt install koha-common
 </code></pre>
-<p>The above command will download and install
-a lot of additional software, and
-therefore the process will take several minutes.</p>
+<p>The above command will download and install a lot of additional software, and therefore the process will take several minutes.</p>
 <h3 id="configure-koha"><a class="header" href="#configure-koha">Configure Koha</a></h3>
-<p>Next we need to edit some configuration
-files for Koha:</p>
+<p>Next we need to edit some configuration files for Koha:</p>
 <pre><code>nano /etc/koha/koha-sites.conf
 </code></pre>
-<p>In the above <strong>koha-sites.conf</strong> file,
-change the line that contains
-the following information:</p>
+<p>In the above <code>koha-sites.conf</code> file, change the line that contains the following information:</p>
 <pre><code>INTRAPORT="80"
 </code></pre>
 <p>To:</p>
 <pre><code>INTRAPORT="8080"
 </code></pre>
-<p>Next install and setup <strong>mysql-server</strong>:</p>
+<p>Next install and setup <code>mysql-server</code>:</p>
 <pre><code>apt install mysql-server
 </code></pre>
-<p>Next we set the root MySQL password
-(the password below is not an actual
-password that I use anywhere):</p>
-<pre><code>mysqladmin -u root password bibliolib1
+<p>Next we set the root MySQL password.
+Replace <code>X</code>s with your password:</p>
+<pre><code>mysqladmin -u root password XXXXXXXX
 </code></pre>
-<p>When we installed Koha,
-the Apache2 web server was installed
-with it as a prerequisite.
-We need to enable URL rewriting and
-<a href="https://en.wikipedia.org/wiki/Common_Gateway_Interface">CGI</a> functionality.</p>
+<p>When we installed Koha, the Apache2 web server was installed with it as a prerequisite.
+We need to enable URL rewriting and <a href="https://en.wikipedia.org/wiki/Common_Gateway_Interface">CGI</a> functionality.</p>
 <pre><code>a2enmod rewrite
 a2enmod cgi 
 </code></pre>
@@ -4992,16 +4877,12 @@ a2enmod cgi
 <p>Make sure Apache configuration changes are valid:</p>
 <pre><code>apachectl configtest
 </code></pre>
-<p>If you get an error message,
-trace the error in the file and line listed.</p>
+<p>If you get an error message, trace the error in the file and line listed.</p>
 <p>Let's restart Apache2.</p>
 <pre><code>systemctl restart apache2
 </code></pre>
-<p>We'll disable the default Apache2 setup,
-enable traffic compression using <strong>deflate</strong>,
-enable the <strong>bibliolib</strong> site,
-and then reload Apache2's configurations and
-restart again:</p>
+<p>We'll disable the default Apache2 setup, enable traffic compression using <code>deflate</code>,
+enable the <strong>bibliolib</strong> site, and then reload Apache2's configurations and restart again:</p>
 <pre><code>a2dissite 000-default
 a2enmod deflate
 a2ensite bibliolib
@@ -5009,46 +4890,35 @@ systemctl reload apache2
 systemctl restart apache2
 </code></pre>
 <h3 id="koha-web-installer"><a class="header" href="#koha-web-installer">Koha Web Installer</a></h3>
-<p>All the back end work is complete, and
-like we did with WordPress and Omeka,
-we can complete the installation through
-a web installer.</p>
+<p>All the back end work is complete, and like we did with WordPress and Omeka, we can complete the installation through a web installer.</p>
 <p>First, get Koha username and password in the following file:</p>
 <pre><code>nano /etc/koha/sites/bibliolib/koha-conf.xml
 </code></pre>
-<p>Look for the <code>&lt;config&gt;</code> stanza (line number 252) and the
-line beginning with <code>&lt;user&gt;</code> (line number 257).
+<p>Look for the <code>&lt;config&gt;</code> stanza (line number 252) and the line beginning with <code>&lt;user&gt;</code> (line number 257).
 The password is on the line after (line number 258).</p>
-<p>Make sure your URL begins with <strong>http</strong> and not <strong>https</strong>,
-and visit the web installer at:</p>
+<p>Make sure your URL begins with <code>http</code> and not <code>https</code>, and visit the web installer at:</p>
 <pre><code>http://IP-ADDRESS:8080
 </code></pre>
 <p>The documentation for the web installer is helpful.
 One thing to do is to add sample libraries and sample patrons.
-More generally, be sure to follow instructions as you
-click through each step.</p>
+More generally, be sure to follow instructions as you click through each step.</p>
 <p><a href="https://koha-community.org/manual//22.11/en/html/installation.html">Introduction to the Koha installation process</a></p>
 <h2 id="public-opac"><a class="header" href="#public-opac">Public OPAC</a></h2>
-<p>When the install and setup are complete,
-you will have access to the staff interface.
-To view the public facing OPAC,
-you need to make a setting change.</p>
+<p>When the install and setup are complete, you will have access to the staff interface.
+To view the public facing OPAC, you need to make a setting change.</p>
 <ul>
 <li>Click on <strong>More</strong> in the top drop down box</li>
 <li>Click on <strong>Administration</strong></li>
 <li>Click on <strong>Global System Preferences</strong></li>
 <li>Click on <strong>OPAC</strong> in the left hand side bar</li>
-<li>Scroll down to the <strong>OPACBaseURL</strong> line.</li>
-<li>Enter the IP address of your server: <strong>http://IP-ADDRESS</strong></li>
+<li>Scroll down to the <code>OPACBaseURL</code> line.</li>
+<li>Enter the IP address of your server: <code>http://IP-ADDRESS</code></li>
 <li>Click on <strong>Save all OPAC Preferences</strong></li>
 </ul>
-<p>Once you save these preferences,
-you should be able to visit your public facing
-OPAC at the server IP address.</p>
+<p>Once you save these preferences, you should be able to visit your public facing OPAC at the server IP address.</p>
 <h2 id="additional-tasks"><a class="header" href="#additional-tasks">Additional Tasks</a></h2>
-<p>Once you've installed and setup Koha,
-begin to learn the system.
-Some example tasks:</p>
+<p>Once you've installed and setup Koha, begin to learn the system.
+Try the following:</p>
 <ul>
 <li>Create patron accounts</li>
 <li>Create bibliographic records</li>
@@ -5056,10 +4926,7 @@ Some example tasks:</p>
 <li>Delete patron circulation history</li>
 </ul>
 <h2 id="conclusion-16"><a class="header" href="#conclusion-16">Conclusion</a></h2>
-<p>In this final section,
-you learned how to install
-and setup a Koha ILS installation
-on a Linux server.</p>
+<p>In this final section, you learned how to install and setup a Koha ILS installation on a Linux server.</p>
 <h2 id="references-3"><a class="header" href="#references-3">References</a></h2>
 <p>Helpful documentation and demos:</p>
 <ul>
