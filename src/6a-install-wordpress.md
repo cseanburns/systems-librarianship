@@ -149,22 +149,21 @@ sudo systemctl restart mysql
 
 ### Step 2: Download and Extract
 
-The next step is to download and extract the WordPress software, which is downloaded as a **tar.gz** file.
-A `tar.gz` file is a compressed archive file, and is very much like a compressed **zip** file.
-Although we only download one file, when we extract it with the `tar` command,
+The next step is to download and extract the WordPress software, which is downloaded as a `zip` file.
+Although we only download one file, when we extract it with the `unzip` command,
 the extraction will result in a new directory that contains multiple files and subdirectories.
 The general instructions include:
 
 1. Change to the **/var/www/html** directory.
 1. Download the latest version of WordPress using the `wget` program.
-1. Extract the package using the `tar` program.
+1. Extract the package using the `unzip` program.
 
 Specifically, we do the following on the command line:
 
 ```
 cd /var/www/html
 sudo wget https://wordpress.org/latest.tar.gz
-sudo tar -xzvf latest.tar.gz
+sudo unzip latest.zip
 ```
 
 As noted in the WordPress documentation, this will create a directory called `wordpress` in the same directory.
