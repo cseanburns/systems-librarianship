@@ -131,6 +131,8 @@ cat /etc/issue.net
 
 Since the system meets the PHP and MySQL requirements, it means I can proceed.
 
+> As always, be sure to update your system with the `apt` commands: `sudo apt update` etc.
+
 Next, we need to add some additional PHP modules to our system to let WordPress operate at full functionality.
 We can install these using the `apt` command:
 
