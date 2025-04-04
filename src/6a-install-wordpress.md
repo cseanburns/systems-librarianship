@@ -26,7 +26,7 @@ you should be familiar with the update process in case you decide to maintain yo
 
 Many libraries use WordPress as as their main website and a quick web search will reveal them.
 For example, I quickly found an example of a (beautiful) WordPress library site for the
-[Reading Public Library (RPL)][rplwp] in Massachusetts.
+[Reading Public Library (RPL)][rpl_wp] in Massachusetts.
 These library websites coordinate with additional solutions that provide integrated library systems and other electronic resource services.
 RPL, for instance, connects their WordPress installation, which serves as their main website page,
 with the open source [Evergreen ILS][evergreen_ils], which serves their OPAC.
