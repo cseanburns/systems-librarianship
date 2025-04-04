@@ -162,7 +162,7 @@ Specifically, we do the following on the command line:
 
 ```
 cd /var/www/html
-sudo wget https://wordpress.org/latest.tar.gz
+sudo wget https://wordpress.org/latest.zip
 sudo unzip latest.zip
 ```
 
