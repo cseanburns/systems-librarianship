@@ -20,7 +20,7 @@ WordPress is widely used software, and because of that, it's often the focus of 
 Take a moment to read about the developer's efforts to protect WordPress: [Security][wp_security].
 We will not need to update our WordPress installs during the course of this course, but
 you should be familiar with the update process in case you decide to maintain your install or an install at a future date:
-[Updating WordPress][updatingwp].
+[Updating WordPress][updating_wp].
 
 ## Libraries and WordPress
 
