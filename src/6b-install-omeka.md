@@ -76,7 +76,7 @@ In short, you are going to complete the following steps:
   Replace all values containing `XXXXXX` with the appropriate information.
   This is the same thing we did with the `login.php` file for our bare bones ILS and the `wp-config.php` file for WordPress.
 - Use the `chown` command like we did with WordPress on the `files` directory in the `omeka` directory.
-  The user and owner should again be `www-data`.
+  The **user AND owner** should be `www-data`. **NOTE: This is necessary!!!**
 - Restart Apache2 and MySQL.
 - In your web browser, go to `http://your-ip-address/omeka/` and complete the setup via the web form, just like you did with WordPress.
 
