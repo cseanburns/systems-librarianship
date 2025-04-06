@@ -390,12 +390,15 @@ Assuming you are still in your base directory, run the following command, which 
 <h3 id="step-7-run-the-install-script"><a class="header" href="#step-7-run-the-install-script">Step 7: Run the Install Script</a></h3>
 <p>The next part of the process takes place in the browser.
 The location (URL) that you visit in the browser depends on your specific IP address and also
-includes the directory in <code>/var/www/html</code> that we extracted WordPress to or that you renamed if you followed <strong>Step 5</strong>.
+includes the name of the directory in <code>/var/www/html</code> that we extracted WordPress to or that you renamed if you followed <strong>Step 5</strong>.
 Thus, if my IP address is 11.111.111.11 and I renamed my directory to <strong>library</strong>, then I need to visit the following URL:</p>
+<pre><code>http://11.111.111.11/library/
+</code></pre>
+<p>Or if that doesn't work (though it should), try:</p>
 <pre><code>http://11.111.111.11/library/wp-admin/install.php
 </code></pre>
 <p><strong>IF</strong> I kept the directory named <code>wordpress</code>, then this is the URL that I use:</p>
-<pre><code>http://11.111.111.11/wordpress/wp-admin/install.php
+<pre><code>http://11.111.111.11/wordpress/
 </code></pre>
 <p>If you changed the name of your <code>wordpress</code> directory, be sure to substitute that name for <code>wordpress</code> in the URL.</p>
 <h3 id="finishing-installation"><a class="header" href="#finishing-installation">Finishing Installation</a></h3>

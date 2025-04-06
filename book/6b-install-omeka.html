@@ -240,7 +240,7 @@ Remember that names of files and directories should not have spaces in them.</li
 Replace all values containing <code>XXXXXX</code> with the appropriate information.
 This is the same thing we did with the <code>login.php</code> file for our bare bones ILS and the <code>wp-config.php</code> file for WordPress.</li>
 <li>Use the <code>chown</code> command like we did with WordPress on the <code>files</code> directory in the <code>omeka</code> directory.
-The <strong>user AND owner</strong> should be <code>www-data</code>. <strong>NOTE: This is necessary!!!</strong></li>
+However, the <strong>user AND owner</strong> should be owned by <code>www-data</code>. <strong>NOTE: This is necessary!!!</strong></li>
 <li>Restart Apache2 and MySQL.</li>
 <li>In your web browser, go to <code>http://your-ip-address/omeka/</code> and complete the setup via the web form, just like you did with WordPress.</li>
 </ul>
