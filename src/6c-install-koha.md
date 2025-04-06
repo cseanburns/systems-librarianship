@@ -2,22 +2,23 @@
 
 ## Introduction
 
-In the last section, we built a WordPress site that functions as our library's front-facing presence, and
-then we built an Omeka site that could serve as our library's digital library.
-In this section, we complete our infrastructure building by installing the [Koha ILS][kohails].
+In the prior sections, we built a WordPress site that functions as our library's front-facing presence.
+Then we built an Omeka site that could serve as our library's digital library.
+In this section, we complete our library web infrastructure by installing the [Koha ILS][koha_ils].
 
-Koha is a free and open source library system that provides modules for patron accounts, circulation, cataloging, serials, an OPAC, and more.
-The process of installing and using Koha is more complicated than the processes we used to install and use WordPress and Omeka.
-This is because Koha, like other ILS software, is a complex project that must provide a lot of different
-functionality for a library and its patrons.
+Koha is a free and open source library system that provides modules
+for patron accounts, circulation, cataloging, serials, an OPAC, and more.
+The process of installing and using Koha is more complicated
+than the processes we used to install and use WordPress and Omeka.
+This is because Koha, like other ILS software,
+is a complex project that must provide a lot of different functionality for a library and its patrons.
 Fortunately, the documentation makes the process pretty straightforward.
 We will rely on that documentation and other resources to install Koha and complete our library's interconnected web presence.
 
-[kohails]:https://koha-community.org/
-
 ## Koha ILS
 
-[Koha][koha] is an open source <q>library management system</q>, otherwise called an [integrated library system (ILS)][ils_wiki].
+Koha is an open source <q>library management system</q>,
+otherwise called an [integrated library system (ILS)][ils_wiki].
 These systems provide modules that perform specific ranges of functionality.
 Koha's modules include:
 
@@ -32,35 +33,39 @@ Koha's modules include:
 - Reports
 - OPAC
 
-According to [Library Technology Guides][ltg_koha] (April 2025),
+According to [Library Technology Guides][koha_ltg] (April 2025),
 <q>Koha has been installed in 4,484 libraries [around the world], spanning 6,273 facilities or branches.</q>
 Most installations are in medium sized or small libraries.
 Koha is well represented in academic libraries, but the majority of installations are in public libraries.
 
 Although Koha is an open source ILS and free to download, install, and administer without external support,
-librarians can hire companies that support open source library management solutions, like
-[ByWater Solutions][bywater] or the [Equinox Open Library Initiative][equinox]
+librarians can hire companies that support open source library management solutions,
+like [ByWater Solutions][bywater] or the [Equinox Open Library Initiative][equinox]
 These companies support ILS migration, hosting, training, and more.
-They also provide support for other library software services, such as open source discovery systems and electronic resource management systems.
+They also provide support for other library software services,
+such as open source discovery systems and electronic resource management systems.
 
 In addition to Koha, [Evergreen][evergreen] is an open source integrated library system.
-According to [Library Technology Guides][ltg_evergreen], Evergreen is primarily installed at small and medium
+According to [Library Technology Guides][evergreen_ltg], Evergreen is primarily installed at small and medium
 size public libraries, and most installations are in the U.S. and Canada.
 
 There is currently a migration to what has been called *library service platforms (LSP)* in recent years.
 The LSP is a next generation ILS designed from the start to integrate electronic resources.
 For example, the ILS has an OPAC that was designed to search a library's print collections.
-Modern OPACs have been adapted for electronic resources, but they are still limited because of the older design model.
+Modern OPACs have been adapted for electronic resources,
+but they are still limited because of the older design model.
 LSPs use a *discovery service* instead of an OPAC.
 Discovery services are designed to search a library's entire collection, including the content in third party databases and journals.
-Example LSPs include Ex Libris Primo (used by UK Libraries), OCLC's WorldCat Discovery Service, and open source solutions
+Example LSPs include Ex Libris Primo (used by UK Libraries),
+OCLC's WorldCat Discovery Service, and open source solutions
 like [Aspen Discovery][aspen] and [VuFind][vufind].
 
 The integration of library systems like the ILS and the LSP is a major aspect of library services.
-When we visit a library's website, we first interact with a normal website that might be built on WordPress, [Drupal][drupal],
-or some other content management system.
-But these websites will link to the public facing components of an ILS or LSP, as well as other services,
-such as bibliographic database, journal publishers, ebook services, and more.
+When we visit a library's website,
+we first interact with a normal website that might be built on
+WordPress, [Drupal][drupal], or some other content management system.
+These websites will link to the public facing components of an ILS or LSP, as well as other services,
+such as bibliographic databases, journal publishers, ebook services, and more.
 It may therefore be the systems librarians job to help build and connect these services.
 In this demo, we will continue that work by installing, configuring, and setting up the Koha ILS.
 
@@ -71,10 +76,20 @@ and configure the Google firewall to allow HTTP traffic to our Koha install.
 
 ### New Virtual Instance
 
-The virtual instance we have been using does not meet the memory (RAM) needs required by the Koha integrated library system.
+The virtual instances we have been using do not meet the memory (RAM) needs
+required by the Koha integrated library system.
 We therefore need to create a new virtual instance that has more RAM.
-As a refresher, see the section titled **gcloud VM Instance** at [Using gcloud Virtual Machines][using_gcloud].
-In this lesson, we will modify the **Series** to **E2** and set the **Machine Type** to **2 vCPU, 4 GB memory**.
+I will also use a bigger disk, to be sure, since Koha takes up more disk space.
+Check [Koha System Requirements][sys_req_koha] for details.
+
+As a refresher for creating a VM,
+see the section titled **gcloud VM Instance** at [Using gcloud Virtual Machines][using_gcloud].
+In this lesson,
+we will use for the **Series** an **E2** and set
+the **Machine Type** to **2 vCPU, 4 GB memory**, and up the disk size to 20GB.
+Under **Networking**, click on **Allow HTTP traffic**.
+In the **Network tags** box, add the following tag name: `koha-8080`.
+
 All else, including the operating system (Ubuntu 22.04), should remain the same.
 Note that this is a more expensive setup.
 Therefore, feel free to delete this instance at the end of the semester to avoid incurring extra costs.
@@ -97,8 +112,8 @@ the staff interface will be identified by port 8080.
 > In its default setup, the Apache2 web server handles traffic on port 80.
 
 Firewalls are used to control incoming and outgoing traffic via ports.
-When we selected **Allow HTTP traffic** when we created our virtual instance on Google Cloud,
-we instructed the Google Console firewall to allow traffic through port 80.
+We selected **Allow HTTP traffic** when we created our virtual instance on Google Cloud,
+and we instructed the Google Console firewall to allow traffic through port 80.
 We need to add a firewall rule to allow web traffic through port 8080.
 We will use port 8080 to access the Koha staff interface.
 
@@ -106,14 +121,14 @@ We will use port 8080 to access the Koha staff interface.
 
 To create a firewall rule to allow traffic to port 8080, go to the Google Cloud Console:
 
-- Click on the *hamburger* ☰ icon at the top left.
-- Click on **VPN Network**
-- Click on **Firewall**
-- At the top of the page, choose **Create a firewall rule**
-  (Do not choose **Create a firewall policy**)
-    - Add name: **koha**
-    - Add description: **open port 8080**
-- Next to **Targets**, click on **All instances in the network**
+- Click on the *hamburger* icon.
+- Click on **VPN Network**.
+- Click on **Firewall**.
+- At the top of the page, choose **Create a firewall rule** (Do not choose **Create a firewall policy**):
+    - Add name: `koha-opac`
+    - Add description: **Open port 8080 for the OPAC**
+- Next to **Targets**, click on **Specified target tags**.
+- In **Target tags**, add our tag name: `koha-8080`.
 - In the **Source IPv4 ranges**, add **0.0.0.0/0**
 - Click on **Specified protocols and ports**
     - Click on TCP
@@ -149,10 +164,11 @@ In the following example, I combine both commands on one line:
 sudo apt autoremove -y && sudo apt clean
 ```
 
-Next we need to install `gnupg2`, which is used to create digital signatures, encrypt data, and aid in secure communication.
+Next we need to install `gnupg2` and `apt-transport-https`.
+`gnupg2` is used to create digital signatures, encrypt data, and aid in secure communication.
 
 ```
-sudo apt install gnupg2
+sudo apt install gnupg2 apt-transport-https
 ```
 
 At the time of this demo, the update above downloaded a new Linux kernel.
@@ -166,7 +182,8 @@ sudo reboot now
 
 ### Add Koha Repository
 
-When you run the `sudo apt update` command, Ubuntu syncs the local repository database with several remote repositories.
+When you run the `sudo apt update` command,
+Ubuntu syncs the local repository database with several remote repositories.
 These remote repositories contain metadata about the packages they contain.
 The syncing process identifies if any new software updates are available.
 The remote repositories are also used to retrieve software.
@@ -188,17 +205,19 @@ Add the Koha repository to our server:
 echo 'deb http://debian.koha-community.org/koha stable main' | sudo tee /etc/apt/sources.list.d/koha.list
 ```
 
-We then add the digital signature that verifies the above repo:
+Now, download and install the GPG key in the `trusted.gpg.d` directory:
 
 ```
-wget -qO - https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor -o /usr/share/keyrings/koha-keyring.gpg
+wget -qO- https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/koha.gpg > /dev/null
 ```
 
-<!-- for Ubuntu 20.04 or earlier
+You can inspect the key and make sure it was signed by the relevant people:
+
 ```
-wget -q -O- https://debian.koha-community.org/koha/gpg.asc | sudo apt-key add -
+gpg --show-keys /etc/apt/trusted.gpg.d/koha.gpg
 ```
--->
+
+The output should include an email from the `koha-community.org`.
 
 ## Install Koha
 
@@ -225,13 +244,21 @@ The above command will download and install a lot of additional software, and th
 
 ### Configure Koha
 
-Next we need to edit some configuration files for Koha:
+Next we need to edit some configuration files for Koha.
+First, create a backup of the default configuration file:
+
+```
+cd /etc/koha/
+cp koha-sites.conf koha-sites.conf.backup
+```
+
+Now open the configuration file in `nano` or your preferred text editor:
 
 ```
 nano /etc/koha/koha-sites.conf
 ```
 
-In the above `koha-sites.conf` file, change the line that contains the following information:
+In the `koha-sites.conf` file, change the line that contains the following information:
 
 ```
 INTRAPORT="80"
@@ -282,7 +309,7 @@ We need to tell Apache2 to listen on port 8080:
 nano /etc/apache2/ports.conf 
 ```
 
-And add:
+And under the `Listen 80` line, add:
 
 ```
 Listen 8080
@@ -315,7 +342,8 @@ systemctl restart apache2
 
 ### Koha Web Installer
 
-All the back end work is complete, and like we did with WordPress and Omeka, we can complete the installation through a web installer.
+All the back end work is complete, and like we did with WordPress and Omeka,
+we can complete the installation through a web installer.
 
 First, get Koha username and password in the following file:
 
@@ -323,8 +351,10 @@ First, get Koha username and password in the following file:
 nano /etc/koha/sites/bibliolib/koha-conf.xml
 ```
 
-Look for the ``<config>`` stanza (line number 252) and the line beginning with ``<user>`` (line number 257).
+Look for the `<config>` stanza (line number 252) and
+the line beginning with `<user>` (line number 257).
 The password is on the line after (line number 258).
+You will need this info to login to the Koha web interface.
 
 Make sure your URL begins with `http` and not `https`, and visit the web installer at:
 
@@ -333,19 +363,28 @@ http://IP-ADDRESS:8080
 ```
 
 The documentation for the web installer is helpful.
-One thing to do is to add sample libraries and sample patrons.
+Enter the username and password from the `koha-conf.xml` file.
+Note that it might take a while to step through the installer.
+
+One thing to do is to add sample libraries and sample patrons during the install.
 More generally, be sure to follow instructions as you click through each step.
+Add lots of samples to play around with after the install completes.
+
+When you are on the last page of the install, create an **Administrator identity**, and
+be sure to save this information.
 
 [Introduction to the Koha installation process][koha_web_installer]
 
 ## Public OPAC
 
-When the install and setup are complete, you will have access to the staff interface.
+When the install and setup are complete, you can login with your admin credentials, and
+you will have access to the staff interface.
 To view the public facing OPAC, you need to make a setting change.
+In Koha:
 
 - Click on **More** in the top drop down box
 - Click on **Administration**
-- Click on **Global System Preferences**
+- Click on **System Preferences**
 - Click on **OPAC** in the left hand side bar
 - Scroll down to the `OPACBaseURL` line.
 - Enter the IP address of your server: `http://IP-ADDRESS`
@@ -366,14 +405,19 @@ Try the following:
 ## Conclusion
 
 In this final section, you learned how to install and setup a Koha ILS installation on a Linux server.
+Your next step is to use your WordPress install to finalize your public facing library website.
+This website should include links to your Omeka-based digital library and
+to your Koha-based OPAC.
+
+Congratulations!
 
 ## References
 
 Helpful documentation and demos:
 
 - [Koha ILS][koha_ils] documentation.
-- [Koha on Debian][kohaDebian]
-- [Install Koha on Google Cloud Platform][youtubeKoha]
+- [Koha on Debian][koha_debian]
+- [Install Koha on Google Cloud Platform][youtube_koha]
 
 [aspen]:https://bywatersolutions.com/products/aspen-discovery
 [bywater]:https://bywatersolutions.com/
@@ -381,14 +425,14 @@ Helpful documentation and demos:
 [drupal]:https://www.drupal.org/
 [equinox]:https://www.equinoxoli.org/
 [evergreen]:https://evergreen-ils.org/
-[kohaDebian]:https://wiki.koha-community.org/wiki/Koha_on_Debian
-[koha]:https://koha-community.org/
-[koha_ils]:https://koha-community.org/
+[koha_debian]:https://wiki.koha-community.org/wiki/Koha_on_Debian
 [koha_web_installer]:https://koha-community.org/manual//22.11/en/html/installation.html
-[ltg_evergreen]:https://librarytechnology.org/product/evergreen-equinox
-[ltg_koha]:https://librarytechnology.org/product/koha
+[evergreen_ltg]:https://librarytechnology.org/product/evergreen-equinox
+[koha_ltg]:https://librarytechnology.org/product/koha
 [ports]:https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/
-[using_gcloud]:05-using-gcloud-virtual-machines.html
+[using_gcloud]:2a-using-gcloud-virtual-machines.html
 [vufind]:https://vufind.org/vufind/
-[youtubeKoha]:https://www.youtube.com/watch?v=mzUop9R4sKc
+[youtube_koha]:https://www.youtube.com/watch?v=mzUop9R4sKc
 [ils_wiki]:https://en.wikipedia.org/wiki/Integrated_library_system
+[sys_req_koha]:https://koha-community.org/download-koha/
+[koha_ils]:https://koha-community.org/
