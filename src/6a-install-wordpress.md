@@ -276,8 +276,14 @@ sudo chown -R www-data:www-data /var/www/html/wordpress
 
 The next part of the process takes place in the browser.
 The location (URL) that you visit in the browser depends on your specific IP address and also
-includes the directory in `/var/www/html` that we extracted WordPress to or that you renamed if you followed **Step 5**.
+includes the name of the directory in `/var/www/html` that we extracted WordPress to or that you renamed if you followed **Step 5**.
 Thus, if my IP address is 11.111.111.11 and I renamed my directory to **library**, then I need to visit the following URL:
+
+```
+http://11.111.111.11/library/
+```
+
+Or if that doesn't work (though it should), try:
 
 ```
 http://11.111.111.11/library/wp-admin/install.php
@@ -286,7 +292,7 @@ http://11.111.111.11/library/wp-admin/install.php
 **IF** I kept the directory named `wordpress`, then this is the URL that I use:
 
 ```
-http://11.111.111.11/wordpress/wp-admin/install.php
+http://11.111.111.11/wordpress/
 ```
 
 If you changed the name of your `wordpress` directory, be sure to substitute that name for `wordpress` in the URL.
