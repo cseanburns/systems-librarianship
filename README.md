@@ -4,6 +4,7 @@ This repo contains materials for a course on systems librarianship that started 
 
 New versions of this work will be released at the end of each semester I teach the corresponding course:
 
+- Version 3: Spring 2025 semester (*forthcoming*)
 - [Version 2][version_2_syslib]: Spring 2024 semester
 - [Version 1][version_1_syslib]: Spring 2023 semester
 
