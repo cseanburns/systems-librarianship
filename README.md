@@ -4,12 +4,12 @@ This repo contains materials for a course on systems librarianship that started 
 
 New versions of this work will be released at the end of each semester I teach the corresponding course:
 
-Version 1: Spring 2023 semester.
-Version 2: Spring 2024 semester.
+- [Version 2][version_2_syslib]: Spring 2024 semester
+- [Version 1][version_1_syslib]: Spring 2023 semester
 
 The [`src/`][src_syslib] directory contains the markdown files.
 These files are converted into a book format using [mdBook][mdbook].
-The resulting output is hosted on my website at:
+The resulting output is hosted at:
 
 [https://cseanburns.github.io/systems-librarianship/](https://cseanburns.github.io/systems-librarianship/)
 
@@ -22,3 +22,6 @@ Feel free to fork this work.
 
 [mdbook]:https://github.com/rust-lang/mdBook
 [src_syslib]:https://github.com/cseanburns/systems-librarianship/tree/main/src
+[version_1_syslib]:https://github.com/cseanburns/systems-librarianship/releases/tag/V1
+[version_2_syslib]:https://github.com/cseanburns/systems-librarianship/releases/tag/V2
+
