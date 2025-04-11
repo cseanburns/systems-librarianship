@@ -57,7 +57,7 @@ If the reader desires a PDF copy of this work, the printer icon at the top right
 
 The content in this book is open access and
 licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0][ccbyncsa] license.
-Feel free to fork it on [GitHub][systemslib] and modify it for your own needs.
+Feel free to fork it on [GitHub][systems_lib] and modify it for your own needs.
 
 [mdbook]:https://github.com/rust-lang/mdBook
 [systems_lib]:https://github.com/cseanburns/systems_librarianship
