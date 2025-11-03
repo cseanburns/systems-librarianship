@@ -129,8 +129,9 @@ Next, click on the **Networking** link in the left hand navigation section.
 In this section, we install the `gcloud` CLI software to connect to our virtual machines on Google Cloud.
 Using the `gcloud` CLI is a more advanced way to connect to our VMs.
 If you prefer, you can connect to your VM using Google's web interface.
-Skip to the [Connect To Our VM](2a-using-gcloud-virtual-machines.html#connect-to-our-vm) section if you prefer the web interface
-insetad of installing this software.
+Skip to the
+[Connect To Our VM](https://cseanburns.github.io/systems-librarianship/2a-using-gcloud-virtual-machines.html#using-the-web-interface)
+section if you prefer the web interface insetad of installing this software.
 
 Using the `gcloud` CLI will allow us to connect to remote server using our own terminal applications.
 The **[Install the gcloud CLI][gcloud_install]** page provides instructions for different operating systems.
@@ -314,12 +315,18 @@ This is a lot!
 After this course is completed, you will be able to fire up a virtual machine on short notice and deploy websites and more.
 
 [distrowatch]:https://distrowatch.com/
-[gcloudConsole]:https://console.cloud.google.com/
-[gcloud]:https://cloud.google.com/?hl=en
-[gcloudInstall]:https://cloud.google.com/sdk/docs/install-sdk
-[gcloudProjects]:https://cloud.google.com/resource-manager/docs/creating-managing-projects#gcloud
-[googleBilling]:https://cloud.google.com/billing/docs/how-to/manage-billing-account
+[gcloud_console]:https://console.cloud.google.com/
+[gcloud_install]:https://cloud.google.com/sdk/docs/install-sdk
+[gcloud_interactive]:https://cloud.google.com/sdk/docs/downloads-interactive#linux-mac
+[gcloud_projects]:https://cloud.google.com/resource-manager/docs/creating-managing-projects#gcloud
+[g_init]:https://cloud.google.com/sdk/docs/install-sdk#initializing_the
+[google_billing]:https://cloud.google.com/billing/docs/how-to/manage-billing-account
 [google]:https://www.google.com
+[homebrew]:https://brew.sh/
+[pyenv]:https://github.com/pyenv/pyenv
+[python3]:https://www.python.org/
+[python_dev]:https://cloud.google.com/python/docs/setup
+[ubuntu_releases]:https://wiki.ubuntu.com/Releases
 [ubuntuReleases]:https://wiki.ubuntu.com/Releases
-[virtualbox]:https://www.virtualbox.org/
 [virt_redhat]:https://www.redhat.com/en/topics/virtualization/what-is-a-virtual-machine
+[virtualbox]:https://www.virtualbox.org/
