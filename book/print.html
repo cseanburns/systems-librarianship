@@ -816,8 +816,8 @@ it is imperative that you <strong>read through Google's instructions</strong> al
 </blockquote>
 <h4 id="create-a-project"><a class="header" href="#create-a-project">Create a Project</a></h4>
 <p>After signing into your Google account,
-proceed to <strong>Step 1</strong> at the top of the  [Install the gcloud CLI][gcloud_install] page to create a new project.
-Review the page on [creating and managing projects][gcloud_projects].</p>
+proceed to <strong>Step 1</strong> at the top of the  <a href="https://cloud.google.com/sdk/docs/install-sdk">Install the gcloud CLI</a> page to create a new project.
+Review the page on <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#gcloud">creating and managing projects</a>.</p>
 <p>When you create your project, you can name it anything, but try to name it something to do with this project.
 E.g., I might use the name <strong>syslib_624</strong>.
 <em>Avoid spaces in the names of your project.</em>
@@ -828,10 +828,10 @@ Make sure you've selected your project, and then click on <strong>Enable</strong
 This means there is a cost associated with this product,
 but the machines we'll build require few resources and the cost should be minimal.
 In the past, I usually pay about $1 per month.
-[Follow Step 2][gcloud_install] to enable billing for the new project.
-See also the page on how to [create, modify, or close your self-serve Cloud Billing account][google_billing].</p>
+<a href="https://cloud.google.com/sdk/docs/install-sdk">Follow Step 2</a> to enable billing for the new project.
+See also the page on how to <a href="https://cloud.google.com/billing/docs/how-to/manage-billing-account">create, modify, or close your self-serve Cloud Billing account</a>.</p>
 <h4 id="gcloud-vm-instance"><a class="header" href="#gcloud-vm-instance">gcloud VM Instance</a></h4>
-<p>Next, log into [Google Cloud Console][gcloud_console].
+<p>Next, log into <a href="https://console.cloud.google.com/">Google Cloud Console</a>.
 This should take you to the Dashboard page.</p>
 <p>Our first goal is to create a <strong>virtual machine (VM)</strong> <em>instance</em>.
 As a reminder, a VM is a virtualized operating system.
@@ -853,7 +853,7 @@ The latter receive nine months of standard support and generally use cutting edg
 Cutting edge technology is not always desirable for server operating systems, which often prioritize stability.
 Each version of Ubuntu has a code name.
 Ubuntu 22.04 LTS has the code name <strong>Jammy Jellyfish</strong>.
-You can see a list of versions, code names, release dates, and more on Ubuntu's [Releases][ubuntu_releases] page.</p>
+You can see a list of versions, code names, release dates, and more on Ubuntu's <a href="https://wiki.ubuntu.com/Releases">Releases</a> page.</p>
 </blockquote>
 <p>You should be on the page where you create a new VM, but if not</p>
 <ul>
@@ -904,10 +904,11 @@ You can see a list of versions, code names, release dates, and more on Ubuntu's 
 <p>In this section, we install the <code>gcloud</code> CLI software to connect to our virtual machines on Google Cloud.
 Using the <code>gcloud</code> CLI is a more advanced way to connect to our VMs.
 If you prefer, you can connect to your VM using Google's web interface.
-Skip to the <a href="2a-using-gcloud-virtual-machines.html#connect-to-our-vm">Connect To Our VM</a> section if you prefer the web interface
-insetad of installing this software.</p>
+Skip to the
+<a href="https://cseanburns.github.io/systems-librarianship/2a-using-gcloud-virtual-machines.html#using-the-web-interface">Connect To Our VM</a>
+section if you prefer the web interface insetad of installing this software.</p>
 <p>Using the <code>gcloud</code> CLI will allow us to connect to remote server using our own terminal applications.
-The <strong>[Install the gcloud CLI][gcloud_install]</strong> page provides instructions for different operating systems.</p>
+The <strong><a href="https://cloud.google.com/sdk/docs/install-sdk">Install the gcloud CLI</a></strong> page provides instructions for different operating systems.</p>
 <p>There are installation instructions for macOS, Windows, Chromebooks, and various Linux distributions.
 Follow these instructions closely for the operating system that you're using.</p>
 <blockquote>
@@ -938,18 +939,18 @@ First, open your Terminal.app and run the following code:</p>
 </code></pre>
 <p>Once the Xcode developer tools are installed, you need to install the macOS Homebrew package manager.
 To do so, follow the instructions here:</p>
-<p>[Homebrew][homebrew]</p>
-<p>After Homebrew is installed use the <code>brew</code> command to install [pyenv][pyenv].</p>
+<p><a href="https://brew.sh/">Homebrew</a></p>
+<p>After Homebrew is installed use the <code>brew</code> command to install <a href="https://github.com/pyenv/pyenv">pyenv</a>.</p>
 <pre><code>brew install pyenv
 </code></pre>
 <p>And then use <code>pyenv</code> to install the latest version of Python.
-For example, to install the [latest release of Python][python3] (as of August 2024):</p>
+For example, to install the <a href="https://www.python.org/">latest release of Python</a> (as of August 2024):</p>
 <pre><code>penv install 3.12.5
 </code></pre>
 <p>Finally, you can install the Google Cloud application using the steps outlined below.
-Or you can use the steps outlined in the [Google Cloud Interactive installation][gcloud_interactive].</p>
+Or you can use the steps outlined in the <a href="https://cloud.google.com/sdk/docs/downloads-interactive#linux-mac">Google Cloud Interactive installation</a>.</p>
 <p>See also:</p>
-<p>[Setting up a Python development environment][python_dev]</p>
+<p><a href="https://cloud.google.com/python/docs/setup">Setting up a Python development environment</a></p>
 <p>macOS users will download a <strong>.tar.gz</strong> file and extract the <strong>.tar.gz</strong> using the <code>tar</code> command.
 The <strong>.tar.gz</strong> file may have been downloaded to your <strong>Downloads</strong> folder.
 First, in your Terminal.app, move that file to your home directory and extract it there.
@@ -963,7 +964,7 @@ cd google-cloud-sdk
 <p>Modify the file names in the commands above, as appropriate, if you're using the M1 version of the gcloud CLI.</p>
 <h2 id="initializing-the-gcloud-cli"><a class="header" href="#initializing-the-gcloud-cli">Initializing the gcloud CLI</a></h2>
 <p>Regardless if you're using macOS or Windows, you will now initialize your Google Cloud installation the same way.
-First, scroll down the install page to the section titled [<strong>Initializing the gcloud CLI</strong>][g_init].
+First, scroll down the install page to the section titled <a href="https://cloud.google.com/sdk/docs/install-sdk#initializing_the"><strong>Initializing the gcloud CLI</strong></a>.
 In your terminal, run the initialization command.
 Per the instructions at the above page, it should be something like so:</p>
 <pre><code>gcloud init
