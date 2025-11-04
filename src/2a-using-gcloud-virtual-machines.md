@@ -5,40 +5,40 @@
 Our goal in this section is to create a **virtual machine (VM)** *instance*.
 A VM is basically a virtualized operating system that runs on a host operating system.
 That host operating system may also be Linux, but it could be Windows or macOS.
-In short, when we use virtual machines, it means instead of installing an operating system
-(like Linux, macOS, Windows, etc) on a physical machine, we use virtual machine software to mimic the process.
-The virtual machine, thus, runs on top of our main OS.
-It's like an app, where the app is a fully functioning operating system.
+In short, when we use a VM, it means instead of installing an operating system
+(like Linux, macOS, Windows, etc) on a physical machine, we use VM software to mimic the process.
+The VM thus runs on top of our main OS.
+Think of the VM as an app, where the app is a fully functioning operating system.
 
 > There are many ways to do virtualization.
 > According to [Red Hat][virt_redhat], there is data virtualization, desktop virtualization,
 > server virtualization, OS virtualization, (which is the technology we cover here),
 > and network functions virtualization.
 
-In this course, we're going to use gcloud (via Google) to provide us with virtual machines.
+In this course, we're going to use gcloud (via Google) to provide our VMs.
 There are other cloud service providers available that you can explore on your own.
 You can also play with [VirtualBox][virtualbox] (on your own), which I've used in prior classes,
-to install virtual machines on your own computers.
+to install VMs on your own computers.
 
-## Google Cloud / gcloud
+## Google Cloud (`gcloud`)
 
 ### Google Account
 
-We need a Google account to create our virtual machines.
+We need a Google account to create our VMs.
 I imagine you already have a Google account, but if not, then create one at [https://www.google.com][google].
 Be sure to use your personal Google account for this project.
 
-### Google Cloud (gcloud) Project
+### Google Cloud (`gcloud`) Project
 
 After signing into Google, we're going to perform the following steps:
 
 1. Create a Google Cloud project.
 1. Enable billing for that project.
-1. Create a VM (or *virtual instance*) on Google Cloud.
+1. Create a VM (aka *virtual instance*) on Google Cloud.
 1. Install the `gcloud` CLI software on our personal machines to connect to our remote VM;
     - alternatively, use the web interface (details below) to connect to our remote VM.
 
-> Although I include most of the instructions on this page to perform the above steps,
+> Although I include most of the instructions on this page to perform these steps,
 > it is imperative that you **read through Google's instructions** also.
 
 #### Create a Project
@@ -58,48 +58,33 @@ Make sure you've selected your project, and then click on **Enable** for **Compu
 Second, set up a billing account for your gcloud project.
 This means there is a cost associated with this product,
 but the machines we'll build require few resources and the cost should be minimal.
-In the past, I usually pay about $1 per month.
+In the past, I usually pay about $1 or $2 per month.
 [Follow Step 2][gcloud_install] to enable billing for the new project.
 See also the page on how to [create, modify, or close your self-serve Cloud Billing account][google_billing].
 
-#### gcloud VM Instance
+## VM Instance
 
 Next, log into [Google Cloud Console][gcloud_console].
-This should take you to the Dashboard page.
+This should take you to the Google Cloud Dashboard page.
 
-Our first goal is to create a **virtual machine (VM)** *instance*.
+Here we'll create a **virtual machine (VM)** *instance*.
 As a reminder, a VM is a virtualized operating system.
 We will use software to mimic the process of installing an operating system on Google's servers. 
 
-Google Cloud offers a number of Linux-based operating systems to create VMs.
+Google Cloud offers a number of Linux operating systems for VMs.
 We're going to use the Ubuntu operating system and specifically the Ubuntu 22.04 LTS version.
-We are not going to install a graphical user interface on our Ubuntu servers.
-Rather, we will use the command line to do most of our work.
+We are not going to install a graphical user interface (GUI) on our Ubuntu servers.
+Rather, we will use a command line interface (CLI) to do most of our work.
 
-> What is Ubuntu?
-> Ubuntu is a distribution of Linux.
-> A new version of Ubuntu is released every six months.
-> The 22.04 signifies that this is the April 2022 version.
-> The LTS signifies **Long Term Support**.
-> LTS versions are released every two years, and Canonical LTD, the owners of Ubuntu, provide five years standard support for LTS versions.
-> Thus, Ubuntu 22.04 is supported through June 2027.
->
-> LTS versions of Ubuntu are more stable than non-LTS versions of Ubuntu.
-> The latter receive nine months of standard support and generally use cutting edge technology.
-> Cutting edge technology is not always desirable for server operating systems, which often prioritize stability.
-> Each version of Ubuntu has a code name.
-> Ubuntu 22.04 LTS has the code name **Jammy Jellyfish**.
-> You can see a list of versions, code names, release dates, and more on Ubuntu's [Releases][ubuntu_releases] page.
+You should be on the page where you create a new VM, but if not:
 
-You should be on the page where you create a new VM, but if not
-
-- If Click the three horizontal bars at the top left of the screen.
+- Click on the three horizontal bars at the top left of the screen.
 - Hover over the **Compute Engine** link, and then select **VM Instances**.
 - In the window, select the project that you created earlier.
-    - E.g., for me, I used the project name **syslib_624**.
+    - E.g., for me, I'll use the project name **syslib_624**.
 - Next, click on **Create Instance**.
 - Change the name for your **instance**.
-    - E.g., I chose **spring-2026** (no spaces) 
+    - E.g., I'll name mine, **spring_2026** (no spaces) 
 
 If you are already on the Create VM page, then:
 
@@ -124,7 +109,25 @@ Next, click on the **Networking** link in the left hand navigation section.
 - Check the **Allow HTTP Traffic** button
 - Finally, click on the **Create** button to create your VM instance.
 
-## Install `gcloud` CLI
+> What is Ubuntu?
+> Ubuntu is a **distribution** of Linux.
+> A new version of Ubuntu is released every six months.
+> The 22.04 signifies that this is the April 2022 version.
+> The LTS signifies **Long Term Support**.
+> LTS versions are released every two years.
+> Canonical LTD, the owners of Ubuntu, provide five years standard support for LTS versions.
+> Thus, Ubuntu 22.04 is supported through June 2027.
+>
+> LTS versions of Ubuntu are more stable than non-LTS versions of Ubuntu.
+> The latter receive nine months of standard support and generally implement cutting edge technology.
+> Cutting edge technology is not always desirable for server operating systems, which often prioritize stability.
+>
+> Each version of Ubuntu has a code name.
+> Ubuntu 22.04 LTS has the code name **Jammy Jellyfish**.
+> You can see a list of versions, code names, release dates, and
+> more on Ubuntu's [Releases][ubuntu_releases] page.
+
+## Install the `gcloud` CLI
 
 In this section, we install the `gcloud` CLI software to connect to our virtual machines on Google Cloud.
 Using the `gcloud` CLI is a more advanced way to connect to our VMs.
@@ -150,7 +153,7 @@ Follow these instructions closely for the operating system that you're using.
 > - choose **About This Mac**
 > - locate the **Processor** or **Chip** information
 
-After you have downloaded the gcloud CLI for your particular OS and CPU architecture,
+After you have downloaded the `gcloud` CLI for your particular OS and CPU architecture,
 you will need to open a command prompt/terminal on your machines to complete the instructions
 that describe how to install the gcloud CLI.
 macOS uses the Terminal app, which can be located using Spotlight.
@@ -175,17 +178,17 @@ To do so, follow the instructions here:
 
 [Homebrew][homebrew]
 
-After Homebrew is installed use the `brew` command to install [pyenv][pyenv].
+After Homebrew is installed, use the `brew` command to install [pyenv][pyenv].
 
 ```
 brew install pyenv
 ```
 
 And then use `pyenv` to install the latest version of Python.
-For example, to install the [latest release of Python][python3] (as of August 2024):
+For example, to install the [latest release of Python][python3] (as of November 2025):
 
 ```
-penv install 3.12.5
+penv install 3.14.0
 ```
 
 Finally, you can install the Google Cloud application using the steps outlined below.
@@ -195,22 +198,39 @@ See also:
 
 [Setting up a Python development environment][python_dev]
 
-macOS users will download a **.tar.gz** file and extract the **.tar.gz** using the ``tar`` command.
+Once the above is complete on macOS,
+download the `gcloud` **.tar.gz** file and extract it using the `tar` command.
 The **.tar.gz** file may have been downloaded to your **Downloads** folder.
-First, in your Terminal.app, move that file to your home directory and extract it there.
-Once extracted, change to home directory with the ``cd`` command.
-For example, if you are running macOS and downloaded the x86_64 version of the gcloud CLI, then open your Terminal.app and run the following commands:
+First, in your Terminal.app, move that file to your home directory.
+The following assumes the downloaded file is named
+`google-cloud-cli-darwin-x86_64.tar.gz`, but it's likely different for you, so modify as appropriate:
 
 ```
-mv ~/Downloads/google-cloud-cli-darwin-x86_64.tar.gz $HOME
+mv ~/Downloads/google-cloud-cli-darwin-arm.tar.gz $HOME
+```
+
+Then move to your home directory with the `cd` command:
+
+```
 cd $HOME
-tar -xzf google-cloud-cli-444.0.0-darwin-x86_64.tar.gz 
+```
+
+And extract the file there:
+
+```
+tar -xzf google-cloud-cli-darwin-arm.tar.gz
+```
+
+Once extracted, a new directory will be created in your home directory.
+Move there with the `cd` command:
+
+```
 cd google-cloud-sdk
 ```
 
-Modify the file names in the commands above, as appropriate, if you're using the M1 version of the gcloud CLI.
+Modify the file names in the commands above, as appropriate.
 
-## Initializing the gcloud CLI
+### Initialize the `gcloud` CLI
 
 Regardless if you're using macOS or Windows, you will now initialize your Google Cloud installation the same way.
 First, scroll down the install page to the section titled [**Initializing the gcloud CLI**][g_init].
