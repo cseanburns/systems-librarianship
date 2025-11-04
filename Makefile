@@ -10,4 +10,4 @@ commit:
 	git commit -m "Rebuild mdbook"
 
 push:
-	git push origin master
+	git push origin main
