@@ -182,24 +182,24 @@
                         <h1 id="systems-librarianship"><a class="header" href="#systems-librarianship">Systems Librarianship</a></h1>
 <p>Author: C. Sean Burns<br />
 <a href="https://github.com/cseanburns/systems-librarianship/releases/tag/V3">Date, version 3: 2025-05-08</a>
-Email: <a href="sean.burns@uky.edu">sean.burns@uky.edu</a><br />
+Email: <a href="mailto:sean.burns@uky.edu">sean.burns@uky.edu</a><br />
 Website: <a href="https://cseanburns.net">cseanburns.net</a><br />
 GitHub: <a href="https://github.com/cseanburns">@cseanburns</a></p>
 <h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
 <p>The goal of this book is to provide a technical introduction to the basics of systems librarianship using Linux.
 The book is used alongside a course on systems librarianship that the author teaches.</p>
 <p>The course teaches the following skills:</p>
-<ol start="2">
-<li>how to use cloud computing resources and create virtual machines;</li>
+<ol>
 <li>how to use the Linux command line in order to become more efficient computer users and more comfortable with using computers in general;</li>
+<li>how to use cloud computing resources and create virtual machines;</li>
 <li>how to document technical information using Git and GitHub;</li>
-<li>how to create a LAMP server, websites, and create a bare bones OPAC;</li>
-<li>how to install and configure content management systems, and;</li>
+<li>how to create a LAMP server, websites, and a bare-bones OPAC;</li>
+<li>how to install and configure content management systems;</li>
 <li>how to install and configure an integrated library system.</li>
 </ol>
 <p>The main overarching goals of this work are:</p>
 <ol>
-<li>to foster self-efficacy with computers and an enthusiasm for foundational computer technologies, and</li>
+<li>to foster self-efficacy with computers and an enthusiasm for foundational computer technologies; and</li>
 <li>to provide library science students a starting point in a career in systems librarianship or related positions.</li>
 </ol>
 <h2 id="about-this-book"><a class="header" href="#about-this-book">About This Book</a></h2>
@@ -221,9 +221,9 @@ which I teach in the fall semesters in our undergraduate ICT program.</p>
 I accept suggestions for improvement, via email or GitHub.</p>
 <h3 id="technical-note"><a class="header" href="#technical-note">Technical Note</a></h3>
 <p>I write the text for this work in Markdown and use <a href="https://github.com/rust-lang/mdBook">mdBook</a> to build the output.
-The Markdown source code is in GitHub: <a href="systems_lib">Systems Librarianship</a>.
+The Markdown source code is on GitHub: <a href="https://github.com/cseanburns/systems_librarianship">Systems Librarianship</a>.
 Use the search function on this site to search for specific topics or keywords.
-If the reader desires a PDF copy of this work, the printer icon at the top right of the page will print to PDFs.</p>
+If the reader desires a PDF copy of this work, the printer icon at the top right of the page will print to PDF.</p>
 <p>The content in this book is open access and
 licensed under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0</a> license.
 Feel free to fork it on <a href="https://github.com/cseanburns/systems_librarianship">GitHub</a> and modify it for your own needs.</p>
@@ -232,8 +232,8 @@ Feel free to fork it on <a href="https://github.com/cseanburns/systems_librarian
 <p><strong>Note</strong>: this section is borrowed from my <a href="https://cseanburns.github.io/linux_sysadmin/">Linux Systems Administration</a> course.</p>
 <h2 id="location-bell-labs-part-of-att-new-jersey-late-1960s-through-early-1970s"><a class="header" href="#location-bell-labs-part-of-att-new-jersey-late-1960s-through-early-1970s">Location: Bell Labs, part of AT&amp;T (New Jersey), late 1960s through early 1970s</a></h2>
 <p>Before there was Linux, there was (and still is) Unix.
-Unix began in the late 1960s and was first released in the early 1970s at Bell Labs, part of AT&amp;T in New Jersey, with an operating system called Multics.
-Multics was an early <a href="https://en.wikipedia.org/wiki/Time-sharing">time-sharing system</a>; i.e., it allowed more than one person to use it the system.
+Unix began in the late 1960s at Bell Labs, part of AT&amp;T in New Jersey, and was first released in the early 1970s after the lab withdrew from the Multics project.
+Multics was an early <a href="https://en.wikipedia.org/wiki/Time-sharing">time-sharing system</a>; i.e., it allowed more than one person to use the system.
 Despite its innovative approach, Multics was fraught with issues and slowly abandoned.
 In the midst of this abandonment, <a href="http://cs.bell-labs.co/who/ken/">Ken Thompson</a> stumbled upon an old PDP-7 and started writing what would become UNIX.
 This specific version of UNIX would later be known as Research Unix.
@@ -241,7 +241,7 @@ The project caught the attention of <a href="https://www.bell-labs.com/usr/dmr/w
 Together they laid the groundwork for a revolution in computing.</p>
 <h2 id="location-berkeley-ca-university-of-california-berkeley-early-to-mid-1970s"><a class="header" href="#location-berkeley-ca-university-of-california-berkeley-early-to-mid-1970s">Location: Berkeley, CA (University of California, Berkeley), early to mid 1970s</a></h2>
 <p>The evolution of Unix continued through the early to mid-1970s at Bell Labs.
-Ken Thompson visited the University of California, Berkeley, where he helped install Version 6 of <a href="https://en.wikipedia.org/wiki/Berkeley_Software_Distribution">UNIX</a>.
+Ken Thompson visited the University of California, Berkeley, where he helped install Version 6 of <a href="https://en.wikipedia.org/wiki/Version_6_Unix">UNIX</a>.
 This marked a significant moment in the system's history.
 At Berkeley, several contributors, including <a href="https://en.wikipedia.org/wiki/Bill_Joy">Bill Joy</a>, played vital roles in its development.
 Joy was particularly influential.
@@ -293,13 +293,11 @@ Access to the source code is a precondition for this.</li>
 <p>During the late 1980s through the early 1990s, the so-called "Unix wars" and an ensuing lawsuit marked a contentious period
 in the history of computing.
 Following its breakup, AT&amp;T began to commercialize Unix.
-This lead to distinct differences between the Unix created by AT&amp;T Unix and the Unix developed as BSD Unix.
+This led to distinct differences between AT&amp;T's Unix and BSD Unix.
 The former was aimed at commercial markets, while the latter was targeted at researchers and academics.
-These contrasting objectives led to legal friction, culminating in UNIX Systems Laboratories, Inc.
-(USL, part of AT&amp;T) suing Berkeley Software Design, Inc. (BSDi, part of the University of California, Berkeley)
-for copyright and trademark violations.
-Ultimately, USL lost the case, but not before the lawsuit had created significant obstacles for BSD Unix.
-The legal battle delayed the adoption of BSD Unix and left a lasting impact on the development and dissemination of Unix systems.</p>
+These contrasting objectives led to legal friction, culminating in UNIX Systems Laboratories, Inc. (USL, part of AT&amp;T)
+suing Berkeley Software Design, Inc. (BSDi, a company founded by Berkeley developers), and the case ended in a settlement
+that required code clean-up and clarified licensing, slowing BSD adoption.</p>
 <h2 id="linux-linus-torvalds-university-of-helsinki-finland-early-1990s"><a class="header" href="#linux-linus-torvalds-university-of-helsinki-finland-early-1990s">Linux, Linus Torvalds, University of Helsinki, Finland, early 1990s</a></h2>
 <p>Meanwhile, on August 25, 1991, at the University of Helsinki in Finland,
 <a href="https://www.cs.helsinki.fi/u/torvalds/">Linus Torvalds</a>, a young computer science student,
@@ -307,9 +305,9 @@ announced that he had started working on a free operating system kernel for the 
 This <a href="https://www.kernel.org/">kernel</a> would later be famously named Linux, a kind of portmanteau of Linus and Unix.
 It's essential to understand that <strong>Linux</strong> technically refers only to the kernel,
 which handles startup, devices, memory, resources, and more,
-but does not provide user land utilities—the kind of software that people use on their computers.</p>
+but does not provide userland utilities—the kind of software that people use on their computers.</p>
 <p>Torvalds' motivation for this project was both to learn about OS development and to have access to a Unix-like system.
-He did had access to an Unix-like system called <a href="https://www.minix3.org/">MINIX</a>, but MINIX was limited by technical and copyright restrictions.
+He did have access to a Unix-like system called <a href="https://www.minix3.org/">MINIX</a>, but MINIX was limited by technical and copyright restrictions.
 Interestingly, Torvalds has stated that if a BSD or GNU Hurd operating system were available at that time,
 he might not have created the Linux kernel at all.
 However, he and others took the GNU utilities and created what is now widely referred to as Linux or GNU/Linux.
@@ -341,7 +339,7 @@ a year after the Linux kernel was released.</p>
 Later, NetBSD split into another project, giving rise to <a href="https://www.openbsd.org/">OpenBSD</a>.
 All three of these BSDs are still in active development today, and each has a unique focus:</p>
 <ul>
-<li><strong>NetBSD</strong> is known for its focus on portability, finding applications in various environments such as MacOS and even NASA projects.</li>
+<li><strong>NetBSD</strong> is known for its focus on portability, running on a wide range of hardware, including embedded systems and some research and aerospace projects.</li>
 <li><strong>FreeBSD</strong> is recognized for its wide applicability and has been utilized by notable companies and products like WhatsApp,
 Netflix, PlayStation 4, and MacOS.</li>
 <li><strong>OpenBSD</strong> emphasizes security and has contributed several essential applications in this domain.</li>
@@ -381,16 +379,16 @@ They each take very different approaches to free and/or open source software. Th
 <p>Technically, <a href="https://kernel.org/">Linux is a kernel</a>, and a kernel is a part of an operating system that
 oversees CPU activity like multitasking, as well as networking, memory management, device management, file systems, and more.
 The kernel alone does not make an operating system.
-It needs user land applications and programs, the kind we use on a daily basis, to form a whole,
-as well as ways for these user land utilities to interact with the kernel.</p>
+It needs userland applications and programs, the kind we use on a daily basis, to form a whole,
+as well as ways for these userland utilities to interact with the kernel.</p>
 <h2 id="linux-and-gnu"><a class="header" href="#linux-and-gnu">Linux and GNU</a></h2>
 <p>The earliest versions of the Linux kernel were combined with tools, utilities, and programs from the <a href="https://www.gnu.org/software/software.html">GNU project</a>
 to form a complete operating system, without necessarily a graphical user interface.
 This association continues to this day.
-Additional non-GNU, but free and open source programs under different licenses,
-have been added to form a more functional and user friendly system.
-However, since the Linux kernel needs user land applications to form an operating system, and
-since user land applications from GNU cannot work without a kernel,
+Additional non-GNU but free and open-source programs under different licenses
+have been added to form a more functional and user-friendly system.
+However, since the Linux kernel needs userland applications to form an operating system, and
+since userland applications from GNU cannot work without a kernel,
 some argue that the operating system should be called <a href="https://en.wikipedia.org/wiki/GNU/Linux_naming_controversy">GNU/Linux</a> and not just Linux.
 This has not gained wide acceptance, though.
 Regardless, credit is due to both camps for their contribution, as well as many others who have made substantial contributions
@@ -413,15 +411,15 @@ I belong in this camp.
 Linux has been my main OS since the early 2000s.
 While our work on the Linux server means that we will almost entirely work on the command line,
 this does not mean that my Linux desktop environment is all command line.
-In fact, there are many graphical user environments, often called <a href="https://en.wikipedia.org/wiki/Desktop_environment">desktop environments</a>, available to Linux users.
-Since I'm currently using the Ubuntu Desktop distribution, my default desktop environment is called <a href="https://www.gnome.org/">Gnome</a>.
+In fact, there are many graphical user interfaces, often called <a href="https://en.wikipedia.org/wiki/Desktop_environment">desktop environments</a>, available to Linux users.
+Since I'm currently using the Ubuntu Desktop distribution, my default desktop environment is called <a href="https://www.gnome.org/">GNOME</a>.
 <a href="https://kde.org/">KDE</a> is another popular desktop environment, but there are many other attractive and useful ones.
 And it's easy to install and switch between multiple ones on the same OS.</p>
 <p>Linux has become quite a pervasive operating system.
 Linux powers the fastest supercomputers in the world.
-It, or other Unix-like operating systems, are the foundation of most web servers.
+Linux and other Unix-like operating systems are the foundation of most web servers.
 The Linux kernel also forms the basis of the Android operating system and of Chrome OS.
-The only place where Linux does not dominate is in the desktop/laptop space.</p>
+One area where Linux is less dominant is in the desktop/laptop space.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-systems-administration"><a class="header" href="#what-is-systems-administration">What is Systems Administration?</a></h1>
 <h2 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h2>
 <p>What is systems administration or who is a systems administrator (or <strong>sysadmin</strong>)?
@@ -439,15 +437,14 @@ This position normally carries special privileges including access to the protec
 <p>See: <a href="https://csrc.nist.gov/glossary/term/system_administrator">Systems Administrator @NIST</a></p>
 <h2 id="specialized-positions"><a class="header" href="#specialized-positions">Specialized Positions</a></h2>
 <p>In addition to the above definitions, which broadly define the role, there are a number of related or specialized positions.
-We'll touch on the first three in this course:</p>
+We'll touch on the first four in this course:</p>
 <ul>
 <li>Web server administrator:
 <ul>
 <li>"web server administrators are system architects responsible for the
 overall design, implementation, and maintenance of Web servers. They may or
 may not be responsible for Web content, which is traditionally the
-responsibility of the Webmaster (<a href="https://csrc.nist.gov/glossary/term/web_server_administrator">Web Server Administrator"
-@NIST</a>).</li>
+responsibility of the Webmaster (<a href="https://csrc.nist.gov/glossary/term/web_server_administrator">Web Server Administrator @NIST</a>).</li>
 </ul>
 </li>
 <li>Database administrator:
@@ -491,10 +488,10 @@ It also might be the case that you can get work as an entry level systems admini
 <li><a href="https://www.comptia.org/certifications/server">CompTIA Server+</a></li>
 <li><a href="https://www.comptia.org/certifications/a">CompTIA A+</a></li>
 </ul>
-<p>Plus, Google offers, via <a href="https://www.coursera.org/">Coursera</a>, a beginners <a href="https://www.coursera.org/professional-certificates/google-it-support">Google IT Support Professional Certificate</a> that may be helpful.</p>
+<p>Plus, Google offers, via <a href="https://www.coursera.org/">Coursera</a>, an entry-level <a href="https://www.coursera.org/professional-certificates/google-it-support">Google IT Support Professional Certificate</a> that may be helpful.</p>
 <h2 id="associations"><a class="header" href="#associations">Associations</a></h2>
 <p>Getting involved in associations and related organizations is a great way to learn and to connect with others in the field.
-Here are few ways to connect.</p>
+Here are a few ways to connect.</p>
 <p><a href="https://lopsa.org/AboutLOPSA">LOPSA</a>, or The League of Professional System Administrators, is a non-profit association that seeks to advance
 the field and membership is free for students.</p>
 <p><a href="https://www.acm.org/">ACM</a>, or the Association for Computing Machinery, has a number of relevant <a href="https://www.acm.org/special-interest-groups/alphabetical-listing">special interest groups (SIGs)</a>
@@ -518,24 +515,24 @@ to reflect changes that have developed over short periods of time.
 It's also your responsibility, as sysadmins, to keep up, too.</p>
 <p>I therefore suggest that you continue your education by reading and practicing.
 For example, there are lots of books on systems administration.
-<a href="https://www.npa.org/public/about_codeofethics.cfm">O'Reilly</a> continually publishes on the topic.
-RedHat, the makers of the <a href="https://www.redhat.com/en">Red Hat</a> Linux distribution, and sponsor of <a href="https://fedoraproject.org/">Fedora Linux</a>,
+<a href="https://www.oreilly.com/">O'Reilly</a> continually publishes on the topic.
+Red Hat, the makers of the <a href="https://www.redhat.com/en">Red Hat</a> Linux distribution, and sponsor of <a href="https://fedoraproject.org/">Fedora Linux</a>,
 provides the <a href="https://www.redhat.com/sysadmin/">Enable Sysadmin</a> site, with new articles each day authored by systems administrators in the field.
 Opensource.com, also supported by Red Hat, <a href="https://opensource.com/tags/sysadmin">publishes articles on systems administration</a>.
-<a href="https://www.redhat.com/en/command-line-heroes">Command Line Heroes</a> is a fun and informative podcast on technology and sysadmin related topics.
+<a href="https://www.redhat.com/en/command-line-heroes">Command Line Heroes</a> is a fun and informative podcast on technology and sysadmin-related topics.
 <a href="https://www.linuxjournal.com/">Linux Journal</a> publishes great articles on Linux related topics.</p>
 <p>For those interested in Systems Librarianship, you can stay up to date by following
 Marshall Breeding's <a href="https://librarytechnology.org/systemslibrarian/">Systems Librarian column</a>.</p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
-<p>In this section I provided definitions of systems administrators and also the related or more specialized positions,
+<p>In this section, I provided definitions of systems administrators and also the related or more specialized positions,
 such as database administrator, network administrator, and others.</p>
 <p>I provided links to various certifications you might pursue as a systems administrator,
 and links to associations that might benefit you and your career.</p>
 <p>Technology manages so much of our daily lives, and computer systems store lots of data about us.
-Since systems administrators manage these systems, they hold a great amount of responsibility to protect them and our data.
+Since systems administrators manage these systems, they hold a great deal of responsibility to protect them and our data.
 Therefore, I provided links to two code of ethics statements that we will discuss.</p>
 <p>It's also important to keep up with the technology, which changes fast.
-The work of a systems administrator is much different today than it was ten or twenty years ago, and
+The work of a systems administrator is very different today than it was ten or twenty years ago, and
 that surely indicates that it could be much different in another ten to twenty years.
 If we don't keep up, we won't be of much use to the people we serve.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="what-is-systems-librarianship"><a class="header" href="#what-is-systems-librarianship">What is Systems Librarianship</a></h1>
@@ -543,7 +540,7 @@ If we don't keep up, we won't be of much use to the people we serve.</p>
 <p>Of course, let's begin with the question, what is systems librarianship?
 Normally we might go to the literature to answer a question like this.
 Indeed, the literature is helpful, but it's sparse.
-The <a href="https://libguides.uky.edu/803">LISTA</a> database only returns 131 results with a 45 year coverage for a search using the thesauri term <strong>SYSTEMS Librarians</strong>.
+A recent <a href="https://libguides.uky.edu/803">LISTA</a> search returns 131 results, spanning about 45 years, for the thesaurus term <strong>SYSTEMS Librarians</strong>.
 I can get more results if I expand the search query, but then I get less relevant results, and the main idea is the same:
 this is an understudied area of librarianship.</p>
 <p>It's been that way for a while. <a href="https://doi.org/10.1300/J111v09n04_06">Susan K. Martin</a> wrote the following over 35 years ago:</p>
@@ -562,21 +559,21 @@ information technologies, or computer experts who have learned about libraries (
 <a href="https://www.proquest.com/docview/220452054/abstract/A48FC30B10D94886PQ/1?accountid=11836">Abbott (1998)</a>, writing on librarianship in the sociology of professions, illustrated how:</p>
 <blockquote>
 <p>The future of librarianship thus hinges on what happens to the perpetually changing work of the profession in its
-three contexts: the context of larger social and culture forces, the context of other competing occupations, and
+three contexts: the context of larger social and cultural forces, the context of other competing occupations, and
 the context of competing organizations and commodities.
 To these complex contextual forces, any profession responds with varying policies and internal changes (pp. 434-5).</p>
 </blockquote>
 <p>Essentially, Abbott means that professions, like librarianship, are always changing.
 The mechanisms for that change are structural and cultural <a href="https://www.jstor.org/stable/40664150">(Abbott, 2010)</a>,
 but a changing profession means that its "link of jurisdiction" (Abbott, 1998, p. 435) changes, too.
-It not only changes, but professions constantly compete with each other over to adopt new areas of jurisdiction.
-So when we ask, as Martin (1998) did, whether librarians should learn information technologies or whether
-computer experts should learn libraries, I find myself thinking the prior is more important for libraries and their patrons.
+It not only changes, but professions constantly compete with each other to adopt new areas of jurisdiction.
+So when we ask, as Martin (1988) did, whether librarians should learn information technologies or whether
+computer experts should learn libraries, I find myself thinking the former is more important for libraries and their patrons.
 It means that librarians are expanding their jurisdiction by also becoming computer experts rather than computer experts expanding theirs.</p>
-<p>That leads us to the next questions: what does it mean to be a computer expert for a systems librarian?
-What does a systems librarians need to do and know?</p>
+<p>That leads us to the next question: what does it mean to be a computer expert for a systems librarian?
+What does a systems librarian need to do and know?</p>
 <p>The answer is that it is a mix.
-Some part of the work involves systems administration, but that has broad meanings, and systems librarianship is more specific.
+Some part of the work involves systems administration, but that has broad meaning, and systems librarianship is more specific.
 Or, it has a more specific domain: the domain of libraries and librarianship.</p>
 <p>A systems librarian might thus be considered a library systems administrator.
 Under this view, they need to be someone who knows about libraries, how libraries work, what they do, about their patrons,
@@ -585,12 +582,12 @@ what their values are, and then use that knowledge to build and maintain the inf
 <a href="https://doi.org/10.1108/07378830310494445">Jordan (2003)</a> identified three areas of learning:</p>
 <ul>
 <li>pre-service education in library schools</li>
-<li>on the job training</li>
+<li>on-the-job training</li>
 <li>professional development in the form of workshops,
 courses, and conferences (p. 273)</li>
 </ul>
 <p>Pre-service, formal education is a small part of any professional's career,
-regardless if that profession is in medicine, law, or librarianship.
+regardless of whether that profession is in medicine, law, or librarianship.
 Thus the goal of pre-service education is to prepare people to adapt and grow in their fields.
 Jordan (2003) wrote that:</p>
 <blockquote>
@@ -598,7 +595,7 @@ Jordan (2003) wrote that:</p>
 the foundation of systems librarians' professional life, because they often have to use technologies, or make
 planning decisions about specific technologies, before they become common enough to be the subject of formal training sessions (p. 273).</p>
 </blockquote>
-<p>Even though Jordan's article is 20 years old and the technology has changed a lot, the basic duties of the systems librarian
+<p>Even though Jordan's article is over 20 years old and the technology has changed a lot, the basic duties of the systems librarian
 remain the same (<a href="https://digitalcommons.cwu.edu/cgi/viewcontent.cgi?article=1015&amp;context=libraryfac">Fu, 2014</a>; <a href="https://rowman.com/ISBN/9781538107133/Systems-Librarianship-A-Practical-Guide-for-Librarians">Gonzales, 2020</a>).
 <a href="https://www.worldcat.org/title/1038159656">Wilson (1998)</a>, as cited in Jordan (2003), refers to a list of the "typical responsibilities of systems librarians."
 These responsibilities look different today, because the technology is different, but conceptually, they're the same as they were then.
@@ -686,12 +683,12 @@ We will begin with setting up virtual machine instances on Google Cloud.
 We will use a distribution of the Linux operating system for these virtual machines.
 We will then learn the basics of the Linux command line.
 Next, we will learn how to use the version control system called <code>git</code>.
-We will use <code>git</code> to document our work flows and push that documentation to <a href="https://github.com">GitHub.com</a>.
+We will use <code>git</code> to document our workflows and push that documentation to <a href="https://github.com">GitHub.com</a>.
 On our Linux servers, we will create a web server out of what is called a <a href="https://en.wikipedia.org/wiki/LAMP_(software_bundle)">LAMP stack</a>,
 which stands for <a href="https://www.kernel.org/">Linux</a>, <a href="https://www.apache.org/">Apache</a>, <a href="https://www.mysql.com/">MySQL</a>, and <a href="https://www.php.net/">PHP</a>.
-We will use the web server to setup a basic website and a bare bones OPAC.
-Then we will learn how to install and setup two content management systems: Wordpress and Omeka.
-Lastly, we will spend the final two weeks of the semester installing and setting up the open source <a href="https://koha-community.org/">Koha ILS</a>.</p>
+We will use the web server to set up a basic website and a bare-bones OPAC.
+Then we will learn how to install and set up two content management systems: WordPress and Omeka.
+Lastly, we will spend the final two weeks of the semester installing and setting up the open-source <a href="https://koha-community.org/">Koha ILS</a>.</p>
 <p>Let's get started!</p>
 <h2 id="references"><a class="header" href="#references">References</a></h2>
 <p>Abbott, A. (1998).
