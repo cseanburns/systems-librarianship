@@ -7,8 +7,8 @@ An outline of the history of Unix and Linux.
 ## Location: Bell Labs, part of AT&T (New Jersey), late 1960s through early 1970s
 
 Before there was Linux, there was (and still is) Unix.
-Unix began in the late 1960s and was first released in the early 1970s at Bell Labs, part of AT&T in New Jersey, with an operating system called Multics. 
-Multics was an early [time-sharing system][time_sharing]; i.e., it allowed more than one person to use it the system.
+Unix began in the late 1960s at Bell Labs, part of AT&T in New Jersey, and was first released in the early 1970s after the lab withdrew from the Multics project.
+Multics was an early [time-sharing system][time_sharing]; i.e., it allowed more than one person to use the system.
 Despite its innovative approach, Multics was fraught with issues and slowly abandoned. 
 In the midst of this abandonment, [Ken Thompson][thompson] stumbled upon an old PDP-7 and started writing what would become UNIX.
 This specific version of UNIX would later be known as Research Unix.
@@ -75,13 +75,11 @@ The GNU philosophy includes several propositions that define free software:
 During the late 1980s through the early 1990s, the so-called "Unix wars" and an ensuing lawsuit marked a contentious period
 in the history of computing.
 Following its breakup, AT&T began to commercialize Unix.
-This lead to distinct differences between the Unix created by AT&T Unix and the Unix developed as BSD Unix.
+This led to distinct differences between AT&T's Unix and BSD Unix.
 The former was aimed at commercial markets, while the latter was targeted at researchers and academics.
-These contrasting objectives led to legal friction, culminating in UNIX Systems Laboratories, Inc.
-(USL, part of AT&T) suing Berkeley Software Design, Inc. (BSDi, part of the University of California, Berkeley)
-for copyright and trademark violations.
-Ultimately, USL lost the case, but not before the lawsuit had created significant obstacles for BSD Unix.
-The legal battle delayed the adoption of BSD Unix and left a lasting impact on the development and dissemination of Unix systems.
+These contrasting objectives led to legal friction, culminating in UNIX Systems Laboratories, Inc. (USL, part of AT&T)
+suing Berkeley Software Design, Inc. (BSDi, a company founded by Berkeley developers), and the case ended in a settlement
+that required code clean-up and clarified licensing, slowing BSD adoption.
 
 ## Linux, Linus Torvalds, University of Helsinki, Finland, early 1990s
 
@@ -91,10 +89,10 @@ announced that he had started working on a free operating system kernel for the 
 This [kernel][kernel] would later be famously named Linux, a kind of portmanteau of Linus and Unix.
 It's essential to understand that **Linux** technically refers only to the kernel,
 which handles startup, devices, memory, resources, and more,
-but does not provide user land utilities&mdash;the kind of software that people use on their computers.
+but does not provide userland utilities&mdash;the kind of software that people use on their computers.
 
 Torvalds' motivation for this project was both to learn about OS development and to have access to a Unix-like system.
-He did had access to an Unix-like system called [MINIX][minix], but MINIX was limited by technical and copyright restrictions.
+He did have access to a Unix-like system called [MINIX][minix], but MINIX was limited by technical and copyright restrictions.
 Interestingly, Torvalds has stated that if a BSD or GNU Hurd operating system were available at that time,
 he might not have created the Linux kernel at all. 
 However, he and others took the GNU utilities and created what is now widely referred to as Linux or GNU/Linux.
@@ -132,7 +130,7 @@ a year after the Linux kernel was released.
 Later, NetBSD split into another project, giving rise to [OpenBSD][openbsd].
 All three of these BSDs are still in active development today, and each has a unique focus:
 
-- **NetBSD** is known for its focus on portability, finding applications in various environments such as MacOS and even NASA projects.
+- **NetBSD** is known for its focus on portability, running on a wide range of hardware, including embedded systems and some research and aerospace projects.
 - **FreeBSD** is recognized for its wide applicability and has been utilized by notable companies and products like WhatsApp,
   Netflix, PlayStation 4, and MacOS.
 - **OpenBSD** emphasizes security and has contributed several essential applications in this domain.
@@ -189,7 +187,7 @@ They each take very different approaches to free and/or open source software. Th
 [stallman]:https://en.wikipedia.org/wiki/Richard_Stallman
 [thompson]:http://cs.bell-labs.co/who/ken/
 [time_sharing]:https://en.wikipedia.org/wiki/Time-sharing
-[unix6]:https://en.wikipedia.org/wiki/Berkeley_Software_Distribution
+[unix6]:https://en.wikipedia.org/wiki/Version_6_Unix
 [unix]:https://www.opengroup.org/membership/forums/platform/unix
 [vim]:https://www.vim.org/
 [whydarwin]:https://apple.stackexchange.com/questions/401832/why-is-macos-often-referred-to-as-darwin

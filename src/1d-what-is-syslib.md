@@ -5,7 +5,7 @@
 Of course, let's begin with the question, what is systems librarianship?
 Normally we might go to the literature to answer a question like this.
 Indeed, the literature is helpful, but it's sparse.
-The [LISTA][lista] database only returns 131 results with a 45 year coverage for a search using the thesauri term **SYSTEMS Librarians**.
+A recent [LISTA][lista] search returns 131 results, spanning about 45 years, for the thesaurus term **SYSTEMS Librarians**.
 I can get more results if I expand the search query, but then I get less relevant results, and the main idea is the same:
 this is an understudied area of librarianship.
 
@@ -25,23 +25,23 @@ The argument is partly a matter of jurisdiction.
 [Abbott (1998)][abbott1998], writing on librarianship in the sociology of professions, illustrated how:
 
 > The future of librarianship thus hinges on what happens to the perpetually changing work of the profession in its
-> three contexts: the context of larger social and culture forces, the context of other competing occupations, and
+> three contexts: the context of larger social and cultural forces, the context of other competing occupations, and
 > the context of competing organizations and commodities.
 > To these complex contextual forces, any profession responds with varying policies and internal changes (pp. 434-5).
 
 Essentially, Abbott means that professions, like librarianship, are always changing.
 The mechanisms for that change are structural and cultural [(Abbott, 2010)][abbott2010],
 but a changing profession means that its "link of jurisdiction" (Abbott, 1998, p. 435) changes, too.
-It not only changes, but professions constantly compete with each other over to adopt new areas of jurisdiction.
-So when we ask, as Martin (1998) did, whether librarians should learn information technologies or whether
-computer experts should learn libraries, I find myself thinking the prior is more important for libraries and their patrons.
+It not only changes, but professions constantly compete with each other to adopt new areas of jurisdiction.
+So when we ask, as Martin (1988) did, whether librarians should learn information technologies or whether
+computer experts should learn libraries, I find myself thinking the former is more important for libraries and their patrons.
 It means that librarians are expanding their jurisdiction by also becoming computer experts rather than computer experts expanding theirs.
 
-That leads us to the next questions: what does it mean to be a computer expert for a systems librarian?
-What does a systems librarians need to do and know?
+That leads us to the next question: what does it mean to be a computer expert for a systems librarian?
+What does a systems librarian need to do and know?
 
 The answer is that it is a mix.
-Some part of the work involves systems administration, but that has broad meanings, and systems librarianship is more specific.
+Some part of the work involves systems administration, but that has broad meaning, and systems librarianship is more specific.
 Or, it has a more specific domain: the domain of libraries and librarianship.
 
 A systems librarian might thus be considered a library systems administrator.
@@ -52,12 +52,12 @@ Given this, and the technologies involved, such work requires constant learning.
 [Jordan (2003)][jordan2003] identified three areas of learning:
 
 - pre-service education in library schools
-- on the job training
+- on-the-job training
 - professional development in the form of workshops,
   courses, and conferences (p. 273)
 
 Pre-service, formal education is a small part of any professional's career,
-regardless if that profession is in medicine, law, or librarianship.
+regardless of whether that profession is in medicine, law, or librarianship.
 Thus the goal of pre-service education is to prepare people to adapt and grow in their fields.
 Jordan (2003) wrote that:
 
@@ -65,7 +65,7 @@ Jordan (2003) wrote that:
 > the foundation of systems librarians' professional life, because they often have to use technologies, or make
 > planning decisions about specific technologies, before they become common enough to be the subject of formal training sessions (p. 273).
 
-Even though Jordan's article is 20 years old and the technology has changed a lot, the basic duties of the systems librarian
+Even though Jordan's article is over 20 years old and the technology has changed a lot, the basic duties of the systems librarian
 remain the same ([Fu, 2014][fu_2014]; [Gonzales, 2020][gonzales2020]).
 [Wilson (1998)][wilson1998], as cited in Jordan (2003), refers to a list of the "typical responsibilities of systems librarians."
 These responsibilities look different today, because the technology is different, but conceptually, they're the same as they were then.
@@ -159,12 +159,12 @@ We will begin with setting up virtual machine instances on Google Cloud.
 We will use a distribution of the Linux operating system for these virtual machines.
 We will then learn the basics of the Linux command line.
 Next, we will learn how to use the version control system called `git`.
-We will use ``git`` to document our work flows and push that documentation to [GitHub.com][github].
+We will use `git` to document our workflows and push that documentation to [GitHub.com][github].
 On our Linux servers, we will create a web server out of what is called a [LAMP stack][lamp_stack],
 which stands for [Linux][linux_kernel], [Apache][apache_httpd], [MySQL][mysql_com], and [PHP][php_net].
-We will use the web server to setup a basic website and a bare bones OPAC.
-Then we will learn how to install and setup two content management systems: Wordpress and Omeka.
-Lastly, we will spend the final two weeks of the semester installing and setting up the open source [Koha ILS][koha_ils].
+We will use the web server to set up a basic website and a bare-bones OPAC.
+Then we will learn how to install and set up two content management systems: WordPress and Omeka.
+Lastly, we will spend the final two weeks of the semester installing and setting up the open-source [Koha ILS][koha_ils].
 
 Let's get started!
 

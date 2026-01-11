@@ -19,18 +19,17 @@ See: [Systems Administrator @NIST][sysadminNIST]
 ## Specialized Positions
 
 In addition to the above definitions, which broadly define the role, there are a number of related or specialized positions.
-We'll touch on the first three in this course:
+We'll touch on the first four in this course:
 
 - Web server administrator:
   - "web server administrators are system architects responsible for the
     overall design, implementation, and maintenance of Web servers. They may or
     may not be responsible for Web content, which is traditionally the
-    responsibility of the Webmaster ([Web Server Administrator"
-    @NIST][webadminNIST]).
+    responsibility of the Webmaster ([Web Server Administrator @NIST][webadminNIST]).
 - Database administrator:
   - like web admins, and to paraphrase above, database administrators are system
     architects responsible for the overall design, implementation, and
-    maintenance of database management systems. 
+    maintenance of database management systems.
 - Network administrator:
   - "a person who manages a network within an organization. Responsibilities
     include network security, installing new applications, distributing software
@@ -62,12 +61,12 @@ Some common starting certifications are:
 - [CompTIA Server+][comptiaServer]
 - [CompTIA A+][compTIAAplus]
 
-Plus, Google offers, via [Coursera][coursera], a beginners [Google IT Support Professional Certificate][googleIT] that may be helpful.
+Plus, Google offers, via [Coursera][coursera], an entry-level [Google IT Support Professional Certificate][googleIT] that may be helpful.
 
 ## Associations
 
 Getting involved in associations and related organizations is a great way to learn and to connect with others in the field.
-Here are few ways to connect.
+Here are a few ways to connect.
 
 [LOPSA][lopsa], or The League of Professional System Administrators, is a non-profit association that seeks to advance
 the field and membership is free for students.
@@ -100,10 +99,10 @@ It's also your responsibility, as sysadmins, to keep up, too.
 I therefore suggest that you continue your education by reading and practicing.
 For example, there are lots of books on systems administration.
 [O'Reilly][oreillySysAdmin] continually publishes on the topic.
-RedHat, the makers of the [Red Hat][red_hat] Linux distribution, and sponsor of [Fedora Linux][fedora],
+Red Hat, the makers of the [Red Hat][red_hat] Linux distribution, and sponsor of [Fedora Linux][fedora],
 provides the [Enable Sysadmin][enableSysadmin] site, with new articles each day authored by systems administrators in the field.
 Opensource.com, also supported by Red Hat, [publishes articles on systems administration][opensourceSysAdmin].
-[Command Line Heroes][clh] is a fun and informative podcast on technology and sysadmin related topics.
+[Command Line Heroes][clh] is a fun and informative podcast on technology and sysadmin-related topics.
 [Linux Journal][linuxjournal] publishes great articles on Linux related topics.
 
 For those interested in Systems Librarianship, you can stay up to date by following
@@ -111,18 +110,18 @@ Marshall Breeding's [Systems Librarian column][breeding_syslib].
 
 ## Conclusion
 
-In this section I provided definitions of systems administrators and also the related or more specialized positions,
+In this section, I provided definitions of systems administrators and also the related or more specialized positions,
 such as database administrator, network administrator, and others.
 
 I provided links to various certifications you might pursue as a systems administrator,
 and links to associations that might benefit you and your career.
 
 Technology manages so much of our daily lives, and computer systems store lots of data about us.
-Since systems administrators manage these systems, they hold a great amount of responsibility to protect them and our data.
+Since systems administrators manage these systems, they hold a great deal of responsibility to protect them and our data.
 Therefore, I provided links to two code of ethics statements that we will discuss.
 
 It's also important to keep up with the technology, which changes fast.
-The work of a systems administrator is much different today than it was ten or twenty years ago, and
+The work of a systems administrator is very different today than it was ten or twenty years ago, and
 that surely indicates that it could be much different in another ten to twenty years.
 If we don't keep up, we won't be of much use to the people we serve.
   
@@ -147,7 +146,7 @@ If we don't keep up, we won't be of much use to the people we serve.
 [nist]:https://www.nist.gov/
 [npa]:http://www.npa.org/
 [opensourceSysAdmin]:https://opensource.com/tags/sysadmin
-[oreillySysAdmin]:https://www.npa.org/public/about_codeofethics.cfm
+[oreillySysAdmin]:https://www.oreilly.com/
 [red_hat]:https://www.redhat.com/en
 [redhatSysAdmin]:https://www.redhat.com/en/services/certification/rhcsa
 [sysadminNIST]:https://csrc.nist.gov/glossary/term/system_administrator

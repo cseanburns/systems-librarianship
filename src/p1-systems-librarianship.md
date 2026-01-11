@@ -1,8 +1,8 @@
-# Systems Librarianship 
+# Systems Librarianship
 
 Author: C. Sean Burns  
 [Date, version 3: 2025-05-08](https://github.com/cseanburns/systems-librarianship/releases/tag/V3)
-Email: [sean.burns@uky.edu](sean.burns@uky.edu)  
+Email: [sean.burns@uky.edu](mailto:sean.burns@uky.edu)  
 Website: [cseanburns.net](https://cseanburns.net)  
 GitHub: [@cseanburns](https://github.com/cseanburns)  
 
@@ -13,17 +13,17 @@ The book is used alongside a course on systems librarianship that the author tea
 
 The course teaches the following skills:
 
-2. how to use cloud computing resources and create virtual machines;
 1. how to use the Linux command line in order to become more efficient computer users and more comfortable with using computers in general;
+2. how to use cloud computing resources and create virtual machines;
 3. how to document technical information using Git and GitHub;
-4. how to create a LAMP server, websites, and create a bare bones OPAC;
-5. how to install and configure content management systems, and;
+4. how to create a LAMP server, websites, and a bare-bones OPAC;
+5. how to install and configure content management systems;
 6. how to install and configure an integrated library system.
 
 The main overarching goals of this work are:
 
-1. to foster self-efficacy with computers and an enthusiasm for foundational computer technologies, and
-1. to provide library science students a starting point in a career in systems librarianship or related positions.
+1. to foster self-efficacy with computers and an enthusiasm for foundational computer technologies; and
+2. to provide library science students a starting point in a career in systems librarianship or related positions.
 
 ## About This Book
 
@@ -51,9 +51,9 @@ I accept suggestions for improvement, via email or GitHub.
 ### Technical Note
 
 I write the text for this work in Markdown and use [mdBook][mdbook] to build the output.
-The Markdown source code is in GitHub: [Systems Librarianship](systems_lib).
+The Markdown source code is on GitHub: [Systems Librarianship][systems_lib].
 Use the search function on this site to search for specific topics or keywords.
-If the reader desires a PDF copy of this work, the printer icon at the top right of the page will print to PDFs.
+If the reader desires a PDF copy of this work, the printer icon at the top right of the page will print to PDF.
 
 The content in this book is open access and
 licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0][ccbyncsa] license.
