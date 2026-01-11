@@ -15,15 +15,18 @@ Using `git`, we will write and share documentation, code, and more.
 
 ## Using Google Cloud (gcloud)
 
-The first section in this chapter introduces us to [Google Cloud][gcloud], which I'll often refer to as **gcloud**.
+The first section in this chapter introduces us to [Google Cloud][gcloud], the platform.
 We will use this platform to create virtual instances of the Ubuntu Server Linux operating system.
 Once we create our own Ubuntu virtual machines, we will connect to them via the command line.
-I have written some helpful software to help you learn the command line language, specifically, the [Bash shell][bash_shell].
+I will provide two sets of instructions that you can choose from: one for using the `gcloud` command line interface (CLI)
+and the other for using the web console to connect to your Google Cloud virtual machines.
+I have written some helpful scripts (introduced in Section 2.2) to help you learn the command line interface,
+specifically, the [Bash shell][bash_shell].
 Just about everything we'll do this semester will happen via the Bash shell.
 
 ## Git and GitHub
 
-The last section in this chapter introduces us to `git` and GitHub.
+The next section in this chapter introduces us to `git` and GitHub.
 `git` and GitHub are primarily used for software management.
 Every major software project requires managing the codebase, collaborations, documentation, and more.
 Many people may be involved in these projects, and it takes coordination for them to write the many thousands of
@@ -40,7 +43,7 @@ recall the details of some process, and, for students, it can help in retention 
 In the remainder of the semester, we will begin to install and configure some complicated pieces of software.
 In order to better understand what we will be doing, it will be helpful to document our processes.
 
-## Attending to Detail
+## Conclusion
 
 As we begin to work on the more technical aspects of this book and course, it will be important to remain **attentive to details**.
 Many people who are new to this kind of work often stumble over the details, like a missing period, incorrect capitalization, and more.

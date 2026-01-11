@@ -4,7 +4,7 @@
 
 There are two major interfaces
 that we use to interact with our computers.
-The most common interface is the 
+The most common interface is the
 graphical user interface, or GUI.
 This interface largely emphasizes
 non-textual interaction,
@@ -12,7 +12,7 @@ such as the mouse, fingers (touch screens),
 remote controls (e.g., smart TVs),
 and more recently,
 wearable tech such as
-VR headsets and like.
+VR headsets and the like.
 All of the above mechanisms for interacting
 with our computer systems are worthwhile, but
 more importantly, they are all suited to
@@ -26,7 +26,7 @@ our computers is via the
 command line interface, or CLI.
 The CLI is also suited to
 specific ranges of engagement, and
-it's the kind of engagement that 
+it's the kind of engagement that
 allows greater control over
 the fundamental uses of our systems.
 
@@ -165,7 +165,7 @@ layout of directories on their system.
 This is because,
 per my observations,
 macOS Finder does not show
-the filesytem by default these days.
+the filesystem by default these days.
 Instead it shows its users some common
 locations for **folders**.
 This might make macOS more usable to
@@ -173,7 +173,7 @@ most users, but
 it makes learning the system more difficult.
 
 What's common for both macOS and Linux
-operating systems is a filesytem based on a
+operating systems is a filesystem based on a
 tree-like structure.
 These filesystems begin at what's called a
 **root** location.
@@ -257,9 +257,8 @@ as a [command language][comlanguage],
 but if you're interested someday,
 I'd encourage you to explore Bash
 as a [scripting language][scripting]
-(I personally script in Bash quite a lot, and the
-learn-the-cli and flashcard programs
-were written in `bash`).
+(I personally script in Bash quite a lot, and both
+learn-the-cli and flashcards were written in `bash`).
 There are a variety of shells
 available for Linux and other Unix-like
 operating systems, but
@@ -293,7 +292,7 @@ while he worked for the
 [Free Software Foundation][fsf]
 in the 1980s.
 
-## Conclusion
+## Next Steps
 
 We will spend the next few weeks
 practicing these commands and
@@ -306,10 +305,10 @@ our content management systems and
 the integrated library system.
 
 In the video for this week,
-I'll show you how to install the three
+I'll show you how to install the
 programs that I wrote or modified.
 We will use ``git`` to download them.
-The we will move the programs to a
+Then we will move the programs to a
 specific directory in our
 executable PATH.
 This will allow us to run them
@@ -318,7 +317,7 @@ simply by typing their names.
 ## Installation
 
 To install my practice programs,
-login to your Linux virtual instances, and
+log in to your Linux virtual instances, and
 run the following commands.
 You will learn more about these commands shortly.
 
@@ -345,9 +344,9 @@ Run the ``ls`` command again, and
 you'll see a new directory called
 ``learn-the-commandline``:
 
-``
+```
 ls
-``
+```
 
 Next, copy the programs to an executable path:
 
@@ -396,7 +395,7 @@ Here are some additional resources
 for learning Bash and Linux shell commands:
 
 - [explainshell.com](https://explainshell.com) : helps explain the parts of a shell command
-- [shellcheck.net](https://www.shellcheck.net/) : helps debut a shell script
+- [shellcheck.net](https://www.shellcheck.net/) : helps debug a shell script
 - [The Art of the Command Line](https://github.com/jlevy/the-art-of-command-line) : describes the fundamentals of Bash and the command line
 
 ## References

@@ -6,7 +6,7 @@
     - [What is Systems Administration?](1c-what-is-sysadmin.md)
     - [What is Systems Librarianship?](1d-what-is-syslib.md)
 - [Project Management and CLI (Command Line Interface) Introduction](p2-project-management-and-CLI.md)
-    - [Using gcloud for Virtual Machines](2a-using-gcloud-virtual-machines.md)
+    - [Using Google Cloud for Virtual Machines](2a-using-gcloud-virtual-machines.md)
     - [Learn the CLI](2b-learn-the-cli.md)
     - [Using the Nano Text Editor](2c-learn-nano.md)
     - [Documenting with Git, GitHub, and Markdown](2d-documenting-git-github-markdown.md)

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Using gcloud for Virtual Machines - Systems Librarianship</title>
+        <title>Using Google Cloud for Virtual Machines - Systems Librarianship</title>
 
 
         <!-- Custom HTML head -->
@@ -178,7 +178,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="using-gcloud-for-virtual-machines"><a class="header" href="#using-gcloud-for-virtual-machines">Using gcloud for Virtual Machines</a></h1>
+                        <h1 id="using-google-cloud-for-virtual-machines"><a class="header" href="#using-google-cloud-for-virtual-machines">Using Google Cloud for Virtual Machines</a></h1>
 <h2 id="virtual-machines"><a class="header" href="#virtual-machines">Virtual Machines</a></h2>
 <p>Our goal in this section is to create a <strong>virtual machine (VM)</strong> <em>instance</em>.
 A VM is basically a virtualized operating system that runs on a host operating system.
@@ -193,7 +193,9 @@ According to <a href="https://www.redhat.com/en/topics/virtualization/what-is-a-
 server virtualization, OS virtualization, (which is the technology we cover here),
 and network functions virtualization.</p>
 </blockquote>
-<p>In this course, we're going to use gcloud (via Google) to provide our VMs.
+<p>In this course, we're going to use Google Cloud to provide our VMs.
+I will provide two sets of instructions that you can choose from: one for using the <code>gcloud</code> command line interface (CLI)
+and the other for using the web console to connect to your Google Cloud virtual machines.
 There are other cloud service providers available that you can explore on your own.
 You can also play with <a href="https://www.virtualbox.org/">VirtualBox</a> (on your own), which I've used in prior classes,
 to install VMs on your own computers.</p>
@@ -202,15 +204,16 @@ to install VMs on your own computers.</p>
 <p>We need a Google account to create our VMs.
 I imagine you already have a Google account, but if not, then create one at <a href="https://www.google.com">https://www.google.com</a>.
 Be sure to use your personal Google account for this project.</p>
-<h3 id="google-cloud-gcloud-project"><a class="header" href="#google-cloud-gcloud-project">Google Cloud (<code>gcloud</code>) Project</a></h3>
+<h3 id="google-cloud-project"><a class="header" href="#google-cloud-project">Google Cloud Project</a></h3>
 <p>After signing into Google, we're going to perform the following steps:</p>
 <ol>
 <li>Create a Google Cloud project.</li>
 <li>Enable billing for that project.</li>
 <li>Create a VM (aka <em>virtual instance</em>) on Google Cloud.</li>
-<li>Install the <code>gcloud</code> CLI software on our personal machines to connect to our remote VM;
+<li>Choose a connection method:
 <ul>
-<li>alternatively, use the web interface (details below) to connect to our remote VM.</li>
+<li>install the <code>gcloud</code> CLI on your computer and connect from your terminal</li>
+<li>or use the web console (details below) to connect to your VM.</li>
 </ul>
 </li>
 </ol>
@@ -241,7 +244,7 @@ This should take you to the Google Cloud Dashboard page.</p>
 As a reminder, a VM is a virtualized operating system.
 We will use software to mimic the process of installing an operating system on Google's servers.</p>
 <p>Google Cloud offers a number of Linux operating systems for VMs.
-We're going to use the Ubuntu operating system and specifically the Ubuntu 22.04 LTS version.
+We're going to use the Ubuntu operating system and specifically the Ubuntu 24.04 LTS version.
 We are not going to install a graphical user interface (GUI) on our Ubuntu servers.
 Rather, we will use a command line interface (CLI) to do most of our work.</p>
 <p>You should be on the page where you create a new VM, but if not:</p>
@@ -279,7 +282,7 @@ Rather, we will use a command line interface (CLI) to do most of our work.</p>
 <ul>
 <li>Click on the <strong>Change</strong> button.</li>
 <li>Under <strong>Operating system</strong>, select <strong>Ubuntu</strong>.</li>
-<li>Under <strong>Version</strong>, select <strong>Ubuntu 22.04 LTS x86/64</strong></li>
+<li>Under <strong>Version</strong>, select <strong>Ubuntu 24.04 LTS x86/64</strong></li>
 <li>Leave <strong>Boot disk type</strong> be set to <strong>Balanced persistent disk</strong></li>
 <li>Disk size should be set to <strong>10 GB</strong>.</li>
 <li>Click on the <strong>Select</strong> button.</li>
@@ -293,27 +296,30 @@ Rather, we will use a command line interface (CLI) to do most of our work.</p>
 <p>What is Ubuntu?
 Ubuntu is a <strong>distribution</strong> of Linux.
 A new version of Ubuntu is released every six months.
-The 22.04 signifies that this is the April 2022 version.
+The 24.04 signifies that this is the April 2024 version.
 The LTS signifies <strong>Long Term Support</strong>.
 LTS versions are released every two years.
-Canonical LTD, the owners of Ubuntu, provide five years standard support for LTS versions.
-Thus, Ubuntu 22.04 is supported through June 2027.</p>
+Canonical Ltd., the owners of Ubuntu, provide five years standard support for LTS versions.
+Thus, Ubuntu 24.04 is supported through April 2029.</p>
 <p>LTS versions of Ubuntu are more stable than non-LTS versions of Ubuntu.
 The latter receive nine months of standard support and generally implement cutting edge technology.
 Cutting edge technology is not always desirable for server operating systems, which often prioritize stability.</p>
 <p>Each version of Ubuntu has a code name.
-Ubuntu 22.04 LTS has the code name <strong>Jammy Jellyfish</strong>.
+Ubuntu 24.04 LTS has the code name <strong>Noble Numbat</strong>.
 You can see a list of versions, code names, release dates, and
 more on Ubuntu's <a href="https://wiki.ubuntu.com/Releases">Releases</a> page.</p>
 </blockquote>
 <h2 id="install-the-gcloud-cli"><a class="header" href="#install-the-gcloud-cli">Install the <code>gcloud</code> CLI</a></h2>
 <p>In this section, we install the <code>gcloud</code> CLI software to connect to our virtual machines on Google Cloud.
-Using the <code>gcloud</code> CLI is a more advanced way to connect to our VMs.
-If you prefer, you can connect to your VM using Google's web interface.
-Skip to the
-<a href="https://cseanburns.github.io/systems-librarianship/2a-using-gcloud-virtual-machines.html#using-the-web-interface">Connect To Our VM</a>
-section if you prefer the web interface insetad of installing this software.</p>
-<p>Using the <code>gcloud</code> CLI will allow us to connect to remote server using our own terminal applications.
+You have two ways to connect to your VM:</p>
+<ul>
+<li>Option 1: install the <code>gcloud</code> CLI and connect from your own terminal.</li>
+<li>Option 2: use the web console (SSH-in-browser).</li>
+</ul>
+<p>If you prefer Option 2, skip to the
+<a href="https://cseanburns.github.io/systems-librarianship/2a-using-gcloud-virtual-machines.html#using-the-web-interface">Using the Web Interface</a>
+section instead of installing this software.</p>
+<p>Using the <code>gcloud</code> CLI will allow us to connect to a remote server using our own terminal applications.
 The <strong><a href="https://cloud.google.com/sdk/docs/install-sdk">Install the gcloud CLI</a></strong> page provides instructions for different operating systems.</p>
 <p>There are installation instructions for macOS, Windows, Chromebooks, and various Linux distributions.
 Follow these instructions closely for the operating system that you're using.</p>
@@ -351,7 +357,7 @@ To do so, follow the instructions here:</p>
 </code></pre>
 <p>And then use <code>pyenv</code> to install the latest version of Python.
 For example, to install the <a href="https://www.python.org/">latest release of Python</a> (as of November 2025):</p>
-<pre><code>penv install 3.14.0
+<pre><code>pyenv install 3.14.0
 </code></pre>
 <p>Finally, you can install the Google Cloud application using the steps outlined below.
 Or you can use the steps outlined in the <a href="https://cloud.google.com/sdk/docs/downloads-interactive#linux-mac">Google Cloud Interactive installation</a>.</p>
@@ -362,14 +368,14 @@ download the <code>gcloud</code> <strong>.tar.gz</strong> file and extract it us
 The <strong>.tar.gz</strong> file may have been downloaded to your <strong>Downloads</strong> folder.
 First, in your Terminal.app, move that file to your home directory.
 The following assumes the downloaded file is named
-<code>google-cloud-cli-darwin-x86_64.tar.gz</code>, but it's likely different for you, so modify as appropriate:</p>
-<pre><code>mv ~/Downloads/google-cloud-cli-darwin-arm.tar.gz $HOME
+<code>google-cloud-cli-darwin-ARCH.tar.gz</code>, but it's likely different for you, so modify as appropriate:</p>
+<pre><code>mv ~/Downloads/google-cloud-cli-darwin-ARCH.tar.gz $HOME
 </code></pre>
 <p>Then move to your home directory with the <code>cd</code> command:</p>
 <pre><code>cd $HOME
 </code></pre>
 <p>And extract the file there:</p>
-<pre><code>tar -xzf google-cloud-cli-darwin-arm.tar.gz
+<pre><code>tar -xzf google-cloud-cli-darwin-ARCH.tar.gz
 </code></pre>
 <p>Once extracted, a new directory will be created in your home directory.
 Move there with the <code>cd</code> command:</p>
@@ -377,7 +383,7 @@ Move there with the <code>cd</code> command:</p>
 </code></pre>
 <p>Modify the file names in the commands above, as appropriate.</p>
 <h3 id="initialize-the-gcloud-cli"><a class="header" href="#initialize-the-gcloud-cli">Initialize the <code>gcloud</code> CLI</a></h3>
-<p>Regardless if you're using macOS or Windows, you will now initialize your Google Cloud installation the same way.
+<p>Regardless of whether you're using macOS or Windows, you will now initialize your Google Cloud installation the same way.
 First, scroll down the install page to the section titled <a href="https://cloud.google.com/sdk/docs/install-sdk#initializing_the"><strong>Initializing the gcloud CLI</strong></a>.
 In your terminal, run the initialization command.
 Per the instructions at the above page, it should be something like so:</p>
@@ -410,7 +416,7 @@ To do so:</p>
 <h2 id="update-our-ubuntu-vm"><a class="header" href="#update-our-ubuntu-vm">Update our Ubuntu VM</a></h2>
 <p>Once you have access to the command line on your remote Linux virtual instance,
 you will need to update your OS.
-The VM will include a recently updated version of Ubuntu 22.04, but it may not be completely updated.
+The VM will include a recently updated version of Ubuntu 24.04, but it may not be completely updated.
 Thus the first thing we need to do is update our machines.
 Since this is an Ubuntu machine, use the following two commands to update your machines.
 Type the first command in, wait for it to complete, and then type the second command.
@@ -437,7 +443,7 @@ This will reduce costs until needed.</p>
 <li>In the left hand navigation panel, click <strong>Compute Engine</strong> and then <strong>Snapshots</strong>.</li>
 <li>At the top of the page, click on <strong>Create Snapshot</strong>.</li>
 <li>Provide a name for your snapshot: e.g., <strong>ubuntu-1</strong>.</li>
-<li>Provide a description of your snapshot: e.g., <strong>This is a new install of Ubuntu 22.04.</strong></li>
+<li>Provide a description of your snapshot: e.g., <strong>This is a new install of Ubuntu 24.04.</strong></li>
 <li>Choose your <strong>Source disk</strong>.</li>
 <li>Choose a <strong>Location</strong> to store your snapshot.
 <ul>

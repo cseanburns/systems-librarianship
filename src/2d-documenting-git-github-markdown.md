@@ -6,7 +6,7 @@ Documentation is the cornerstone of effective communication and knowledge sharin
 It ensures that processes are understood, tasks are reproducible, and
 collaborators can contribute to shared goals.
 In this section, we learn how to use Git, GitHub, and Markdown as tools for managing and presenting documentation efficiently.
-Specifically, Git with GitHub offer robust version control and collaboration capabilities.
+Specifically, Git and GitHub offer robust version control and collaboration capabilities.
 Markdown, a markup language with a simple syntax, facilitates clean, professional documentation compatible with multiple platforms.
 
 ## Create a GitHub Account
@@ -179,9 +179,39 @@ Once you are finished editing, save with the following steps:
 - Click on the **Commit changes...** button.
 - A pop-up will appear. Update the **Commit message** or leave as-is:
     - When you make more substantive edits, you will want to leave descriptive commit messages.
-    - This helps with with version control.
+    - This helps with version control.
 - Press the **Commit changes** button.
 - Then click on the repo link to return to your repo's homepage.
+
+## Documentation Best Practices
+
+Good documentation does more than list commands.
+It explains what you did, why you did it, and what changed.
+Write for your future self, who will not remember the details weeks from now.
+
+Here are some habits that make your documentation reproducible and useful:
+
+- Start each entry with the date and a clear goal or question.
+- Create a new Markdown file for each topic or task so your notes stay focused and easy to find later.
+- Add a short narrative: what you were trying to do and why it mattered.
+- Capture the environment: VM name, OS version, tool versions, and project names.
+- Record the steps with commands and important output lines or error messages.
+- Note what changed: files edited, paths, configuration snippets, and decisions made.
+- Include a verification step that proves the change worked.
+- Avoid secrets: do not paste API keys, passwords, or private tokens.
+
+If you want a simple template, reuse something like this:
+
+```markdown
+## YYYY-MM-DD - Topic
+
+Goal:
+Context:
+Steps:
+Results:
+Verification:
+Notes:
+```
 
 ### File Naming Conventions
 
@@ -195,8 +225,8 @@ They help provide and ensure:
 
 1. **Clarity and Accessibility**: To save time and reduce confusion, use well-named files:
     - They make it easier to identify and understand your files at a glance.
-3. **Ease of Navigation**: Use consistent naming to aid navigating through files.
-4. **System Compatibility**:
+2. **Ease of Navigation**: Use consistent naming to aid navigating through files.
+3. **System Compatibility**:
     - Avoid spaces in file names. They cause issues in URLs and command-line operations.
     - Avoid special characters like `!`, `$`, `#`, `%`, etc. They have specific functions in certain environments or scripts, including shell environments.
     - Name files with single words or combine words using:
@@ -212,8 +242,8 @@ This helps in the following ways:
 
 1. **GitHub Rendering**: GitHub automatically renders files with a `.md` extension as formatted Markdown.
    This means your documentation will be displayed with the intended formatting (like headers, lists, links, etc.) when viewing it on GitHub.
-3. **Editor Support**: Most code editors use file extensions, like `.md`, and provide appropriate syntax highlighting.
-4. **Consistency and Recognition**: Using a file extension, like `.md`, helps users identify the file type and its intended use.
+2. **Editor Support**: Most code editors use file extensions, like `.md`, and provide appropriate syntax highlighting.
+3. **Consistency and Recognition**: Using a file extension, like `.md`, helps users identify the file type and its intended use.
 
 For instance, naming a file `installation_guide.md` ensures that GitHub renders the file as a Markdown document
 and displays all formatting correctly in the browser.
@@ -272,7 +302,7 @@ We do that first by creating an SSH key.
 On the server:
 
 1. Generate a new ssh key with the following command:
-    1. `ssh-keygen -t ed25519 -C "your_email@example.com"`
+1. `ssh-keygen -t ed25519 -C "your_email@example.com"`
     2. Use the same email that you used when signing up with GitHub.
 2. Copy your SSH public key to your clipboard:
     1. View it with this command: `cat ~/.ssh/id_ed25519.pub`.
@@ -286,7 +316,7 @@ On the server:
     8. Paste your SSH public key in the **Key** field.
     9. Click **Add SSH key**
     10. See the official documentation here: [Adding a New SSH Key][github_ssh_add]
-3. On your virtual machine, setup the SSH public key as your signing key:
+3. On your virtual machine, set up the SSH public key as your signing key:
     1. `git config --global gpg.format ssh`
     2. `git config --global user.signingkey $HOME/.ssh/id_ed25519.pub`
     3. `git config --global commit.gpgsign true`
@@ -361,7 +391,7 @@ Your remote repository is located on GitHub.
 Your local repository is located on your virtual instance.
 Get used to working on your documentation in your local repository.
 However, if you mix it up and make edits to files on your remote repository via the GitHub web interface,
-then you need sync your local and remote repositories before switching back to local work.
+then you need to sync your local and remote repositories before switching back to local work.
 To do that, you need to run a `pull` command:
 
 ```
@@ -406,7 +436,7 @@ The default branch will be named **main**.
 However, since Git is a version control system,
 we can create additional branches to test or work on different components of our projects without messing with the main branch.
 For large or complex projects, we would work and switch among different branches.
-A large project might be a big website, an software application, or even an operating system.
+A large project might be a big website, a software application, or even an operating system.
 Working in non-main branches (e.g., a testing branch),
 allows us to develop components of our project without interfering with the main branch, which might be at a stable version of our project. And then when we are ready, we can merge a testing branch with our main branch,
 or we can delete the testing branch if we don't want to use it.

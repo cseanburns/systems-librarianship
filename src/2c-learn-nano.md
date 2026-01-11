@@ -12,7 +12,7 @@ It might be that if you work in systems librarianship, that you will often use a
 but knowing something about how to use command line-based editors can be helpful.
 For a variety of reasons, a GUI text editor or IDE isn't always available.
 
-## What is a Plain Text?
+## What Is Plain Text?
 
 Plain text is the most basic way to store human-readable textual information.
 Whenever we use a word processor program, like Microsoft Office, we are creating a complex series
@@ -32,7 +32,7 @@ A lot of content is written in plain text.
 For example, HTML is written in plain text and the web browser uses the HTML markup to render how a page will look.
 
 ```
-<p>This is using a HTML paragraph tag.
+<p>This is using an HTML paragraph tag.
 The web browser would render this like the other paragraphs on this page.
 However, it's written in a code block,
 which allows me to display the HTML as source code.</p>
@@ -53,8 +53,8 @@ For the most part, all we're really doing is making a change in some text file s
 The application's GUI-ness simply obscures that process.
 
 We have to be more direct when we are working on the command line.
-That is, the setting configurations we will do require editing plain text files
-that modify how the programs will use work.
+That is, the configurations we will do require editing plain text files
+that modify how the programs work.
 Often the settings for programs can only be modified by editing their plain text configuration files.
 
 ## ``nano``
@@ -88,7 +88,7 @@ Fortunately, `nano` lists the shortcuts at the bottom of the screen.
 > `nano` is a text-editor with old origins.
 > Specifically, it's a fork of the Unix `pico` editor.
 > The keyboard shortcuts used by `nano` were carried over from the `pico` editor.
-> These keyboard shortcuts were designed before the [Common User Access](cua) guidelines
+> These keyboard shortcuts were designed before the [Common User Access][cua] guidelines
 > helped standardize the common keyboard shortcuts we use today for opening, saving, closing, etc files.
 
 The shortcuts listed need some explanation.
@@ -111,7 +111,7 @@ nano example.txt
 ```
 
 If the file doesn't exist, this will create it.
-If it does exit, then the command will open it.
+If it does exist, then the command will open it.
 
 One of the other tricky things about `nano` is that the *menu bar* (really just a crib sheet, so to speak)
 is at the bottom of the screen instead of at the top, which is where we are mostly accustomed to finding it these days.
@@ -135,12 +135,12 @@ Use it and get comfortable writing in it. Some quick tips:
 It's good to be familiar with `nano` because it's often the default text editor on Linux operating systems nowadays.
 However, if you are interested in using a command line text editor with familiar keyboard shortcuts,
 then there are others you may want to try.
-Specifically, I suggest you investigate the `tilde` and the `micro` text editors.
-Both of these are really quite nice.
+Specifically, I suggest you investigate the `tilde`, `micro`, and Microsoft Edit text editors.
+All of these are really quite nice.
 
 ### tilde
 
-The [`tilde`](tilde) text editor is a user friendly text editor that uses conventional keybindings
+The [`tilde`][tilde] text editor is a user friendly text editor that uses conventional keybindings
 (like ctrl-s for saving, etc).
 `tilde` also offers a standard menu bar,
 which you activate by pressing the `Alt` key and the letter for the menu option.
@@ -167,7 +167,7 @@ tilde newfile.md
 
 ### micro
 
-The [`micro`](micro) text editor is another user friendly editor.
+The [`micro`][micro] text editor is another user friendly editor.
 Like `tilde`, it uses conventional key bindings.
 Unlike `tilde`, there is no menu bar, but you can press **ctrl-g** to open a help menu.
 With the help menu open,
@@ -181,11 +181,33 @@ You can install it via the `apt` command and start the program like you can with
 sudo apt install micro
 ```
 
+### Microsoft Edit
+
+The [Microsoft Edit][ms_edit] text editor is a modern terminal editor with familiar shortcuts.
+It is distributed as a standalone binary.
+
+To install it, download the latest Linux release from the [Edit GitHub releases page][ms_edit_releases],
+extract the archive, and move the `edit` binary into your PATH.
+For example, if you download a `.tar.gz` release:
+
+```
+tar -xzf edit-linux-ARCH.tar.gz
+sudo install -m 0755 edit /usr/local/bin/edit
+```
+
+Then launch it with:
+
+```
+edit
+```
+
+Replace `ARCH` with the name of the file you downloaded.
+
 ## Editing `.bashrc`
 
 By default, your Bash shell is probably white text on a black background.
 We can add some color to this by modifying our Bash shell configuration file.
-To do so, open the `.bashrc` file with `nano` or your text editor of choice, like `tilde` or `micro`:
+To do so, open the `.bashrc` file with `nano` or your text editor of choice, like `tilde`, `micro`, or `edit`:
 
 ```
 nano ~/.bashrc
@@ -263,7 +285,7 @@ but they are worth knowing about because all three are important parts of Unix a
 
 In the prior lesson, we learned how to use the Bash interactive shell.
 We will continue to do that, but in the meantime, we begin to learn how to use a command line text editor.
-These include `nano`, `tilde`, and `micro`.
+These include `nano`, `tilde`, `micro`, and `edit`.
 We will use a text editor to edit configuration files and publish text to GitHub.
 It's your choice what you want to use.
 
@@ -351,6 +373,8 @@ man nanorc
 [ed_conference]:https://bsd.network/@ed1conf/
 [ide]:https://en.wikipedia.org/wiki/Integrated_development_environment
 [micro]:https://micro-editor.github.io/index.html
+[ms_edit]:https://github.com/microsoft/edit
+[ms_edit_releases]:https://github.com/microsoft/edit/releases
 [nano]:https://www.nano-editor.org/
 [teleprinter]:https://en.wikipedia.org/wiki/Teleprinter 
 [tilde]:https://os.ghalkes.nl/tilde/

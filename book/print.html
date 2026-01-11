@@ -746,13 +746,16 @@ To do that, we will use <a href="https://en.wikipedia.org/wiki/Git">git</a>, whi
 and <a href="https://github.com">GitHub</a>, an online platform for hosting <code>git</code> repositories.
 Using <code>git</code>, we will write and share documentation, code, and more.</p>
 <h2 id="using-google-cloud-gcloud"><a class="header" href="#using-google-cloud-gcloud">Using Google Cloud (gcloud)</a></h2>
-<p>The first section in this chapter introduces us to <a href="https://cloud.google.com">Google Cloud</a>, which I'll often refer to as <strong>gcloud</strong>.
+<p>The first section in this chapter introduces us to <a href="https://cloud.google.com">Google Cloud</a>, the platform.
 We will use this platform to create virtual instances of the Ubuntu Server Linux operating system.
 Once we create our own Ubuntu virtual machines, we will connect to them via the command line.
-I have written some helpful software to help you learn the command line language, specifically, the <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash shell</a>.
+I will provide two sets of instructions that you can choose from: one for using the <code>gcloud</code> command line interface (CLI)
+and the other for using the web console to connect to your Google Cloud virtual machines.
+I have written some helpful scripts (introduced in Section 2.2) to help you learn the command line interface,
+specifically, the <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash shell</a>.
 Just about everything we'll do this semester will happen via the Bash shell.</p>
 <h2 id="git-and-github"><a class="header" href="#git-and-github">Git and GitHub</a></h2>
-<p>The last section in this chapter introduces us to <code>git</code> and GitHub.
+<p>The next section in this chapter introduces us to <code>git</code> and GitHub.
 <code>git</code> and GitHub are primarily used for software management.
 Every major software project requires managing the codebase, collaborations, documentation, and more.
 Many people may be involved in these projects, and it takes coordination for them to write the many thousands of
@@ -766,12 +769,12 @@ add notes, and write our notes using Markdown, an easy-to-understand and use <em
 recall the details of some process, and, for students, it can help in retention and reflection.
 In the remainder of the semester, we will begin to install and configure some complicated pieces of software.
 In order to better understand what we will be doing, it will be helpful to document our processes.</p>
-<h2 id="attending-to-detail"><a class="header" href="#attending-to-detail">Attending to Detail</a></h2>
+<h2 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h2>
 <p>As we begin to work on the more technical aspects of this book and course, it will be important to remain <strong>attentive to details</strong>.
 Many people who are new to this kind of work often stumble over the details, like a missing period, incorrect capitalization, and more.
 To learn how to pay <strong>attention to the details</strong>, work slowly and read any messages, including error messages,
 the screen prints out in response to your commands.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="using-gcloud-for-virtual-machines"><a class="header" href="#using-gcloud-for-virtual-machines">Using gcloud for Virtual Machines</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-google-cloud-for-virtual-machines"><a class="header" href="#using-google-cloud-for-virtual-machines">Using Google Cloud for Virtual Machines</a></h1>
 <h2 id="virtual-machines"><a class="header" href="#virtual-machines">Virtual Machines</a></h2>
 <p>Our goal in this section is to create a <strong>virtual machine (VM)</strong> <em>instance</em>.
 A VM is basically a virtualized operating system that runs on a host operating system.
@@ -786,7 +789,9 @@ According to <a href="https://www.redhat.com/en/topics/virtualization/what-is-a-
 server virtualization, OS virtualization, (which is the technology we cover here),
 and network functions virtualization.</p>
 </blockquote>
-<p>In this course, we're going to use gcloud (via Google) to provide our VMs.
+<p>In this course, we're going to use Google Cloud to provide our VMs.
+I will provide two sets of instructions that you can choose from: one for using the <code>gcloud</code> command line interface (CLI)
+and the other for using the web console to connect to your Google Cloud virtual machines.
 There are other cloud service providers available that you can explore on your own.
 You can also play with <a href="https://www.virtualbox.org/">VirtualBox</a> (on your own), which I've used in prior classes,
 to install VMs on your own computers.</p>
@@ -795,15 +800,16 @@ to install VMs on your own computers.</p>
 <p>We need a Google account to create our VMs.
 I imagine you already have a Google account, but if not, then create one at <a href="https://www.google.com">https://www.google.com</a>.
 Be sure to use your personal Google account for this project.</p>
-<h3 id="google-cloud-gcloud-project"><a class="header" href="#google-cloud-gcloud-project">Google Cloud (<code>gcloud</code>) Project</a></h3>
+<h3 id="google-cloud-project"><a class="header" href="#google-cloud-project">Google Cloud Project</a></h3>
 <p>After signing into Google, we're going to perform the following steps:</p>
 <ol>
 <li>Create a Google Cloud project.</li>
 <li>Enable billing for that project.</li>
 <li>Create a VM (aka <em>virtual instance</em>) on Google Cloud.</li>
-<li>Install the <code>gcloud</code> CLI software on our personal machines to connect to our remote VM;
+<li>Choose a connection method:
 <ul>
-<li>alternatively, use the web interface (details below) to connect to our remote VM.</li>
+<li>install the <code>gcloud</code> CLI on your computer and connect from your terminal</li>
+<li>or use the web console (details below) to connect to your VM.</li>
 </ul>
 </li>
 </ol>
@@ -834,7 +840,7 @@ This should take you to the Google Cloud Dashboard page.</p>
 As a reminder, a VM is a virtualized operating system.
 We will use software to mimic the process of installing an operating system on Google's servers.</p>
 <p>Google Cloud offers a number of Linux operating systems for VMs.
-We're going to use the Ubuntu operating system and specifically the Ubuntu 22.04 LTS version.
+We're going to use the Ubuntu operating system and specifically the Ubuntu 24.04 LTS version.
 We are not going to install a graphical user interface (GUI) on our Ubuntu servers.
 Rather, we will use a command line interface (CLI) to do most of our work.</p>
 <p>You should be on the page where you create a new VM, but if not:</p>
@@ -872,7 +878,7 @@ Rather, we will use a command line interface (CLI) to do most of our work.</p>
 <ul>
 <li>Click on the <strong>Change</strong> button.</li>
 <li>Under <strong>Operating system</strong>, select <strong>Ubuntu</strong>.</li>
-<li>Under <strong>Version</strong>, select <strong>Ubuntu 22.04 LTS x86/64</strong></li>
+<li>Under <strong>Version</strong>, select <strong>Ubuntu 24.04 LTS x86/64</strong></li>
 <li>Leave <strong>Boot disk type</strong> be set to <strong>Balanced persistent disk</strong></li>
 <li>Disk size should be set to <strong>10 GB</strong>.</li>
 <li>Click on the <strong>Select</strong> button.</li>
@@ -886,27 +892,30 @@ Rather, we will use a command line interface (CLI) to do most of our work.</p>
 <p>What is Ubuntu?
 Ubuntu is a <strong>distribution</strong> of Linux.
 A new version of Ubuntu is released every six months.
-The 22.04 signifies that this is the April 2022 version.
+The 24.04 signifies that this is the April 2024 version.
 The LTS signifies <strong>Long Term Support</strong>.
 LTS versions are released every two years.
-Canonical LTD, the owners of Ubuntu, provide five years standard support for LTS versions.
-Thus, Ubuntu 22.04 is supported through June 2027.</p>
+Canonical Ltd., the owners of Ubuntu, provide five years standard support for LTS versions.
+Thus, Ubuntu 24.04 is supported through April 2029.</p>
 <p>LTS versions of Ubuntu are more stable than non-LTS versions of Ubuntu.
 The latter receive nine months of standard support and generally implement cutting edge technology.
 Cutting edge technology is not always desirable for server operating systems, which often prioritize stability.</p>
 <p>Each version of Ubuntu has a code name.
-Ubuntu 22.04 LTS has the code name <strong>Jammy Jellyfish</strong>.
+Ubuntu 24.04 LTS has the code name <strong>Noble Numbat</strong>.
 You can see a list of versions, code names, release dates, and
 more on Ubuntu's <a href="https://wiki.ubuntu.com/Releases">Releases</a> page.</p>
 </blockquote>
 <h2 id="install-the-gcloud-cli"><a class="header" href="#install-the-gcloud-cli">Install the <code>gcloud</code> CLI</a></h2>
 <p>In this section, we install the <code>gcloud</code> CLI software to connect to our virtual machines on Google Cloud.
-Using the <code>gcloud</code> CLI is a more advanced way to connect to our VMs.
-If you prefer, you can connect to your VM using Google's web interface.
-Skip to the
-<a href="https://cseanburns.github.io/systems-librarianship/2a-using-gcloud-virtual-machines.html#using-the-web-interface">Connect To Our VM</a>
-section if you prefer the web interface insetad of installing this software.</p>
-<p>Using the <code>gcloud</code> CLI will allow us to connect to remote server using our own terminal applications.
+You have two ways to connect to your VM:</p>
+<ul>
+<li>Option 1: install the <code>gcloud</code> CLI and connect from your own terminal.</li>
+<li>Option 2: use the web console (SSH-in-browser).</li>
+</ul>
+<p>If you prefer Option 2, skip to the
+<a href="https://cseanburns.github.io/systems-librarianship/2a-using-gcloud-virtual-machines.html#using-the-web-interface">Using the Web Interface</a>
+section instead of installing this software.</p>
+<p>Using the <code>gcloud</code> CLI will allow us to connect to a remote server using our own terminal applications.
 The <strong><a href="https://cloud.google.com/sdk/docs/install-sdk">Install the gcloud CLI</a></strong> page provides instructions for different operating systems.</p>
 <p>There are installation instructions for macOS, Windows, Chromebooks, and various Linux distributions.
 Follow these instructions closely for the operating system that you're using.</p>
@@ -944,7 +953,7 @@ To do so, follow the instructions here:</p>
 </code></pre>
 <p>And then use <code>pyenv</code> to install the latest version of Python.
 For example, to install the <a href="https://www.python.org/">latest release of Python</a> (as of November 2025):</p>
-<pre><code>penv install 3.14.0
+<pre><code>pyenv install 3.14.0
 </code></pre>
 <p>Finally, you can install the Google Cloud application using the steps outlined below.
 Or you can use the steps outlined in the <a href="https://cloud.google.com/sdk/docs/downloads-interactive#linux-mac">Google Cloud Interactive installation</a>.</p>
@@ -955,14 +964,14 @@ download the <code>gcloud</code> <strong>.tar.gz</strong> file and extract it us
 The <strong>.tar.gz</strong> file may have been downloaded to your <strong>Downloads</strong> folder.
 First, in your Terminal.app, move that file to your home directory.
 The following assumes the downloaded file is named
-<code>google-cloud-cli-darwin-x86_64.tar.gz</code>, but it's likely different for you, so modify as appropriate:</p>
-<pre><code>mv ~/Downloads/google-cloud-cli-darwin-arm.tar.gz $HOME
+<code>google-cloud-cli-darwin-ARCH.tar.gz</code>, but it's likely different for you, so modify as appropriate:</p>
+<pre><code>mv ~/Downloads/google-cloud-cli-darwin-ARCH.tar.gz $HOME
 </code></pre>
 <p>Then move to your home directory with the <code>cd</code> command:</p>
 <pre><code>cd $HOME
 </code></pre>
 <p>And extract the file there:</p>
-<pre><code>tar -xzf google-cloud-cli-darwin-arm.tar.gz
+<pre><code>tar -xzf google-cloud-cli-darwin-ARCH.tar.gz
 </code></pre>
 <p>Once extracted, a new directory will be created in your home directory.
 Move there with the <code>cd</code> command:</p>
@@ -970,7 +979,7 @@ Move there with the <code>cd</code> command:</p>
 </code></pre>
 <p>Modify the file names in the commands above, as appropriate.</p>
 <h3 id="initialize-the-gcloud-cli"><a class="header" href="#initialize-the-gcloud-cli">Initialize the <code>gcloud</code> CLI</a></h3>
-<p>Regardless if you're using macOS or Windows, you will now initialize your Google Cloud installation the same way.
+<p>Regardless of whether you're using macOS or Windows, you will now initialize your Google Cloud installation the same way.
 First, scroll down the install page to the section titled <a href="https://cloud.google.com/sdk/docs/install-sdk#initializing_the"><strong>Initializing the gcloud CLI</strong></a>.
 In your terminal, run the initialization command.
 Per the instructions at the above page, it should be something like so:</p>
@@ -1003,7 +1012,7 @@ To do so:</p>
 <h2 id="update-our-ubuntu-vm"><a class="header" href="#update-our-ubuntu-vm">Update our Ubuntu VM</a></h2>
 <p>Once you have access to the command line on your remote Linux virtual instance,
 you will need to update your OS.
-The VM will include a recently updated version of Ubuntu 22.04, but it may not be completely updated.
+The VM will include a recently updated version of Ubuntu 24.04, but it may not be completely updated.
 Thus the first thing we need to do is update our machines.
 Since this is an Ubuntu machine, use the following two commands to update your machines.
 Type the first command in, wait for it to complete, and then type the second command.
@@ -1030,7 +1039,7 @@ This will reduce costs until needed.</p>
 <li>In the left hand navigation panel, click <strong>Compute Engine</strong> and then <strong>Snapshots</strong>.</li>
 <li>At the top of the page, click on <strong>Create Snapshot</strong>.</li>
 <li>Provide a name for your snapshot: e.g., <strong>ubuntu-1</strong>.</li>
-<li>Provide a description of your snapshot: e.g., <strong>This is a new install of Ubuntu 22.04.</strong></li>
+<li>Provide a description of your snapshot: e.g., <strong>This is a new install of Ubuntu 24.04.</strong></li>
 <li>Choose your <strong>Source disk</strong>.</li>
 <li>Choose a <strong>Location</strong> to store your snapshot.
 <ul>
@@ -1041,7 +1050,7 @@ This will reduce costs until needed.</p>
 <li>Click on <strong>Create</strong></li>
 </ol>
 <p><strong><p style="color:red">Please monitor your billing for this to avoid costs that you do not want to incur.</p></strong></p>
-<h2 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h2>
+<h2 id="conclusion-3"><a class="header" href="#conclusion-3">Conclusion</a></h2>
 <p>Congratulations!
 You have just completed your first installation of a Linux server.</p>
 <p>To summarize, in this section you learned about and created a VM with gcloud.
@@ -1059,7 +1068,7 @@ such as the mouse, fingers (touch screens),
 remote controls (e.g., smart TVs),
 and more recently,
 wearable tech such as
-VR headsets and like.
+VR headsets and the like.
 All of the above mechanisms for interacting
 with our computer systems are worthwhile, but
 more importantly, they are all suited to
@@ -1199,14 +1208,14 @@ layout of directories on their system.
 This is because,
 per my observations,
 macOS Finder does not show
-the filesytem by default these days.
+the filesystem by default these days.
 Instead it shows its users some common
 locations for <strong>folders</strong>.
 This might make macOS more usable to
 most users, but
 it makes learning the system more difficult.</p>
 <p>What's common for both macOS and Linux
-operating systems is a filesytem based on a
+operating systems is a filesystem based on a
 tree-like structure.
 These filesystems begin at what's called a
 <strong>root</strong> location.
@@ -1282,9 +1291,8 @@ as a <a href="https://en.wikipedia.org/wiki/Command_language">command language</
 but if you're interested someday,
 I'd encourage you to explore Bash
 as a <a href="https://en.wikipedia.org/wiki/Scripting_language">scripting language</a>
-(I personally script in Bash quite a lot, and the
-learn-the-cli and flashcard programs
-were written in <code>bash</code>).
+(I personally script in Bash quite a lot, and both
+learn-the-cli and flashcards were written in <code>bash</code>).
 There are a variety of shells
 available for Linux and other Unix-like
 operating systems, but
@@ -1315,7 +1323,7 @@ history with the Bash shell
 while he worked for the
 <a href="https://en.wikipedia.org/wiki/Free_Software_Foundation">Free Software Foundation</a>
 in the 1980s.</p>
-<h2 id="conclusion-3"><a class="header" href="#conclusion-3">Conclusion</a></h2>
+<h2 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h2>
 <p>We will spend the next few weeks
 practicing these commands and
 learning the filesystem.
@@ -1326,17 +1334,17 @@ including installing and setting up
 our content management systems and
 the integrated library system.</p>
 <p>In the video for this week,
-I'll show you how to install the three
+I'll show you how to install the
 programs that I wrote or modified.
 We will use <code>git</code> to download them.
-The we will move the programs to a
+Then we will move the programs to a
 specific directory in our
 executable PATH.
 This will allow us to run them
 simply by typing their names.</p>
 <h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
 <p>To install my practice programs,
-login to your Linux virtual instances, and
+log in to your Linux virtual instances, and
 run the following commands.
 You will learn more about these commands shortly.</p>
 <p>First, let's take a look at the contents
@@ -1354,7 +1362,8 @@ using the <code>git</code> command:</p>
 <p>Run the <code>ls</code> command again, and
 you'll see a new directory called
 <code>learn-the-commandline</code>:</p>
-<p><code>ls</code></p>
+<pre><code>ls
+</code></pre>
 <p>Next, copy the programs to an executable path:</p>
 <pre><code>sudo cp learn-the-commandline/* /usr/local/bin
 </code></pre>
@@ -1388,7 +1397,7 @@ learning modules.</p>
 for learning Bash and Linux shell commands:</p>
 <ul>
 <li><a href="https://explainshell.com">explainshell.com</a> : helps explain the parts of a shell command</li>
-<li><a href="https://www.shellcheck.net/">shellcheck.net</a> : helps debut a shell script</li>
+<li><a href="https://www.shellcheck.net/">shellcheck.net</a> : helps debug a shell script</li>
 <li><a href="https://github.com/jlevy/the-art-of-command-line">The Art of the Command Line</a> : describes the fundamentals of Bash and the command line</li>
 </ul>
 <h2 id="references-1"><a class="header" href="#references-1">References</a></h2>
@@ -1406,7 +1415,7 @@ they may often use graphical text editors or graphical <a href="https://en.wikip
 It might be that if you work in systems librarianship, that you will often use a graphical text editor,
 but knowing something about how to use command line-based editors can be helpful.
 For a variety of reasons, a GUI text editor or IDE isn't always available.</p>
-<h2 id="what-is-a-plain-text"><a class="header" href="#what-is-a-plain-text">What is a Plain Text?</a></h2>
+<h2 id="what-is-plain-text"><a class="header" href="#what-is-plain-text">What Is Plain Text?</a></h2>
 <p>Plain text is the most basic way to store human-readable textual information.
 Whenever we use a word processor program, like Microsoft Office, we are creating a complex series
 of files that instruct the Office application how to display the contents of the file as well as how the contents are formatted and arranged.
@@ -1421,7 +1430,7 @@ It is the closest thing the digital has to output produced by a typewriter, but
 a <a href="https://www.youtube.com/watch?v=jxkygWI-Wfs">typewriter that's connected to the internet</a>.</p>
 <p>A lot of content is written in plain text.
 For example, HTML is written in plain text and the web browser uses the HTML markup to render how a page will look.</p>
-<pre><code>&lt;p&gt;This is using a HTML paragraph tag.
+<pre><code>&lt;p&gt;This is using an HTML paragraph tag.
 The web browser would render this like the other paragraphs on this page.
 However, it's written in a code block,
 which allows me to display the HTML as source code.&lt;/p&gt;
@@ -1438,8 +1447,8 @@ Then we'll make a change in those settings.
 For the most part, all we're really doing is making a change in some text file somewhere.
 The application's GUI-ness simply obscures that process.</p>
 <p>We have to be more direct when we are working on the command line.
-That is, the setting configurations we will do require editing plain text files
-that modify how the programs will use work.
+That is, the configurations we will do require editing plain text files
+that modify how the programs work.
 Often the settings for programs can only be modified by editing their plain text configuration files.</p>
 <h2 id="nano"><a class="header" href="#nano"><code>nano</code></a></h2>
 <p>The most common text editor on many Linux systems is <code>nano</code>.
@@ -1471,7 +1480,7 @@ Fortunately, <code>nano</code> lists the shortcuts at the bottom of the screen.<
 <p><code>nano</code> is a text-editor with old origins.
 Specifically, it's a fork of the Unix <code>pico</code> editor.
 The keyboard shortcuts used by <code>nano</code> were carried over from the <code>pico</code> editor.
-These keyboard shortcuts were designed before the <a href="cua">Common User Access</a> guidelines
+These keyboard shortcuts were designed before the <a href="https://www.ibm.com/docs/en/zos/3.1.0?topic=reference-common-user-access-cua-guidelines">Common User Access</a> guidelines
 helped standardize the common keyboard shortcuts we use today for opening, saving, closing, etc files.</p>
 </blockquote>
 <p>The shortcuts listed need some explanation.
@@ -1490,7 +1499,7 @@ For example, if I want to open a file called <strong>example.txt</strong>, then 
 <pre><code>nano example.txt
 </code></pre>
 <p>If the file doesn't exist, this will create it.
-If it does exit, then the command will open it.</p>
+If it does exist, then the command will open it.</p>
 <p>One of the other tricky things about <code>nano</code> is that the <em>menu bar</em> (really just a crib sheet, so to speak)
 is at the bottom of the screen instead of at the top, which is where we are mostly accustomed to finding it these days.
 Also, the <code>nano</code> program does not provide pop up dialog boxes.
@@ -1510,10 +1519,10 @@ Use it and get comfortable writing in it. Some quick tips:</p>
 <p>It's good to be familiar with <code>nano</code> because it's often the default text editor on Linux operating systems nowadays.
 However, if you are interested in using a command line text editor with familiar keyboard shortcuts,
 then there are others you may want to try.
-Specifically, I suggest you investigate the <code>tilde</code> and the <code>micro</code> text editors.
-Both of these are really quite nice.</p>
+Specifically, I suggest you investigate the <code>tilde</code>, <code>micro</code>, and Microsoft Edit text editors.
+All of these are really quite nice.</p>
 <h3 id="tilde"><a class="header" href="#tilde">tilde</a></h3>
-<p>The <a href="tilde"><code>tilde</code></a> text editor is a user friendly text editor that uses conventional keybindings
+<p>The <a href="https://os.ghalkes.nl/tilde/"><code>tilde</code></a> text editor is a user friendly text editor that uses conventional keybindings
 (like ctrl-s for saving, etc).
 <code>tilde</code> also offers a standard menu bar,
 which you activate by pressing the <code>Alt</code> key and the letter for the menu option.
@@ -1529,7 +1538,7 @@ Press the <code>Esc</code> key to exit the menu.</p>
 <pre><code>tilde newfile.md
 </code></pre>
 <h3 id="micro"><a class="header" href="#micro">micro</a></h3>
-<p>The <a href="micro"><code>micro</code></a> text editor is another user friendly editor.
+<p>The <a href="https://micro-editor.github.io/index.html"><code>micro</code></a> text editor is another user friendly editor.
 Like <code>tilde</code>, it uses conventional key bindings.
 Unlike <code>tilde</code>, there is no menu bar, but you can press <strong>ctrl-g</strong> to open a help menu.
 With the help menu open,
@@ -1539,10 +1548,23 @@ Press <strong>ctrl-q</strong> to exit the help menu.</p>
 <p>You can install it via the <code>apt</code> command and start the program like you can with the other editors:</p>
 <pre><code>sudo apt install micro
 </code></pre>
+<h3 id="microsoft-edit"><a class="header" href="#microsoft-edit">Microsoft Edit</a></h3>
+<p>The <a href="https://github.com/microsoft/edit">Microsoft Edit</a> text editor is a modern terminal editor with familiar shortcuts.
+It is distributed as a standalone binary.</p>
+<p>To install it, download the latest Linux release from the <a href="https://github.com/microsoft/edit/releases">Edit GitHub releases page</a>,
+extract the archive, and move the <code>edit</code> binary into your PATH.
+For example, if you download a <code>.tar.gz</code> release:</p>
+<pre><code>tar -xzf edit-linux-ARCH.tar.gz
+sudo install -m 0755 edit /usr/local/bin/edit
+</code></pre>
+<p>Then launch it with:</p>
+<pre><code>edit
+</code></pre>
+<p>Replace <code>ARCH</code> with the name of the file you downloaded.</p>
 <h2 id="editing-bashrc"><a class="header" href="#editing-bashrc">Editing <code>.bashrc</code></a></h2>
 <p>By default, your Bash shell is probably white text on a black background.
 We can add some color to this by modifying our Bash shell configuration file.
-To do so, open the <code>.bashrc</code> file with <code>nano</code> or your text editor of choice, like <code>tilde</code> or <code>micro</code>:</p>
+To do so, open the <code>.bashrc</code> file with <code>nano</code> or your text editor of choice, like <code>tilde</code>, <code>micro</code>, or <code>edit</code>:</p>
 <pre><code>nano ~/.bashrc
 </code></pre>
 <p>Scroll to the end of the file and add these two lines:</p>
@@ -1597,7 +1619,7 @@ but they are worth knowing about because all three are important parts of Unix a
 <h2 id="conclusion-4"><a class="header" href="#conclusion-4">Conclusion</a></h2>
 <p>In the prior lesson, we learned how to use the Bash interactive shell.
 We will continue to do that, but in the meantime, we begin to learn how to use a command line text editor.
-These include <code>nano</code>, <code>tilde</code>, and <code>micro</code>.
+These include <code>nano</code>, <code>tilde</code>, <code>micro</code>, and <code>edit</code>.
 We will use a text editor to edit configuration files and publish text to GitHub.
 It's your choice what you want to use.</p>
 <h2 id="appendix-my-nanorc"><a class="header" href="#appendix-my-nanorc">Appendix: My <code>.nanorc</code></a></h2>
@@ -1673,7 +1695,7 @@ set tabstospaces
 It ensures that processes are understood, tasks are reproducible, and
 collaborators can contribute to shared goals.
 In this section, we learn how to use Git, GitHub, and Markdown as tools for managing and presenting documentation efficiently.
-Specifically, Git with GitHub offer robust version control and collaboration capabilities.
+Specifically, Git and GitHub offer robust version control and collaboration capabilities.
 Markdown, a markup language with a simple syntax, facilitates clean, professional documentation compatible with multiple platforms.</p>
 <h2 id="create-a-github-account"><a class="header" href="#create-a-github-account">Create a GitHub Account</a></h2>
 <p>Let's start by creating an account on GitHub:</p>
@@ -1848,12 +1870,37 @@ To create a new line without starting a new paragraph, end a line with two or mo
 <li>A pop-up will appear. Update the <strong>Commit message</strong> or leave as-is:
 <ul>
 <li>When you make more substantive edits, you will want to leave descriptive commit messages.</li>
-<li>This helps with with version control.</li>
+<li>This helps with version control.</li>
 </ul>
 </li>
 <li>Press the <strong>Commit changes</strong> button.</li>
 <li>Then click on the repo link to return to your repo's homepage.</li>
 </ul>
+<h2 id="documentation-best-practices"><a class="header" href="#documentation-best-practices">Documentation Best Practices</a></h2>
+<p>Good documentation does more than list commands.
+It explains what you did, why you did it, and what changed.
+Write for your future self, who will not remember the details weeks from now.</p>
+<p>Here are some habits that make your documentation reproducible and useful:</p>
+<ul>
+<li>Start each entry with the date and a clear goal or question.</li>
+<li>Create a new Markdown file for each topic or task so your notes stay focused and easy to find later.</li>
+<li>Add a short narrative: what you were trying to do and why it mattered.</li>
+<li>Capture the environment: VM name, OS version, tool versions, and project names.</li>
+<li>Record the steps with commands and important output lines or error messages.</li>
+<li>Note what changed: files edited, paths, configuration snippets, and decisions made.</li>
+<li>Include a verification step that proves the change worked.</li>
+<li>Avoid secrets: do not paste API keys, passwords, or private tokens.</li>
+</ul>
+<p>If you want a simple template, reuse something like this:</p>
+<pre><code class="language-markdown">## YYYY-MM-DD - Topic
+
+Goal:
+Context:
+Steps:
+Results:
+Verification:
+Notes:
+</code></pre>
 <h3 id="file-naming-conventions"><a class="header" href="#file-naming-conventions">File Naming Conventions</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/README">README</a> files serve as a <em>de facto</em> standard file.
 They provide a description of the project, outline its purpose, or provide instructions on using the repository.
@@ -1932,12 +1979,9 @@ git config --global core.editor "nano"
 We do that first by creating an SSH key.</p>
 <p>On the server:</p>
 <ol>
-<li>Generate a new ssh key with the following command:
-<ol>
-<li><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code></li>
-<li>Use the same email that you used when signing up with GitHub.</li>
-</ol>
-</li>
+<li>Generate a new ssh key with the following command:</li>
+<li><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code>
+2. Use the same email that you used when signing up with GitHub.</li>
 <li>Copy your SSH public key to your clipboard:
 <ol>
 <li>View it with this command: <code>cat ~/.ssh/id_ed25519.pub</code>.</li>
@@ -1956,7 +2000,7 @@ We do that first by creating an SSH key.</p>
 <li>See the official documentation here: <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">Adding a New SSH Key</a></li>
 </ol>
 </li>
-<li>On your virtual machine, setup the SSH public key as your signing key:
+<li>On your virtual machine, set up the SSH public key as your signing key:
 <ol>
 <li><code>git config --global gpg.format ssh</code></li>
 <li><code>git config --global user.signingkey $HOME/.ssh/id_ed25519.pub</code></li>
@@ -2017,7 +2061,7 @@ You can monitor the status of your local repository with the following command:<
 Your local repository is located on your virtual instance.
 Get used to working on your documentation in your local repository.
 However, if you mix it up and make edits to files on your remote repository via the GitHub web interface,
-then you need sync your local and remote repositories before switching back to local work.
+then you need to sync your local and remote repositories before switching back to local work.
 To do that, you need to run a <code>pull</code> command:</p>
 <pre><code>cd repo_name
 git pull origin main
@@ -2050,7 +2094,7 @@ The default branch will be named <strong>main</strong>.</p>
 <p>However, since Git is a version control system,
 we can create additional branches to test or work on different components of our projects without messing with the main branch.
 For large or complex projects, we would work and switch among different branches.
-A large project might be a big website, an software application, or even an operating system.
+A large project might be a big website, a software application, or even an operating system.
 Working in non-main branches (e.g., a testing branch),
 allows us to develop components of our project without interfering with the main branch, which might be at a stable version of our project. And then when we are ready, we can merge a testing branch with our main branch,
 or we can delete the testing branch if we don't want to use it.</p>

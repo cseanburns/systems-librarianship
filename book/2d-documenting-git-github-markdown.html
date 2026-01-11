@@ -184,7 +184,7 @@
 It ensures that processes are understood, tasks are reproducible, and
 collaborators can contribute to shared goals.
 In this section, we learn how to use Git, GitHub, and Markdown as tools for managing and presenting documentation efficiently.
-Specifically, Git with GitHub offer robust version control and collaboration capabilities.
+Specifically, Git and GitHub offer robust version control and collaboration capabilities.
 Markdown, a markup language with a simple syntax, facilitates clean, professional documentation compatible with multiple platforms.</p>
 <h2 id="create-a-github-account"><a class="header" href="#create-a-github-account">Create a GitHub Account</a></h2>
 <p>Let's start by creating an account on GitHub:</p>
@@ -359,12 +359,37 @@ To create a new line without starting a new paragraph, end a line with two or mo
 <li>A pop-up will appear. Update the <strong>Commit message</strong> or leave as-is:
 <ul>
 <li>When you make more substantive edits, you will want to leave descriptive commit messages.</li>
-<li>This helps with with version control.</li>
+<li>This helps with version control.</li>
 </ul>
 </li>
 <li>Press the <strong>Commit changes</strong> button.</li>
 <li>Then click on the repo link to return to your repo's homepage.</li>
 </ul>
+<h2 id="documentation-best-practices"><a class="header" href="#documentation-best-practices">Documentation Best Practices</a></h2>
+<p>Good documentation does more than list commands.
+It explains what you did, why you did it, and what changed.
+Write for your future self, who will not remember the details weeks from now.</p>
+<p>Here are some habits that make your documentation reproducible and useful:</p>
+<ul>
+<li>Start each entry with the date and a clear goal or question.</li>
+<li>Create a new Markdown file for each topic or task so your notes stay focused and easy to find later.</li>
+<li>Add a short narrative: what you were trying to do and why it mattered.</li>
+<li>Capture the environment: VM name, OS version, tool versions, and project names.</li>
+<li>Record the steps with commands and important output lines or error messages.</li>
+<li>Note what changed: files edited, paths, configuration snippets, and decisions made.</li>
+<li>Include a verification step that proves the change worked.</li>
+<li>Avoid secrets: do not paste API keys, passwords, or private tokens.</li>
+</ul>
+<p>If you want a simple template, reuse something like this:</p>
+<pre><code class="language-markdown">## YYYY-MM-DD - Topic
+
+Goal:
+Context:
+Steps:
+Results:
+Verification:
+Notes:
+</code></pre>
 <h3 id="file-naming-conventions"><a class="header" href="#file-naming-conventions">File Naming Conventions</a></h3>
 <p><a href="https://en.wikipedia.org/wiki/README">README</a> files serve as a <em>de facto</em> standard file.
 They provide a description of the project, outline its purpose, or provide instructions on using the repository.
@@ -443,12 +468,9 @@ git config --global core.editor "nano"
 We do that first by creating an SSH key.</p>
 <p>On the server:</p>
 <ol>
-<li>Generate a new ssh key with the following command:
-<ol>
-<li><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code></li>
-<li>Use the same email that you used when signing up with GitHub.</li>
-</ol>
-</li>
+<li>Generate a new ssh key with the following command:</li>
+<li><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code>
+2. Use the same email that you used when signing up with GitHub.</li>
 <li>Copy your SSH public key to your clipboard:
 <ol>
 <li>View it with this command: <code>cat ~/.ssh/id_ed25519.pub</code>.</li>
@@ -467,7 +489,7 @@ We do that first by creating an SSH key.</p>
 <li>See the official documentation here: <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">Adding a New SSH Key</a></li>
 </ol>
 </li>
-<li>On your virtual machine, setup the SSH public key as your signing key:
+<li>On your virtual machine, set up the SSH public key as your signing key:
 <ol>
 <li><code>git config --global gpg.format ssh</code></li>
 <li><code>git config --global user.signingkey $HOME/.ssh/id_ed25519.pub</code></li>
@@ -528,7 +550,7 @@ You can monitor the status of your local repository with the following command:<
 Your local repository is located on your virtual instance.
 Get used to working on your documentation in your local repository.
 However, if you mix it up and make edits to files on your remote repository via the GitHub web interface,
-then you need sync your local and remote repositories before switching back to local work.
+then you need to sync your local and remote repositories before switching back to local work.
 To do that, you need to run a <code>pull</code> command:</p>
 <pre><code>cd repo_name
 git pull origin main
@@ -561,7 +583,7 @@ The default branch will be named <strong>main</strong>.</p>
 <p>However, since Git is a version control system,
 we can create additional branches to test or work on different components of our projects without messing with the main branch.
 For large or complex projects, we would work and switch among different branches.
-A large project might be a big website, an software application, or even an operating system.
+A large project might be a big website, a software application, or even an operating system.
 Working in non-main branches (e.g., a testing branch),
 allows us to develop components of our project without interfering with the main branch, which might be at a stable version of our project. And then when we are ready, we can merge a testing branch with our main branch,
 or we can delete the testing branch if we don't want to use it.</p>
