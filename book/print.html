@@ -1313,7 +1313,7 @@ that we use, and
 Bash has a super interesting
 history that pre-exists Linux.
 Therefore, I highly encourage you
-listen to the
+to listen to the
 <a href="https://www.redhat.com/en/command-line-heroes">Command Line Heroes</a> episode titled
 <a href="https://www.redhat.com/en/command-line-heroes/season-3/heroes-in-a-bash-shell">Heroes in a Bash Shell</a>,
 narrated by
@@ -1390,7 +1390,7 @@ you can continue
 to practice with the
 <code>learn-the-cli-module</code> program.
 This is a modified version that
-allows you to focus specific
+allows you to focus on specific
 learning modules.</p>
 <h3 id="resources"><a class="header" href="#resources">Resources</a></h3>
 <p>Here are some additional resources
@@ -2102,7 +2102,7 @@ or we can delete the testing branch if we don't want to use it.</p>
 but you should read the <a href="https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell">Git documentation on branches</a>.</p>
 <p>For future reference, here's a nice cheat sheet of <a href="https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html">Git commands</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="learning-the-command-line"><a class="header" href="#learning-the-command-line">Learning the Command Line</a></h1>
-<p>It's obviously more common for people today
+<p>It's now more common for people today
 to learn how to use a computer via a
 graphical user interface (GUI), but
 there are benefits to learning a
@@ -2112,7 +2112,7 @@ we learn some of the basics
 of using the <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash shell</a> as our CLI.
 Our primary goal is to learn how
 to use the CLI as a file manager and
-to perform some text editing.
+to do basic text editing.
 However, if you find this interface appealing,
 know that Bash is a
 <a href="https://www.redhat.com/sysadmin/learn-bash-scripting">full-fledged programming language</a>, and
@@ -2122,34 +2122,32 @@ from a systems administration/librarianship
 point of view,
 to prefer the CLI over the GUI.</p>
 <ul>
-<li>First, the GUI entails extra software, and the more software we have on a
-server, the more resources (memory, CPU, storage, etc) that software
+<li>First, a GUI entails extra software (desktop environment, window manager,
+display server), and the more software we have on a server, the more
+resources (memory, CPU, storage, etc) that software
 consumes. We would much rather have our machine's resources being used to
 provide the services we build them to do than to run irrelevant software.</li>
 <li>Second, the extra software a GUI requires means that we expose our systems to
 additional security risks. That is, every time we install more software on
-our servers, the server becomes more vulnerable because all software is buggy.
-This means that we want to be conservative, careful, and protective of our
+our servers, the server becomes more vulnerable because all software can have
+bugs. This means that we want to be conservative, careful, and protective of our
 systems. This is especially true for production systems.</li>
 <li>Third, graphical user interfaces do not provide a good platform for
-automation, at least not remotely as well as command line interfaces do.
-Working on the command line, because it is a text-based environment, in what is
-known as a <a href="https://en.wikipedia.org/wiki/Unix_shell">shell</a>, is a reproducible process. That is not as easily
-true in a GUI.</li>
+automation, at least not as well as command line interfaces do. Working on
+the command line, because it is a text-based environment, in what is known as a
+<a href="https://en.wikipedia.org/wiki/Unix_shell">shell</a>, is a reproducible process and easier to script. That is not as
+easily true in a GUI.</li>
 </ul>
 <p>Fortunately, Linux, and
 many other Unix-like operating systems,
 have the ability to operate without graphical user interfaces.
-This is partly the reason why these operating systems
-have done so well in the server market.</p>
+This is one reason among many why these operating systems
+have done well in the server market.</p>
 <p>In this section,
 our focus is learning the command line environment.
-We will do this using the Bash shell.
-We will learn how to use the shell,
-how to navigate around the filesystem,
-how to perform basic tasks, and
-explore other functions and utilities
-the shell has to offer.</p>
+We will do this using the Bash shell and learn how to use the shell,
+navigate around the filesystem, perform basic tasks, and explore other
+functions and utilities the shell has to offer.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="searching-with-grep"><a class="header" href="#searching-with-grep">Searching with grep</a></h1>
 <p>As a systems librarian, you might deal with large amounts of text-based data:
 logs from library systems, metadata files, MARC records, exported citation data, and configuration files for tools that you manage.
@@ -2161,7 +2159,7 @@ Using <code>grep</code>, we can accomplish all of the above.</p>
 However, in this section, we will focus on the <code>grep</code> utility, which offers advanced methods for searching the contents of text files.
 Specifically, we'll work through an introduction of <code>grep</code> using a small data file that will help us understand how <code>grep</code> works.
 Then we will use <code>grep</code> to analyze bibliographic data downloaded as a <code>.bib</code> file from Scopus.
-This will demonstrate how <code>grep</code> can help you filter specific information from a structured dataset—an approach that can also be applied to processing
+This will demonstrate how <code>grep</code> can help you filter specific information from a structured dataset: an approach that can also be applied to processing
 catalog records, debugging system errors, or analyzing usage logs (e.g., see <a href="https://doi.org/10.1080/00987913.2017.1281788">Arneson, 2017</a>).</p>
 <h2 id="grep"><a class="header" href="#grep"><code>grep</code></a></h2>
 <p>The <code>grep</code> command is one of my most often used commands.
@@ -2170,18 +2168,19 @@ In other words, it searches text, and it's super powerful.</p>
 <p><code>grep</code> works line by line.
 So when we use it to search a file for a <strong>string</strong> of text, it will return the whole line that matches the string.
 This <strong>line by line</strong> idea is part of the history of Unix-like operating systems, and it's important to remember that most utilities
-and programs that we use on the commandline are line oriented.</p>
+and programs that we use on the command line are line oriented.</p>
 <blockquote>
 <p>"A string is any series of characters that are interpreted literally by a script. For example, 'hello world' and 'LKJH019283' are both examples of strings"
 (<a href="https://www.computerhope.com/jargon/s/string.htm">Computer Hope</a>).
 More generally, it's a type of data structure.</p>
 </blockquote>
 <p>To visualize how <code>grep</code> works, let's consider a file called <strong>operating-systems.csv</strong> with content as seen below.
-It's helps to learn something like <code>grep</code> when working with easy, clear examples.</p>
+It helps to learn something like <code>grep</code> when working with easy, clear examples.</p>
 <pre><code>OS, License, Year
 Chrome OS, Proprietary, 2009
 FreeBSD, BSD, 1993
 Linux, GPL, 1991
+iOS, Proprietary, 2007
 macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 Android, Apache, 2008
@@ -2233,7 +2232,7 @@ Android, Apache, 2008
 <h3 id="regular-expressions"><a class="header" href="#regular-expressions">Regular Expressions</a></h3>
 <p>Sometimes data files, like spreadsheets, contain header columns in the first row.
 We can use <code>grep</code> to remove the first line of a file by inverting our search and selecting all lines not matching "OS" at the start of a line.
-Here the carat key <code>^</code> is a <strong>regex</strong> indicating the start of a line.
+Here the caret key <code>^</code> is a <strong>regex</strong> indicating the start of a line.
 Again, this <code>grep</code> command returns all lines that do not match the string <strong>os</strong> at the start of a line, ignoring case:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -vi "^os" operating-systems.csv
@@ -2308,19 +2307,9 @@ iOS, Proprietary, 2007
 macOS, Proprietary, 2001
 </code></pre>
 <p>However, we might want to limit results so that we only return results where <strong>OS</strong> is a complete word.
-To do that, we can surround the string with special characters:</p>
+To do that, we can use the <code>-w</code> option:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -i "\&lt;os\&gt;" operating-systems.csv
-</code></pre>
-<p><strong>Output:</strong></p>
-<pre><code>OS, License, Year
-Chrome OS, Proprietary, 2009
-</code></pre>
-<p>Sometimes I find it hard to remember the backslash and angle bracket combinations because they're too much alike HTML syntax but not exactly like HTML syntax.
-Fortunately, <code>grep</code> has a <code>-w</code> option to match whole words.
-This functions as another way of searching for whole words:</p>
-<p><strong>Command:</strong></p>
-<pre><code>grep -wi "os" operating-systems.csv
+<pre><code>grep -iw "os" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>OS, License, Year
@@ -2334,8 +2323,8 @@ For example, to print the matching line plus the two lines after the matching li
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>Linux, GPL, 1991
+iOS, Proprietary, 2007
 macOS, Proprietary, 2001
-Windows NT, Proprietary, 1993
 </code></pre>
 <p>Or, print the matching line plus the two lines before the matching line using the <code>-B NUM</code> option:</p>
 <p><strong>Command</strong></p>
@@ -2367,14 +2356,15 @@ Here I use <code>grep</code> to return a search for the string "proprietary" and
 </code></pre>
 <h3 id="returning-line-numbers"><a class="header" href="#returning-line-numbers">Returning Line Numbers</a></h3>
 <p>We can add the <code>-n</code> option to instruct <code>grep</code> to tell us the line number for each hit.
-Below we see that the string "proprietary" is found on lines 2, 5, and 6.</p>
+Below we see that the string "proprietary" is found on lines 2, 5, 6, and 7.</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -in "proprietary" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>2:Chrome OS, Proprietary, 2009
-5:macOS, Proprietary, 2001
-6:Windows NT, Proprietary, 1993
+5:iOS, Proprietary, 2007
+6:macOS, Proprietary, 2001
+7:Windows NT, Proprietary, 1993
 </code></pre>
 <h3 id="character-class-matching"><a class="header" href="#character-class-matching">Character Class Matching</a></h3>
 <p>We can use <code>grep</code> to search for patterns in strings instead of literal words.
@@ -2386,7 +2376,7 @@ Here we use what's called <strong>character classes</strong> and <strong>repetit
 <pre><code>Linux, GPL, 1991
 macOS, Proprietary, 2001
 </code></pre>
-<p>Or four letter numbers, which highlights the years:</p>
+<p>Or four-digit numbers, which highlights the years:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -Eiw "[0-9]{4}" operating-systems.csv
 </code></pre>
@@ -2394,6 +2384,7 @@ macOS, Proprietary, 2001
 <pre><code>Chrome OS, Proprietary, 2009
 FreeBSD, BSD, 1993
 Linux, GPL, 1991
+iOS, Proprietary, 2007
 macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 Android, Apache, 2008
@@ -2422,7 +2413,7 @@ Our task is to:</p>
 <li>Select the documents you want to download.</li>
 <li>Click on the <strong>Export</strong> button.</li>
 <li>Click on <em>BibTeX</em> under the listed file types.</li>
-<li>Select all <strong>Citation Information</strong> and <strong>Bibliographic Information</strong>. Select more in interested.</li>
+<li>Select all <strong>Citation Information</strong> and <strong>Bibliographic Information</strong>. Select more if interested.</li>
 <li>Click on <strong>Export</strong>.</li>
 </ol>
 <p>The file should be saved to your Downloads folder and titled <strong>scopus.bib</strong>.
@@ -2446,14 +2437,14 @@ Once you've established a connection, then click on the <strong>UPLOAD FILE</str
 Select the file and proceed.
 (If you get an error, then try again.)</p>
 <h3 id="investigate"><a class="header" href="#investigate">Investigate</a></h3>
-<p>Now that the file is uploaded, the first task is to to get an understanding of the structure of the data.
+<p>Now that the file is uploaded, the first task is to get an understanding of the structure of the data.
 <em>BibTeX</em> (.bib) files are structured files that contain bibliographic data.
 It's important to understand how files are structured if we want to search them efficiently.</p>
 <p>The <strong>scopus.bib</strong> file begins with information about the source (<em>Scopus</em>) of the records and the date the records were exported.
 These two lines and the empty line after them can be safely deleted or ignored.</p>
 <p>Each bibliographic record in the file begins with an <strong>entry type</strong> (or document type) preceded by an at <strong>@</strong> sign.
 Example entry types include: <a href="https://www.bibtex.com/e/entry-types/">article, book, booklet, conference, and more</a>.
-There is a opening curly brace after the entry or document type.
+There is an opening curly brace after the entry or document type.
 These curly braces mark the beginning and ending of each record.</p>
 <p>The cite key follows the opening curly brace.
 The cite key is an identifier that often refers to the author's name and includes publication date information.
@@ -2471,7 +2462,7 @@ Each line ends with a comma, except for the last line.
 The record ends with a closing curly brace.</p>
 <h4 id="document-types"><a class="header" href="#document-types">Document Types</a></h4>
 <p>We can use <code>grep</code> to examine the types of documents in the list of records.
-In the following command, I use the carat key <code>^</code>, which is a regular expression to signify the start of a line, to search for lines beginning with the at <code>@</code> symbol.
+In the following command, I use the caret key <code>^</code>, which is a regular expression to signify the start of a line, to search for lines beginning with the at <code>@</code> symbol.
 The following <code>grep</code> command therefore means: return all lines that begin with the at <code>@</code> symbol:</p>
 <pre><code>grep "^@" scopus.bib
 </code></pre>
@@ -2517,7 +2508,7 @@ Here I use two new commands, <code>cut</code> and <code>sed</code>.
 The <code>cut</code> command takes the results of the <code>grep</code> command, removes the first column based on the comma as the column delimiter.
 In the first <code>sed</code> command, I remove the space and opening curly brace and replace it with nothing.
 In the second <code>sed</code> command, I remove the closing curly brace and the comma and replace it with nothing.
-The result is list of only the journal titles without any extraneous characters.
+The result is a list of only the journal titles without any extraneous characters.
 I then pipe the output to the <code>sort</code> command, which sorts the list alphabetically, to the <code>uniq -c</code> command, which deduplicates and counts the results,
 and again to the <code>sort</code> command, which sorts numerically, since the first character is a number:</p>
 <pre><code>grep "journal =" scopus.bib | cut -d"=" -f2 | \
@@ -2561,7 +2552,7 @@ Determining usage when vendors do not provide data.
 <a href="https://doi.org/10.1080/00987913.2017.1281788">doi.org/10.1080/00987913.2017.1281788</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="managing-software"><a class="header" href="#managing-software">Managing Software</a></h1>
 <h2 id="introduction-5"><a class="header" href="#introduction-5">Introduction</a></h2>
-<p>ManyLinux distributions use a <strong>package manager</strong> to handle the installation, upgrades, and uninstalls of the software on a system.
+<p>Many Linux distributions use a <strong>package manager</strong> to handle the installation, upgrades, and uninstalls of the software on a system.
 The Ubuntu distribution uses a package manager called <code>dpkg</code> and a front-end called <code>apt</code> (advanced package tool).
 We will use <code>apt</code> to install, update, and remove software from our servers.</p>
 <h2 id="sudo"><a class="header" href="#sudo"><code>sudo</code></a></h2>
@@ -2569,11 +2560,11 @@ We will use <code>apt</code> to install, update, and remove software from our se
 The <code>sudo</code> command allows us to <q>execute a command as another user</q> (see <code>man sudo</code>).
 By default, the <code>sudo</code> command <q>executes a command as the superuser</q> (see <code>man 8 sudo</code>).</p>
 <p>The name of the <strong>superuser</strong> account is <strong>root</strong>.
-Th root user can perform administrative tasks that regular users cannot.
+The root user can perform administrative tasks that regular users cannot.
 For security purposes, regular accounts may not add, remove, or update software on a system,
 nor may they modify most files or directories outside their home directories.
 Using <code>sudo</code> allows regular users who have administrative privileges to perform maintenance tasks on our systems
-by using executing commands as the root user.
+by executing commands as the root user.
 Some consider this safer than logging in as the root user.</p>
 <p>Not all regular users can use the <code>sudo</code> command.
 On regular Ubuntu distributions, users must belong to the <strong>sudo</strong> group in order to run the <code>sudo</code> command.
@@ -2586,12 +2577,12 @@ install and manage software.
 In this lesson, we will use <code>sudo</code> along with the <code>apt</code> commands to update our systems and install software.</p>
 <h3 id="sudo-syntax"><a class="header" href="#sudo-syntax"><code>sudo</code> syntax</a></h3>
 <p>The <code>sudo</code> command is simple to use.
-When necessary, we use <code>sudo</code> by pre-pending it to the regular commands that we have already learned.
+When necessary, we use <code>sudo</code> by prepending it to the regular commands that we have already learned.
 In our home directories, for example, we don't need to use <code>sudo</code> to create a new directory with the <code>mkdir</code> command.
 Instead we type something like <code>mkdir data</code> to create a new directory/folder called <strong>data</strong>.
 But our regular user doesn't own the files or directories outside our home directory.
 For example, when we downloaded my <code>bash</code> scripts to the <code>/usr/local/bin</code> directory,
-we used <code>sudo</code> since don't own that directory.
+we used <code>sudo</code> since we don't own that directory.
 If I want to create a <strong>data</strong> directory in <strong>/usr/local/bin</strong>, then I have to use sudo at the beginning of my command:</p>
 <pre><code>cd /usr/local/bin
 sudo mkdir data
@@ -2612,7 +2603,7 @@ and uninstall software on our systems.</p>
 <p>Next I'll demonstrate the <code>apt</code> commands that we'll need.</p>
 <h3 id="sudo-apt-update"><a class="header" href="#sudo-apt-update"><code>sudo apt update</code></a></h3>
 <p>Your system keeps a record of what software is installed on your system and their version numbers.
-The <code>sudo apt update</code> command updates that list and compares the update to what's installed.
+The <code>sudo apt update</code> command updates that list and compares what's available to what's installed.
 That is, if you have a piece of software called <strong>acme1.1</strong> on your system, and <strong>acme1.2</strong> is available, then
 running <code>sudo apt update</code> will let you know that you can upgrade to <strong>acme1.2</strong>.
 It's good practice to run <code>sudo apt update</code> before installing or upgrading your system.
@@ -2621,7 +2612,7 @@ This lets your system upgrade to the most recent version of what you want to ins
 <pre><code>sudo apt update
 </code></pre>
 <h3 id="sudo-apt-upgrade"><a class="header" href="#sudo-apt-upgrade"><code>sudo apt upgrade</code></a></h3>
-<p>Once the list of packages have been updated, you can <strong>upgrade</strong> with the <code>sudo apt upgrade</code> command if there are any upgrades.
+<p>Once the list of packages has been updated, you can <strong>upgrade</strong> with the <code>sudo apt upgrade</code> command if there are any upgrades.
 When you run this command, and if there are any upgrades, you will be prompted to proceed.
 You can press <strong>Y</strong> to proceed, or <strong>N</strong> to cancel.</p>
 <p>This command is simply:</p>
@@ -2648,7 +2639,7 @@ Not all packages are simply named, which is why we need to search for the specif
 In those cases, pipe the above command through the <code>less</code> pager to page through the results:
 <code>apt search &lt;packagename&gt; | less</code></p>
 </blockquote>
-<h2 id="apt-show"><a class="header" href="#apt-show"><code>apt show</code></a></h2>
+<h3 id="apt-show"><a class="header" href="#apt-show"><code>apt show</code></a></h3>
 <p>If we want more specific information about a package, we can use the <code>apt show</code> command along with the package name.
 Therefore, to get more information about the <code>tldr</code> application, we execute the following command:</p>
 <pre><code>apt show tldr
@@ -2677,14 +2668,14 @@ The <code>--purge</code> option will not remove those configs; instead, we have 
 <h3 id="sudo-apt-autoremove"><a class="header" href="#sudo-apt-autoremove"><code>sudo apt autoremove</code></a></h3>
 <p>One of the great things about <code>dpkg</code> and <code>apt</code> is that it installs and handles software <strong>dependencies</strong> really well.
 Few computer applications are self-contained, and they often require other software to operate.
-These other software are called <strong>dependencies</strong>.
-When we uninstall (or remove) applications, the package manager does not auto uninstall those dependencies that were installed with it.
+These other pieces of software are called <strong>dependencies</strong>.
+When we uninstall (or remove) applications, the package manager does not automatically uninstall those dependencies that were installed with it.
 We use the <code>autoremove</code> command to uninstall those, which helps keep our systems clean:</p>
 <pre><code>sudo apt autoremove
 </code></pre>
 <h3 id="sudo-apt-clean"><a class="header" href="#sudo-apt-clean"><code>sudo apt clean</code></a></h3>
-<p>When we install packages, some files are installed with them.
-The <code>sudo apt clean</code> removes those extra files and frees up disk space.
+<p>When we install packages, the package files are cached locally.
+The <code>sudo apt clean</code> command removes those cached package files and frees up disk space.
 It's a simple command:</p>
 <pre><code>sudo apt clean
 </code></pre>
@@ -2694,7 +2685,7 @@ On macOS, the equivalent are <code>.dmg</code> files.
 The Ubuntu distribution has an equivalent file.
 These are <code>.deb</code> files.
 These files can be installed using the <code>dpkg</code> command:</p>
-<pre><code>sudo dpkg -i &lt;file_name.deb&gt;`
+<pre><code>sudo dpkg -i &lt;file_name.deb&gt;
 </code></pre>
 <p>Like with <code>exe</code> or <code>dmg</code> files, you want to be careful installing <code>deb</code> files you find on the web.
 Unlike software managed by the <code>apt</code> system, these files are not monitored and can contain malicious code.</p>
@@ -2740,7 +2731,7 @@ The <code>yaz-client</code> is an information retrieval client that uses the Z39
 For those unfamiliar, Z39.50 is a standard protocol in libraries for sharing, querying, and retrieving bibliographic information between library databases.
 Its development in the 1970s pre-dates the web, and its continued use illustrates the evolution of information retrieval systems since the 1970s.
 The protocol is maintained by the <a href="https://www.loc.gov/z3950/agency/"><em>Library of Congress</em></a>.</p>
-<p>The <code>yaz-client</code> is an SRU client, as well.
+<p>The <code>yaz-client</code> is an SRU client as well.
 SRU (Search/Retrieve via URL) and SRW (Search/Retrieve Web service) are modern internet and web-based successors to Z39.50.
 These protocols offer modern flexibility and more simplicity in accessing and sharing bibliographic records than Z39.50.
 See OCLC's page on <a href="https://www.oclc.org/research/areas/data-science/srw.html">SRW/U</a> for more information and The Library of Congress's documentation page: <a href="https://www.loc.gov/standards/sru/">SRU/CQL</a>.</p>
@@ -2784,7 +2775,7 @@ but it's less comprehensive:
 <p>Complete documentation for the <code>yaz-client</code> can be found on its homepage:
 <a href="https://www.indexdata.com/resources/software/yaz/">YAZ</a></p>
 <h2 id="using-yaz"><a class="header" href="#using-yaz">Using <code>yaz</code></a></h2>
-<p>The start the <code>yaz</code> program, run the <code>yaz-client</code> command.</p>
+<p>To start the <code>yaz</code> program, run the <code>yaz-client</code> command.</p>
 <pre><code>yaz-client
 </code></pre>
 <p>This creates a new command line interface with a new prompt:</p>
@@ -2796,11 +2787,11 @@ The following <code>open</code> command establishes a connection to the Universi
 <pre><code>Z&gt; open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
 </code></pre>
 <h2 id="queries"><a class="header" href="#queries">Queries</a></h2>
-<p>Queries are constructed using Prefix Query Notation (PQN).
-In the context of PQN, this is a way of structuring queries where the operator (e.g., AND, NOT, OR)
+<p>Queries are constructed using Prefix Query Format (PQF), sometimes called prefix query notation.
+In the context of PQF, this is a way of structuring queries where the operator (e.g., AND, NOT, OR)
 precedes the operands (e.g., search terms, attributes, fields).</p>
-<p>Each query begins with a <em>command</em> followed by a search syntax articulated by its PQN.
-The list of commands are described in <code>man yaz-client</code> in the COMMANDS section.
+<p>Each query begins with a <em>command</em> followed by a search syntax articulated in PQF.
+The list of commands is described in the COMMANDS section of <code>man yaz-client</code>.
 The main command we'll use is the <code>find</code> command, which may be abbreviated as <code>f</code>.
 Let's see some examples:</p>
 <h3 id="example-1"><a class="header" href="#example-1">Example 1</a></h3>
@@ -2818,7 +2809,7 @@ we use the following query:</p>
 <li><code>@attr 1=21</code> instructs the query to search for the term in the subject heading field</li>
 <li><code>"library science"</code> is the second search term for the subject heading search</li>
 </ul>
-<p>The search does not reveal the results.
+<p>The search returns a hit count but does not display the records.
 To peruse the results, we use the <code>show</code> command.
 To show the first record:</p>
 <pre><code>show 1
@@ -2856,7 +2847,7 @@ In this example, I abbreviate the <code>find</code> command as <code>f</code>:</
 <h2 id="advanced-usage"><a class="header" href="#advanced-usage">Advanced Usage</a></h2>
 <p>Let's open the <code>yaz-client</code> again but with the <code>-m</code> option.
 According to the <code>yaz-client</code> man page, the <code>-m</code> option
-option instructs the client to append bibliographic records to a file.
+instructs the client to append bibliographic records to a file.
 In the example below, I arbitrarily name the file <code>records.marc</code>.</p>
 <pre><code>$ yaz-client -m records.marc
 </code></pre>
@@ -2923,19 +2914,19 @@ by piping through <code>sort</code>, <code>uniq -c</code>, and <code>sort</code>
 <pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("z")) | .z' records-formatted.json
 </code></pre>
 <h3 id="other-formats"><a class="header" href="#other-formats">Other formats</a></h3>
-<p>We can the original MARC data to XML:</p>
+<p>We can convert the original MARC data to XML:</p>
 <pre><code>yaz-marcdump -o marcxml records.marc &gt; records.xml
 </code></pre>
-<p>We can query the XML data with <code>xmlstarlet</code> command, which is similar to <code>jq</code> but for XML structured data.</p>
+<p>We can query the XML data with the <code>xmlstarlet</code> command, which is similar to <code>jq</code> but for XML structured data.</p>
 <h3 id="downloading-all-results"><a class="header" href="#downloading-all-results">Downloading All Results</a></h3>
 <p>The process above saved only records we examined with the <code>show</code> command.
 The following <code>find</code> query locates 120 records and then the <code>show</code> command below allows us to save to file all 120 records.</p>
 <pre><code>$ yaz-client
-&gt; set_marcdump records.new
-&gt; open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
-&gt; find @and @attr 1=4 "technology" @attr 1=21 "library science"
-&gt; show 1 +120
-&gt; quit
+Z&gt; set_marcdump records.new
+Z&gt; open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
+Z&gt; find @and @attr 1=4 "technology" @attr 1=21 "library science"
+Z&gt; show 1 +120
+Z&gt; quit
 </code></pre>
 <p>Then we can follow the steps above to convert to JSON and examine the file with <code>jq</code>.
 One thing we learn with bigger data sets is that data gets messy.
@@ -2969,7 +2960,7 @@ We can even select for other subfields, like the <code>z</code> <strong>650</str
 use that to map out the geographies reported in the subject headings in a catalog.</p>
 <h2 id="conclusion-7"><a class="header" href="#conclusion-7">Conclusion</a></h2>
 <p>Z39.50 is often presented as an abstract information retrieval concept even though it has played a central
-part of searching online catalogs and database for nearly 50 years.
+part of searching online catalogs and databases for nearly 50 years.
 The protocol, using tools like <code>yaz</code>, can be used to build search interfaces to bibliographic data.
 For example, see:</p>
 <ul>
@@ -2984,8 +2975,13 @@ use the following server address:</li>
 <p>In this section,
 we learn how to set up a LAMP
 (Linux, Apache, MySQL, PHP) stack.
-This stack enables us to create a web server
-that provides extra funtionality via PHP and MySQL,
+This stack is a common open source pattern for hosting
+database-backed websites and applications.
+Linux provides the operating system, Apache serves HTTP requests,
+PHP runs server-side code, and MySQL stores application data
+(often MariaDB in modern distributions).
+Together they enable us to create a web server
+that provides extra functionality via PHP and MySQL,
 both of which are required to run
 content management systems and
 integrated library systems.</p>
@@ -2995,10 +2991,10 @@ integrated library systems.</p>
 the web server, or alternatively called the HTTP server.</p>
 <p>The web server is the software that makes websites available in your browsers.
 The basic function is to make files on the web server accessible to others via their web browsers.
-At a basic level, the web is essentially a world wide file system, and
-the web browser retrieves and displays files from web servers, much like a file explore does for local files.
-At a more advanced level, HTTP can also add more complexity beyond simple file access,
-such as providing dynamic content, APIs, and more.</p>
+At a basic level, the web is a worldwide network of resources, and
+the web browser retrieves and displays files from web servers, much like a file explorer does for local files.
+At a more advanced level, HTTP supports more than simple file access; with server-side code
+it can provide dynamic content, APIs, and more.</p>
 <p>Knowing how a web server functions is crucial for anyone wanting to manage or deploy web services.
 There are many <a href="https://en.wikipedia.org/wiki/Comparison_of_web_server_software">web servers available</a>, but in this session,
 I will guide you through installing and using the <a href="https://httpd.apache.org/">Apache</a> web server.
@@ -3059,7 +3055,7 @@ This means that the <code>apache2</code> is running and live.</p>
 <p>Since <code>apache2</code> is active, let's look at the default web page.</p>
 <p>There are (at least) two ways we can look at the default web page.
 We can use a command line web browser or a graphical web browser, like Firefox, Chrome, etc.</p>
-<h3 id="text-based-web-browser"><a class="header" href="#text-based-web-browser">Text Based Web Browser</a></h3>
+<h3 id="text-based-web-browser"><a class="header" href="#text-based-web-browser">Text-Based Web Browser</a></h3>
 <p>We have lots of command line browsers to use.
 I like <code>w3m</code> because it defaults to Vim keybindings, but many like <code>elinks</code>.</p>
 <p>To check the site with <code>w3m</code>, we have to install it first:</p>
@@ -3082,14 +3078,15 @@ From the command line on our server, we can run either of these two commands to 
 </blockquote>
 <p>We can also acquire the system's <a href="https://en.wikipedia.org/wiki/Private_network">private IP address</a> using the <code>ip a</code> command.
 There are different address ranges for the private networks.
-On your home network, your private IP address for a your laptop or phone might begin with <code>192.168.x.x</code>.
-On our virtual instances, the address will begin with the number <strong>10</strong> and look like <code>10.128.0.99</code>.
+On your home network, your private IP address for your laptop or phone might begin with <code>192.168.x.x</code>.
+On our virtual instances, the address often begins with the number <strong>10</strong> and looks like <code>10.128.0.99</code>,
+though this can vary by network.
 The difference deals with the size of the private networks.
 In any case, to use the private IP address with <code>w3m</code> from the virtual machine's command line, we run,
-assuming private IP address for my local machine is <code>10.128.0.99</code>:</p>
+assuming the private IP address for my local machine is <code>10.128.0.99</code>:</p>
 <pre><code>w3m 10.128.0.99
 </code></pre>
-<p>If <code>apache2</code> installed and started correctly, you should see the following text:</p>
+<p>If <code>apache2</code> is installed and started correctly, you should see the following text:</p>
 <p><strong>Apache2 Ubuntu Default Page</strong><br />
 <strong>It works!</strong></p>
 <p>To exit <code>w3m</code> or <code>elinks</code>, press <strong>q</strong> and then <strong>y</strong> to confirm exit.</p>
@@ -3102,6 +3099,10 @@ click on the <strong>Compute Engine</strong> link, and then click on <strong>VM 
 You should see your <strong>External IP</strong> address in the table on that page.
 You can copy that external IP address or simply click on it to open it in a new browser tab.
 If successful, you should see the graphical version of the <strong>Apache2 Ubuntu Default Page</strong>.</p>
+<p>If the page does not load, confirm that your VM allows inbound HTTP traffic on port 80.
+On Google Cloud, this means applying an <strong>Allow HTTP traffic</strong> firewall rule to the instance
+or creating a rule in the VPC firewall. This is the same setting you enabled when creating
+your virtual machine.</p>
 <blockquote>
 <p>Note that most browsers nowadays try to force a secure HTTPS mode.
 If your web page is not loading, make sure your URL is <strong>http://IP-ADDRESS</strong>
@@ -3115,7 +3116,7 @@ what those files do, and the document root, which is where website files are sto
 The default page described above provides the location of the <strong>document root</strong> at <code>/var/www/html</code>.
 The <strong>document root</strong> may reside at a different location on a different Linux operating system,
 so it's important to verify that location.
-Remember that the web is, at its simplest, a filesystem that has been made available to the wide world.
+Remember that the web is, at its simplest, a worldwide network of resources.
 The web server is what provides access to part of the filesystem.
 That point of access is called the <strong>document root</strong>.</p>
 <p>When we navigate to the document root on the command line,
@@ -3134,7 +3135,7 @@ Thus, be careful here about the commands you run.
 Any mistake may result in deleting necessary files or directories.</p>
 </blockquote>
 <p>If you know HTML, then feel free to write some basic HTML code to get started.
-Otherwise, you can re-type the content below in <code>nano</code> or like, and then save and exit out.</p>
+Otherwise, you can re-type the content below in <code>nano</code> or a similar editor, and then save and exit out.</p>
 <pre><code>&lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;My first web page using Apache&lt;/title&gt;
@@ -3151,7 +3152,7 @@ I created this site using the Apache HTTP server.&lt;/p&gt;
 </code></pre>
 <p>If you have your site open in your web browser, reload the page, and you should see the new text.</p>
 <p>You can still view the original default page by specifying its name in the URL.
-Remember that web browsers are, at their most basic, simply file viewers.
+Remember that web browsers are, at their most basic, resource viewers.
 So it makes sense that you simply have to specify the name of the file you want to view.
 For example, if your <strong>public IP address</strong> is <code>55.222.55.222</code>, then you'd specify it like so:</p>
 <pre><code>http://55.222.55.222/index.html.original
@@ -3160,11 +3161,11 @@ For example, if your <strong>public IP address</strong> is <code>55.222.55.222</
 <p>In this section, we learned about the Apache HTTP server.
 We learned how to install it on Ubuntu, how to use a <code>systemctl</code> command to check its status,
 how to create a basic web page in <code>/var/www/html</code>,
-how to view that web page using the <code>w3m</code> command line browser and in our graphical browser,</p>
+how to view that web page using the <code>w3m</code> command line browser and in our graphical browser.</p>
 <p>In the next section, we will install PHP,
 which will provide the language needed to connect to the relational database MySQL.
-This will enable more data driven web sites and begin to transform out sites
-from basic file viewers to full fledged applications.</p>
+This will enable more data-driven websites and begin to transform our sites
+from basic file viewers to full-fledged applications.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="installing-and-configuring-php"><a class="header" href="#installing-and-configuring-php">Installing and Configuring PHP</a></h1>
 <h2 id="introduction-7"><a class="header" href="#introduction-7">Introduction</a></h2>
 <p>Client-side programming languages, like JavaScript, are handled entirely by the browser.
@@ -3176,10 +3177,10 @@ This means it must be installed on the server.
 Unlike with JavaScript, the browser does not execute PHP directly;
 instead, the web server processes the PHP and sends the resulting HTML or other content to the browser.</p>
 <p>From a system or web administrator's perspective,
-this means that PHP has be installed and configured to work with the web/HTTP server.
+this means that PHP has to be installed and configured to work with the web/HTTP server.
 In our case, we have to install and configure PHP on our virtual instances to work with the Apache web server software.</p>
 <p>One of the primary uses of PHP is to interact with databases, like MySQL, MariaDB, PostgreSQL, etc.,
-in order to create data-based page content.
+in order to create data-driven content.
 To begin to set this up, we have to:</p>
 <ol>
 <li>Install PHP and relevant Apache modules</li>
@@ -3189,20 +3190,20 @@ To begin to set this up, we have to:</p>
 <h2 id="install-php"><a class="header" href="#install-php">Install PHP</a></h2>
 <p>As usual, we will use <code>apt install</code> to install PHP and relevant modules.
 Then we will restart Apache using the <code>systemctl</code> command.
-Use <code>apt show [package_name]</code> to read more about each package we will install.
+Use <code>apt show &lt;package_name&gt;</code> to read more about each package we will install.
 The first command below installs the <strong>php</strong> and the <strong>libapache2-mod-php</strong> packages.
 The latter package is used to create a connection between PHP and the Apache web server.</p>
 <pre><code>sudo apt install php libapache2-mod-php
 sudo systemctl restart apache2
 </code></pre>
 <p>Once installed, you want to confirm the installed version with the following command.
-This is because other software (e.g., WordPress, etc.) might require a specific version before that other software to work.</p>
+This is because other software (e.g., WordPress, etc.) might require a specific version for that software to work.</p>
 <pre><code>php -v
 </code></pre>
 <p>After we restart Apache, we need to check its status and see if there are any errors in the log output:</p>
 <pre><code>systemctl status apache2
 </code></pre>
-<h2 id="check-install"><a class="header" href="#check-install">Check Install</a></h2>
+<h2 id="check-installation"><a class="header" href="#check-installation">Check Installation</a></h2>
 <p>Next we check that PHP has been installed and that it's working with Apache.
 We can create a small PHP file in our web document root.
 To do that, we <code>cd</code> to the document root, <code>/var/www/html/</code>, and create a file called <strong>info.php</strong>:</p>
@@ -3215,8 +3216,8 @@ phpinfo();
 ?&gt;
 </code></pre>
 <p>Now visit that file using the public IP address for your server.
-If the public IP address for my virtual machine is <code>55.333.55.33</code>, then in Firefox, Chrome, etc, I would open:</p>
-<pre><code>http://55.333.55.333/info.php
+If the public IP address for my virtual machine is <code>203.0.113.10</code>, then in Firefox, Chrome, etc, I would open:</p>
+<pre><code>http://203.0.113.10/info.php
 </code></pre>
 <blockquote>
 <p>Again, be sure to replace the IP below with the IP address of your server and
@@ -3240,14 +3241,14 @@ you should delete it since it exposes detailed systems information:</p>
 <p>By default, when Apache serves a web page, it looks for a <a href="https://httpd.apache.org/docs/current/mod/mod_dir.html">file titled <code>index.html</code></a> and serves that,
 even if it does not display that file in the URL bar.
 Thus, <code>http://example.com/</code> actually resolves to <code>http://example.com/index.html</code> in such cases.
-However, if our plan is to provide for PHP,
-we want Apache to default to a file titled <code>index.php</code> instead of <code>index.html</code> file.
-In these cases, <code>http://example.com/</code> would actually resolves to <code>http://example.com/index.php</code>.</p>
+However, if our plan is to provide PHP,
+we want Apache to default to a file titled <code>index.php</code> instead of the <code>index.html</code> file.
+In these cases, <code>http://example.com/</code> would actually resolve to <code>http://example.com/index.php</code>.</p>
 <p>To configure that, we need to edit the <code>dir.conf</code> file in the <code>/etc/apache2/mods-enabled/</code> directory.
 In that file there is a line that starts with <code>DirectoryIndex</code> followed by a list of files.
 The first file listed in that line is <code>index.html</code>,
 and then there are a series of other files that Apache looks for in the order listed.
-Apache checks that list list and prioritizes these in order of appearance on the list.
+Apache checks that list and prioritizes these in order of appearance.
 If any of those files exist in the document root, then Apache serves those before proceeding to the next.
 We want Apache to prioritize the <code>index.php</code> file first and <code>index.html</code> second.
 Before modifying this file, it's good practice to create a backup of the original.
@@ -3351,9 +3352,9 @@ In this section, our objective is to complete the LAMP stack and install and con
 <a href="https://mariadb.com/kb/en/introduction-to-relational-databases/">Introduction to Relational Databases</a>.
 However in the next section, we will explore the database basics from the command line.</p>
 <h2 id="install-and-set-up-mysql"><a class="header" href="#install-and-set-up-mysql">Install and Set Up MySQL</a></h2>
-<p>In this section, we'll learn how to install, setup, secure, and
+<p>In this section, we'll learn how to install, set up, secure, and
 configure the MySQL relational database so that it works with the Apache web server and the PHP programming language.</p>
-<p>First, as normal, we make run the following commands to ensure our machines are fully updated:</p>
+<p>First, as normal, we run the following commands to ensure our machines are fully updated:</p>
 <pre><code>sudo apt update
 sudo apt upgrade
 sudo apt autoremove
@@ -3366,8 +3367,8 @@ This command will disconnect you from your machine.
 Wait a minute or two, and then reconnect.</p>
 </blockquote>
 <p>Then we install the MySQL Community Server package.
-The MySQL Community Server package is a <strong>metapackage</strong> that installs the latest, most secure version of MySQL,
-regardless of the software's version number, as well as its dependencies.</p>
+The MySQL Community Server package is a <strong>metapackage</strong> that installs the default MySQL server version
+for the distribution, along with its dependencies.</p>
 <pre><code>sudo apt install mysql-server
 </code></pre>
 <p>The above install should be fine for us, but note that in some cases you first may want to specifically
@@ -3455,8 +3456,13 @@ Then we run the MySQL <code>show</code> command to view the new database.
 Next we grant <code>all privileges</code> on the database to the user account <code>opacuser</code>.</p>
 <pre><code>mysql&gt; create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
 mysql&gt; show databases;
-mysql&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant option;
+mysql&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost';
 </code></pre>
+<blockquote>
+<p>Aside: in <code>create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci</code>,
+<code>opacdb</code> is the database name, <code>default character set utf8mb4</code> sets the encoding,
+and <code>collate utf8mb4_unicode_ci</code> sets the sorting and comparison rules for that encoding.</p>
+</blockquote>
 <p>Other than granting <strong>all privileges</strong>, we could limit the user to specific privileges, including:</p>
 <ul>
 <li>CREATE</li>
@@ -3471,7 +3477,7 @@ mysql&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant 
 They allow MySQL users to use and modify the databases, where appropriate.
 For example, we may want to limit the <strong>opacuser</strong> user account to only be able to use <strong>SELECT</strong> commands.
 These decisions depend on the purpose of the database and our security risks.</p>
-<p>Exit out of the MySQL database as the <strong>root MySQL user</strong>, and then exit out of the <strong>root Linux user account</strong>.
+<p>Exit out of the MySQL database as the <strong>root MySQL user</strong>.
 You should be back to your normal Linux user account:</p>
 <pre><code>mysql&gt; \q
 </code></pre>
@@ -3486,8 +3492,8 @@ This is simply because, by convention, <em>I'm lazy</em>.</p>
 Note that when we login to the MySQL server, we leave the <code>bash</code> shell and enter the MySQL command line client.
 By default, the prompt for the client is bare-bones.
 We can make it more informative, though.
-To do so, open your <code>.bashrc</code> file:</p>
-<pre><code>nano .bashrc
+To do so, open your <code>~/.bashrc</code> file:</p>
+<pre><code>nano ~/.bashrc
 </code></pre>
 <p>Scroll to the bottom of the file and add the following:</p>
 <pre><code>export MYSQL_PS1="[\d]&gt; "
@@ -3546,7 +3552,7 @@ mysql&gt; describe books;
 (I simply picked the first book listed from the NYTimes best lists of books for the years 2019-2022.)
 We'll use the MySQL <code>insert</code> command to add our records into our <code>books</code> table.
 We need to specify three fields when entering data: <code>author</code>, <code>title</code>, and <code>copyright</code>.
-The <code>copyright</code> field is a date field, and it should conform to the <code>YYYY</code> syntax.
+The <code>copyright</code> field uses the <code>YEAR</code> data type, and it should conform to the <code>YYYY</code> syntax.
 We do not need to specify data for the <code>id</code> field because that will be created and will increment automatically.</p>
 <pre><code>mysql&gt; insert into books (author, title, copyright) values
 ('Jennifer Egan', 'The Candy House', '2022'),
@@ -3602,7 +3608,7 @@ mysql&gt; \q
 <p>First install PHP support for MySQL.
 We're installing some modules alongside the basic support.
 These may or may not be needed, but I'm installing them to demonstrate some basics.</p>
-<pre><code>sudo apt install php-mysql php-mysqli
+<pre><code>sudo apt install php-mysql
 </code></pre>
 <p>And then restart Apache and MySQL:</p>
 <pre><code>sudo systemctl restart apache2
@@ -3610,7 +3616,7 @@ sudo systemctl restart mysql
 </code></pre>
 <h3 id="create-php-scripts"><a class="header" href="#create-php-scripts">Create PHP Scripts</a></h3>
 <p>In order for PHP to connect to MySQL, it needs to authenticate itself.
-To do that, we will create a <code>login.php</code> file in in our document root's parent directory: <code>/var/www</code>.
+To do that, we will create a <code>login.php</code> file in our document root's parent directory: <code>/var/www</code>.
 We also need to change the group ownership of the file and its permissions (see note below).
 This will allow the file to be read by the Apache web server but not by the world.
 This prevents the password information from being accessible to web users.</p>
@@ -3640,7 +3646,7 @@ In the above code snippet, the <code>chmod 640 login.php</code> command changes 
 <p>For an in-depth tutorial, see <a href="https://cseanburns.github.io/linux_sysadmin/3c-file-perms-owns.html">Linux Systems Administrations, Chapter 3.3 File Permissions and Ownership</a></p>
 <p>When we created the file using the <code>sudo touch login.php</code> command, the use of <code>sudo</code> creates the file with <code>root</code> as the owner.
 The <code>chown :www-data login.php</code> command changes the group ownership to <code>www-data</code>.
-The <code>www:data</code> user is the Apache user.</p>
+The <code>www-data</code> user is the Apache user.</p>
 <p>Many services, like Apache, have corresponding users on the system.
 Files placed in our document root <code>/var/www/html</code> will be served on the web.
 Therefore, those files must have read access for <strong>other/world</strong>.

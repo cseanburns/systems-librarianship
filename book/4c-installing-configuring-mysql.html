@@ -187,9 +187,9 @@ In this section, our objective is to complete the LAMP stack and install and con
 <a href="https://mariadb.com/kb/en/introduction-to-relational-databases/">Introduction to Relational Databases</a>.
 However in the next section, we will explore the database basics from the command line.</p>
 <h2 id="install-and-set-up-mysql"><a class="header" href="#install-and-set-up-mysql">Install and Set Up MySQL</a></h2>
-<p>In this section, we'll learn how to install, setup, secure, and
+<p>In this section, we'll learn how to install, set up, secure, and
 configure the MySQL relational database so that it works with the Apache web server and the PHP programming language.</p>
-<p>First, as normal, we make run the following commands to ensure our machines are fully updated:</p>
+<p>First, as normal, we run the following commands to ensure our machines are fully updated:</p>
 <pre><code>sudo apt update
 sudo apt upgrade
 sudo apt autoremove
@@ -202,8 +202,8 @@ This command will disconnect you from your machine.
 Wait a minute or two, and then reconnect.</p>
 </blockquote>
 <p>Then we install the MySQL Community Server package.
-The MySQL Community Server package is a <strong>metapackage</strong> that installs the latest, most secure version of MySQL,
-regardless of the software's version number, as well as its dependencies.</p>
+The MySQL Community Server package is a <strong>metapackage</strong> that installs the default MySQL server version
+for the distribution, along with its dependencies.</p>
 <pre><code>sudo apt install mysql-server
 </code></pre>
 <p>The above install should be fine for us, but note that in some cases you first may want to specifically
@@ -291,8 +291,13 @@ Then we run the MySQL <code>show</code> command to view the new database.
 Next we grant <code>all privileges</code> on the database to the user account <code>opacuser</code>.</p>
 <pre><code>mysql&gt; create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
 mysql&gt; show databases;
-mysql&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant option;
+mysql&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost';
 </code></pre>
+<blockquote>
+<p>Aside: in <code>create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci</code>,
+<code>opacdb</code> is the database name, <code>default character set utf8mb4</code> sets the encoding,
+and <code>collate utf8mb4_unicode_ci</code> sets the sorting and comparison rules for that encoding.</p>
+</blockquote>
 <p>Other than granting <strong>all privileges</strong>, we could limit the user to specific privileges, including:</p>
 <ul>
 <li>CREATE</li>
@@ -307,7 +312,7 @@ mysql&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant 
 They allow MySQL users to use and modify the databases, where appropriate.
 For example, we may want to limit the <strong>opacuser</strong> user account to only be able to use <strong>SELECT</strong> commands.
 These decisions depend on the purpose of the database and our security risks.</p>
-<p>Exit out of the MySQL database as the <strong>root MySQL user</strong>, and then exit out of the <strong>root Linux user account</strong>.
+<p>Exit out of the MySQL database as the <strong>root MySQL user</strong>.
 You should be back to your normal Linux user account:</p>
 <pre><code>mysql&gt; \q
 </code></pre>
@@ -322,8 +327,8 @@ This is simply because, by convention, <em>I'm lazy</em>.</p>
 Note that when we login to the MySQL server, we leave the <code>bash</code> shell and enter the MySQL command line client.
 By default, the prompt for the client is bare-bones.
 We can make it more informative, though.
-To do so, open your <code>.bashrc</code> file:</p>
-<pre><code>nano .bashrc
+To do so, open your <code>~/.bashrc</code> file:</p>
+<pre><code>nano ~/.bashrc
 </code></pre>
 <p>Scroll to the bottom of the file and add the following:</p>
 <pre><code>export MYSQL_PS1="[\d]&gt; "
@@ -382,7 +387,7 @@ mysql&gt; describe books;
 (I simply picked the first book listed from the NYTimes best lists of books for the years 2019-2022.)
 We'll use the MySQL <code>insert</code> command to add our records into our <code>books</code> table.
 We need to specify three fields when entering data: <code>author</code>, <code>title</code>, and <code>copyright</code>.
-The <code>copyright</code> field is a date field, and it should conform to the <code>YYYY</code> syntax.
+The <code>copyright</code> field uses the <code>YEAR</code> data type, and it should conform to the <code>YYYY</code> syntax.
 We do not need to specify data for the <code>id</code> field because that will be created and will increment automatically.</p>
 <pre><code>mysql&gt; insert into books (author, title, copyright) values
 ('Jennifer Egan', 'The Candy House', '2022'),
@@ -438,7 +443,7 @@ mysql&gt; \q
 <p>First install PHP support for MySQL.
 We're installing some modules alongside the basic support.
 These may or may not be needed, but I'm installing them to demonstrate some basics.</p>
-<pre><code>sudo apt install php-mysql php-mysqli
+<pre><code>sudo apt install php-mysql
 </code></pre>
 <p>And then restart Apache and MySQL:</p>
 <pre><code>sudo systemctl restart apache2
@@ -446,7 +451,7 @@ sudo systemctl restart mysql
 </code></pre>
 <h3 id="create-php-scripts"><a class="header" href="#create-php-scripts">Create PHP Scripts</a></h3>
 <p>In order for PHP to connect to MySQL, it needs to authenticate itself.
-To do that, we will create a <code>login.php</code> file in in our document root's parent directory: <code>/var/www</code>.
+To do that, we will create a <code>login.php</code> file in our document root's parent directory: <code>/var/www</code>.
 We also need to change the group ownership of the file and its permissions (see note below).
 This will allow the file to be read by the Apache web server but not by the world.
 This prevents the password information from being accessible to web users.</p>
@@ -476,7 +481,7 @@ In the above code snippet, the <code>chmod 640 login.php</code> command changes 
 <p>For an in-depth tutorial, see <a href="https://cseanburns.github.io/linux_sysadmin/3c-file-perms-owns.html">Linux Systems Administrations, Chapter 3.3 File Permissions and Ownership</a></p>
 <p>When we created the file using the <code>sudo touch login.php</code> command, the use of <code>sudo</code> creates the file with <code>root</code> as the owner.
 The <code>chown :www-data login.php</code> command changes the group ownership to <code>www-data</code>.
-The <code>www:data</code> user is the Apache user.</p>
+The <code>www-data</code> user is the Apache user.</p>
 <p>Many services, like Apache, have corresponding users on the system.
 Files placed in our document root <code>/var/www/html</code> will be served on the web.
 Therefore, those files must have read access for <strong>other/world</strong>.

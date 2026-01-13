@@ -184,10 +184,10 @@
 the web server, or alternatively called the HTTP server.</p>
 <p>The web server is the software that makes websites available in your browsers.
 The basic function is to make files on the web server accessible to others via their web browsers.
-At a basic level, the web is essentially a world wide file system, and
-the web browser retrieves and displays files from web servers, much like a file explore does for local files.
-At a more advanced level, HTTP can also add more complexity beyond simple file access,
-such as providing dynamic content, APIs, and more.</p>
+At a basic level, the web is a worldwide network of resources, and
+the web browser retrieves and displays files from web servers, much like a file explorer does for local files.
+At a more advanced level, HTTP supports more than simple file access; with server-side code
+it can provide dynamic content, APIs, and more.</p>
 <p>Knowing how a web server functions is crucial for anyone wanting to manage or deploy web services.
 There are many <a href="https://en.wikipedia.org/wiki/Comparison_of_web_server_software">web servers available</a>, but in this session,
 I will guide you through installing and using the <a href="https://httpd.apache.org/">Apache</a> web server.
@@ -248,7 +248,7 @@ This means that the <code>apache2</code> is running and live.</p>
 <p>Since <code>apache2</code> is active, let's look at the default web page.</p>
 <p>There are (at least) two ways we can look at the default web page.
 We can use a command line web browser or a graphical web browser, like Firefox, Chrome, etc.</p>
-<h3 id="text-based-web-browser"><a class="header" href="#text-based-web-browser">Text Based Web Browser</a></h3>
+<h3 id="text-based-web-browser"><a class="header" href="#text-based-web-browser">Text-Based Web Browser</a></h3>
 <p>We have lots of command line browsers to use.
 I like <code>w3m</code> because it defaults to Vim keybindings, but many like <code>elinks</code>.</p>
 <p>To check the site with <code>w3m</code>, we have to install it first:</p>
@@ -271,14 +271,15 @@ From the command line on our server, we can run either of these two commands to 
 </blockquote>
 <p>We can also acquire the system's <a href="https://en.wikipedia.org/wiki/Private_network">private IP address</a> using the <code>ip a</code> command.
 There are different address ranges for the private networks.
-On your home network, your private IP address for a your laptop or phone might begin with <code>192.168.x.x</code>.
-On our virtual instances, the address will begin with the number <strong>10</strong> and look like <code>10.128.0.99</code>.
+On your home network, your private IP address for your laptop or phone might begin with <code>192.168.x.x</code>.
+On our virtual instances, the address often begins with the number <strong>10</strong> and looks like <code>10.128.0.99</code>,
+though this can vary by network.
 The difference deals with the size of the private networks.
 In any case, to use the private IP address with <code>w3m</code> from the virtual machine's command line, we run,
-assuming private IP address for my local machine is <code>10.128.0.99</code>:</p>
+assuming the private IP address for my local machine is <code>10.128.0.99</code>:</p>
 <pre><code>w3m 10.128.0.99
 </code></pre>
-<p>If <code>apache2</code> installed and started correctly, you should see the following text:</p>
+<p>If <code>apache2</code> is installed and started correctly, you should see the following text:</p>
 <p><strong>Apache2 Ubuntu Default Page</strong><br />
 <strong>It works!</strong></p>
 <p>To exit <code>w3m</code> or <code>elinks</code>, press <strong>q</strong> and then <strong>y</strong> to confirm exit.</p>
@@ -291,6 +292,10 @@ click on the <strong>Compute Engine</strong> link, and then click on <strong>VM 
 You should see your <strong>External IP</strong> address in the table on that page.
 You can copy that external IP address or simply click on it to open it in a new browser tab.
 If successful, you should see the graphical version of the <strong>Apache2 Ubuntu Default Page</strong>.</p>
+<p>If the page does not load, confirm that your VM allows inbound HTTP traffic on port 80.
+On Google Cloud, this means applying an <strong>Allow HTTP traffic</strong> firewall rule to the instance
+or creating a rule in the VPC firewall. This is the same setting you enabled when creating
+your virtual machine.</p>
 <blockquote>
 <p>Note that most browsers nowadays try to force a secure HTTPS mode.
 If your web page is not loading, make sure your URL is <strong>http://IP-ADDRESS</strong>
@@ -304,7 +309,7 @@ what those files do, and the document root, which is where website files are sto
 The default page described above provides the location of the <strong>document root</strong> at <code>/var/www/html</code>.
 The <strong>document root</strong> may reside at a different location on a different Linux operating system,
 so it's important to verify that location.
-Remember that the web is, at its simplest, a filesystem that has been made available to the wide world.
+Remember that the web is, at its simplest, a worldwide network of resources.
 The web server is what provides access to part of the filesystem.
 That point of access is called the <strong>document root</strong>.</p>
 <p>When we navigate to the document root on the command line,
@@ -323,7 +328,7 @@ Thus, be careful here about the commands you run.
 Any mistake may result in deleting necessary files or directories.</p>
 </blockquote>
 <p>If you know HTML, then feel free to write some basic HTML code to get started.
-Otherwise, you can re-type the content below in <code>nano</code> or like, and then save and exit out.</p>
+Otherwise, you can re-type the content below in <code>nano</code> or a similar editor, and then save and exit out.</p>
 <pre><code>&lt;html&gt;
 &lt;head&gt;
 &lt;title&gt;My first web page using Apache&lt;/title&gt;
@@ -340,7 +345,7 @@ I created this site using the Apache HTTP server.&lt;/p&gt;
 </code></pre>
 <p>If you have your site open in your web browser, reload the page, and you should see the new text.</p>
 <p>You can still view the original default page by specifying its name in the URL.
-Remember that web browsers are, at their most basic, simply file viewers.
+Remember that web browsers are, at their most basic, resource viewers.
 So it makes sense that you simply have to specify the name of the file you want to view.
 For example, if your <strong>public IP address</strong> is <code>55.222.55.222</code>, then you'd specify it like so:</p>
 <pre><code>http://55.222.55.222/index.html.original
@@ -349,11 +354,11 @@ For example, if your <strong>public IP address</strong> is <code>55.222.55.222</
 <p>In this section, we learned about the Apache HTTP server.
 We learned how to install it on Ubuntu, how to use a <code>systemctl</code> command to check its status,
 how to create a basic web page in <code>/var/www/html</code>,
-how to view that web page using the <code>w3m</code> command line browser and in our graphical browser,</p>
+how to view that web page using the <code>w3m</code> command line browser and in our graphical browser.</p>
 <p>In the next section, we will install PHP,
 which will provide the language needed to connect to the relational database MySQL.
-This will enable more data driven web sites and begin to transform out sites
-from basic file viewers to full fledged applications.</p>
+This will enable more data-driven websites and begin to transform our sites
+from basic file viewers to full-fledged applications.</p>
 
                     </main>
 

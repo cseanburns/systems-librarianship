@@ -184,7 +184,7 @@ The <code>yaz-client</code> is an information retrieval client that uses the Z39
 For those unfamiliar, Z39.50 is a standard protocol in libraries for sharing, querying, and retrieving bibliographic information between library databases.
 Its development in the 1970s pre-dates the web, and its continued use illustrates the evolution of information retrieval systems since the 1970s.
 The protocol is maintained by the <a href="https://www.loc.gov/z3950/agency/"><em>Library of Congress</em></a>.</p>
-<p>The <code>yaz-client</code> is an SRU client, as well.
+<p>The <code>yaz-client</code> is an SRU client as well.
 SRU (Search/Retrieve via URL) and SRW (Search/Retrieve Web service) are modern internet and web-based successors to Z39.50.
 These protocols offer modern flexibility and more simplicity in accessing and sharing bibliographic records than Z39.50.
 See OCLC's page on <a href="https://www.oclc.org/research/areas/data-science/srw.html">SRW/U</a> for more information and The Library of Congress's documentation page: <a href="https://www.loc.gov/standards/sru/">SRU/CQL</a>.</p>
@@ -228,7 +228,7 @@ but it's less comprehensive:
 <p>Complete documentation for the <code>yaz-client</code> can be found on its homepage:
 <a href="https://www.indexdata.com/resources/software/yaz/">YAZ</a></p>
 <h2 id="using-yaz"><a class="header" href="#using-yaz">Using <code>yaz</code></a></h2>
-<p>The start the <code>yaz</code> program, run the <code>yaz-client</code> command.</p>
+<p>To start the <code>yaz</code> program, run the <code>yaz-client</code> command.</p>
 <pre><code>yaz-client
 </code></pre>
 <p>This creates a new command line interface with a new prompt:</p>
@@ -240,11 +240,11 @@ The following <code>open</code> command establishes a connection to the Universi
 <pre><code>Z&gt; open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
 </code></pre>
 <h2 id="queries"><a class="header" href="#queries">Queries</a></h2>
-<p>Queries are constructed using Prefix Query Notation (PQN).
-In the context of PQN, this is a way of structuring queries where the operator (e.g., AND, NOT, OR)
+<p>Queries are constructed using Prefix Query Format (PQF), sometimes called prefix query notation.
+In the context of PQF, this is a way of structuring queries where the operator (e.g., AND, NOT, OR)
 precedes the operands (e.g., search terms, attributes, fields).</p>
-<p>Each query begins with a <em>command</em> followed by a search syntax articulated by its PQN.
-The list of commands are described in <code>man yaz-client</code> in the COMMANDS section.
+<p>Each query begins with a <em>command</em> followed by a search syntax articulated in PQF.
+The list of commands is described in the COMMANDS section of <code>man yaz-client</code>.
 The main command we'll use is the <code>find</code> command, which may be abbreviated as <code>f</code>.
 Let's see some examples:</p>
 <h3 id="example-1"><a class="header" href="#example-1">Example 1</a></h3>
@@ -262,7 +262,7 @@ we use the following query:</p>
 <li><code>@attr 1=21</code> instructs the query to search for the term in the subject heading field</li>
 <li><code>"library science"</code> is the second search term for the subject heading search</li>
 </ul>
-<p>The search does not reveal the results.
+<p>The search returns a hit count but does not display the records.
 To peruse the results, we use the <code>show</code> command.
 To show the first record:</p>
 <pre><code>show 1
@@ -300,7 +300,7 @@ In this example, I abbreviate the <code>find</code> command as <code>f</code>:</
 <h2 id="advanced-usage"><a class="header" href="#advanced-usage">Advanced Usage</a></h2>
 <p>Let's open the <code>yaz-client</code> again but with the <code>-m</code> option.
 According to the <code>yaz-client</code> man page, the <code>-m</code> option
-option instructs the client to append bibliographic records to a file.
+instructs the client to append bibliographic records to a file.
 In the example below, I arbitrarily name the file <code>records.marc</code>.</p>
 <pre><code>$ yaz-client -m records.marc
 </code></pre>
@@ -367,19 +367,19 @@ by piping through <code>sort</code>, <code>uniq -c</code>, and <code>sort</code>
 <pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("z")) | .z' records-formatted.json
 </code></pre>
 <h3 id="other-formats"><a class="header" href="#other-formats">Other formats</a></h3>
-<p>We can the original MARC data to XML:</p>
+<p>We can convert the original MARC data to XML:</p>
 <pre><code>yaz-marcdump -o marcxml records.marc &gt; records.xml
 </code></pre>
-<p>We can query the XML data with <code>xmlstarlet</code> command, which is similar to <code>jq</code> but for XML structured data.</p>
+<p>We can query the XML data with the <code>xmlstarlet</code> command, which is similar to <code>jq</code> but for XML structured data.</p>
 <h3 id="downloading-all-results"><a class="header" href="#downloading-all-results">Downloading All Results</a></h3>
 <p>The process above saved only records we examined with the <code>show</code> command.
 The following <code>find</code> query locates 120 records and then the <code>show</code> command below allows us to save to file all 120 records.</p>
 <pre><code>$ yaz-client
-&gt; set_marcdump records.new
-&gt; open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
-&gt; find @and @attr 1=4 "technology" @attr 1=21 "library science"
-&gt; show 1 +120
-&gt; quit
+Z&gt; set_marcdump records.new
+Z&gt; open saalck-uky.alma.exlibrisgroup.com:1921/01SAA_UKY
+Z&gt; find @and @attr 1=4 "technology" @attr 1=21 "library science"
+Z&gt; show 1 +120
+Z&gt; quit
 </code></pre>
 <p>Then we can follow the steps above to convert to JSON and examine the file with <code>jq</code>.
 One thing we learn with bigger data sets is that data gets messy.
@@ -413,7 +413,7 @@ We can even select for other subfields, like the <code>z</code> <strong>650</str
 use that to map out the geographies reported in the subject headings in a catalog.</p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>Z39.50 is often presented as an abstract information retrieval concept even though it has played a central
-part of searching online catalogs and database for nearly 50 years.
+part of searching online catalogs and databases for nearly 50 years.
 The protocol, using tools like <code>yaz</code>, can be used to build search interfaces to bibliographic data.
 For example, see:</p>
 <ul>

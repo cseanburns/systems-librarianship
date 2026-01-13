@@ -189,10 +189,10 @@ This means it must be installed on the server.
 Unlike with JavaScript, the browser does not execute PHP directly;
 instead, the web server processes the PHP and sends the resulting HTML or other content to the browser.</p>
 <p>From a system or web administrator's perspective,
-this means that PHP has be installed and configured to work with the web/HTTP server.
+this means that PHP has to be installed and configured to work with the web/HTTP server.
 In our case, we have to install and configure PHP on our virtual instances to work with the Apache web server software.</p>
 <p>One of the primary uses of PHP is to interact with databases, like MySQL, MariaDB, PostgreSQL, etc.,
-in order to create data-based page content.
+in order to create data-driven content.
 To begin to set this up, we have to:</p>
 <ol>
 <li>Install PHP and relevant Apache modules</li>
@@ -202,20 +202,20 @@ To begin to set this up, we have to:</p>
 <h2 id="install-php"><a class="header" href="#install-php">Install PHP</a></h2>
 <p>As usual, we will use <code>apt install</code> to install PHP and relevant modules.
 Then we will restart Apache using the <code>systemctl</code> command.
-Use <code>apt show [package_name]</code> to read more about each package we will install.
+Use <code>apt show &lt;package_name&gt;</code> to read more about each package we will install.
 The first command below installs the <strong>php</strong> and the <strong>libapache2-mod-php</strong> packages.
 The latter package is used to create a connection between PHP and the Apache web server.</p>
 <pre><code>sudo apt install php libapache2-mod-php
 sudo systemctl restart apache2
 </code></pre>
 <p>Once installed, you want to confirm the installed version with the following command.
-This is because other software (e.g., WordPress, etc.) might require a specific version before that other software to work.</p>
+This is because other software (e.g., WordPress, etc.) might require a specific version for that software to work.</p>
 <pre><code>php -v
 </code></pre>
 <p>After we restart Apache, we need to check its status and see if there are any errors in the log output:</p>
 <pre><code>systemctl status apache2
 </code></pre>
-<h2 id="check-install"><a class="header" href="#check-install">Check Install</a></h2>
+<h2 id="check-installation"><a class="header" href="#check-installation">Check Installation</a></h2>
 <p>Next we check that PHP has been installed and that it's working with Apache.
 We can create a small PHP file in our web document root.
 To do that, we <code>cd</code> to the document root, <code>/var/www/html/</code>, and create a file called <strong>info.php</strong>:</p>
@@ -228,8 +228,8 @@ phpinfo();
 ?&gt;
 </code></pre>
 <p>Now visit that file using the public IP address for your server.
-If the public IP address for my virtual machine is <code>55.333.55.33</code>, then in Firefox, Chrome, etc, I would open:</p>
-<pre><code>http://55.333.55.333/info.php
+If the public IP address for my virtual machine is <code>203.0.113.10</code>, then in Firefox, Chrome, etc, I would open:</p>
+<pre><code>http://203.0.113.10/info.php
 </code></pre>
 <blockquote>
 <p>Again, be sure to replace the IP below with the IP address of your server and
@@ -253,14 +253,14 @@ you should delete it since it exposes detailed systems information:</p>
 <p>By default, when Apache serves a web page, it looks for a <a href="https://httpd.apache.org/docs/current/mod/mod_dir.html">file titled <code>index.html</code></a> and serves that,
 even if it does not display that file in the URL bar.
 Thus, <code>http://example.com/</code> actually resolves to <code>http://example.com/index.html</code> in such cases.
-However, if our plan is to provide for PHP,
-we want Apache to default to a file titled <code>index.php</code> instead of <code>index.html</code> file.
-In these cases, <code>http://example.com/</code> would actually resolves to <code>http://example.com/index.php</code>.</p>
+However, if our plan is to provide PHP,
+we want Apache to default to a file titled <code>index.php</code> instead of the <code>index.html</code> file.
+In these cases, <code>http://example.com/</code> would actually resolve to <code>http://example.com/index.php</code>.</p>
 <p>To configure that, we need to edit the <code>dir.conf</code> file in the <code>/etc/apache2/mods-enabled/</code> directory.
 In that file there is a line that starts with <code>DirectoryIndex</code> followed by a list of files.
 The first file listed in that line is <code>index.html</code>,
 and then there are a series of other files that Apache looks for in the order listed.
-Apache checks that list list and prioritizes these in order of appearance on the list.
+Apache checks that list and prioritizes these in order of appearance.
 If any of those files exist in the document root, then Apache serves those before proceeding to the next.
 We want Apache to prioritize the <code>index.php</code> file first and <code>index.html</code> second.
 Before modifying this file, it's good practice to create a backup of the original.

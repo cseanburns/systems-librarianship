@@ -189,7 +189,7 @@ Using <code>grep</code>, we can accomplish all of the above.</p>
 However, in this section, we will focus on the <code>grep</code> utility, which offers advanced methods for searching the contents of text files.
 Specifically, we'll work through an introduction of <code>grep</code> using a small data file that will help us understand how <code>grep</code> works.
 Then we will use <code>grep</code> to analyze bibliographic data downloaded as a <code>.bib</code> file from Scopus.
-This will demonstrate how <code>grep</code> can help you filter specific information from a structured dataset—an approach that can also be applied to processing
+This will demonstrate how <code>grep</code> can help you filter specific information from a structured dataset: an approach that can also be applied to processing
 catalog records, debugging system errors, or analyzing usage logs (e.g., see <a href="https://doi.org/10.1080/00987913.2017.1281788">Arneson, 2017</a>).</p>
 <h2 id="grep"><a class="header" href="#grep"><code>grep</code></a></h2>
 <p>The <code>grep</code> command is one of my most often used commands.
@@ -198,18 +198,19 @@ In other words, it searches text, and it's super powerful.</p>
 <p><code>grep</code> works line by line.
 So when we use it to search a file for a <strong>string</strong> of text, it will return the whole line that matches the string.
 This <strong>line by line</strong> idea is part of the history of Unix-like operating systems, and it's important to remember that most utilities
-and programs that we use on the commandline are line oriented.</p>
+and programs that we use on the command line are line oriented.</p>
 <blockquote>
 <p>"A string is any series of characters that are interpreted literally by a script. For example, 'hello world' and 'LKJH019283' are both examples of strings"
 (<a href="https://www.computerhope.com/jargon/s/string.htm">Computer Hope</a>).
 More generally, it's a type of data structure.</p>
 </blockquote>
 <p>To visualize how <code>grep</code> works, let's consider a file called <strong>operating-systems.csv</strong> with content as seen below.
-It's helps to learn something like <code>grep</code> when working with easy, clear examples.</p>
+It helps to learn something like <code>grep</code> when working with easy, clear examples.</p>
 <pre><code>OS, License, Year
 Chrome OS, Proprietary, 2009
 FreeBSD, BSD, 1993
 Linux, GPL, 1991
+iOS, Proprietary, 2007
 macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 Android, Apache, 2008
@@ -261,7 +262,7 @@ Android, Apache, 2008
 <h3 id="regular-expressions"><a class="header" href="#regular-expressions">Regular Expressions</a></h3>
 <p>Sometimes data files, like spreadsheets, contain header columns in the first row.
 We can use <code>grep</code> to remove the first line of a file by inverting our search and selecting all lines not matching "OS" at the start of a line.
-Here the carat key <code>^</code> is a <strong>regex</strong> indicating the start of a line.
+Here the caret key <code>^</code> is a <strong>regex</strong> indicating the start of a line.
 Again, this <code>grep</code> command returns all lines that do not match the string <strong>os</strong> at the start of a line, ignoring case:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -vi "^os" operating-systems.csv
@@ -336,19 +337,9 @@ iOS, Proprietary, 2007
 macOS, Proprietary, 2001
 </code></pre>
 <p>However, we might want to limit results so that we only return results where <strong>OS</strong> is a complete word.
-To do that, we can surround the string with special characters:</p>
+To do that, we can use the <code>-w</code> option:</p>
 <p><strong>Command:</strong></p>
-<pre><code>grep -i "\&lt;os\&gt;" operating-systems.csv
-</code></pre>
-<p><strong>Output:</strong></p>
-<pre><code>OS, License, Year
-Chrome OS, Proprietary, 2009
-</code></pre>
-<p>Sometimes I find it hard to remember the backslash and angle bracket combinations because they're too much alike HTML syntax but not exactly like HTML syntax.
-Fortunately, <code>grep</code> has a <code>-w</code> option to match whole words.
-This functions as another way of searching for whole words:</p>
-<p><strong>Command:</strong></p>
-<pre><code>grep -wi "os" operating-systems.csv
+<pre><code>grep -iw "os" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>OS, License, Year
@@ -362,8 +353,8 @@ For example, to print the matching line plus the two lines after the matching li
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>Linux, GPL, 1991
+iOS, Proprietary, 2007
 macOS, Proprietary, 2001
-Windows NT, Proprietary, 1993
 </code></pre>
 <p>Or, print the matching line plus the two lines before the matching line using the <code>-B NUM</code> option:</p>
 <p><strong>Command</strong></p>
@@ -395,14 +386,15 @@ Here I use <code>grep</code> to return a search for the string "proprietary" and
 </code></pre>
 <h3 id="returning-line-numbers"><a class="header" href="#returning-line-numbers">Returning Line Numbers</a></h3>
 <p>We can add the <code>-n</code> option to instruct <code>grep</code> to tell us the line number for each hit.
-Below we see that the string "proprietary" is found on lines 2, 5, and 6.</p>
+Below we see that the string "proprietary" is found on lines 2, 5, 6, and 7.</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -in "proprietary" operating-systems.csv
 </code></pre>
 <p><strong>Output:</strong></p>
 <pre><code>2:Chrome OS, Proprietary, 2009
-5:macOS, Proprietary, 2001
-6:Windows NT, Proprietary, 1993
+5:iOS, Proprietary, 2007
+6:macOS, Proprietary, 2001
+7:Windows NT, Proprietary, 1993
 </code></pre>
 <h3 id="character-class-matching"><a class="header" href="#character-class-matching">Character Class Matching</a></h3>
 <p>We can use <code>grep</code> to search for patterns in strings instead of literal words.
@@ -414,7 +406,7 @@ Here we use what's called <strong>character classes</strong> and <strong>repetit
 <pre><code>Linux, GPL, 1991
 macOS, Proprietary, 2001
 </code></pre>
-<p>Or four letter numbers, which highlights the years:</p>
+<p>Or four-digit numbers, which highlights the years:</p>
 <p><strong>Command:</strong></p>
 <pre><code>grep -Eiw "[0-9]{4}" operating-systems.csv
 </code></pre>
@@ -422,6 +414,7 @@ macOS, Proprietary, 2001
 <pre><code>Chrome OS, Proprietary, 2009
 FreeBSD, BSD, 1993
 Linux, GPL, 1991
+iOS, Proprietary, 2007
 macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 Android, Apache, 2008
@@ -450,7 +443,7 @@ Our task is to:</p>
 <li>Select the documents you want to download.</li>
 <li>Click on the <strong>Export</strong> button.</li>
 <li>Click on <em>BibTeX</em> under the listed file types.</li>
-<li>Select all <strong>Citation Information</strong> and <strong>Bibliographic Information</strong>. Select more in interested.</li>
+<li>Select all <strong>Citation Information</strong> and <strong>Bibliographic Information</strong>. Select more if interested.</li>
 <li>Click on <strong>Export</strong>.</li>
 </ol>
 <p>The file should be saved to your Downloads folder and titled <strong>scopus.bib</strong>.
@@ -474,14 +467,14 @@ Once you've established a connection, then click on the <strong>UPLOAD FILE</str
 Select the file and proceed.
 (If you get an error, then try again.)</p>
 <h3 id="investigate"><a class="header" href="#investigate">Investigate</a></h3>
-<p>Now that the file is uploaded, the first task is to to get an understanding of the structure of the data.
+<p>Now that the file is uploaded, the first task is to get an understanding of the structure of the data.
 <em>BibTeX</em> (.bib) files are structured files that contain bibliographic data.
 It's important to understand how files are structured if we want to search them efficiently.</p>
 <p>The <strong>scopus.bib</strong> file begins with information about the source (<em>Scopus</em>) of the records and the date the records were exported.
 These two lines and the empty line after them can be safely deleted or ignored.</p>
 <p>Each bibliographic record in the file begins with an <strong>entry type</strong> (or document type) preceded by an at <strong>@</strong> sign.
 Example entry types include: <a href="https://www.bibtex.com/e/entry-types/">article, book, booklet, conference, and more</a>.
-There is a opening curly brace after the entry or document type.
+There is an opening curly brace after the entry or document type.
 These curly braces mark the beginning and ending of each record.</p>
 <p>The cite key follows the opening curly brace.
 The cite key is an identifier that often refers to the author's name and includes publication date information.
@@ -499,7 +492,7 @@ Each line ends with a comma, except for the last line.
 The record ends with a closing curly brace.</p>
 <h4 id="document-types"><a class="header" href="#document-types">Document Types</a></h4>
 <p>We can use <code>grep</code> to examine the types of documents in the list of records.
-In the following command, I use the carat key <code>^</code>, which is a regular expression to signify the start of a line, to search for lines beginning with the at <code>@</code> symbol.
+In the following command, I use the caret key <code>^</code>, which is a regular expression to signify the start of a line, to search for lines beginning with the at <code>@</code> symbol.
 The following <code>grep</code> command therefore means: return all lines that begin with the at <code>@</code> symbol:</p>
 <pre><code>grep "^@" scopus.bib
 </code></pre>
@@ -545,7 +538,7 @@ Here I use two new commands, <code>cut</code> and <code>sed</code>.
 The <code>cut</code> command takes the results of the <code>grep</code> command, removes the first column based on the comma as the column delimiter.
 In the first <code>sed</code> command, I remove the space and opening curly brace and replace it with nothing.
 In the second <code>sed</code> command, I remove the closing curly brace and the comma and replace it with nothing.
-The result is list of only the journal titles without any extraneous characters.
+The result is a list of only the journal titles without any extraneous characters.
 I then pipe the output to the <code>sort</code> command, which sorts the list alphabetically, to the <code>uniq -c</code> command, which deduplicates and counts the results,
 and again to the <code>sort</code> command, which sorts numerically, since the first character is a number:</p>
 <pre><code>grep "journal =" scopus.bib | cut -d"=" -f2 | \
