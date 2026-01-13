@@ -7,10 +7,10 @@ the web server, or alternatively called the HTTP server.
 
 The web server is the software that makes websites available in your browsers.
 The basic function is to make files on the web server accessible to others via their web browsers.
-At a basic level, the web is essentially a world wide file system, and
-the web browser retrieves and displays files from web servers, much like a file explore does for local files.
-At a more advanced level, HTTP can also add more complexity beyond simple file access,
-such as providing dynamic content, APIs, and more.
+At a basic level, the web is a worldwide network of resources, and
+the web browser retrieves and displays files from web servers, much like a file explorer does for local files.
+At a more advanced level, HTTP supports more than simple file access; with server-side code
+it can provide dynamic content, APIs, and more.
 
 Knowing how a web server functions is crucial for anyone wanting to manage or deploy web services.
 There are many [web servers available][web_servers_wiki], but in this session,
@@ -95,7 +95,7 @@ Since `apache2` is active, let's look at the default web page.
 There are (at least) two ways we can look at the default web page.
 We can use a command line web browser or a graphical web browser, like Firefox, Chrome, etc.
 
-### Text Based Web Browser 
+### Text-Based Web Browser
 
 We have lots of command line browsers to use.
 I like `w3m` because it defaults to Vim keybindings, but many like `elinks`.
@@ -131,17 +131,18 @@ w3m localhost
 
 We can also acquire the system's [private IP address][private_ip_wiki] using the `ip a` command.
 There are different address ranges for the private networks.
-On your home network, your private IP address for a your laptop or phone might begin with `192.168.x.x`.
-On our virtual instances, the address will begin with the number **10** and look like `10.128.0.99`.
+On your home network, your private IP address for your laptop or phone might begin with `192.168.x.x`.
+On our virtual instances, the address often begins with the number **10** and looks like `10.128.0.99`,
+though this can vary by network.
 The difference deals with the size of the private networks.
 In any case, to use the private IP address with `w3m` from the virtual machine's command line, we run,
-assuming private IP address for my local machine is `10.128.0.99`:
+assuming the private IP address for my local machine is `10.128.0.99`:
 
 ```
 w3m 10.128.0.99
 ```
 
-If `apache2` installed and started correctly, you should see the following text:
+If `apache2` is installed and started correctly, you should see the following text:
 
 **Apache2 Ubuntu Default Page**  
 **It works!**
@@ -159,6 +160,11 @@ You should see your **External IP** address in the table on that page.
 You can copy that external IP address or simply click on it to open it in a new browser tab.
 If successful, you should see the graphical version of the **Apache2 Ubuntu Default Page**.
 
+If the page does not load, confirm that your VM allows inbound HTTP traffic on port 80.
+On Google Cloud, this means applying an **Allow HTTP traffic** firewall rule to the instance
+or creating a rule in the VPC firewall. This is the same setting you enabled when creating
+your virtual machine.
+
 > Note that most browsers nowadays try to force a secure HTTPS mode.
 > If your web page is not loading, make sure your URL is **http://IP-ADDRESS**
 > and not **https://IP-ADDRESS**.
@@ -173,7 +179,7 @@ Let's create your first web page on your first web server.
 The default page described above provides the location of the **document root** at `/var/www/html`.
 The **document root** may reside at a different location on a different Linux operating system,
 so it's important to verify that location.
-Remember that the web is, at its simplest, a filesystem that has been made available to the wide world.
+Remember that the web is, at its simplest, a worldwide network of resources.
 The web server is what provides access to part of the filesystem.
 That point of access is called the **document root**.
 
@@ -195,7 +201,7 @@ sudo nano index.html
 > Any mistake may result in deleting necessary files or directories.
 
 If you know HTML, then feel free to write some basic HTML code to get started.
-Otherwise, you can re-type the content below in `nano` or like, and then save and exit out.
+Otherwise, you can re-type the content below in `nano` or a similar editor, and then save and exit out.
 
 ```
 <html>
@@ -216,7 +222,7 @@ I created this site using the Apache HTTP server.</p>
 If you have your site open in your web browser, reload the page, and you should see the new text.
 
 You can still view the original default page by specifying its name in the URL.
-Remember that web browsers are, at their most basic, simply file viewers.
+Remember that web browsers are, at their most basic, resource viewers.
 So it makes sense that you simply have to specify the name of the file you want to view.
 For example, if your **public IP address** is `55.222.55.222`, then you'd specify it like so:
 
@@ -229,12 +235,12 @@ http://55.222.55.222/index.html.original
 In this section, we learned about the Apache HTTP server.
 We learned how to install it on Ubuntu, how to use a `systemctl` command to check its status,
 how to create a basic web page in `/var/www/html`,
-how to view that web page using the `w3m` command line browser and in our graphical browser,
+how to view that web page using the `w3m` command line browser and in our graphical browser.
 
 In the next section, we will install PHP,
 which will provide the language needed to connect to the relational database MySQL.
-This will enable more data driven web sites and begin to transform out sites
-from basic file viewers to full fledged applications.
+This will enable more data-driven websites and begin to transform our sites
+from basic file viewers to full-fledged applications.
 
 [apache]:https://httpd.apache.org/
 [getting_started]:https://httpd.apache.org/docs/2.4/getting-started.html

@@ -281,7 +281,7 @@ that we use, and
 Bash has a super interesting
 history that pre-exists Linux.
 Therefore, I highly encourage you
-listen to the
+to listen to the
 [Command Line Heroes][clh] episode titled
 [Heroes in a Bash Shell][bashheroes],
 narrated by
@@ -386,7 +386,7 @@ you can continue
 to practice with the
 `learn-the-cli-module` program.
 This is a modified version that
-allows you to focus specific
+allows you to focus on specific
 learning modules.
 
 ### Resources

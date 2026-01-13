@@ -12,10 +12,10 @@ However in the next section, we will explore the database basics from the comman
 
 ## Install and Set Up MySQL
 
-In this section, we'll learn how to install, setup, secure, and
+In this section, we'll learn how to install, set up, secure, and
 configure the MySQL relational database so that it works with the Apache web server and the PHP programming language.
 
-First, as normal, we make run the following commands to ensure our machines are fully updated:
+First, as normal, we run the following commands to ensure our machines are fully updated:
 
 ```
 sudo apt update
@@ -30,8 +30,8 @@ sudo apt clean
 > Wait a minute or two, and then reconnect.
 
 Then we install the MySQL Community Server package.
-The MySQL Community Server package is a **metapackage** that installs the latest, most secure version of MySQL,
-regardless of the software's version number, as well as its dependencies.
+The MySQL Community Server package is a **metapackage** that installs the default MySQL server version
+for the distribution, along with its dependencies.
 
 ```
 sudo apt install mysql-server
@@ -161,8 +161,12 @@ Next we grant `all privileges` on the database to the user account `opacuser`.
 ```
 mysql> create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
 mysql> show databases;
-mysql> grant all privileges on opacdb.* to 'opacuser'@'localhost' with grant option;
+mysql> grant all privileges on opacdb.* to 'opacuser'@'localhost';
 ```
+
+> Aside: in `create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci`,
+> `opacdb` is the database name, `default character set utf8mb4` sets the encoding,
+> and `collate utf8mb4_unicode_ci` sets the sorting and comparison rules for that encoding.
 
 Other than granting **all privileges**, we could limit the user to specific privileges, including:
 
@@ -179,7 +183,7 @@ They allow MySQL users to use and modify the databases, where appropriate.
 For example, we may want to limit the **opacuser** user account to only be able to use **SELECT** commands.
 These decisions depend on the purpose of the database and our security risks.
 
-Exit out of the MySQL database as the **root MySQL user**, and then exit out of the **root Linux user account**.
+Exit out of the MySQL database as the **root MySQL user**.
 You should be back to your normal Linux user account:
 
 ```
@@ -197,10 +201,10 @@ We can now start doing MySQL work.
 Note that when we login to the MySQL server, we leave the `bash` shell and enter the MySQL command line client.
 By default, the prompt for the client is bare-bones.
 We can make it more informative, though.
-To do so, open your `.bashrc` file:
+To do so, open your `~/.bashrc` file:
 
 ```
-nano .bashrc
+nano ~/.bashrc
 ```
 
 Scroll to the bottom of the file and add the following:
@@ -279,7 +283,7 @@ We can populate our **opacdb** database with some data.
 (I simply picked the first book listed from the NYTimes best lists of books for the years 2019-2022.)
 We'll use the MySQL `insert` command to add our records into our `books` table.
 We need to specify three fields when entering data: `author`, `title`, and `copyright`.
-The `copyright` field is a date field, and it should conform to the `YYYY` syntax.
+The `copyright` field uses the `YEAR` data type, and it should conform to the `YYYY` syntax.
 We do not need to specify data for the `id` field because that will be created and will increment automatically.
 
 ```
@@ -349,7 +353,7 @@ We're installing some modules alongside the basic support.
 These may or may not be needed, but I'm installing them to demonstrate some basics.
 
 ```
-sudo apt install php-mysql php-mysqli
+sudo apt install php-mysql
 ```
 
 And then restart Apache and MySQL:
@@ -362,7 +366,7 @@ sudo systemctl restart mysql
 ### Create PHP Scripts
 
 In order for PHP to connect to MySQL, it needs to authenticate itself.
-To do that, we will create a `login.php` file in in our document root's parent directory: `/var/www`.
+To do that, we will create a `login.php` file in our document root's parent directory: `/var/www`.
 We also need to change the group ownership of the file and its permissions (see note below).
 This will allow the file to be read by the Apache web server but not by the world.
 This prevents the password information from being accessible to web users.
@@ -399,7 +403,7 @@ When we run a command like `ls -l`, the output will show the file owner and the 
 >  
 > When we created the file using the `sudo touch login.php` command, the use of `sudo` creates the file with `root` as the owner.
 > The `chown :www-data login.php` command changes the group ownership to `www-data`.
-> The `www:data` user is the Apache user.
+> The `www-data` user is the Apache user.
 >  
 > Many services, like Apache, have corresponding users on the system.
 > Files placed in our document root `/var/www/html` will be served on the web.

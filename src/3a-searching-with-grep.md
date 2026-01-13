@@ -11,7 +11,7 @@ There are other powerful utilities and programs to process, manipulate, and anal
 However, in this section, we will focus on the `grep` utility, which offers advanced methods for searching the contents of text files.
 Specifically, we'll work through an introduction of `grep` using a small data file that will help us understand how `grep` works.
 Then we will use `grep` to analyze bibliographic data downloaded as a `.bib` file from Scopus.
-This will demonstrate how `grep` can help you filter specific information from a structured dataset&mdash;an approach that can also be applied to processing
+This will demonstrate how `grep` can help you filter specific information from a structured dataset: an approach that can also be applied to processing
 catalog records, debugging system errors, or analyzing usage logs (e.g., see [Arneson, 2017][arneson_2017]).
 
 ## `grep`
@@ -23,20 +23,21 @@ In other words, it searches text, and it's super powerful.
 `grep` works line by line.
 So when we use it to search a file for a **string** of text, it will return the whole line that matches the string.
 This **line by line** idea is part of the history of Unix-like operating systems, and it's important to remember that most utilities
-and programs that we use on the commandline are line oriented.
+and programs that we use on the command line are line oriented.
 
 > "A string is any series of characters that are interpreted literally by a script. For example, 'hello world' and 'LKJH019283' are both examples of strings"
 > ([Computer Hope][computerhope]).
 > More generally, it's a type of data structure. 
 
 To visualize how `grep` works, let's consider a file called **operating-systems.csv** with content as seen below.
-It's helps to learn something like `grep` when working with easy, clear examples.
+It helps to learn something like `grep` when working with easy, clear examples.
 
 ```
 OS, License, Year
 Chrome OS, Proprietary, 2009
 FreeBSD, BSD, 1993
 Linux, GPL, 1991
+iOS, Proprietary, 2007
 macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 Android, Apache, 2008
@@ -118,7 +119,7 @@ Android, Apache, 2008
 
 Sometimes data files, like spreadsheets, contain header columns in the first row.
 We can use `grep` to remove the first line of a file by inverting our search and selecting all lines not matching "OS" at the start of a line.
-Here the carat key `^` is a **regex** indicating the start of a line.
+Here the caret key `^` is a **regex** indicating the start of a line.
 Again, this `grep` command returns all lines that do not match the string **os** at the start of a line, ignoring case:
 
 **Command:**
@@ -242,29 +243,12 @@ macOS, Proprietary, 2001
 ```
 
 However, we might want to limit results so that we only return results where **OS** is a complete word.
-To do that, we can surround the string with special characters:
+To do that, we can use the `-w` option:
 
 **Command:**
 
 ```
-grep -i "\<os\>" operating-systems.csv
-```
-
-**Output:**
-
-```
-OS, License, Year
-Chrome OS, Proprietary, 2009
-```
-
-Sometimes I find it hard to remember the backslash and angle bracket combinations because they're too much alike HTML syntax but not exactly like HTML syntax.
-Fortunately, `grep` has a `-w` option to match whole words.
-This functions as another way of searching for whole words:
-
-**Command:**
-
-```
-grep -wi "os" operating-systems.csv
+grep -iw "os" operating-systems.csv
 ```
 
 **Output:**
@@ -289,8 +273,8 @@ grep -i "linux" -A2 operating-systems.csv
 
 ```
 Linux, GPL, 1991
+iOS, Proprietary, 2007
 macOS, Proprietary, 2001
-Windows NT, Proprietary, 1993
 ```
 
 Or, print the matching line plus the two lines before the matching line using the `-B NUM` option:
@@ -346,7 +330,7 @@ Chrome OS, Proprietary, 2009
 ### Returning Line Numbers
 
 We can add the `-n` option to instruct `grep` to tell us the line number for each hit.
-Below we see that the string "proprietary" is found on lines 2, 5, and 6.
+Below we see that the string "proprietary" is found on lines 2, 5, 6, and 7.
 
 **Command:**
 
@@ -358,8 +342,9 @@ grep -in "proprietary" operating-systems.csv
 
 ```
 2:Chrome OS, Proprietary, 2009
-5:macOS, Proprietary, 2001
-6:Windows NT, Proprietary, 1993
+5:iOS, Proprietary, 2007
+6:macOS, Proprietary, 2001
+7:Windows NT, Proprietary, 1993
 ```
 
 ### Character Class Matching
@@ -380,7 +365,7 @@ Linux, GPL, 1991
 macOS, Proprietary, 2001
 ```
 
-Or four letter numbers, which highlights the years:
+Or four-digit numbers, which highlights the years:
 
 **Command:**
 
@@ -394,6 +379,7 @@ grep -Eiw "[0-9]{4}" operating-systems.csv
 Chrome OS, Proprietary, 2009
 FreeBSD, BSD, 1993
 Linux, GPL, 1991
+iOS, Proprietary, 2007
 macOS, Proprietary, 2001
 Windows NT, Proprietary, 1993
 Android, Apache, 2008
@@ -432,7 +418,7 @@ I'm using Scopus data in this example, but other bibliographic data can be downl
 1. Select the documents you want to download.
 1. Click on the **Export** button.
 1. Click on *BibTeX* under the listed file types.
-1. Select all **Citation Information** and **Bibliographic Information**. Select more in interested.
+1. Select all **Citation Information** and **Bibliographic Information**. Select more if interested.
 1. Click on **Export**.
 
 The file should be saved to your Downloads folder and titled **scopus.bib**.
@@ -466,7 +452,7 @@ Select the file and proceed.
 
 ### Investigate
 
-Now that the file is uploaded, the first task is to to get an understanding of the structure of the data.
+Now that the file is uploaded, the first task is to get an understanding of the structure of the data.
 *BibTeX* (.bib) files are structured files that contain bibliographic data.
 It's important to understand how files are structured if we want to search them efficiently.
 
@@ -475,7 +461,7 @@ These two lines and the empty line after them can be safely deleted or ignored.
 
 Each bibliographic record in the file begins with an **entry type** (or document type) preceded by an at **@** sign.
 Example entry types include: [article, book, booklet, conference, and more][bibtex_entries].
-There is a opening curly brace after the entry or document type.
+There is an opening curly brace after the entry or document type.
 These curly braces mark the beginning and ending of each record.
 
 The cite key follows the opening curly brace.
@@ -500,7 +486,7 @@ The record ends with a closing curly brace.
 #### Document Types
 
 We can use `grep` to examine the types of documents in the list of records.
-In the following command, I use the carat key `^`, which is a regular expression to signify the start of a line, to search for lines beginning with the at `@` symbol.
+In the following command, I use the caret key `^`, which is a regular expression to signify the start of a line, to search for lines beginning with the at `@` symbol.
 The following `grep` command therefore means: return all lines that begin with the at `@` symbol:
 
 ```
@@ -566,7 +552,7 @@ Here I use two new commands, `cut` and `sed`.
 The `cut` command takes the results of the `grep` command, removes the first column based on the comma as the column delimiter.
 In the first `sed` command, I remove the space and opening curly brace and replace it with nothing.
 In the second `sed` command, I remove the closing curly brace and the comma and replace it with nothing.
-The result is list of only the journal titles without any extraneous characters.
+The result is a list of only the journal titles without any extraneous characters.
 I then pipe the output to the `sort` command, which sorts the list alphabetically, to the `uniq -c` command, which deduplicates and counts the results,
 and again to the `sort` command, which sorts numerically, since the first character is a number:
 

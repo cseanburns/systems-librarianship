@@ -2,7 +2,7 @@
 
 ## Introduction
 
-ManyLinux distributions use a **package manager** to handle the installation, upgrades, and uninstalls of the software on a system.
+Many Linux distributions use a **package manager** to handle the installation, upgrades, and uninstalls of the software on a system.
 The Ubuntu distribution uses a package manager called `dpkg` and a front-end called `apt` (advanced package tool).
 We will use `apt` to install, update, and remove software from our servers.
 
@@ -13,11 +13,11 @@ The `sudo` command allows us to <q>execute a command as another user</q> (see ``
 By default, the `sudo` command <q>executes a command as the superuser</q> (see `man 8 sudo`).
 
 The name of the **superuser** account is **root**.
-Th root user can perform administrative tasks that regular users cannot.
+The root user can perform administrative tasks that regular users cannot.
 For security purposes, regular accounts may not add, remove, or update software on a system,
 nor may they modify most files or directories outside their home directories.
 Using `sudo` allows regular users who have administrative privileges to perform maintenance tasks on our systems
-by using executing commands as the root user.
+by executing commands as the root user.
 Some consider this safer than logging in as the root user.
 
 Not all regular users can use the `sudo` command.
@@ -34,12 +34,12 @@ In this lesson, we will use `sudo` along with the `apt` commands to update our s
 ### ``sudo`` syntax
 
 The `sudo` command is simple to use.
-When necessary, we use `sudo` by pre-pending it to the regular commands that we have already learned.
+When necessary, we use `sudo` by prepending it to the regular commands that we have already learned.
 In our home directories, for example, we don't need to use `sudo` to create a new directory with the `mkdir` command.
 Instead we type something like `mkdir data` to create a new directory/folder called **data**.
 But our regular user doesn't own the files or directories outside our home directory.
 For example, when we downloaded my `bash` scripts to the `/usr/local/bin` directory,
-we used `sudo` since don't own that directory.
+we used `sudo` since we don't own that directory.
 If I want to create a **data** directory in **/usr/local/bin**, then I have to use sudo at the beginning of my command:
 
 ```
@@ -76,7 +76,7 @@ Next I'll demonstrate the `apt` commands that we'll need.
 ### `sudo apt update`
 
 Your system keeps a record of what software is installed on your system and their version numbers.
-The `sudo apt update` command updates that list and compares the update to what's installed.
+The `sudo apt update` command updates that list and compares what's available to what's installed.
 That is, if you have a piece of software called **acme1.1** on your system, and **acme1.2** is available, then
 running `sudo apt update` will let you know that you can upgrade to **acme1.2**.
 It's good practice to run `sudo apt update` before installing or upgrading your system.
@@ -90,7 +90,7 @@ sudo apt update
 
 ### ``sudo apt upgrade``
 
-Once the list of packages have been updated, you can **upgrade** with the `sudo apt upgrade` command if there are any upgrades.
+Once the list of packages has been updated, you can **upgrade** with the `sudo apt upgrade` command if there are any upgrades.
 When you run this command, and if there are any upgrades, you will be prompted to proceed.
 You can press **Y** to proceed, or **N** to cancel.
 
@@ -128,7 +128,7 @@ Not all packages are simply named, which is why we need to search for the specif
 > In those cases, pipe the above command through the `less` pager to page through the results:
 > `apt search <packagename> | less`
 
-## `apt show`
+### `apt show`
 
 If we want more specific information about a package, we can use the `apt show` command along with the package name.
 Therefore, to get more information about the `tldr` application, we execute the following command:
@@ -173,8 +173,8 @@ The `--purge` option will not remove those configs; instead, we have to remove t
 
 One of the great things about `dpkg` and `apt` is that it installs and handles software **dependencies** really well.
 Few computer applications are self-contained, and they often require other software to operate.
-These other software are called **dependencies**.
-When we uninstall (or remove) applications, the package manager does not auto uninstall those dependencies that were installed with it.
+These other pieces of software are called **dependencies**.
+When we uninstall (or remove) applications, the package manager does not automatically uninstall those dependencies that were installed with it.
 We use the `autoremove` command to uninstall those, which helps keep our systems clean:
 
 ```
@@ -183,8 +183,8 @@ sudo apt autoremove
 
 ### ``sudo apt clean``
 
-When we install packages, some files are installed with them.
-The `sudo apt clean` removes those extra files and frees up disk space.
+When we install packages, the package files are cached locally.
+The `sudo apt clean` command removes those cached package files and frees up disk space.
 It's a simple command:
 
 ```
@@ -200,7 +200,7 @@ These are `.deb` files.
 These files can be installed using the `dpkg` command:
 
 ```
-sudo dpkg -i <file_name.deb>`
+sudo dpkg -i <file_name.deb>
 ```
 
 Like with `exe` or `dmg` files, you want to be careful installing `deb` files you find on the web.

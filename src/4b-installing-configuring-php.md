@@ -14,22 +14,22 @@ Unlike with JavaScript, the browser does not execute PHP directly;
 instead, the web server processes the PHP and sends the resulting HTML or other content to the browser.
 
 From a system or web administrator's perspective,
-this means that PHP has be installed and configured to work with the web/HTTP server.
+this means that PHP has to be installed and configured to work with the web/HTTP server.
 In our case, we have to install and configure PHP on our virtual instances to work with the Apache web server software.
 
 One of the primary uses of PHP is to interact with databases, like MySQL, MariaDB, PostgreSQL, etc.,
-in order to create data-based page content.
+in order to create data-driven content.
 To begin to set this up, we have to:
 
 1. Install PHP and relevant Apache modules
 2. Configure PHP and relevant modules to work with Apache
 3. Configure PHP and relevant modules to work with MySQL
 
-## Install PHP 
+## Install PHP
 
 As usual, we will use `apt install` to install PHP and relevant modules.
 Then we will restart Apache using the `systemctl` command.
-Use `apt show [package_name]` to read more about each package we will install.
+Use `apt show <package_name>` to read more about each package we will install.
 The first command below installs the **php** and the **libapache2-mod-php** packages.
 The latter package is used to create a connection between PHP and the Apache web server.
 
@@ -39,7 +39,7 @@ sudo systemctl restart apache2
 ```
 
 Once installed, you want to confirm the installed version with the following command.
-This is because other software (e.g., WordPress, etc.) might require a specific version before that other software to work.
+This is because other software (e.g., WordPress, etc.) might require a specific version for that software to work.
 
 ```
 php -v
@@ -51,7 +51,7 @@ After we restart Apache, we need to check its status and see if there are any er
 systemctl status apache2
 ```
 
-## Check Install
+## Check Installation
 
 Next we check that PHP has been installed and that it's working with Apache.
 We can create a small PHP file in our web document root.
@@ -71,10 +71,10 @@ phpinfo();
 ```
 
 Now visit that file using the public IP address for your server.
-If the public IP address for my virtual machine is `55.333.55.33`, then in Firefox, Chrome, etc, I would open:
+If the public IP address for my virtual machine is `203.0.113.10`, then in Firefox, Chrome, etc, I would open:
 
 ```
-http://55.333.55.333/info.php
+http://203.0.113.10/info.php
 ```
 
 > Again, be sure to replace the IP below with the IP address of your server and
@@ -104,15 +104,15 @@ sudo rm /var/www/html/info.php
 By default, when Apache serves a web page, it looks for a [file titled `index.html`][mod_dir_docs] and serves that,
 even if it does not display that file in the URL bar.
 Thus, `http://example.com/` actually resolves to `http://example.com/index.html` in such cases.
-However, if our plan is to provide for PHP,
-we want Apache to default to a file titled `index.php` instead of `index.html` file.
-In these cases, `http://example.com/` would actually resolves to `http://example.com/index.php`.
+However, if our plan is to provide PHP,
+we want Apache to default to a file titled `index.php` instead of the `index.html` file.
+In these cases, `http://example.com/` would actually resolve to `http://example.com/index.php`.
 
 To configure that, we need to edit the `dir.conf` file in the `/etc/apache2/mods-enabled/` directory.
 In that file there is a line that starts with `DirectoryIndex` followed by a list of files.
 The first file listed in that line is `index.html`,
 and then there are a series of other files that Apache looks for in the order listed.
-Apache checks that list list and prioritizes these in order of appearance on the list.
+Apache checks that list and prioritizes these in order of appearance.
 If any of those files exist in the document root, then Apache serves those before proceeding to the next.
 We want Apache to prioritize the `index.php` file first and `index.html` second.
 Before modifying this file, it's good practice to create a backup of the original.
