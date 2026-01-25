@@ -1058,101 +1058,54 @@ This is a lot!
 After this course is completed, you will be able to fire up a virtual machine on short notice and deploy websites and more.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="learn-the-command-line-interface-cli"><a class="header" href="#learn-the-command-line-interface-cli">Learn the Command Line Interface (CLI)</a></h1>
 <h2 id="introduction-3"><a class="header" href="#introduction-3">Introduction</a></h2>
-<p>There are two major interfaces
-that we use to interact with our computers.
-The most common interface is the
-graphical user interface, or GUI.
-This interface largely emphasizes
-non-textual interaction,
-such as the mouse, fingers (touch screens),
-remote controls (e.g., smart TVs),
-and more recently,
-wearable tech such as
-VR headsets and the like.
-All of the above mechanisms for interacting
-with our computer systems are worthwhile, but
-more importantly, they are all suited to
-specific ranges of engagement with our computers.
-That is,
-<a href="https://doi.org/10.7551/mitpress/7221.001.0001">they <em>afford</em> certain kinds of actions</a>
-(Dourish, 2001).</p>
-<p>The other major way of interfacing with
-our computers is via the
-command line interface, or CLI.
-The CLI is also suited to
-specific ranges of engagement, and
-it's the kind of engagement that
-allows greater control over
-the fundamental uses of our systems.</p>
-<p>One reason the CLI provides greater
-control over our systems is because
+<p>There are two major interfaces that we use to interact with our computers.
+The most common interface is the graphical user interface, or GUI.
+This interface largely emphasizes non-textual interaction,
+such as the mouse, fingers (touch screens), remote controls (e.g., smart TVs),
+and more recently, wearable tech such as VR headsets and the like.
+All of the above mechanisms for interacting with our computer systems are worthwhile, but
+more importantly, they are all suited to specific ranges of engagement with our computers.
+That is, <a href="https://doi.org/10.7551/mitpress/7221.001.0001">they <em>afford</em> certain kinds of actions</a> (Dourish, 2001).</p>
+<p>The other major way of interfacing with our computers is via the command line interface,
+or CLI.
+The CLI is also suited to specific ranges of engagement, and
+it's the kind of engagement that allows greater control
+over the fundamental uses of our systems.</p>
+<p>One reason the CLI provides greater control over our systems is because
 the interaction is text-based.
-Text-based interaction requires more
-specificity than graphical-based interaction.
-By that I mean, it requires us to provide
-written instructions to a computer and
-to know what instructions to give it
-when we want the computer to perform
+Text-based interaction requires more specificity than graphical-based interaction.
+By that I mean, it requires us to provide written instructions to a computer and
+to know what instructions to give it when we want the computer to perform
 some specific action.
-This means that we have to memorize
-some common instructions in order to
+This means that we have to memorize some common instructions in order to
 use our systems.
-This is not necessarily difficult because
-many of the most common instructions,
-or <em>commands</em>,
-are mnemonic, but
-it does take some getting used to.</p>
-<p>A second reason the CLI provides greater
-control over the system is that because
-it's text-based,
-it can be automated.
-We will not cover programming
-in this work or course,
-but know that all the commands
-that we will learn can be put
-in a text file,
-made into an executable file,
-and run like a program.
-This makes text-based interaction
-rather powerful.</p>
-<p>The big gotcha with a text-based
-interface with the computer
+This is not necessarily difficult because many of the most common instructions,
+or <em>commands</em>, are mnemonic, but it does take some getting used to.</p>
+<p>A second reason the CLI provides greater control over the system is that because
+it's text-based, it can be automated.
+We will not cover programming in this work or course,
+but know that all the commands that we will learn can be put in a text file,
+made into an executable file, and run like a program.
+This makes text-based interaction rather powerful.</p>
+<p>The big gotcha with a text-based interface with the computer
 is that it requires specificity.
-We have to be fairly exact
-in our commands.
-This exactitude requires
-an <strong>attention to detail</strong>.
-Little things like misplaced punctuation,
-missing punctuation,
-incorrect capitalization or indentation,
-and misspelled words
-can cause errors or
+We have to be fairly exact in our commands.
+This exactitude requires an <strong>attention to detail</strong>.
+Little things like misplaced punctuation, missing punctuation,
+incorrect capitalization or indentation, and misspelled words can cause errors or
 prevent the execution of our programs.
-It's important to proceed slowly
-on the command line and
-to <strong>pay attention to the messages</strong>
-the screen displays
-when we run commands.</p>
+It's important to proceed slowly on the command line and to
+<strong>pay attention to the messages</strong> the screen displays when we run commands.</p>
 <h2 id="basic-commands"><a class="header" href="#basic-commands">Basic Commands</a></h2>
-<p>In light of that,
-I have developed two programs that
-will help you learn and remember
+<p>In light of that, I have developed four programs that will help you learn and remember
 basic Linux shell commands.
-The commands that I'll ask you to
-learn encompass less than 0.3%
-of the commands that are available
-on a Linux system, but
+The commands that I'll ask you to learn encompass less than 0.3% of
+the commands that are available on a Linux system, but
 they are the most commonly used commands.
-Many of the other commands that are
-available are for very specific purposes.
-I'd estimate
-that despite having used the Linux
-command line for over 20 years,
-I've barely used 20% of them, and
-I might be stretching my estimate.</p>
-<p>The first set of commands that
-I'll ask you to learn and
-practice include the following:</p>
+Many of the other commands that are available are for very specific purposes.
+I'd estimate that despite having used the Linux command line for nearly 25 years,
+I've barely used 20% of them, and I might be stretching my estimate.</p>
+<p>The first set of commands that I'll ask you to learn and practice include the following:</p>
 <pre><code>list files and directories.................. ls
 print name of current/working directory..... pwd
 create a new directory...................... mkdir
@@ -1165,112 +1118,72 @@ copy a file or directory.................... cp
 move or rename a file or directory.......... mv
 remove or delete a file or directory........ rm
 </code></pre>
-<p>You will practice these commands using
-the program that I wrote
-called <a href="https://github.com/cseanburns/learn-the-commandline/blob/main/learn-the-cli">learn-the-cli</a>
-(I will show you how to install
-this and the other programs shortly).</p>
-<p>I also developed a <a href="https://github.com/cseanburns/learn-the-commandline/blob/main/flashcards">flashcards</a>
-program that will help you learn,
-or at least become familiar,
-with an additional 45 commands.
-(This program is based on one created
-by someone else for a different purpose;
+<p>You will practice these commands using the program that I wrote called
+<a href="https://github.com/cseanburns/learn-the-commandline/blob/main/learn-the-cli">learn-the-cli</a>
+(I will show you how to install this and the other programs shortly).</p>
+<p>I also developed a <a href="https://github.com/cseanburns/learn-the-commandline/blob/main/flashcards">flashcards</a> program that will help you learn,
+or at least become familiar, with an additional 45 commands.
+(This program is based on one created by someone else for a different purpose;
 see source code link above for credit).
-I'll explain these additional commands
-as we proceed through the semester.
-In the meantime,
-I'll ask that you periodically run
-the <code>flashcards</code> program to
-familiarize yourself with these commands,
-which includes the ones in the list above
+I'll explain these additional commands as we proceed through the semester.
+In the meantime, I'll ask that you periodically run the <code>flashcards</code> program to
+familiarize yourself with these commands, which includes the ones in the list above
 but also a few additional ones.</p>
 <h2 id="the-filesystem"><a class="header" href="#the-filesystem">The Filesystem</a></h2>
-<p>In addition to the various commands
-that I'll ask you to learn,
-you will also have to learn the
-structure of the Linux filesystem.
-A filesystem has several meanings, but
-in this context,
-I refer to where the directories
-on the Linux system are placed.
-I find this to be the most difficult
-thing that new Linux users have to learn
+<p>In addition to the various commands that I'll ask you to learn,
+you will also have to learn the structure of the Linux filesystem.
+A filesystem has several meanings, but in this context,
+I refer to where the directories on the Linux system are placed.
+I find this to be the most difficult thing that new Linux users have to learn
 for a couple of reasons.
-First, modern operating systems tend
-to hide (abstract away)
+First, modern operating systems tend to hide (abstract away)
 the filesystem from their users.
-So even though, for example,
-macOS is Unix,
-many macOS users that I have taught
-are completely unfamiliar with the
-layout of directories on their system.
-This is because,
-per my observations,
-macOS Finder does not show
+So even though, for example, macOS is Unix, many macOS users that I have taught
+are completely unfamiliar with the layout of directories on their system.
+This is because, per my observations, macOS Finder does not show
 the filesystem by default these days.
-Instead it shows its users some common
-locations for <strong>folders</strong>.
-This might make macOS more usable to
-most users, but
+Instead it shows its users some common locations for <strong>folders</strong>.
+This might make macOS more usable to most users, but
 it makes learning the system more difficult.</p>
-<p>What's common for both macOS and Linux
-operating systems is a filesystem based on a
+<p>What's common for both macOS and Linux operating systems is a filesystem based on a
 tree-like structure.
-These filesystems begin at what's called a
-<strong>root</strong> location.
-The <strong>root</strong> location is referenced by
-a forward slash: <code>/</code>.
+These filesystems begin at what's called a <strong>root</strong> location.
+The <strong>root</strong> location is referenced by a forward slash: <code>/</code>.
 All directories <strong>branch</strong> off from root.
-The location to any directory is called
-a <strong>PATH</strong>.
-For example, our home directories on
-Linux are located at the following PATH:</p>
+The location to any directory is called a <strong>PATH</strong>.
+For example, our home directories on Linux are located at the following PATH:</p>
 <pre><code>/home/USER
 </code></pre>
 <p>That PATH begins at the root directory <code>/</code>,
-proceeds to the directory named <code>home</code>, and
-then ends in our <strong>USER</strong> directory,
+proceeds to the directory named <code>home</code>, and then ends in our <strong>USER</strong> directory,
 which will share the same name as our usernames.
-As an example,
-if my username on a Linux system is <strong>sb</strong>,
+As an example, if my username on a Linux system is <strong>sb</strong>,
 then my home directory will be located at:</p>
 <pre><code>/home/sb
 </code></pre>
+<p>Or if my username is <strong>sean</strong>, then my home directory will be located at the following path:</p>
+<pre><code>/home/sean
+</code></pre>
 <p>It is a little different for Windows users.
-Since Windows is not Unix-like,
-it uses a different filesystem hierarchy.
-Many Windows users might be familiar with
-the basics, such as the <strong>C:</strong> drive for the
-main storage device or the <strong>D:</strong> drive for
-an added USB stick.
-As such, the Windows operating system
-uses multiple root directories (C:, D:, E:, etc.).
+Since Windows is not Unix-like, it uses a different filesystem hierarchy.
+Many Windows users might be familiar with the basics,
+such as the <strong>C:</strong> drive for the main storage device or
+the <strong>D:</strong> drive for an added USB stick.
+As such, the Windows operating system uses multiple root directories (C:, D:, E:, etc.).
 I encourage you to read the following article on
 <a href="https://www.redhat.com/sysadmin/linux-filesystem-windows">A quick introduction to the Linux filesystem for Windows users</a>.
-The article is published by <em>Red Hat</em>,
-which makes its own Linux distribution.</p>
-<p>In short, learning the Linux filesystem
-requires adopting a new mental model
-about how the operating system organizes
-its directories and files.
-Like learning the basic commands,
-it's not too hard,
-but it may take time and practice
-before it sticks.
-To help learn it,
-I wrote an additional program that
-will let you practice navigating around
-the Linux filesystem and making some
-changes to it.
-The program is called
-<a href="https://github.com/cseanburns/learn-the-commandline/blob/main/learn-the-filesystem">learn-the-filesystem</a>.
-Before you use this program,
-I would like to encourage you to read
-another <em>Red Hat</em> article on
-<a href="https://www.redhat.com/sysadmin/navigating-filesystem-linux-terminal">Navigating your filesystem in the Linux terminal</a>.
-It includes sections that my program will cover
-that include:</p>
+The article is published by <em>Red Hat</em>, which makes its own Linux distribution.</p>
+<p>In short, learning the Linux filesystem requires adopting a new mental model
+about how the operating system organizes its directories and files.
+Like learning the basic commands, it's not too hard,
+but it may take time and practice before it sticks.
+To help learn it, I wrote an additional program that
+will let you practice navigating around the Linux filesystem and
+making some changes to it.
+The program is called <a href="https://github.com/cseanburns/learn-the-commandline/blob/main/learn-the-filesystem">learn-the-filesystem</a>.
+Before you use this program, I would like to encourage you to read
+another <em>Red Hat</em> article on <a href="https://www.redhat.com/sysadmin/navigating-filesystem-linux-terminal">Navigating your filesystem in the Linux terminal</a>.
+It includes sections that my program will cover that include:</p>
 <ul>
 <li>viewing file lists</li>
 <li>opening a folder (aka, a directory)</li>
@@ -1279,122 +1192,71 @@ that include:</p>
 <li>absolute paths</li>
 </ul>
 <h2 id="bash-the-bourne-again-shell"><a class="header" href="#bash-the-bourne-again-shell">Bash: The Bourne Again Shell</a></h2>
-<p>I should point out that the
-command line interface that we
-are using on our Linux servers
+<p>I should point out that the command line interface that we are using on our Linux servers
 is provided by a <a href="https://en.wikipedia.org/wiki/Unix_shell">shell</a>.
-A shell is "both an interactive
-command language and a scripting
-language" (see link above).
-We will use the shell strictly
-as a <a href="https://en.wikipedia.org/wiki/Command_language">command language</a>,
-but if you're interested someday,
-I'd encourage you to explore Bash
-as a <a href="https://en.wikipedia.org/wiki/Scripting_language">scripting language</a>
-(I personally script in Bash quite a lot, and both
-learn-the-cli and flashcards were written in <code>bash</code>).
-There are a variety of shells
-available for Linux and other Unix-like
-operating systems, but
-the most popular one and
-the one we will be using is called
-<a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a>.</p>
-<p>Bash is an acronym for the
-<em>Bourne Again Shell</em> because it's
-based on the original Unix shell
-called the Bourne shell,
-written by
-<a href="https://en.wikipedia.org/wiki/Stephen_R._Bourne">Stephen Bourne</a>.
-Bash itself was written by
-<a href="https://en.wikipedia.org/wiki/Brian_Fox_(computer_programmer)">Brian Fox</a>.</p>
-<p>I think it's important to know
-the history of the technologies
-that we use, and
-Bash has a super interesting
-history that pre-exists Linux.
-Therefore, I highly encourage you
-to listen to the
-<a href="https://www.redhat.com/en/command-line-heroes">Command Line Heroes</a> episode titled
-<a href="https://www.redhat.com/en/command-line-heroes/season-3/heroes-in-a-bash-shell">Heroes in a Bash Shell</a>,
-narrated by
-<a href="https://saron.io/">Saron Yitbarek</a>.
-The episode recounts Brian Fox's
-history with the Bash shell
-while he worked for the
-<a href="https://en.wikipedia.org/wiki/Free_Software_Foundation">Free Software Foundation</a>
-in the 1980s.</p>
+A shell is <q>both an interactive command language and a scripting language<q>
+(see link above).
+We will use the shell strictly as a <a href="https://en.wikipedia.org/wiki/Command_language">command language</a>,
+but if you're interested someday, I'd encourage you to explore Bash
+as a <a href="https://en.wikipedia.org/wiki/Scripting_language">scripting language</a>.
+(I personally script in Bash quite a lot, and the scripts below were written in <code>bash</code>.)
+There are a variety of shells available for Linux and other Unix-like operating systems,
+but the most popular one and the one we will be using is called <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a>.</p>
+<p>Bash is an acronym for the <em>Bourne Again Shell</em> because it's
+based on the original Unix shell called the Bourne shell,
+written by <a href="https://en.wikipedia.org/wiki/Stephen_R._Bourne">Stephen Bourne</a>.
+Bash itself was written by <a href="https://en.wikipedia.org/wiki/Brian_Fox_(computer_programmer)">Brian Fox</a>.</p>
+<p>I think it's important to know the history of the technologies that we use, and
+Bash has a super interesting history that pre-exists Linux.
+Therefore, I highly encourage you to listen to the <a href="https://www.redhat.com/en/command-line-heroes">Command Line Heroes</a> episode
+titled <a href="https://www.redhat.com/en/command-line-heroes/season-3/heroes-in-a-bash-shell">Heroes in a Bash Shell</a>, narrated by <a href="https://saron.io/">Saron Yitbarek</a>.
+The episode recounts Brian Fox's history with the Bash shell
+while he worked for the <a href="https://en.wikipedia.org/wiki/Free_Software_Foundation">Free Software Foundation</a> in the 1980s.</p>
 <h2 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h2>
-<p>We will spend the next few weeks
-practicing these commands and
-learning the filesystem.
-We'll do this because knowing
-these things is integral to
-accomplishing everything else in this work,
-including installing and setting up
-our content management systems and
-the integrated library system.</p>
-<p>In the video for this week,
-I'll show you how to install the
-programs that I wrote or modified.
+<p>We will spend the next few weeks practicing these commands and learning the filesystem.
+We'll do this because knowing these things is integral to
+accomplishing everything else in this work, including installing and setting up
+our content management systems and the integrated library system.</p>
+<p>In the video for this week, I'll show you how to install the programs that I wrote.
 We will use <code>git</code> to download them.
-Then we will move the programs to a
-specific directory in our
-executable PATH.
-This will allow us to run them
-simply by typing their names.</p>
+Then we will move the programs to a specific directory in our executable PATH.
+This will allow us to run them simply by typing their names.</p>
 <h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
-<p>To install my practice programs,
-log in to your Linux virtual instances, and
+<p>To install my practice programs, log in to your Linux virtual instances, and
 run the following commands.
 You will learn more about these commands shortly.</p>
-<p>First, let's take a look at the contents
-of your home directory
-(the default directory you're in when
-you connect to your virtual machine):</p>
+<h3 id="to-begin"><a class="header" href="#to-begin">To Begin</a></h3>
+<p>First, let's take a look at the contents of your home directory
+(the default directory you're in when you connect to your virtual machine):</p>
 <pre><code>ls
 </code></pre>
-<p>Most likely,
-nothing will be listed.</p>
-<p>Now let's retrieve the programs
-using the <code>git</code> command:</p>
+<p>Most likely, nothing will be listed.</p>
+<p>Now let's retrieve the programs using the <code>git</code> command.
+Run the following in your terminal on your Ubuntu VM:</p>
 <pre><code>git clone https://github.com/cseanburns/learn-the-commandline.git
 </code></pre>
-<p>Run the <code>ls</code> command again, and
-you'll see a new directory called
+<p>Run the <code>ls</code> command again, and you'll see a new directory called
 <code>learn-the-commandline</code>:</p>
 <pre><code>ls
 </code></pre>
 <p>Next, copy the programs to an executable path:</p>
 <pre><code>sudo cp learn-the-commandline/* /usr/local/bin
 </code></pre>
-<p>Run the first program and
-work through it in order to learn
-some of the basic commands:</p>
+<p>Run the first program and work through it in order to learn some of the basic commands:</p>
 <pre><code>learn-the-cli
 </code></pre>
-<p>When ready,
-run the second program in order
-to learn about the Linux filesystem:</p>
+<p>When ready, run the second program in order to learn about the Linux filesystem:</p>
 <pre><code>learn-the-filesystem
 </code></pre>
-<p>Finally, periodically run the
-<code>flashcards</code> program to refresh your
-memory of the basic commands, plus
-some other commands that you'll learn
-about soon:</p>
+<p>Finally, periodically run the <code>flashcards</code> program to refresh your
+memory of the basic commands, plus some other commands that you'll learn about soon:</p>
 <pre><code>flashcards
 </code></pre>
-<p>After working through the
-<code>learn-the-cli</code> program a few times,
-you can continue
-to practice with the
-<code>learn-the-cli-module</code> program.
-This is a modified version that
-allows you to focus on specific
-learning modules.</p>
+<p>After working through the <code>learn-the-cli</code> program a few times,
+you can continue to practice with the <code>learn-the-cli-module</code> program.
+This is a modified version that allows you to focus on specific learning modules.</p>
 <h3 id="resources"><a class="header" href="#resources">Resources</a></h3>
-<p>Here are some additional resources
-for learning Bash and Linux shell commands:</p>
+<p>Here are some additional resources for learning Bash and Linux shell commands:</p>
 <ul>
 <li><a href="https://explainshell.com">explainshell.com</a> : helps explain the parts of a shell command</li>
 <li><a href="https://www.shellcheck.net/">shellcheck.net</a> : helps debug a shell script</li>
