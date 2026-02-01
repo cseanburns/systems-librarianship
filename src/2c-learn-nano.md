@@ -193,7 +193,6 @@ For example, if you download a `.tar.zst` release:
 ```
 wget https://github.com/microsoft/edit/releases/download/v1.2.1/edit-1.2.0-x86_64-linux-gnu.tar.zst
 tar -xf  edit-1.2.0-x86_64-linux-gnu.tar.zst
-sudo mv edit /usr/local/bin/
 sudo install -m 0755 edit /usr/local/bin/edit
 ```
 
