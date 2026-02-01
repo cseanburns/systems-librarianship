@@ -188,10 +188,12 @@ It is distributed as a standalone binary.
 
 To install it, download the latest Linux release from the [Edit GitHub releases page][ms_edit_releases],
 extract the archive, and move the `edit` binary into your PATH.
-For example, if you download a `.tar.gz` release:
+For example, if you download a `.tar.zst` release:
 
 ```
-tar -xzf edit-linux-ARCH.tar.gz
+wget https://github.com/microsoft/edit/releases/download/v1.2.1/edit-1.2.0-x86_64-linux-gnu.tar.zst
+tar -xf  edit-1.2.0-x86_64-linux-gnu.tar.zst
+sudo mv edit /usr/local/bin/
 sudo install -m 0755 edit /usr/local/bin/edit
 ```
 
@@ -201,7 +203,11 @@ Then launch it with:
 edit
 ```
 
-Replace `ARCH` with the name of the file you downloaded.
+Or edit [FILENAME], if you want to work with a specific file:
+
+```
+edit test.md
+```
 
 ## Editing `.bashrc`
 
