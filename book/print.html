@@ -1415,14 +1415,18 @@ Press <strong>ctrl-q</strong> to exit the help menu.</p>
 It is distributed as a standalone binary.</p>
 <p>To install it, download the latest Linux release from the <a href="https://github.com/microsoft/edit/releases">Edit GitHub releases page</a>,
 extract the archive, and move the <code>edit</code> binary into your PATH.
-For example, if you download a <code>.tar.gz</code> release:</p>
-<pre><code>tar -xzf edit-linux-ARCH.tar.gz
+For example, if you download a <code>.tar.zst</code> release:</p>
+<pre><code>wget https://github.com/microsoft/edit/releases/download/v1.2.1/edit-1.2.0-x86_64-linux-gnu.tar.zst
+tar -xf  edit-1.2.0-x86_64-linux-gnu.tar.zst
+sudo mv edit /usr/local/bin/
 sudo install -m 0755 edit /usr/local/bin/edit
 </code></pre>
 <p>Then launch it with:</p>
 <pre><code>edit
 </code></pre>
-<p>Replace <code>ARCH</code> with the name of the file you downloaded.</p>
+<p>Or edit [FILENAME], if you want to work with a specific file:</p>
+<pre><code>edit test.md
+</code></pre>
 <h2 id="editing-bashrc"><a class="header" href="#editing-bashrc">Editing <code>.bashrc</code></a></h2>
 <p>By default, your Bash shell is probably white text on a black background.
 We can add some color to this by modifying our Bash shell configuration file.
