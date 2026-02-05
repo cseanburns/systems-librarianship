@@ -405,23 +405,41 @@ macOS, Proprietary, 2001
 Let's use the `grep` command to investigate bibliographic data.
 Our task is to:
 
-1. Search *Scopus*.
-1. Download a [*BibTeX*][bibtex] file from *Scopus* as a .bib file.
-1. Use the `grep` command to search the downloaded *BibTeX* file, which should be named **scopus.bib**.
+1. Search *Scopus* or *Web of Science*.
+1. Download a [*BibTeX*][bibtex] file as a .bib file.
+1. Use the `grep` command to search the downloaded *BibTeX* file,
+   which should be named **scopus.bib** (*Scopus*) or *savedrecs.bib* (*Web of Science*).
 
 ### Download Data
 
-I'm using Scopus data in this example, but other bibliographic data can be downloaded from other databases.
+If using *Scopus*, follow these instructions to download the *BibTeX* file:
 
-1. From your university's website, find Scopus.
-1. In Scopus, perform a search.
+1. From your university's website, find Scopus and select it.
+1. Create an account with Scopus using your institutional credentials and sign in.
+1. Perform a search.
 1. Select the documents you want to download.
+    - You can export up to 20,000 documents but limit it to four or five hundred records.
 1. Click on the **Export** button.
 1. Click on *BibTeX* under the listed file types.
 1. Select all **Citation Information** and **Bibliographic Information**. Select more if interested.
 1. Click on **Export**.
 
 The file should be saved to your Downloads folder and titled **scopus.bib**.
+
+If using *Web of Science*, follow these instructions to download the *BibTeX* file:
+
+1. From your university's website, find *Web of Science Core Collection* and select it.
+1. Perform a search.
+1. Select the documents you want to download.
+    - Limit it to a few hundred.
+1. Click on the **Export** button.
+1. Click on *BibTeX* under the listed file types.
+1. Select the amount of records to export.
+1. Under **Record Content**, select **Full Record**.
+1. Click on **Export**.
+
+The file should be saved to your Downloads folder and titled **savedrecs.bib**.
+
 The next step is to upload the file to your virtual instance.
 See the steps below.
 
@@ -465,12 +483,14 @@ There is an opening curly brace after the entry or document type.
 These curly braces mark the beginning and ending of each record.
 
 The cite key follows the opening curly brace.
-The cite key is an identifier that often refers to the author's name and includes publication date information.
+In *Scopus*, the cite key is an identifier that often refers to the author's name and includes publication date information.
 For example, a cite key might look as follows and would stand for the author **Budd** and the date **2020-11-23**.
 
 ```
 Budd20201123
 ```
+
+*Web of Science* uses less meaningful information as the cite key.
 
 The rows below the entry type contain the metadata for the record.
 Each row begins with a tag or field name followed by an equal sign, which is then followed by the values or content for that tag.
@@ -519,13 +539,24 @@ As a result, it will provide an overall count of the document or entry types we 
 grep -Eio "^@(A|B)[A-Z]*" scopus.bib | sort | uniq -c
 ```
 
+There are other ways to use the `grep` command to get this information.
+For example, in the command below, I to instruct `grep` to search for all records that start with the at sign `@` and
+are followed by any character in the alphabet `[a-z]`, and then followed by any number of characters `*`.
+The `grep` options `-oi` instruct `grep` to only select matching results (and not the whole line) and to turn off case sensitivity.
+This example is based on *Web of Science* data, but it also works on *Scopus* data:
+
+```
+grep -oi "^@[a-z]*" savedrecs.bib | sort | uniq -c
+```
+
 #### Journal Titles
 
 We can parse the data for other information.
-For example, we can get a list of journal titles by querying for the **journal** tag:
+For example, we can get a list of journal titles by querying for the **journal** tag.
+For *Scopus* data:
 
 ```
-grep "journal" scopus.bib
+grep -i "journal" scopus.bib
 ```
 
 Even though that works, the data contains the word **Journal** in the name of some journals.
@@ -562,12 +593,22 @@ grep "journal =" scopus.bib | cut -d"=" -f2 | \
     sort | uniq -c | sort
 ```
 
+The *Web of Science* data is structured similarly but we need to change the filename and
+part of the `grep` command to specify lines starting with **journal**:
+
+```
+grep -i "^journal =" savedrecs.bib | cut -d"=" -f2 |\
+    sed 's/ {//' | sed 's/},//' | \
+    sort | uniq -c | sort -nr
+```
+
 #### Total Citations
 
 There are other things we can do if we want to learn more powerful technologies.
 While I will not cover `awk`, I do want to introduce it to you.
 With the `awk` command, based on the *BibTeX* tag that includes citation counts at the time of the download (e.g., `note = {Cited by: 2}`),
-we can extract the number from that field for each record and sum the total citations for the records in the file:
+we can extract the number from that field for each record and sum the total citations for the records in the file.
+For the *Scopus* data:
 
 ```
  grep -o "Cited by: [0-9]*" scopus.bib | \
@@ -587,6 +628,15 @@ In the above command, we use the pipe operator to connect a series of commands t
 
 > If you want to learn more about `sed` and `awk`, please see my [text processing chapter for my Linux Systems Administration][text_processing].
 > There are also many tutorials on the web.
+
+For *Web of Science* data:
+
+```
+grep -o "Times-Cited = {[0-9]*" savedrecs.bib | \
+    awk -F"{" 'BEGIN { printf "Total Citations: "} \
+    { sum +=2; } \
+    END { print sum }'
+```
 
 ## Conclusion
 

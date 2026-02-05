@@ -2266,23 +2266,45 @@ Here we search for words that start with <strong>m</strong>, end with <strong>s<
 <p>Let's use the <code>grep</code> command to investigate bibliographic data.
 Our task is to:</p>
 <ol>
-<li>Search <em>Scopus</em>.</li>
-<li>Download a <a href="https://www.bibtex.org/Format/"><em>BibTeX</em></a> file from <em>Scopus</em> as a .bib file.</li>
-<li>Use the <code>grep</code> command to search the downloaded <em>BibTeX</em> file, which should be named <strong>scopus.bib</strong>.</li>
+<li>Search <em>Scopus</em> or <em>Web of Science</em>.</li>
+<li>Download a <a href="https://www.bibtex.org/Format/"><em>BibTeX</em></a> file as a .bib file.</li>
+<li>Use the <code>grep</code> command to search the downloaded <em>BibTeX</em> file,
+which should be named <strong>scopus.bib</strong> (<em>Scopus</em>) or <em>savedrecs.bib</em> (<em>Web of Science</em>).</li>
 </ol>
 <h3 id="download-data"><a class="header" href="#download-data">Download Data</a></h3>
-<p>I'm using Scopus data in this example, but other bibliographic data can be downloaded from other databases.</p>
+<p>If using <em>Scopus</em>, follow these instructions to download the <em>BibTeX</em> file:</p>
 <ol>
-<li>From your university's website, find Scopus.</li>
-<li>In Scopus, perform a search.</li>
-<li>Select the documents you want to download.</li>
+<li>From your university's website, find Scopus and select it.</li>
+<li>Create an account with Scopus using your institutional credentials and sign in.</li>
+<li>Perform a search.</li>
+<li>Select the documents you want to download.
+<ul>
+<li>You can export up to 20,000 documents but limit it to four or five hundred records.</li>
+</ul>
+</li>
 <li>Click on the <strong>Export</strong> button.</li>
 <li>Click on <em>BibTeX</em> under the listed file types.</li>
 <li>Select all <strong>Citation Information</strong> and <strong>Bibliographic Information</strong>. Select more if interested.</li>
 <li>Click on <strong>Export</strong>.</li>
 </ol>
-<p>The file should be saved to your Downloads folder and titled <strong>scopus.bib</strong>.
-The next step is to upload the file to your virtual instance.
+<p>The file should be saved to your Downloads folder and titled <strong>scopus.bib</strong>.</p>
+<p>If using <em>Web of Science</em>, follow these instructions to download the <em>BibTeX</em> file:</p>
+<ol>
+<li>From your university's website, find <em>Web of Science Core Collection</em> and select it.</li>
+<li>Perform a search.</li>
+<li>Select the documents you want to download.
+<ul>
+<li>Limit it to a few hundred.</li>
+</ul>
+</li>
+<li>Click on the <strong>Export</strong> button.</li>
+<li>Click on <em>BibTeX</em> under the listed file types.</li>
+<li>Select the amount of records to export.</li>
+<li>Under <strong>Record Content</strong>, select <strong>Full Record</strong>.</li>
+<li>Click on <strong>Export</strong>.</li>
+</ol>
+<p>The file should be saved to your Downloads folder and titled <strong>savedrecs.bib</strong>.</p>
+<p>The next step is to upload the file to your virtual instance.
 See the steps below.</p>
 <h3 id="upload-to-gcloud"><a class="header" href="#upload-to-gcloud">Upload to gcloud</a></h3>
 <p>There are several methods for uploading and downloading files to your Google Cloud instance.
@@ -2312,10 +2334,11 @@ Example entry types include: <a href="https://www.bibtex.com/e/entry-types/">art
 There is an opening curly brace after the entry or document type.
 These curly braces mark the beginning and ending of each record.</p>
 <p>The cite key follows the opening curly brace.
-The cite key is an identifier that often refers to the author's name and includes publication date information.
+In <em>Scopus</em>, the cite key is an identifier that often refers to the author's name and includes publication date information.
 For example, a cite key might look as follows and would stand for the author <strong>Budd</strong> and the date <strong>2020-11-23</strong>.</p>
 <pre><code>Budd20201123
 </code></pre>
+<p><em>Web of Science</em> uses less meaningful information as the cite key.</p>
 <p>The rows below the entry type contain the metadata for the record.
 Each row begins with a tag or field name followed by an equal sign, which is then followed by the values or content for that tag.
 For example, there's an author tag, an equal sign, and then a list of authors.
@@ -2351,10 +2374,18 @@ The <code>uniq</code> command will deduplicate the results, and the <strong>-c</
 As a result, it will provide an overall count of the document or entry types we searched.</p>
 <pre><code>grep -Eio "^@(A|B)[A-Z]*" scopus.bib | sort | uniq -c
 </code></pre>
+<p>There are other ways to use the <code>grep</code> command to get this information.
+For example, in the command below, I to instruct <code>grep</code> to search for all records that start with the at sign <code>@</code> and
+are followed by any character in the alphabet <code>[a-z]</code>, and then followed by any number of characters <code>*</code>.
+The <code>grep</code> options <code>-oi</code> instruct <code>grep</code> to only select matching results (and not the whole line) and to turn off case sensitivity.
+This example is based on <em>Web of Science</em> data, but it also works on <em>Scopus</em> data:</p>
+<pre><code>grep -oi "^@[a-z]*" savedrecs.bib | sort | uniq -c
+</code></pre>
 <h4 id="journal-titles"><a class="header" href="#journal-titles">Journal Titles</a></h4>
 <p>We can parse the data for other information.
-For example, we can get a list of journal titles by querying for the <strong>journal</strong> tag:</p>
-<pre><code>grep "journal" scopus.bib
+For example, we can get a list of journal titles by querying for the <strong>journal</strong> tag.
+For <em>Scopus</em> data:</p>
+<pre><code>grep -i "journal" scopus.bib
 </code></pre>
 <p>Even though that works, the data contains the word <strong>Journal</strong> in the name of some journals.
 If we were searching thousands or more records, we might want to construct a more unique <code>grep</code> search.</p>
@@ -2380,11 +2411,18 @@ and again to the <code>sort</code> command, which sorts numerically, since the f
     sed 's/ {//' | sed 's/},//' | \
     sort | uniq -c | sort
 </code></pre>
+<p>The <em>Web of Science</em> data is structured similarly but we need to change the filename and
+part of the <code>grep</code> command to specify lines starting with <strong>journal</strong>:</p>
+<pre><code>grep -i "^journal =" savedrecs.bib | cut -d"=" -f2 |\
+    sed 's/ {//' | sed 's/},//' | \
+    sort | uniq -c | sort -nr
+</code></pre>
 <h4 id="total-citations"><a class="header" href="#total-citations">Total Citations</a></h4>
 <p>There are other things we can do if we want to learn more powerful technologies.
 While I will not cover <code>awk</code>, I do want to introduce it to you.
 With the <code>awk</code> command, based on the <em>BibTeX</em> tag that includes citation counts at the time of the download (e.g., <code>note = {Cited by: 2}</code>),
-we can extract the number from that field for each record and sum the total citations for the records in the file:</p>
+we can extract the number from that field for each record and sum the total citations for the records in the file.
+For the <em>Scopus</em> data:</p>
 <pre><code> grep -o "Cited by: [0-9]*" scopus.bib | \
     awk -F":" \
     'BEGIN { printf "Total Citations: "} \
@@ -2403,6 +2441,12 @@ we can extract the number from that field for each record and sum the total cita
 <p>If you want to learn more about <code>sed</code> and <code>awk</code>, please see my <a href="https://cseanburns.github.io/linux_sysadmin/3e-text-processing-part-2.html">text processing chapter for my Linux Systems Administration</a>.
 There are also many tutorials on the web.</p>
 </blockquote>
+<p>For <em>Web of Science</em> data:</p>
+<pre><code>grep -o "Times-Cited = {[0-9]*" savedrecs.bib | \
+    awk -F"{" 'BEGIN { printf "Total Citations: "} \
+    { sum +=2; } \
+    END { print sum }'
+</code></pre>
 <h2 id="conclusion-5"><a class="header" href="#conclusion-5">Conclusion</a></h2>
 <p><code>grep</code> is very powerful, and there are more options listed in its <code>man</code> page.</p>
 <p>The Linux (and other Unix-like OSes) command line offers a lot of utilities to examine data.
