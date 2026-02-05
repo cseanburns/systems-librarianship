@@ -414,8 +414,8 @@ Our task is to:
 
 If using *Scopus*, follow these instructions to download the *BibTeX* file:
 
-1. From your university's website, find Scopus and select it.
-1. Create an account with Scopus using your institutional credentials and sign in.
+1. From your university's website, find *Scopus* and select it.
+1. Create an account with *Scopus* using your institutional credentials and sign in.
 1. Perform a search.
 1. Select the documents you want to download.
     - You can export up to 20,000 documents but limit it to four or five hundred records.
@@ -470,9 +470,14 @@ Select the file and proceed.
 
 ### Investigate
 
-Now that the file is uploaded, the first task is to get an understanding of the structure of the data.
+Once the file is uploaded, the first task is to get an understanding of the structure of the data.
 *BibTeX* (.bib) files are structured files that contain bibliographic data.
 It's important to understand how files are structured if we want to search them efficiently.
+Use the `less` command to explore the file; e.g.:
+
+```
+less savedrecs.bib
+```
 
 The **scopus.bib** file begins with information about the source (*Scopus*) of the records and the date the records were exported.
 These two lines and the empty line after them can be safely deleted or ignored.
@@ -505,6 +510,8 @@ The record ends with a closing curly brace.
 
 #### Document Types
 
+##### Scopus
+
 We can use `grep` to examine the types of documents in the list of records.
 In the following command, I use the caret key `^`, which is a regular expression to signify the start of a line, to search for lines beginning with the at `@` symbol.
 The following `grep` command therefore means: return all lines that begin with the at `@` symbol:
@@ -513,7 +520,7 @@ The following `grep` command therefore means: return all lines that begin with t
 grep "^@" scopus.bib
 ```
 
-The results show, for this particular data, that I have BOOK and ARTICLE entry types.
+The results show, for this particular *SCOPUS* data, that I have BOOK and ARTICLE entry types.
 The data I'm using does not contain many records, but if it contained thousands or more, then it would be helpful to filter these results.
 
 Thus, below I use the `-E` option to extend `grep`'s regular expression engine.
@@ -539,8 +546,10 @@ As a result, it will provide an overall count of the document or entry types we 
 grep -Eio "^@(A|B)[A-Z]*" scopus.bib | sort | uniq -c
 ```
 
+##### Web of Science
+
 There are other ways to use the `grep` command to get this information.
-For example, in the command below, I to instruct `grep` to search for all records that start with the at sign `@` and
+For example, in the command below, I instruct `grep` to search for all records that start with the at sign `@` and
 are followed by any character in the alphabet `[a-z]`, and then followed by any number of characters `*`.
 The `grep` options `-oi` instruct `grep` to only select matching results (and not the whole line) and to turn off case sensitivity.
 This example is based on *Web of Science* data, but it also works on *Scopus* data:
@@ -559,7 +568,7 @@ For *Scopus* data:
 grep -i "journal" scopus.bib
 ```
 
-Even though that works, the data contains the word **Journal** in the name of some journals.
+Even though that works, the data contains the word **Journal** in the name of some journals (e.g., *Journal of X, Y, Z*).
 If we were searching thousands or more records, we might want to construct a more unique `grep` search.
 
 To rectify this, we can modify our `grep` search in two ways.
@@ -629,7 +638,7 @@ In the above command, we use the pipe operator to connect a series of commands t
 > If you want to learn more about `sed` and `awk`, please see my [text processing chapter for my Linux Systems Administration][text_processing].
 > There are also many tutorials on the web.
 
-For *Web of Science* data:
+For *Web of Science* data, we have to `grep` for a different string to get the citation counts: "Times-Cited ={[0-9]\*".
 
 ```
 grep -o "Times-Cited = {[0-9]*" savedrecs.bib | \
@@ -646,8 +655,9 @@ The Linux (and other Unix-like OSes) command line offers a lot of utilities to e
 It's fun to learn and practice these.
 Despite this, you do not have to become an advanced `grep` user.
 For most cases, simple `grep` searches work well.
+To see an example of `grep` used by systems librarians, see [Smith &amp; Arneson (2017)][arneson_2017].
 
-There are many `grep` tutorials on the web if you want to see other examples.
+There are also many `grep` tutorials on the web if you want to see other examples.
 
 ## References
 
