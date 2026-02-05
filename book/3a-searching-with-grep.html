@@ -439,8 +439,8 @@ which should be named <strong>scopus.bib</strong> (<em>Scopus</em>) or <em>saved
 <h3 id="download-data"><a class="header" href="#download-data">Download Data</a></h3>
 <p>If using <em>Scopus</em>, follow these instructions to download the <em>BibTeX</em> file:</p>
 <ol>
-<li>From your university's website, find Scopus and select it.</li>
-<li>Create an account with Scopus using your institutional credentials and sign in.</li>
+<li>From your university's website, find <em>Scopus</em> and select it.</li>
+<li>Create an account with <em>Scopus</em> using your institutional credentials and sign in.</li>
 <li>Perform a search.</li>
 <li>Select the documents you want to download.
 <ul>
@@ -489,9 +489,12 @@ Once you've established a connection, then click on the <strong>UPLOAD FILE</str
 Select the file and proceed.
 (If you get an error, then try again.)</p>
 <h3 id="investigate"><a class="header" href="#investigate">Investigate</a></h3>
-<p>Now that the file is uploaded, the first task is to get an understanding of the structure of the data.
+<p>Once the file is uploaded, the first task is to get an understanding of the structure of the data.
 <em>BibTeX</em> (.bib) files are structured files that contain bibliographic data.
-It's important to understand how files are structured if we want to search them efficiently.</p>
+It's important to understand how files are structured if we want to search them efficiently.
+Use the <code>less</code> command to explore the file; e.g.:</p>
+<pre><code>less savedrecs.bib
+</code></pre>
 <p>The <strong>scopus.bib</strong> file begins with information about the source (<em>Scopus</em>) of the records and the date the records were exported.
 These two lines and the empty line after them can be safely deleted or ignored.</p>
 <p>Each bibliographic record in the file begins with an <strong>entry type</strong> (or document type) preceded by an at <strong>@</strong> sign.
@@ -514,12 +517,13 @@ The fields are standardized because some programs use <em>BibTeX</em> records to
 Each line ends with a comma, except for the last line.
 The record ends with a closing curly brace.</p>
 <h4 id="document-types"><a class="header" href="#document-types">Document Types</a></h4>
+<h5 id="scopus"><a class="header" href="#scopus">Scopus</a></h5>
 <p>We can use <code>grep</code> to examine the types of documents in the list of records.
 In the following command, I use the caret key <code>^</code>, which is a regular expression to signify the start of a line, to search for lines beginning with the at <code>@</code> symbol.
 The following <code>grep</code> command therefore means: return all lines that begin with the at <code>@</code> symbol:</p>
 <pre><code>grep "^@" scopus.bib
 </code></pre>
-<p>The results show, for this particular data, that I have BOOK and ARTICLE entry types.
+<p>The results show, for this particular <em>SCOPUS</em> data, that I have BOOK and ARTICLE entry types.
 The data I'm using does not contain many records, but if it contained thousands or more, then it would be helpful to filter these results.</p>
 <p>Thus, below I use the <code>-E</code> option to extend <code>grep</code>'s regular expression engine.
 I use the <code>(A|B)</code> to tell <code>grep</code> to search for letters after the at sign <code>@</code> that start with either A or B, for ARTICLE or BOOK.
@@ -539,8 +543,9 @@ The <code>uniq</code> command will deduplicate the results, and the <strong>-c</
 As a result, it will provide an overall count of the document or entry types we searched.</p>
 <pre><code>grep -Eio "^@(A|B)[A-Z]*" scopus.bib | sort | uniq -c
 </code></pre>
+<h5 id="web-of-science"><a class="header" href="#web-of-science">Web of Science</a></h5>
 <p>There are other ways to use the <code>grep</code> command to get this information.
-For example, in the command below, I to instruct <code>grep</code> to search for all records that start with the at sign <code>@</code> and
+For example, in the command below, I instruct <code>grep</code> to search for all records that start with the at sign <code>@</code> and
 are followed by any character in the alphabet <code>[a-z]</code>, and then followed by any number of characters <code>*</code>.
 The <code>grep</code> options <code>-oi</code> instruct <code>grep</code> to only select matching results (and not the whole line) and to turn off case sensitivity.
 This example is based on <em>Web of Science</em> data, but it also works on <em>Scopus</em> data:</p>
@@ -552,7 +557,7 @@ For example, we can get a list of journal titles by querying for the <strong>jou
 For <em>Scopus</em> data:</p>
 <pre><code>grep -i "journal" scopus.bib
 </code></pre>
-<p>Even though that works, the data contains the word <strong>Journal</strong> in the name of some journals.
+<p>Even though that works, the data contains the word <strong>Journal</strong> in the name of some journals (e.g., <em>Journal of X, Y, Z</em>).
 If we were searching thousands or more records, we might want to construct a more unique <code>grep</code> search.</p>
 <p>To rectify this, we can modify our <code>grep</code> search in two ways.
 First, the rows of data fields begin with a tab character.
@@ -606,7 +611,7 @@ For the <em>Scopus</em> data:</p>
 <p>If you want to learn more about <code>sed</code> and <code>awk</code>, please see my <a href="https://cseanburns.github.io/linux_sysadmin/3e-text-processing-part-2.html">text processing chapter for my Linux Systems Administration</a>.
 There are also many tutorials on the web.</p>
 </blockquote>
-<p>For <em>Web of Science</em> data:</p>
+<p>For <em>Web of Science</em> data, we have to <code>grep</code> for a different string to get the citation counts: "Times-Cited ={[0-9]*".</p>
 <pre><code>grep -o "Times-Cited = {[0-9]*" savedrecs.bib | \
     awk -F"{" 'BEGIN { printf "Total Citations: "} \
     { sum +=2; } \
@@ -617,8 +622,9 @@ There are also many tutorials on the web.</p>
 <p>The Linux (and other Unix-like OSes) command line offers a lot of utilities to examine data.
 It's fun to learn and practice these.
 Despite this, you do not have to become an advanced <code>grep</code> user.
-For most cases, simple <code>grep</code> searches work well.</p>
-<p>There are many <code>grep</code> tutorials on the web if you want to see other examples.</p>
+For most cases, simple <code>grep</code> searches work well.
+To see an example of <code>grep</code> used by systems librarians, see <a href="https://doi.org/10.1080/00987913.2017.1281788">Smith &amp; Arneson (2017)</a>.</p>
+<p>There are also many <code>grep</code> tutorials on the web if you want to see other examples.</p>
 <h2 id="references"><a class="header" href="#references">References</a></h2>
 <p>Arneson, J. (2017).
 Determining usage when vendors do not provide data.
