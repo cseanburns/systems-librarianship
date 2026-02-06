@@ -315,6 +315,12 @@ Z> show 1 +120
 Z> quit
 ```
 
+Then convert that to JSON:
+
+```
+yaz-marcdump -o json records.new > records_new.json
+```
+
 Then we can follow the steps above to convert to JSON and examine the file with `jq`.
 One thing we learn with bigger data sets is that data gets messy.
 In the 120 records, I found differences in capitalization, usage of punctuation, and other variations that are mistakes.
@@ -322,7 +328,7 @@ The following command helps to clean some of that up.
 The command is technically a one-liner, but I've broken it up on multiple lines by including a backslash at the end `\`.
 
 ```
-jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json |\
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records_new.json |\
 sort | \
 sed 's/\.//g' | \
 awk '{ print tolower($0) }' | \
@@ -337,7 +343,7 @@ Since these are all **library science** records, including it in the results is 
 The final `awk` command sums the number of records from the tabulated count.
 
 ```
-jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json |\
+jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records_new.json |\
 sort | \
 sed 's/\.//g' | \
 awk '{ print tolower($0) }' | \
@@ -367,7 +373,7 @@ use the following server address:
 ```
 Z> open z3950.loc.gov:7090/voyager
 ```
-  
+
 [bib1_attr]:https://www.loc.gov/z3950/agency/defns/bib1.html
 [jq_tutorial]:https://jqlang.github.io/jq/tutorial/
 [json_mdn]:https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON
