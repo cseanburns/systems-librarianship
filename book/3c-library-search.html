@@ -381,12 +381,15 @@ Z&gt; find @and @attr 1=4 "technology" @attr 1=21 "library science"
 Z&gt; show 1 +120
 Z&gt; quit
 </code></pre>
+<p>Then convert that to JSON:</p>
+<pre><code>yaz-marcdump -o json records.new &gt; records_new.json
+</code></pre>
 <p>Then we can follow the steps above to convert to JSON and examine the file with <code>jq</code>.
 One thing we learn with bigger data sets is that data gets messy.
 In the 120 records, I found differences in capitalization, usage of punctuation, and other variations that are mistakes.
 The following command helps to clean some of that up.
 The command is technically a one-liner, but I've broken it up on multiple lines by including a backslash at the end <code>\</code>.</p>
-<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json |\
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records_new.json |\
 sort | \
 sed 's/\.//g' | \
 awk '{ print tolower($0) }' | \
@@ -398,7 +401,7 @@ sort -n
 The final <code>sed</code> command deletes the most common subject heading, which is <strong>library science</strong>.
 Since these are all <strong>library science</strong> records, including it in the results is meaningless.
 The final <code>awk</code> command sums the number of records from the tabulated count.</p>
-<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records-formatted.json |\
+<pre><code>jq '.fields[] | select(has("650")) | .["650"].subfields[] | select(has("a")) | .a' records_new.json |\
 sort | \
 sed 's/\.//g' | \
 awk '{ print tolower($0) }' | \
