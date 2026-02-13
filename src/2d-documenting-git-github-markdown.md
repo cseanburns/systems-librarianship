@@ -305,7 +305,7 @@ On the server:
     1. `ssh-keygen -t ed25519 -C "your_email@example.com"`
     2. Use the same email that you used when signing up with GitHub.
 2. Copy your SSH public key to your clipboard:
-    1. View it with this command: `cat ~/.ssh/id_ed25519.pub`.
+    1. View it with this command: `cat ~/.ssh/id_ed25519.pub`
     2. Then select it with your mouse and copy it.
     3. Open GitHub and visit Settings.
     4. In the Access section of sidebar, click **SSH and GPG keys**
