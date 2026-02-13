@@ -302,9 +302,9 @@ We do that first by creating an SSH key.
 On the server:
 
 1. Generate a new ssh key with the following command:
-1. `ssh-keygen -t ed25519 -C "your_email@example.com"`
-    2. Use the same email that you used when signing up with GitHub.
-2. Copy your SSH public key to your clipboard:
+    1. `ssh-keygen -t ed25519 -C "your_email@example.com"`
+2. Use the same email that you used when signing up with GitHub.
+3. Copy your SSH public key to your clipboard:
     1. View it with this command: `cat ~/.ssh/id_ed25519.pub`.
     2. Then select it with your mouse and copy it.
     3. Open GitHub and visit Settings.
@@ -316,7 +316,7 @@ On the server:
     8. Paste your SSH public key in the **Key** field.
     9. Click **Add SSH key**
     10. See the official documentation here: [Adding a New SSH Key][github_ssh_add]
-3. On your virtual machine, set up the SSH public key as your signing key:
+4. On your virtual machine, set up the SSH public key as your signing key:
     1. `git config --global gpg.format ssh`
     2. `git config --global user.signingkey $HOME/.ssh/id_ed25519.pub`
     3. `git config --global commit.gpgsign true`
