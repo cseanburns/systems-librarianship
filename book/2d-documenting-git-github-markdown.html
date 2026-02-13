@@ -468,9 +468,12 @@ git config --global core.editor "nano"
 We do that first by creating an SSH key.</p>
 <p>On the server:</p>
 <ol>
-<li>Generate a new ssh key with the following command:</li>
-<li><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code>
-2. Use the same email that you used when signing up with GitHub.</li>
+<li>Generate a new ssh key with the following command:
+<ol>
+<li><code>ssh-keygen -t ed25519 -C "your_email@example.com"</code></li>
+</ol>
+</li>
+<li>Use the same email that you used when signing up with GitHub.</li>
 <li>Copy your SSH public key to your clipboard:
 <ol>
 <li>View it with this command: <code>cat ~/.ssh/id_ed25519.pub</code>.</li>
