@@ -70,14 +70,14 @@ phpinfo();
 ?>
 ```
 
-Now visit that file using the public IP address for your server.
+Now visit that file from a browser on your local machine (outside the VM) using your server's public IP address.
 If the public IP address for my virtual machine is `203.0.113.10`, then in Firefox, Chrome, etc, I would open:
 
 ```
 http://203.0.113.10/info.php
 ```
 
-> Again, be sure to replace the IP below with the IP address of your server and
+> Again, be sure to replace the sample IP above with the IP address of your server and
 > be sure to use **http** and not **https**.
 
 You should see a page that provides system information about PHP, Apache, and the server.
@@ -108,7 +108,8 @@ However, if our plan is to provide PHP,
 we want Apache to default to a file titled `index.php` instead of the `index.html` file.
 In these cases, `http://example.com/` would actually resolve to `http://example.com/index.php`.
 
-To configure that, we need to edit the `dir.conf` file in the `/etc/apache2/mods-enabled/` directory.
+To configure that, we edit the `dir.conf` file in the `/etc/apache2/mods-available/` directory.
+Apache enables this configuration through a symlink in `/etc/apache2/mods-enabled/`.
 In that file there is a line that starts with `DirectoryIndex` followed by a list of files.
 The first file listed in that line is `index.html`,
 and then there are a series of other files that Apache looks for in the order listed.
@@ -119,7 +120,7 @@ Before modifying this file, it's good practice to create a backup of the origina
 So we will use the `cp` command to create a copy with a new name, and then we will use `nano` to edit the file.
 
 ```
-cd /etc/apache2/mods-enabled/
+cd /etc/apache2/mods-available/
 sudo cp dir.conf dir.conf.bak
 sudo nano dir.conf
 ```
@@ -136,11 +137,10 @@ Whenever we make a configuration change, we should use the `apachectl` command t
 apachectl configtest
 ```
 
-If we get a `Syntax Ok` message, we can reload the Apache configuration, restart the service, and check its status:
+If we get a `Syntax Ok` message, we can reload the Apache configuration and check its status:
 
 ```
 sudo systemctl reload apache2
-sudo systemctl restart apache2
 systemctl status apache2
 ```
 
@@ -174,7 +174,7 @@ Add the following code:
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
     // Browser Detection
-    if (stripos($user_agent, 'Edge') !== false) {
+    if (stripos($user_agent, 'Edg') !== false || stripos($user_agent, 'Edge') !== false) {
         $browser = 'Microsoft Edge';
     } elseif (stripos($user_agent, 'Firefox') !== false) {
         $browser = 'Mozilla Firefox';
@@ -195,14 +195,14 @@ Add the following code:
     // OS Detection
     if (stripos($user_agent, 'Windows') !== false) {
         $os = 'Windows';
-    } elseif (stripos($user_agent, 'Mac') !== false || stripos($user_agent, 'Macintosh') !== false) {
-        $os = 'Mac';
-    } elseif (stripos($user_agent, 'Linux') !== false) {
-        $os = 'Linux';
     } elseif (stripos($user_agent, 'iOS') !== false || stripos($user_agent, 'iPhone') !== false || stripos($user_agent, 'iPad') !== false) {
         $os = 'iOS';
     } elseif (stripos($user_agent, 'Android') !== false) {
         $os = 'Android';
+    } elseif (stripos($user_agent, 'Mac') !== false || stripos($user_agent, 'Macintosh') !== false) {
+        $os = 'Mac';
+    } elseif (stripos($user_agent, 'Linux') !== false) {
+        $os = 'Linux';
     } else {
         $os = 'Unknown OS';
     }
@@ -216,7 +216,7 @@ Add the following code:
 ```
 
 Next, save the file and exit `nano`.
-In your browser, visit your site at its public IP address (again, replace your server's IP address):
+From a browser on your local machine (outside the VM), visit your site at its public IP address (again, replace your server's IP address):
 
 ```
 http://55.333.55.333/

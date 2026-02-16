@@ -2,7 +2,7 @@
 
 If you have worked with an integrated library system (ILS) or a more modern library service platform (LSP),
 then you know that an OPAC or discovery system, respectively,
-is simply one [module out of several that makeup an ILS or LSP][ERM_ILS].
+is simply one [module out of several that make up an ILS or LSP][ERM_ILS].
 Other modules include acquisitions, authority files, circulation, course reserves, patron management, and more.
 In the prior section, we created one of those modules: a bare bones OPAC.
 In this section, we are going to create a bare bones cataloging module in the same kind of way.
@@ -13,7 +13,7 @@ it's unlikely that you would add data to your system via that interface.
 Instead you would use an application via a fancy graphical user interface, i.e., integrated library system.
 The reason we started off with MySQL is not because you would necessarily use this interface on a daily basis.
 Rather, it's because I want you to understand the foundations of these technologies and
-the how they get translated for users when they become web applications.
+how they get translated for users when they become web applications.
 
 ## Creating the HTML Page and a PHP Cataloging Page
 
@@ -71,7 +71,7 @@ In **index.html**, we add the following content:
 		<input type="text" name="publisher" id="publisher" required><br><br>
 
 		<label for="copyright">Copyright:</label>
-		<input type="number" name="copyright" id="copyright" min="1000" max="2300" required>
+		<input type="date" name="copyright" id="copyright" required>
 
 		<input type="submit" value="Submit">
 	</form>
@@ -115,24 +115,33 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Prepare and bind SQL statement
-$stmt = $conn->prepare("INSERT INTO books (author, title, publisher, copyright) VALUES (?, ?, ?, ?)");
-$stmt->bind_param("ssss", $author, $title, $publisher, $copyright);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $author = trim($_POST["author"] ?? "");
+    $title = trim($_POST["title"] ?? "");
+    $publisher = trim($_POST["publisher"] ?? "");
+    $copyright = $_POST["copyright"] ?? "";
 
-// Set parameters and execute statement
-$author = $_POST["author"];
-$title = $_POST["title"];
-$publisher = $_POST["publisher"];
-$copyright = $_POST["copyright"];
+    if ($author === "" || $title === "" || $publisher === "" || $copyright === "") {
+        echo "All fields are required.";
+    } elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $copyright)) {
+        echo "Copyright date must use YYYY-MM-DD format.";
+    } else {
+        // Prepare and bind SQL statement
+        $stmt = $conn->prepare("INSERT INTO books (author, title, publisher, copyright) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $author, $title, $publisher, $copyright);
 
-if ($stmt->execute() === TRUE) {
-    echo "New record created successfully";
+        if ($stmt->execute() === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+    }
 } else {
-    echo "Error: " . $stmt->error;
+    echo "Please submit records using the cataloging form.";
 }
 
-// Close statement and connection
-$stmt->close();
+// Close connection
 $conn->close();
 ?>
 
@@ -148,6 +157,7 @@ Since our HTML and PHP files allow us to enter data into our MySQL database from
 we need to limit access to the module.
 In a real-world situation, modules like these would have a variety of security measures in place to prevent wrongful data entry.
 In our case, we will rely on a simple authorization mechanism provided by the Apache2 server called [htpasswd][htpasswd].
+Because this tutorial uses HTTP only, remember that Basic Auth credentials are exposed in transit and should be treated as training-only.
 
 First, we create an authentication file in our **/etc/apache2** directory,
 which is where the **Apache2** web server stores its configuration files.
@@ -158,6 +168,9 @@ In the following command to set the password, I set the username to **libcat**, 
 sudo htpasswd -c /etc/apache2/.htpasswd libcat
 ```
 
+> Use the `-c` option only the first time to create the file.
+> To add additional users later, omit `-c` so existing accounts are not overwritten.
+
 Next we need to tell the Apache2 web server that we will use the `htpasswd` to control access to our cataloging module.
 To do that, we use a text editor to open the **apache2.conf** file.
 
@@ -165,23 +178,13 @@ To do that, we use a text editor to open the **apache2.conf** file.
 sudo nano /etc/apache2/apache2.conf
 ```
 
-In the **apache2.conf** file, look for the code block / stanza below.
-We are interested in the third line in the stanza, which is line 172 for me, and probably is for you, too.
+In the **apache2.conf** file, add a more specific directory stanza for this module.
+This keeps overrides limited to the cataloging directory rather than enabling them for all of `/var/www/`.
 
 ```
-<Directory /var/www/>
+<Directory /var/www/html/cataloging/>
   Options Indexes FollowSymLinks
-  AllowOverride None
-  Require all granted
-</Directory>
-```
-
-**Carefully**, we need to change the word **None** to the word **All**:
-
-```
-<Directory /var/www/>
-  Options Indexes FollowSymLinks
-  AllowOverride All
+  AllowOverride AuthConfig
   Require all granted
 </Directory>
 ```
@@ -226,7 +229,7 @@ grep "www-data" /etc/passwd
 www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
 ```
 
-From the output, we can see that the **www-apache** user's home directory is **/var/www** and
+From the output, we can see that the **www-data** user's home directory is **/var/www** and
 its default shell is **/usr/sbin/nologin**.
 See `man nologin` for details, but in short, the `nologin` prevents the **www-data** account to be able to login to a shell.
 
@@ -235,7 +238,7 @@ See `man nologin` for details, but in short, the `nologin` prevents the **www-da
 > `grep $USER /etc/passwd` to do so. You'll see, for example, that your home
 > directory is listed there as well as your default shell, which is `bash`.
 
-The benefit with having Apache2 a user is that we can limit file permissions and ownership to this user.
+The benefit of Apache2 having a user is that we can limit file permissions and ownership to this user.
 
 The general guidelines for this are as follows:
 
@@ -247,7 +250,7 @@ The general guidelines for this are as follows:
 - Configuration files (incl. files like **login.php**) should be readable by
   **www-data** but not writable, to prevent unauthorized modifications.
 
-We can initiate this guidelines with the `chown` and `chmod` commands:
+We can initiate these guidelines with the `chown` and `chmod` commands:
 
 1. Change the group ownership of **/var/www/html** to **www-data**:
 
@@ -261,7 +264,7 @@ We can initiate this guidelines with the `chown` and `chmod` commands:
    we use `sudo` to work in this directory, that means that the user owner for
    subsequent files and directories will be the Linux **root** user.
 
-        sudo chmod -R g+s /var/www/html
+        sudo find /var/www/html -type d -exec chmod g+s {} +
 
 ## Get Cataloging!
 

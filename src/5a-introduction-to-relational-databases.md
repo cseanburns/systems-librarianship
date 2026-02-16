@@ -1,4 +1,4 @@
-## Introduction to Relational Databases
+# Introduction to Relational Databases
 
 In the last section, we installed, configured, and setup a Linux, Apache, MySQL, and PHP (LAMP) stack.
 While setting up MySQL, we created a basic `opacdb` database containing a `books` table.
@@ -94,7 +94,7 @@ The table has four values:
 ```
 create table Ingredients (
     ingredient_id int auto_increment primary key,
-    meal_id int,
+    meal_id int not null,
     ingredient_name varchar(100) not null,
     quantity varchar(50),
     foreign key (meal_id) references Meals(meal_id) on delete cascade
@@ -134,8 +134,8 @@ insert into Ingredients (meal_id, ingredient_name, quantity) values
     (4, 'Parmesan Cheese', '1/2 cup');
 ```
 
-    In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
-    This would result in better [database normalization][db_normalization_wiki].
+In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
+This would result in better [database normalization][db_normalization_wiki].
 
 ## Querying Data
 
@@ -241,7 +241,7 @@ mysql> revoke all privileges on DinnerDB.* from 'opacuser'@'localhost';
 
 To confirm, we can re-run the `show grants` command.
 
-If we want to track other users in with accounts in the MySQL server,
+If we want to view other user accounts on the MySQL server,
 the following command queries the `user` table in the `mysql` database and will return all user accounts:
 
 ```
@@ -271,7 +271,7 @@ The key takeaways from this exercise include:
 
 - **Normalization**: Breaking data into multiple tables reduces redundancy and improves consistency.
 - **Relationships**: Using foreign keys, we linked meals with their ingredients. This allows for more meaningful data retrieval.
-- **Querying**: We practiced `SELECT`, `JOIN`, `WHERE`, `ORDER_BY`, and `GROUP_BY` to manipulate and filter data results.
+- **Querying**: We practiced `SELECT`, `JOIN`, `WHERE`, `ORDER BY`, and `GROUP BY` to manipulate and filter data results.
 - **Management**: We reviewed how to create a database, grant privileges to the database to a specific user, remove those privileges, and delete the database.
 
 This tutorial is only a start.
@@ -284,7 +284,7 @@ So go play!
 
 And if interested, I encourage you to learn other SQL implementation, like [SQLite][sqlite_sqlite],
 which you can download and install on your personal machines fairly easily.
-SQLite is probably the most popular SQL application, but it uses [a slightly different command syntax][cli_sqlite_sqlite].
+SQLite is a widely used relational database engine, but it uses [a slightly different command syntax][cli_sqlite_sqlite].
 
 [check_constraint_mysql]:https://dev.mysql.com/doc/refman/8.4/en/create-table-check-constraints.html
 [cli_sqlite_sqlite]:https://www.sqlite.org/cli.html

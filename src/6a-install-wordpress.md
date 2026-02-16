@@ -7,13 +7,13 @@ Originally, its focus was on providing a platform for blogging, but it has becom
 
 Two main sites exist to provide access to WordPress: [WordPress.com][wp_com] and [WordPress.org][wp_org].
 WordPress.com is a hosting solution, which means that customers can sign up and create a free WordPress site.
-Since its hosted, customers are only responsible for their content and not for managing the core WordPress installation and its updates.
+Since it's hosted, customers are only responsible for their content and not for managing the core WordPress installation and its updates.
 Various paid plans can extend the functionality offered to WordPress.com customers.
 
 WordPress.org is maintained by the [WordPress Foundation][wp_foundation], which
 oversees the development of and provides access to the software.
 When we download the WordPress software, we download it from WordPress.org.
-Unlike the hosted solution, when we install and setup WordPress on our own servers,
+Unlike the hosted solution, when we install and set up WordPress on our own servers,
 we become responsible for administrating its installation and for keeping the software updated.
 
 WordPress is widely used software, and because of that, it's often the focus of attack.
@@ -24,7 +24,7 @@ you should be familiar with the update process in case you decide to maintain yo
 
 ## Libraries and WordPress
 
-Many libraries use WordPress as as their main website and a quick web search will reveal them.
+Many libraries use WordPress as their main website and a quick web search will reveal them.
 For example, I quickly found an example of a (beautiful) WordPress library site for the
 [Reading Public Library (RPL)][rpl_wp] in Massachusetts.
 These library websites coordinate with additional solutions that provide integrated library systems and other electronic resource services.
@@ -62,9 +62,9 @@ describes other basic changes that come with the new site.
 The plugins they added display business hours and help manage events and event attendees.
 
 Plugins are often used with WordPress sites to offer all sorts of additional capabilities.
-Currently, there are nearly [60 thousand plugins][wp_plugins] available for WordPress, but
+Currently, there are [tens of thousands of plugins][wp_plugins] available for WordPress, but
 some are of higher quality and utility than others.
-In addition to the thousands of available plugins, there are nearly [12 thousand free themes][wp_themes] for WordPress sites.
+In addition to the plugin ecosystem, there are [thousands of free themes][wp_themes] for WordPress sites.
 Plus, many businesses offer paid themes or can create customized themes based on customer needs.
 These themes can drastically alter the appearance and usability of a WordPress site or cater a site for a specific clientele,
 such as a library.
@@ -106,7 +106,7 @@ However, since WordPress is much more complicated software than our bare bones O
 This means that when we plan to download software outside of the `apt` ecosystem,
 we need to make sure that our systems meet the requirements for our installation.
 The [WordPress.org Requirements][wp_requirements] page states that the WordPress installation requires
-at least PHP version 7.4 and MySQL version 8.0 or greater.
+PHP version 8.3 or greater, MySQL version 8.0 or greater (or MariaDB version 10.6 or greater), and HTTPS support.
 We can check that our systems meet these requirements with the following commands.
 To check our installed version of PHP:
 
@@ -114,16 +114,15 @@ To check our installed version of PHP:
 php --version
 ```
 
-To check our installed version of MySQL:
+To check our installed version of MySQL or MariaDB:
 
 ```
 mysql --version
 ```
 
-The output from `php --version` shows that my systems have PHP 8.1.2, which is greater than PHP 7.4.
-The output from `mysql --version` show that our systems have MySQL 8.0.41, which is greater than MySQL 8.0.
-This should be the same for you if you're running the Ubuntu 22.04.5 LTS Linux distribution.
-You can check that with the following command:
+The output from `php --version` and `mysql --version` should confirm that your software meets or exceeds those recommendations.
+Your exact versions may differ based on your Ubuntu release and package updates.
+You can check your Ubuntu release with the following command:
 
 ```
 cat /etc/issue.net
@@ -167,7 +166,7 @@ sudo unzip latest.zip
 ```
 
 As noted in the WordPress documentation, this will create a directory called `wordpress` in the same directory.
-Therefore the full path of your installation will located at `/var/www/html/wordpress`.
+Therefore, the full path of your installation will be located at `/var/www/html/wordpress`.
 
 ### Step 3: Create the Database and a User
 
@@ -180,17 +179,15 @@ Therefore, we are going to create the WordPress database and a database user usi
 to create a database and user for our bare bones ILS.
 You already know this, but the general instructions are:
 
-1. Switch to the root Linux user
-1. Login as the MySQL root user
+1. Log in as the MySQL root user with `sudo`
 
 Specifically, we do the following on the command line:
 
 ```
-sudo su
-mysql -u root
+sudo mysql -u root
 ```
 
-The `mysql -u root` command places us in the MySQL command prompt.
+The `sudo mysql -u root` command places us in the MySQL command prompt.
 The next general instructions are to:
 
 1. Create a new user for the WordPress database
@@ -200,7 +197,7 @@ The next general instructions are to:
 1. Examine the output
 1. Exit the MySQL prompt
 
-Specifically, this means the following (be sure to replaces the `X`s with a unique and strong password of your own):
+Specifically, this means the following (be sure to replace the `X`s with a unique and strong password of your own):
 
 ```
 create user 'wordpress'@'localhost' identified by 'XXXXXXXXX';
@@ -236,12 +233,17 @@ sudo nano wp-config.php
 Using `nano`, add your database name, user, and password in the appropriate fields,
 just like we did with our `login.php` file for our bare bones OPAC.
 
-Additionally, we want to disable FTP uploads to the site for security reasons.
-To do that, navigate to the end of the file and add the following line:
+For this short-lived lab install, updating the database fields is sufficient.
+If you later create a long-term or production install, also generate and set unique WordPress authentication keys and salts per the WordPress documentation.
+
+If WordPress cannot write files due to permissions in this lab environment, add the following line at the end of `wp-config.php`:
 
 ```
 define('FS_METHOD','direct');
 ```
+
+This tells WordPress to write files directly through the local filesystem.
+For permanent installs, only use this after reviewing file ownership and security implications.
 
 ### Step 5: **Optional**
 
@@ -255,7 +257,7 @@ http://11.111.111.11/wordpress
 If you want to, you can rename your `wordpress` directory to something else.
 The WordPress documentation uses `blog` as an example.
 But it could be something else, like the name of a fictional library that you might be using WordPress for to build a site.
-If you decide to change it, be sure to keep the name lowercase and one word (no spaces and only alphabetic characters).
+If you decide to change it, keep the name lowercase and URL-friendly (letters, numbers, and hyphens; no spaces).
 For example, if I want to change mine to `library`, then:
 
 ```
@@ -271,6 +273,9 @@ Assuming you are still in your base directory, run the following command, which 
 ```
 sudo chown -R www-data:www-data /var/www/html/wordpress
 ```
+
+For this course, where the install is temporary, this broad ownership change is acceptable.
+For a permanent install, use stricter ownership and limit writable locations where possible.
 
 ### Step 7: Run the Install Script
 

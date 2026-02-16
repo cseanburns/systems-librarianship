@@ -35,7 +35,7 @@ These elements include:
 ## Installation
 
 Before we install Apache, we need to update our systems first.
-This ensures we will be downloading and installing the most recent, secure version of the package.
+This helps ensure we download and install the latest secure version available in our configured Ubuntu repositories.
 
 ```
 sudo apt update
@@ -86,7 +86,7 @@ In particular, look for key lines that show its **Active** and **Loaded** status
 For example, the output shows that `apache2` is **enabled**, which is the default for this software.
 The term **enabled** means that the software starts automatically on reboot.
 The output should also state that the software is **active**.
-This means that the `apache2` is running and live.
+This means that `apache2` is running.
 
 ## Creating a web page
 
@@ -151,8 +151,8 @@ To exit `w3m` or `elinks`, press **q** and then **y** to confirm exit.
 
 ### Graphical Browser
 
-To view the default web page using a regular web browser,
-like Firefox, Chrome, Safari, Edge, or etc., you need to get your server's
+To view the default web page from a browser on your local machine (outside the VM),
+like Firefox, Chrome, Safari, or Edge, you need to get your server's
 [public IP address][ip_address_wiki].
 To do that, log into the [Google Cloud Console][gcloud_console]
 click on the **Compute Engine** link, and then click on **VM instances**.
@@ -191,7 +191,7 @@ Let's rename that `index.html` file, in order to back it up, and create a new on
 
 ```
 cd /var/www/html/
-sudo mv index.html index.html.original
+sudo mv index.html index.original.html
 sudo nano index.html
 ```
 
@@ -227,7 +227,7 @@ So it makes sense that you simply have to specify the name of the file you want 
 For example, if your **public IP address** is `55.222.55.222`, then you'd specify it like so:
 
 ```
-http://55.222.55.222/index.html.original
+http://55.222.55.222/index.original.html
 ```
 
 ## Conclusion

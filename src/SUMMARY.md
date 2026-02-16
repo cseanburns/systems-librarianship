@@ -24,6 +24,6 @@
     - [Creating a Bare Bones Cataloging Module](5c-basic-opac-admin.md)
 - [Library Website Project](p6-library-website-project.md)
     - [Install WordPress](6a-install-wordpress.md)
-    - [Install Omeka](6b-install-omeka.md)
+    - [Install Omeka Classic](6b-install-omeka.md)
     - [Install the Koha Integrated Library System](6c-install-koha.md)
 - [Conclusion](p7-conclusion.md)

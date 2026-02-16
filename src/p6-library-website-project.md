@@ -1,4 +1,4 @@
-# Installing Content Management Systems
+# Library Website Project
 
 Many library websites are compositions of interconnected resources.
 For example, a library may have a front-facing website that provides
@@ -9,11 +9,13 @@ The front-facing website may also be connected to other sites that provide acces
 In the end, this means that a library website is not just one place.
 It is much more like a series of interconnected buildings, each of which has its own entry points.
 
-In this section, we will learn how to build these interconnected resources.
-First, we learn how to use [WordPress][wordpress] to setup a library's front-facing web presence.
+In this section, we will learn how to install and configure these interconnected resources.
+First, we learn how to use [WordPress][wordpress] to set up a library's front-facing web presence.
 The basic process is similar to the process we used when building our bare bones OPAC.
 We will then use the instructions for the WordPress install to install and configure [Omeka][omeka],
 which we might imagine is used to build a digital library for our library.
+For Omeka, the instructions are intentionally less step-by-step so that you can extrapolate from the WordPress process.
+Finally, we will install Koha with more direct guidance again because its setup process differs in important ways.
 
 At the end of this section, we will have begun creating a library web presence that is more than a basic front-facing web presence.
 Instead, it will start the infrastructure for an ecosystem that provides access to all sorts of library resources.

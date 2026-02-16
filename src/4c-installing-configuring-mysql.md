@@ -75,7 +75,8 @@ We will respond with a **Y** to the first question on validating passwords, but 
 select **LOW** when prompted for the password validation policy.
 This will enforce a weak password policy for testing, but note that in real-world scenarios,
 we might want to select a more secure policy.
-In the output below, I show how to respond to each question:
+The exact prompts can vary by MySQL version and package defaults; on MariaDB or other Linux distributions, they may differ further.
+In the example output below, I show one common set of responses:
 
 ```
 Validate passwords: Y
@@ -240,22 +241,22 @@ In the following code, I create and define a new table for our `opacdb` database
 The table will be called `books` that will contain data describing, er, some books.
 We will keep this table very simple and use only four fields: `id`, `author`, `title`, and `copyright`.
 The `id` field will function as a primary key (second to last line in the command below).
-This key is used as a unique identifier for a record in the field.
+This key is used as a unique identifier for a record in the table.
 When we create this key as a field called `id`, we state that it should be an integer `id` (or whole number),
 that it should only be a positive number `unsigned`,
 that it should not be empty `not null`, and
 that with each record, it should increment by a single integer `auto_increment`.
 When we create the `author` and `title` fields,
 we say that these fields can have a maximum length of 150 characters and should not be empty.
-When we create the `copyright` field, we limit it to the `year` data type,
-which means it has to adhere to a specific syntax `YYYY`, and should not be empty. 
+When we create the `copyright` field, we limit it to the `YEAR` data type,
+which stores four-digit years in `YYYY` format, and should not be empty.
 
 ```
 mysql> create table books (
         id int unsigned not null auto_increment,
         author varchar(150) not null,
         title varchar(150) not null,
-        copyright year(4) not null,
+        copyright year not null,
         primary key (ID)
 );
 ```
@@ -328,15 +329,15 @@ mysql> select author, title from books where title not like '%e';
 mysql> select * from books;
 mysql> alter table books add publisher varchar(75) after title;
 mysql> describe books;
-mysql> update books set publisher='Simon \& Schuster' where id='1';
+mysql> update books set publisher='Simon & Schuster' where id='1';
 mysql> update books set publisher='Penguin Random House' where id='2';
-mysql> update books set publisher='W. W. Norton \& Company' where id='3';
+mysql> update books set publisher='W. W. Norton & Company' where id='3';
 mysql> update books set publisher='Knopf' where id='4';
 mysql> select * from books;
 mysql> delete from books where author='Julia Phillips';
 mysql> insert into books
        (author, title, publisher, copyright) values
-       ('Emma Donoghue', 'Room', 'Little, Brown \& Company', '2010'),
+       ('Emma Donoghue', 'Room', 'Little, Brown & Company', '2010'),
        ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
 mysql> select * from books;
 mysql> select author, publisher from books where copyright < '2011';
@@ -407,7 +408,7 @@ When we run a command like `ls -l`, the output will show the file owner and the 
 >  
 > Many services, like Apache, have corresponding users on the system.
 > Files placed in our document root `/var/www/html` will be served on the web.
-> Therefore, those files must have read access for **other/world**.
+> Therefore, those files must be readable by the Apache user or group (often `www-data`).
 > But we don't want the `login.php` file to be accessible to the world since it contains login information for our MySQL user.
 > Thus, in addition to modifying file ownership and permissions, we also place it in the parent directory `/var/www`.
 
@@ -514,7 +515,7 @@ sudo php -f /var/www/login.php
 sudo php -f /var/www/html/opac.php
 ```
 
-Now view the site by opening the public IP address for your server in your browser.
+Now view the site from a browser on your local machine (outside the VM) by opening the public IP address for your server.
 If all goes well, you should see the data in your `opacdb` database and `books` table rendered in your webpage.
 
 ## Conclusion

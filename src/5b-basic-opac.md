@@ -24,11 +24,24 @@ In this way, we more closely mimic an OPAC.
 
 ## Creating the HTML Page and a PHP Search Page
 
+Before creating the search form, we will update our table so the `copyright` column uses a proper `DATE` data type.
+This lets our start and end date fields work as true date filters.
+Run the following once:
+
+```
+mysql -u opacuser -p
+mysql> use opacdb;
+mysql> alter table books add publication_date date;
+mysql> update books set publication_date = str_to_date(concat(copyright, '-01-01'), '%Y-%m-%d');
+mysql> alter table books drop column copyright;
+mysql> alter table books change publication_date copyright date not null;
+```
+
 The first thing we do is create a basic HTML page that contains a form for entering queries.
 We'll call this HTML page with the form **mylibrary.html**.
 When a user clicks on the submit button in the form, the form will activate a PHP script called **search.php**.
 That **search.php** will establish a connection to the OPAC database that we already have created.
-Our PHP script will contain a special MySQL query that will allow us to search all the fields in our **books** table.
+Our PHP script will contain a special MySQL query that will allow us to search key bibliographic fields in our **books** table.
 Then it will iterate through each row of the **books** table and return results that match our query.
 We also add two date fields to our form to limit results by publication dates,
 which we labeled as **copyright** in our MySQL **books** table.
@@ -50,7 +63,7 @@ Here is the HTML for our search page, titled **mylibrary.html**:
 
 	<p>In the form below, <b>optionally</b> enter text in the search field.
 	Your search query will search by author, title, or publisher.
-	Capitalization is not necessary.
+	Capitalization is usually not necessary on default case-insensitive MySQL collations.
 	It's okay to enter partial information, like part of an author's, title's, or publisher's name.</p>
 
 	<p>You can leave the search field empty and only enter dates.
@@ -64,10 +77,10 @@ Here is the HTML for our search page, titled **mylibrary.html**:
 	<a href="https://en.wikipedia.org/wiki/Online_public_access_catalog">OPAC</a>.
 	The records are basic.
 	Not only do they not conform to <a href="https://www.loc.gov/marc/">MARC</a>,
-	they don't even conform to something as simple as <a href="https://www.dublincore.org/">Dublin Core</a>.
+	they don't even conform to something as simple as <a href="https://www.dublincore.org/">Dublin Core</a>.</p>
 
 	<p>I also don't provide options to select different fields, like author, title, or publisher fields.
-	Instead the search field below searches all the fields (author, title, publisher) in our <b>books</b> table.</p>
+	Instead the search field below searches key bibliographic fields (author, title, publisher) in our <b>books</b> table.</p>
 
 	<p>The key idea is to get a sense of how an OPAC works, though.</p>
 
@@ -142,7 +155,7 @@ Here is the PHP for our search script, which should be named **search.php**:
         $end_date = $_POST['end_date'];
 
         // Prepared statement to prevent SQL injection
-        $stmt = $conn->prepare("SELECT * FROM books 
+        $stmt = $conn->prepare("SELECT id, author, title, publisher, copyright FROM books 
                                 WHERE (author LIKE ? OR title LIKE ? OR publisher LIKE ?) 
                                 AND copyright BETWEEN ? AND ?");
 
@@ -201,8 +214,8 @@ Then run the `insert` command with the data for the new records:
 ```
 insert into books
 (author, title, publisher, copyright) values
-('Emma Donoghue', 'Room', 'Little, Brown \& Company', '2010'),
-('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
+('Emma Donoghue', 'Room', 'Little, Brown & Company', '2010-01-01'),
+('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-01');
 ```
 
 ## Conclusion
@@ -214,7 +227,7 @@ or library service platform, from other databases on the web is the structure of
 that are stored in the relational database.
 Such records are structured using MARC.
 Our records are very simply structured, but still, I hope this helps in creating an intuition
-about how OPACs and like function.
+about how OPACs and similar systems function.
 In the next section, we will learn how to enter data into our catalog,
 thereby mimicking the cataloging module of an integrated library system.
 

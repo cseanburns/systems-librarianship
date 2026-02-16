@@ -66,7 +66,7 @@ we first interact with a normal website that might be built on
 WordPress, [Drupal][drupal], or some other content management system.
 These websites will link to the public facing components of an ILS or LSP, as well as other services,
 such as bibliographic databases, journal publishers, ebook services, and more.
-It may therefore be the systems librarians job to help build and connect these services.
+It may therefore be the systems librarian's job to help build and connect these services.
 In this demo, we will continue that work by installing, configuring, and setting up the Koha ILS.
 
 ## Google Cloud Setup
@@ -90,9 +90,9 @@ the **Machine Type** to **2 vCPU, 4 GB memory**, and up the disk size to 20GB.
 Under **Networking**, click on **Allow HTTP traffic**.
 In the **Network tags** box, add the following tag name: `koha-8080`.
 
-All else, including the operating system (Ubuntu 22.04), should remain the same.
+All else, including the operating system (Ubuntu 24.04 LTS), should remain the same.
 Note that this is a more expensive setup.
-Therefore, feel free to delete this instance at the end of the semester to avoid incurring extra costs.
+Therefore, feel free to delete this instance when you are done with this project to avoid incurring extra costs.
 
 ### Google Cloud firewall
 
@@ -101,12 +101,13 @@ All internet traffic to a server contains metadata that identifies itself by por
 The default port for HTTP is 80, and the default port for HTTPS (encrypted) is 443.
 Since we do not have encryption enabled, this means we will only use port 80, but 
 the staff interface will be identified by port 8080.
+This HTTP-only setup is for short-lived lab use; in any long-term deployment, protect staff traffic with HTTPS.
 
 > How does a server know where to send internet traffic?
 > Internet data is *packaged* in many forms.
 > One of the most common forms are TCP packets.
 > These packets contain *header* information that names the source IP, destination IP, source port, and destination port.
-> When TCP packets arrive at a destination server,the operating system inspects the packet header for the port number.
+> When TCP packets arrive at a destination server, the operating system inspects the packet header for the port number.
 > The OS looks up the port number in a table that contains a mapping of ports to applications.
 > When the OS makes the match, it sends the TCP packets to the application.
 > In its default setup, the Apache2 web server handles traffic on port 80.
@@ -125,11 +126,12 @@ To create a firewall rule to allow traffic to port 8080, go to the Google Cloud 
 - Click on **VPN Network**.
 - Click on **Firewall**.
 - At the top of the page, choose **Create a firewall rule** (Do not choose **Create a firewall policy**):
-    - Add name: `koha-opac`
-    - Add description: **Open port 8080 for the OPAC**
+    - Add name: `koha-staff-8080`
+    - Add description: **Open port 8080 for the Koha staff interface**
 - Next to **Targets**, click on **Specified target tags**.
 - In **Target tags**, add our tag name: `koha-8080`.
-- In the **Source IPv4 ranges**, add **0.0.0.0/0**
+- In the **Source IPv4 ranges**, add your current public IP in CIDR form (for example, `203.0.113.10/32`).
+  Use `0.0.0.0/0` only for short-term testing if needed, and remove it afterward.
 - Click on **Specified protocols and ports**
     - Click on TCP
     - Add **8080** in the **Ports** box
@@ -147,7 +149,7 @@ First we need to update our local repositories:
 sudo apt update
 ```
 
-And then upgrade our servers:
+And then upgrade the server:
 
 ```
 sudo apt upgrade
@@ -164,11 +166,11 @@ In the following example, I combine both commands on one line:
 sudo apt autoremove -y && sudo apt clean
 ```
 
-Next we need to install `gnupg2` and `apt-transport-https`.
+Next we need to install `gnupg2`.
 `gnupg2` is used to create digital signatures, encrypt data, and aid in secure communication.
 
 ```
-sudo apt install gnupg2 apt-transport-https
+sudo apt install gnupg2
 ```
 
 At the time of this demo, the update above downloaded a new Linux kernel.
@@ -192,12 +194,7 @@ We can add repositories to sync with and to use to download software, and this i
 To add the special Koha repository to our system, we use the following command:
 
 > Most of the following commands require administrator access.
-> Therefore, I will login as the `root` user to make it a bit easier.
-> If you do not want to log in as the root user, be sure to use the `sudo` command.
-
-```
-sudo su
-```
+> We will run them with `sudo <command>` instead of logging in as `root`.
 
 Add the Koha repository to our server:
 
@@ -214,10 +211,10 @@ wget -qO- https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor | sudo 
 You can inspect the key and make sure it was signed by the relevant people:
 
 ```
-gpg --show-keys /etc/apt/trusted.gpg.d/koha.gpg
+gpg --show-keys --fingerprint /etc/apt/trusted.gpg.d/koha.gpg
 ```
 
-The output should include an email from the `koha-community.org`.
+Compare the fingerprint in the output to the fingerprint published in the Koha Debian packaging documentation before continuing.
 
 ## Install Koha
 
@@ -225,7 +222,7 @@ Next we need to update/sync the new repository with the Koha remote repository.
 This just means that we use `apt update` again.
 
 ```
-apt update
+sudo apt update
 ```
 
 Now we view the package information for Koha:
@@ -237,7 +234,7 @@ apt show koha-common
 And install it:
 
 ```
-apt install koha-common
+sudo apt install koha-common
 ```
 
 The above command will download and install a lot of additional software, and therefore the process will take several minutes.
@@ -249,13 +246,13 @@ First, create a backup of the default configuration file:
 
 ```
 cd /etc/koha/
-cp koha-sites.conf koha-sites.conf.backup
+sudo cp koha-sites.conf koha-sites.conf.backup
 ```
 
 Now open the configuration file in `nano` or your preferred text editor:
 
 ```
-nano /etc/koha/koha-sites.conf
+sudo nano /etc/koha/koha-sites.conf
 ```
 
 In the `koha-sites.conf` file, change the line that contains the following information:
@@ -270,43 +267,39 @@ To:
 INTRAPORT="8080"
 ```
 
-Next install and setup `mysql-server`:
+Next install `mysql-server` if it is not already installed:
 
 ```
-apt install mysql-server
+sudo apt install mysql-server
 ```
 
-Next we set the root MySQL password.
-Replace `X`s with your password:
-
-```
-mysqladmin -u root password XXXXXXXX
-```
+On Ubuntu, MySQL root access often uses system authentication (`sudo mysql`) by default.
+For this Koha setup, you do not need to set a separate MySQL root password with `mysqladmin`.
 
 When we installed Koha, the Apache2 web server was installed with it as a prerequisite.
 We need to enable URL rewriting and [CGI][cgi] functionality.
 
 ```
-a2enmod rewrite
-a2enmod cgi 
+sudo a2enmod rewrite
+sudo a2enmod cgi 
 ```
 
 Now we need to restart Apache2 in the normal way:
 
 ```
-systemctl restart apache2
+sudo systemctl restart apache2
 ```
 
 Next we create a database for Koha:
 
 ```
-koha-create --create-db bibliolib
+sudo koha-create --create-db bibliolib
 ```
 
 We need to tell Apache2 to listen on port 8080:
 
 ```
-nano /etc/apache2/ports.conf 
+sudo nano /etc/apache2/ports.conf 
 ```
 
 And under the `Listen 80` line, add:
@@ -318,7 +311,7 @@ Listen 8080
 Make sure Apache configuration changes are valid:
 
 ```
-apachectl configtest
+sudo apachectl configtest
 ```
 
 If you get an error message, trace the error in the file and line listed.
@@ -326,18 +319,18 @@ If you get an error message, trace the error in the file and line listed.
 Let's restart Apache2.
 
 ```
-systemctl restart apache2
+sudo systemctl restart apache2
 ```
 
 We'll disable the default Apache2 setup, enable traffic compression using `deflate`,
 enable the **bibliolib** site, and then reload Apache2's configurations and restart again:
 
 ```
-a2dissite 000-default
-a2enmod deflate
-a2ensite bibliolib
-systemctl reload apache2
-systemctl restart apache2
+sudo a2dissite 000-default
+sudo a2enmod deflate
+sudo a2ensite bibliolib
+sudo systemctl reload apache2
+sudo systemctl restart apache2
 ```
 
 ### Koha Web Installer
@@ -348,7 +341,7 @@ we can complete the installation through a web installer.
 First, get Koha username and password in the following file:
 
 ```
-nano /etc/koha/sites/bibliolib/koha-conf.xml
+sudo nano /etc/koha/sites/bibliolib/koha-conf.xml
 ```
 
 Look for the `<config>` stanza (line number 252) and
@@ -361,6 +354,8 @@ Make sure your URL begins with `http` and not `https`, and visit the web install
 ```
 http://IP-ADDRESS:8080
 ```
+
+This URL exposes the staff interface over HTTP, so keep the firewall source range restricted while working through the installer.
 
 The documentation for the web installer is helpful.
 Enter the username and password from the `koha-conf.xml` file.
@@ -426,7 +421,7 @@ Helpful documentation and demos:
 [equinox]:https://www.equinoxoli.org/
 [evergreen]:https://evergreen-ils.org/
 [koha_debian]:https://wiki.koha-community.org/wiki/Koha_on_Debian
-[koha_web_installer]:https://koha-community.org/manual//22.11/en/html/installation.html
+[koha_web_installer]:https://koha-community.org/manual/latest/en/html/installation.html
 [evergreen_ltg]:https://librarytechnology.org/product/evergreen-equinox
 [koha_ltg]:https://librarytechnology.org/product/koha
 [ports]:https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/
