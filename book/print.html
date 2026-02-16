@@ -2893,19 +2893,12 @@ use the following server address:</li>
 <pre><code>Z&gt; open z3950.loc.gov:7090/voyager
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-lamp-server"><a class="header" href="#creating-a-lamp-server">Creating a LAMP Server</a></h1>
-<p>In this section,
-we learn how to set up a LAMP
-(Linux, Apache, MySQL, PHP) stack.
-This stack is a common open source pattern for hosting
-database-backed websites and applications.
-Linux provides the operating system, Apache serves HTTP requests,
-PHP runs server-side code, and MySQL stores application data
-(often MariaDB in modern distributions).
-Together they enable us to create a web server
-that provides extra functionality via PHP and MySQL,
-both of which are required to run
-content management systems and
-integrated library systems.</p>
+<p>In this section, we learn how to set up a LAMP (Linux, Apache, MySQL, PHP) stack.
+This stack represents a suite of open source software commonly used to host database-backed websites and applications.
+Specifically, Linux provides the operating system, Apache serves HTTP requests, PHP runs server-side code, and
+MySQL stores application data (often MariaDB in modern distributions).
+Together, these applications provide the functionality needed to serve content management systems,
+like <em>WordPress</em>, as well as integrated library systems, like <em>Koha</em>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="installing-the-apache-web-server"><a class="header" href="#installing-the-apache-web-server">Installing the Apache Web Server</a></h1>
 <h2 id="introduction-6"><a class="header" href="#introduction-6">Introduction</a></h2>
 <p>In this section, we focus on a fundamental component of the internet's infrastructure:
@@ -2937,7 +2930,7 @@ These elements include:</p>
 </ul>
 <h2 id="installation-1"><a class="header" href="#installation-1">Installation</a></h2>
 <p>Before we install Apache, we need to update our systems first.
-This ensures we will be downloading and installing the most recent, secure version of the package.</p>
+This helps ensure we download and install the latest secure version available in our configured Ubuntu repositories.</p>
 <pre><code>sudo apt update
 sudo apt -y upgrade
 </code></pre>
@@ -2971,7 +2964,7 @@ In particular, look for key lines that show its <strong>Active</strong> and <str
 For example, the output shows that <code>apache2</code> is <strong>enabled</strong>, which is the default for this software.
 The term <strong>enabled</strong> means that the software starts automatically on reboot.
 The output should also state that the software is <strong>active</strong>.
-This means that the <code>apache2</code> is running and live.</p>
+This means that <code>apache2</code> is running.</p>
 <h2 id="creating-a-web-page"><a class="header" href="#creating-a-web-page">Creating a web page</a></h2>
 <p>Since <code>apache2</code> is active, let's look at the default web page.</p>
 <p>There are (at least) two ways we can look at the default web page.
@@ -3012,8 +3005,8 @@ assuming the private IP address for my local machine is <code>10.128.0.99</code>
 <strong>It works!</strong></p>
 <p>To exit <code>w3m</code> or <code>elinks</code>, press <strong>q</strong> and then <strong>y</strong> to confirm exit.</p>
 <h3 id="graphical-browser"><a class="header" href="#graphical-browser">Graphical Browser</a></h3>
-<p>To view the default web page using a regular web browser,
-like Firefox, Chrome, Safari, Edge, or etc., you need to get your server's
+<p>To view the default web page from a browser on your local machine (outside the VM),
+like Firefox, Chrome, Safari, or Edge, you need to get your server's
 <a href="https://en.wikipedia.org/wiki/IP_address">public IP address</a>.
 To do that, log into the <a href="https://console.cloud.google.com/">Google Cloud Console</a>
 click on the <strong>Compute Engine</strong> link, and then click on <strong>VM instances</strong>.
@@ -3046,7 +3039,7 @@ This is the <strong>Apache2 Ubuntu Default Page</strong> that we visited above i
 Most web servers look for a file specifically named <code>index.html</code> and serve that as the default.
 Let's rename that <code>index.html</code> file, in order to back it up, and create a new one:</p>
 <pre><code>cd /var/www/html/
-sudo mv index.html index.html.original
+sudo mv index.html index.original.html
 sudo nano index.html
 </code></pre>
 <blockquote>
@@ -3076,7 +3069,7 @@ I created this site using the Apache HTTP server.&lt;/p&gt;
 Remember that web browsers are, at their most basic, resource viewers.
 So it makes sense that you simply have to specify the name of the file you want to view.
 For example, if your <strong>public IP address</strong> is <code>55.222.55.222</code>, then you'd specify it like so:</p>
-<pre><code>http://55.222.55.222/index.html.original
+<pre><code>http://55.222.55.222/index.original.html
 </code></pre>
 <h2 id="conclusion-8"><a class="header" href="#conclusion-8">Conclusion</a></h2>
 <p>In this section, we learned about the Apache HTTP server.
@@ -3136,12 +3129,12 @@ sudo nano info.php
 phpinfo();
 ?&gt;
 </code></pre>
-<p>Now visit that file using the public IP address for your server.
+<p>Now visit that file from a browser on your local machine (outside the VM) using your server's public IP address.
 If the public IP address for my virtual machine is <code>203.0.113.10</code>, then in Firefox, Chrome, etc, I would open:</p>
 <pre><code>http://203.0.113.10/info.php
 </code></pre>
 <blockquote>
-<p>Again, be sure to replace the IP below with the IP address of your server and
+<p>Again, be sure to replace the sample IP above with the IP address of your server and
 be sure to use <strong>http</strong> and not <strong>https</strong>.</p>
 </blockquote>
 <p>You should see a page that provides system information about PHP, Apache, and the server.
@@ -3165,7 +3158,8 @@ Thus, <code>http://example.com/</code> actually resolves to <code>http://example
 However, if our plan is to provide PHP,
 we want Apache to default to a file titled <code>index.php</code> instead of the <code>index.html</code> file.
 In these cases, <code>http://example.com/</code> would actually resolve to <code>http://example.com/index.php</code>.</p>
-<p>To configure that, we need to edit the <code>dir.conf</code> file in the <code>/etc/apache2/mods-enabled/</code> directory.
+<p>To configure that, we edit the <code>dir.conf</code> file in the <code>/etc/apache2/mods-available/</code> directory.
+Apache enables this configuration through a symlink in <code>/etc/apache2/mods-enabled/</code>.
 In that file there is a line that starts with <code>DirectoryIndex</code> followed by a list of files.
 The first file listed in that line is <code>index.html</code>,
 and then there are a series of other files that Apache looks for in the order listed.
@@ -3174,7 +3168,7 @@ If any of those files exist in the document root, then Apache serves those befor
 We want Apache to prioritize the <code>index.php</code> file first and <code>index.html</code> second.
 Before modifying this file, it's good practice to create a backup of the original.
 So we will use the <code>cp</code> command to create a copy with a new name, and then we will use <code>nano</code> to edit the file.</p>
-<pre><code>cd /etc/apache2/mods-enabled/
+<pre><code>cd /etc/apache2/mods-available/
 sudo cp dir.conf dir.conf.bak
 sudo nano dir.conf
 </code></pre>
@@ -3184,9 +3178,8 @@ sudo nano dir.conf
 <p>Whenever we make a configuration change, we should use the <code>apachectl</code> command to check our configuration:</p>
 <pre><code>apachectl configtest
 </code></pre>
-<p>If we get a <code>Syntax Ok</code> message, we can reload the Apache configuration, restart the service, and check its status:</p>
+<p>If we get a <code>Syntax Ok</code> message, we can reload the Apache configuration and check its status:</p>
 <pre><code>sudo systemctl reload apache2
-sudo systemctl restart apache2
 systemctl status apache2
 </code></pre>
 <h2 id="create-an-indexphp-file"><a class="header" href="#create-an-indexphp-file">Create an index.php File</a></h2>
@@ -3213,7 +3206,7 @@ Add the following code:</p>
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
     // Browser Detection
-    if (stripos($user_agent, 'Edge') !== false) {
+    if (stripos($user_agent, 'Edg') !== false || stripos($user_agent, 'Edge') !== false) {
         $browser = 'Microsoft Edge';
     } elseif (stripos($user_agent, 'Firefox') !== false) {
         $browser = 'Mozilla Firefox';
@@ -3234,14 +3227,14 @@ Add the following code:</p>
     // OS Detection
     if (stripos($user_agent, 'Windows') !== false) {
         $os = 'Windows';
-    } elseif (stripos($user_agent, 'Mac') !== false || stripos($user_agent, 'Macintosh') !== false) {
-        $os = 'Mac';
-    } elseif (stripos($user_agent, 'Linux') !== false) {
-        $os = 'Linux';
     } elseif (stripos($user_agent, 'iOS') !== false || stripos($user_agent, 'iPhone') !== false || stripos($user_agent, 'iPad') !== false) {
         $os = 'iOS';
     } elseif (stripos($user_agent, 'Android') !== false) {
         $os = 'Android';
+    } elseif (stripos($user_agent, 'Mac') !== false || stripos($user_agent, 'Macintosh') !== false) {
+        $os = 'Mac';
+    } elseif (stripos($user_agent, 'Linux') !== false) {
+        $os = 'Linux';
     } else {
         $os = 'Unknown OS';
     }
@@ -3254,7 +3247,7 @@ Add the following code:</p>
 &lt;/html&gt;
 </code></pre>
 <p>Next, save the file and exit <code>nano</code>.
-In your browser, visit your site at its public IP address (again, replace your server's IP address):</p>
+From a browser on your local machine (outside the VM), visit your site at its public IP address (again, replace your server's IP address):</p>
 <pre><code>http://55.333.55.333/
 </code></pre>
 <p>Although your <code>index.html</code> file still exists in your document root, Apache now returns the <code>index.php</code> file instead.
@@ -3318,7 +3311,8 @@ We will respond with a <strong>Y</strong> to the first question on validating pa
 select <strong>LOW</strong> when prompted for the password validation policy.
 This will enforce a weak password policy for testing, but note that in real-world scenarios,
 we might want to select a more secure policy.
-In the output below, I show how to respond to each question:</p>
+The exact prompts can vary by MySQL version and package defaults; on MariaDB or other Linux distributions, they may differ further.
+In the example output below, I show one common set of responses:</p>
 <pre><code>Validate passwords: Y
 Password validation policy: 0 (zero) for LOW
 Remove anonymous users: Y
@@ -3437,20 +3431,20 @@ In the following code, I create and define a new table for our <code>opacdb</cod
 The table will be called <code>books</code> that will contain data describing, er, some books.
 We will keep this table very simple and use only four fields: <code>id</code>, <code>author</code>, <code>title</code>, and <code>copyright</code>.
 The <code>id</code> field will function as a primary key (second to last line in the command below).
-This key is used as a unique identifier for a record in the field.
+This key is used as a unique identifier for a record in the table.
 When we create this key as a field called <code>id</code>, we state that it should be an integer <code>id</code> (or whole number),
 that it should only be a positive number <code>unsigned</code>,
 that it should not be empty <code>not null</code>, and
 that with each record, it should increment by a single integer <code>auto_increment</code>.
 When we create the <code>author</code> and <code>title</code> fields,
 we say that these fields can have a maximum length of 150 characters and should not be empty.
-When we create the <code>copyright</code> field, we limit it to the <code>year</code> data type,
-which means it has to adhere to a specific syntax <code>YYYY</code>, and should not be empty.</p>
+When we create the <code>copyright</code> field, we limit it to the <code>YEAR</code> data type,
+which stores four-digit years in <code>YYYY</code> format, and should not be empty.</p>
 <pre><code>mysql&gt; create table books (
         id int unsigned not null auto_increment,
         author varchar(150) not null,
         title varchar(150) not null,
-        copyright year(4) not null,
+        copyright year not null,
         primary key (ID)
 );
 </code></pre>
@@ -3509,15 +3503,15 @@ mysql&gt; select author, title from books where title not like '%e';
 mysql&gt; select * from books;
 mysql&gt; alter table books add publisher varchar(75) after title;
 mysql&gt; describe books;
-mysql&gt; update books set publisher='Simon \&amp; Schuster' where id='1';
+mysql&gt; update books set publisher='Simon &amp; Schuster' where id='1';
 mysql&gt; update books set publisher='Penguin Random House' where id='2';
-mysql&gt; update books set publisher='W. W. Norton \&amp; Company' where id='3';
+mysql&gt; update books set publisher='W. W. Norton &amp; Company' where id='3';
 mysql&gt; update books set publisher='Knopf' where id='4';
 mysql&gt; select * from books;
 mysql&gt; delete from books where author='Julia Phillips';
 mysql&gt; insert into books
        (author, title, publisher, copyright) values
-       ('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010'),
+       ('Emma Donoghue', 'Room', 'Little, Brown &amp; Company', '2010'),
        ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
 mysql&gt; select * from books;
 mysql&gt; select author, publisher from books where copyright &lt; '2011';
@@ -3570,7 +3564,7 @@ The <code>chown :www-data login.php</code> command changes the group ownership t
 The <code>www-data</code> user is the Apache user.</p>
 <p>Many services, like Apache, have corresponding users on the system.
 Files placed in our document root <code>/var/www/html</code> will be served on the web.
-Therefore, those files must have read access for <strong>other/world</strong>.
+Therefore, those files must be readable by the Apache user or group (often <code>www-data</code>).
 But we don't want the <code>login.php</code> file to be accessible to the world since it contains login information for our MySQL user.
 Thus, in addition to modifying file ownership and permissions, we also place it in the parent directory <code>/var/www</code>.</p>
 </blockquote>
@@ -3662,7 +3656,7 @@ If all is well with the second command, HTML should be outputted:</p>
 <pre><code>sudo php -f /var/www/login.php
 sudo php -f /var/www/html/opac.php
 </code></pre>
-<p>Now view the site by opening the public IP address for your server in your browser.
+<p>Now view the site from a browser on your local machine (outside the VM) by opening the public IP address for your server.
 If all goes well, you should see the data in your <code>opacdb</code> database and <code>books</code> table rendered in your webpage.</p>
 <h2 id="conclusion-10"><a class="header" href="#conclusion-10">Conclusion</a></h2>
 <p>Congratulations! If you've reached this far, you have successfully created a LAMP stack.
@@ -3671,15 +3665,15 @@ how to create a test database with play data for practicing, and how to connect 
 <p>In regular applications of these technologies, there's a lot more involved,
 but completing the above process is a great start to learning more.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="diy-integrated-library-systems"><a class="header" href="#diy-integrated-library-systems">DIY Integrated Library Systems</a></h1>
-<p>Libraries use integrated library systems (ILS) to manage and add to their collections and
-to provide online public access catalogs or discovery systems to their users to search those collections.
+<p>Libraries use integrated library systems (ILS) to manage their collections.
+They also provide online public access catalogs (OPACs) or discovery systems that help users search those collections.
 In this chapter, based on the LAMP stack we created in the prior chapter, we will build a basic ILS.
-Specifically, we will create a bare bones OPAC and a bare bones cataloging module, two cornerstone modules in all ILSs.</p>
-<p>We start with an additional lesson in relational database usage.
+Specifically, we will create a bare bones OPAC and a bare bones cataloging module, two cornerstone modules in most traditional ILSs.</p>
+<p>We start with a short lesson in relational database design and querying.
 We then proceed to build the OPAC and cataloging modules.
 By the end of this chapter, you will have a deeper understanding of the fundamentals of these library technologies
 and how they are used in everyday practice.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="introduction-to-relational-databases"><a class="header" href="#introduction-to-relational-databases">Introduction to Relational Databases</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-to-relational-databases"><a class="header" href="#introduction-to-relational-databases">Introduction to Relational Databases</a></h1>
 <p>In the last section, we installed, configured, and setup a Linux, Apache, MySQL, and PHP (LAMP) stack.
 While setting up MySQL, we created a basic <code>opacdb</code> database containing a <code>books</code> table.
 Then we learned a few queries to get a feel for how querying a relational database, like MySQL, works.</p>
@@ -3754,7 +3748,7 @@ The table has four values:</p>
 </ul>
 <pre><code>create table Ingredients (
     ingredient_id int auto_increment primary key,
-    meal_id int,
+    meal_id int not null,
     ingredient_name varchar(100) not null,
     quantity varchar(50),
     foreign key (meal_id) references Meals(meal_id) on delete cascade
@@ -3786,9 +3780,8 @@ Therefore, <code>1</code> refers to <strong>Spaghetti Bolognese</strong>, <code>
     (4, 'Mushrooms', '1 cup'),
     (4, 'Parmesan Cheese', '1/2 cup');
 </code></pre>
-<pre><code>In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
-This would result in better [database normalization][db_normalization_wiki].
-</code></pre>
+<p>In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
+This would result in better <a href="https://en.wikipedia.org/wiki/Database_normalization">database normalization</a>.</p>
 <h2 id="querying-data"><a class="header" href="#querying-data">Querying Data</a></h2>
 <p>Now that we have created our tables and added records to them, we can begin to query them.
 The next command is a simple <code>SELECT</code> statement that returns the entire contents of the <code>Meals</code> table:</p>
@@ -3857,7 +3850,7 @@ To do so, we first log back in as the root MySQL user:</p>
 <pre><code>mysql&gt; revoke all privileges on DinnerDB.* from 'opacuser'@'localhost';
 </code></pre>
 <p>To confirm, we can re-run the <code>show grants</code> command.</p>
-<p>If we want to track other users in with accounts in the MySQL server,
+<p>If we want to view other user accounts on the MySQL server,
 the following command queries the <code>user</code> table in the <code>mysql</code> database and will return all user accounts:</p>
 <pre><code>select user, host from mysql.user;
 </code></pre>
@@ -3876,7 +3869,7 @@ inserted data, and performed various queries to retrieve information efficiently
 <ul>
 <li><strong>Normalization</strong>: Breaking data into multiple tables reduces redundancy and improves consistency.</li>
 <li><strong>Relationships</strong>: Using foreign keys, we linked meals with their ingredients. This allows for more meaningful data retrieval.</li>
-<li><strong>Querying</strong>: We practiced <code>SELECT</code>, <code>JOIN</code>, <code>WHERE</code>, <code>ORDER_BY</code>, and <code>GROUP_BY</code> to manipulate and filter data results.</li>
+<li><strong>Querying</strong>: We practiced <code>SELECT</code>, <code>JOIN</code>, <code>WHERE</code>, <code>ORDER BY</code>, and <code>GROUP BY</code> to manipulate and filter data results.</li>
 <li><strong>Management</strong>: We reviewed how to create a database, grant privileges to the database to a specific user, remove those privileges, and delete the database.</li>
 </ul>
 <p>This tutorial is only a start.
@@ -3887,7 +3880,7 @@ If you understand SQL and its logic, it will help you in other domains, too!
 So go play!</p>
 <p>And if interested, I encourage you to learn other SQL implementation, like <a href="https://www.sqlite.org/">SQLite</a>,
 which you can download and install on your personal machines fairly easily.
-SQLite is probably the most popular SQL application, but it uses <a href="https://www.sqlite.org/cli.html">a slightly different command syntax</a>.</p>
+SQLite is a widely used relational database engine, but it uses <a href="https://www.sqlite.org/cli.html">a slightly different command syntax</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-bare-bones-opac"><a class="header" href="#creating-a-bare-bones-opac">Creating a Bare Bones OPAC</a></h1>
 <p>In this section, we're going to create a bare bones, very basic OPAC.
 The idea is simple: to acquire an intuition and understanding of how data
@@ -3907,11 +3900,21 @@ We also created a PHP file to retrieve the data from the <strong>books</strong> 
 <p>In this section, we are going to use different PHP code that will allow us to search the <strong>books</strong> table.
 In this way, we more closely mimic an OPAC.</p>
 <h2 id="creating-the-html-page-and-a-php-search-page"><a class="header" href="#creating-the-html-page-and-a-php-search-page">Creating the HTML Page and a PHP Search Page</a></h2>
+<p>Before creating the search form, we will update our table so the <code>copyright</code> column uses a proper <code>DATE</code> data type.
+This lets our start and end date fields work as true date filters.
+Run the following once:</p>
+<pre><code>mysql -u opacuser -p
+mysql&gt; use opacdb;
+mysql&gt; alter table books add publication_date date;
+mysql&gt; update books set publication_date = str_to_date(concat(copyright, '-01-01'), '%Y-%m-%d');
+mysql&gt; alter table books drop column copyright;
+mysql&gt; alter table books change publication_date copyright date not null;
+</code></pre>
 <p>The first thing we do is create a basic HTML page that contains a form for entering queries.
 We'll call this HTML page with the form <strong>mylibrary.html</strong>.
 When a user clicks on the submit button in the form, the form will activate a PHP script called <strong>search.php</strong>.
 That <strong>search.php</strong> will establish a connection to the OPAC database that we already have created.
-Our PHP script will contain a special MySQL query that will allow us to search all the fields in our <strong>books</strong> table.
+Our PHP script will contain a special MySQL query that will allow us to search key bibliographic fields in our <strong>books</strong> table.
 Then it will iterate through each row of the <strong>books</strong> table and return results that match our query.
 We also add two date fields to our form to limit results by publication dates,
 which we labeled as <strong>copyright</strong> in our MySQL <strong>books</strong> table.</p>
@@ -3929,7 +3932,7 @@ which we labeled as <strong>copyright</strong> in our MySQL <strong>books</stron
 
 	&lt;p&gt;In the form below, &lt;b&gt;optionally&lt;/b&gt; enter text in the search field.
 	Your search query will search by author, title, or publisher.
-	Capitalization is not necessary.
+	Capitalization is usually not necessary on default case-insensitive MySQL collations.
 	It's okay to enter partial information, like part of an author's, title's, or publisher's name.&lt;/p&gt;
 
 	&lt;p&gt;You can leave the search field empty and only enter dates.
@@ -3943,10 +3946,10 @@ which we labeled as <strong>copyright</strong> in our MySQL <strong>books</stron
 	&lt;a href="https://en.wikipedia.org/wiki/Online_public_access_catalog"&gt;OPAC&lt;/a&gt;.
 	The records are basic.
 	Not only do they not conform to &lt;a href="https://www.loc.gov/marc/"&gt;MARC&lt;/a&gt;,
-	they don't even conform to something as simple as &lt;a href="https://www.dublincore.org/"&gt;Dublin Core&lt;/a&gt;.
+	they don't even conform to something as simple as &lt;a href="https://www.dublincore.org/"&gt;Dublin Core&lt;/a&gt;.&lt;/p&gt;
 
 	&lt;p&gt;I also don't provide options to select different fields, like author, title, or publisher fields.
-	Instead the search field below searches all the fields (author, title, publisher) in our &lt;b&gt;books&lt;/b&gt; table.&lt;/p&gt;
+	Instead the search field below searches key bibliographic fields (author, title, publisher) in our &lt;b&gt;books&lt;/b&gt; table.&lt;/p&gt;
 
 	&lt;p&gt;The key idea is to get a sense of how an OPAC works, though.&lt;/p&gt;
 
@@ -4017,7 +4020,7 @@ which we labeled as <strong>copyright</strong> in our MySQL <strong>books</stron
         $end_date = $_POST['end_date'];
 
         // Prepared statement to prevent SQL injection
-        $stmt = $conn-&gt;prepare("SELECT * FROM books 
+        $stmt = $conn-&gt;prepare("SELECT id, author, title, publisher, copyright FROM books 
                                 WHERE (author LIKE ? OR title LIKE ? OR publisher LIKE ?) 
                                 AND copyright BETWEEN ? AND ?");
 
@@ -4068,8 +4071,8 @@ Use it to add titles that are of interest to you.</p>
 <p>Then run the <code>insert</code> command with the data for the new records:</p>
 <pre><code>insert into books
 (author, title, publisher, copyright) values
-('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010'),
-('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
+('Emma Donoghue', 'Room', 'Little, Brown &amp; Company', '2010-01-01'),
+('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000-01-01');
 </code></pre>
 <h2 id="conclusion-12"><a class="header" href="#conclusion-12">Conclusion</a></h2>
 <p>In this lesson, we created a very bare bones OPAC simply to express the fundamental idea
@@ -4079,13 +4082,13 @@ or library service platform, from other databases on the web is the structure of
 that are stored in the relational database.
 Such records are structured using MARC.
 Our records are very simply structured, but still, I hope this helps in creating an intuition
-about how OPACs and like function.
+about how OPACs and similar systems function.
 In the next section, we will learn how to enter data into our catalog,
 thereby mimicking the cataloging module of an integrated library system.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-bare-bones-cataloging-module"><a class="header" href="#creating-a-bare-bones-cataloging-module">Creating a Bare Bones Cataloging Module</a></h1>
 <p>If you have worked with an integrated library system (ILS) or a more modern library service platform (LSP),
 then you know that an OPAC or discovery system, respectively,
-is simply one <a href="https://cseanburns.github.io/electronic_resource_mgmt/04-erm-ils.html#administration">module out of several that makeup an ILS or LSP</a>.
+is simply one <a href="https://cseanburns.github.io/electronic_resource_mgmt/04-erm-ils.html#administration">module out of several that make up an ILS or LSP</a>.
 Other modules include acquisitions, authority files, circulation, course reserves, patron management, and more.
 In the prior section, we created one of those modules: a bare bones OPAC.
 In this section, we are going to create a bare bones cataloging module in the same kind of way.</p>
@@ -4095,7 +4098,7 @@ it's unlikely that you would add data to your system via that interface.
 Instead you would use an application via a fancy graphical user interface, i.e., integrated library system.
 The reason we started off with MySQL is not because you would necessarily use this interface on a daily basis.
 Rather, it's because I want you to understand the foundations of these technologies and
-the how they get translated for users when they become web applications.</p>
+how they get translated for users when they become web applications.</p>
 <h2 id="creating-the-html-page-and-a-php-cataloging-page"><a class="header" href="#creating-the-html-page-and-a-php-cataloging-page">Creating the HTML Page and a PHP Cataloging Page</a></h2>
 <p>Like in the last exercise, the first thing we do is create a basic HTML page that
 contains a form for entering our bibliographic data.
@@ -4142,7 +4145,7 @@ sudo nano index.html
 		&lt;input type="text" name="publisher" id="publisher" required&gt;&lt;br&gt;&lt;br&gt;
 
 		&lt;label for="copyright"&gt;Copyright:&lt;/label&gt;
-		&lt;input type="number" name="copyright" id="copyright" min="1000" max="2300" required&gt;
+		&lt;input type="date" name="copyright" id="copyright" required&gt;
 
 		&lt;input type="submit" value="Submit"&gt;
 	&lt;/form&gt;
@@ -4180,24 +4183,33 @@ if ($conn-&gt;connect_error) {
     die("Connection failed: " . $conn-&gt;connect_error);
 }
 
-// Prepare and bind SQL statement
-$stmt = $conn-&gt;prepare("INSERT INTO books (author, title, publisher, copyright) VALUES (?, ?, ?, ?)");
-$stmt-&gt;bind_param("ssss", $author, $title, $publisher, $copyright);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $author = trim($_POST["author"] ?? "");
+    $title = trim($_POST["title"] ?? "");
+    $publisher = trim($_POST["publisher"] ?? "");
+    $copyright = $_POST["copyright"] ?? "";
 
-// Set parameters and execute statement
-$author = $_POST["author"];
-$title = $_POST["title"];
-$publisher = $_POST["publisher"];
-$copyright = $_POST["copyright"];
+    if ($author === "" || $title === "" || $publisher === "" || $copyright === "") {
+        echo "All fields are required.";
+    } elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $copyright)) {
+        echo "Copyright date must use YYYY-MM-DD format.";
+    } else {
+        // Prepare and bind SQL statement
+        $stmt = $conn-&gt;prepare("INSERT INTO books (author, title, publisher, copyright) VALUES (?, ?, ?, ?)");
+        $stmt-&gt;bind_param("ssss", $author, $title, $publisher, $copyright);
 
-if ($stmt-&gt;execute() === TRUE) {
-    echo "New record created successfully";
+        if ($stmt-&gt;execute() === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $stmt-&gt;error;
+        }
+        $stmt-&gt;close();
+    }
 } else {
-    echo "Error: " . $stmt-&gt;error;
+    echo "Please submit records using the cataloging form.";
 }
 
-// Close statement and connection
-$stmt-&gt;close();
+// Close connection
 $conn-&gt;close();
 ?&gt;
 
@@ -4210,29 +4222,27 @@ $conn-&gt;close();
 <p>Since our HTML and PHP files allow us to enter data into our MySQL database from a simple web interface,
 we need to limit access to the module.
 In a real-world situation, modules like these would have a variety of security measures in place to prevent wrongful data entry.
-In our case, we will rely on a simple authorization mechanism provided by the Apache2 server called <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-apache-on-ubuntu-18-04">htpasswd</a>.</p>
+In our case, we will rely on a simple authorization mechanism provided by the Apache2 server called <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-apache-on-ubuntu-18-04">htpasswd</a>.
+Because this tutorial uses HTTP only, remember that Basic Auth credentials are exposed in transit and should be treated as training-only.</p>
 <p>First, we create an authentication file in our <strong>/etc/apache2</strong> directory,
 which is where the <strong>Apache2</strong> web server stores its configuration files.
 The file will contain a <strong>hashed</strong> password and a username we give it.
 In the following command to set the password, I set the username to <strong>libcat</strong>, but it could be anything:</p>
 <pre><code>sudo htpasswd -c /etc/apache2/.htpasswd libcat
 </code></pre>
+<blockquote>
+<p>Use the <code>-c</code> option only the first time to create the file.
+To add additional users later, omit <code>-c</code> so existing accounts are not overwritten.</p>
+</blockquote>
 <p>Next we need to tell the Apache2 web server that we will use the <code>htpasswd</code> to control access to our cataloging module.
 To do that, we use a text editor to open the <strong>apache2.conf</strong> file.</p>
 <pre><code>sudo nano /etc/apache2/apache2.conf
 </code></pre>
-<p>In the <strong>apache2.conf</strong> file, look for the code block / stanza below.
-We are interested in the third line in the stanza, which is line 172 for me, and probably is for you, too.</p>
-<pre><code>&lt;Directory /var/www/&gt;
+<p>In the <strong>apache2.conf</strong> file, add a more specific directory stanza for this module.
+This keeps overrides limited to the cataloging directory rather than enabling them for all of <code>/var/www/</code>.</p>
+<pre><code>&lt;Directory /var/www/html/cataloging/&gt;
   Options Indexes FollowSymLinks
-  AllowOverride None
-  Require all granted
-&lt;/Directory&gt;
-</code></pre>
-<p><strong>Carefully</strong>, we need to change the word <strong>None</strong> to the word <strong>All</strong>:</p>
-<pre><code>&lt;Directory /var/www/&gt;
-  Options Indexes FollowSymLinks
-  AllowOverride All
+  AllowOverride AuthConfig
   Require all granted
 &lt;/Directory&gt;
 </code></pre>
@@ -4260,7 +4270,7 @@ The account name is <strong>www-data</strong>, and it's account details are stor
 <pre><code>grep "www-data" /etc/passwd
 www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
 </code></pre>
-<p>From the output, we can see that the <strong>www-apache</strong> user's home directory is <strong>/var/www</strong> and
+<p>From the output, we can see that the <strong>www-data</strong> user's home directory is <strong>/var/www</strong> and
 its default shell is <strong>/usr/sbin/nologin</strong>.
 See <code>man nologin</code> for details, but in short, the <code>nologin</code> prevents the <strong>www-data</strong> account to be able to login to a shell.</p>
 <blockquote>
@@ -4269,7 +4279,7 @@ information that is stored in <strong>/etc/passwd</strong>. Use the following co
 <code>grep $USER /etc/passwd</code> to do so. You'll see, for example, that your home
 directory is listed there as well as your default shell, which is <code>bash</code>.</p>
 </blockquote>
-<p>The benefit with having Apache2 a user is that we can limit file permissions and ownership to this user.</p>
+<p>The benefit of Apache2 having a user is that we can limit file permissions and ownership to this user.</p>
 <p>The general guidelines for this are as follows:</p>
 <ul>
 <li>Static files (like HTML, CSS, JS) might not need to be writable by the Apache
@@ -4280,7 +4290,7 @@ applications that need write access should be owned by <strong>www-data</strong>
 <li>Configuration files (incl. files like <strong>login.php</strong>) should be readable by
 <strong>www-data</strong> but not writable, to prevent unauthorized modifications.</li>
 </ul>
-<p>We can initiate this guidelines with the <code>chown</code> and <code>chmod</code> commands:</p>
+<p>We can initiate these guidelines with the <code>chown</code> and <code>chmod</code> commands:</p>
 <ol>
 <li>
 <p>Change the group ownership of <strong>/var/www/html</strong> to <strong>www-data</strong>:</p>
@@ -4295,7 +4305,7 @@ While this ensures that group ownership is inherited, the user ownership of
 new files will still be the user that creates the files. In our case, since
 we use <code>sudo</code> to work in this directory, that means that the user owner for
 subsequent files and directories will be the Linux <strong>root</strong> user.</p>
-<pre><code> sudo chmod -R g+s /var/www/html
+<pre><code> sudo find /var/www/html -type d -exec chmod g+s {} +
 </code></pre>
 </li>
 </ol>
@@ -4319,7 +4329,7 @@ We would also like to make our modules graphically attractive and provide more c
 That would mean we would add <a href="https://en.wikipedia.org/wiki/CSS">Cascading Style Sheets (CSS)</a> and <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>
 to create an attractive and usable interface.
 But that would be a whole other book.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="installing-content-management-systems"><a class="header" href="#installing-content-management-systems">Installing Content Management Systems</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="library-website-project"><a class="header" href="#library-website-project">Library Website Project</a></h1>
 <p>Many library websites are compositions of interconnected resources.
 For example, a library may have a front-facing website that provides
 basic information about the library, its physical locations, and its services.
@@ -4328,11 +4338,13 @@ library service platform (LSP) that is itself a different website.
 The front-facing website may also be connected to other sites that provide access to all sorts of databases.
 In the end, this means that a library website is not just one place.
 It is much more like a series of interconnected buildings, each of which has its own entry points.</p>
-<p>In this section, we will learn how to build these interconnected resources.
-First, we learn how to use <a href="https://wordpress.org/">WordPress</a> to setup a library's front-facing web presence.
+<p>In this section, we will learn how to install and configure these interconnected resources.
+First, we learn how to use <a href="https://wordpress.org/">WordPress</a> to set up a library's front-facing web presence.
 The basic process is similar to the process we used when building our bare bones OPAC.
 We will then use the instructions for the WordPress install to install and configure <a href="https://omeka.org/">Omeka</a>,
-which we might imagine is used to build a digital library for our library.</p>
+which we might imagine is used to build a digital library for our library.
+For Omeka, the instructions are intentionally less step-by-step so that you can extrapolate from the WordPress process.
+Finally, we will install Koha with more direct guidance again because its setup process differs in important ways.</p>
 <p>At the end of this section, we will have begun creating a library web presence that is more than a basic front-facing web presence.
 Instead, it will start the infrastructure for an ecosystem that provides access to all sorts of library resources.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="install-wordpress"><a class="header" href="#install-wordpress">Install WordPress</a></h1>
@@ -4341,12 +4353,12 @@ Instead, it will start the infrastructure for an ecosystem that provides access 
 Originally, its focus was on providing a platform for blogging, but it has become a general purpose CMS that can serve as a website builder.</p>
 <p>Two main sites exist to provide access to WordPress: <a href="https://wordpress.com">WordPress.com</a> and <a href="https://wordpress.org">WordPress.org</a>.
 WordPress.com is a hosting solution, which means that customers can sign up and create a free WordPress site.
-Since its hosted, customers are only responsible for their content and not for managing the core WordPress installation and its updates.
+Since it's hosted, customers are only responsible for their content and not for managing the core WordPress installation and its updates.
 Various paid plans can extend the functionality offered to WordPress.com customers.</p>
 <p>WordPress.org is maintained by the <a href="https://wordpressfoundation.org/">WordPress Foundation</a>, which
 oversees the development of and provides access to the software.
 When we download the WordPress software, we download it from WordPress.org.
-Unlike the hosted solution, when we install and setup WordPress on our own servers,
+Unlike the hosted solution, when we install and set up WordPress on our own servers,
 we become responsible for administrating its installation and for keeping the software updated.</p>
 <p>WordPress is widely used software, and because of that, it's often the focus of attack.
 Take a moment to read about the developer's efforts to protect WordPress: <a href="https://wordpress.org/about/security/">Security</a>.
@@ -4354,7 +4366,7 @@ We will not need to update our WordPress installs during the course of this cour
 you should be familiar with the update process in case you decide to maintain your install or an install at a future date:
 <a href="https://wordpress.org/documentation/article/updating-wordpress/">Updating WordPress</a>.</p>
 <h2 id="libraries-and-wordpress"><a class="header" href="#libraries-and-wordpress">Libraries and WordPress</a></h2>
-<p>Many libraries use WordPress as as their main website and a quick web search will reveal them.
+<p>Many libraries use WordPress as their main website and a quick web search will reveal them.
 For example, I quickly found an example of a (beautiful) WordPress library site for the
 <a href="https://readingpl.org/">Reading Public Library (RPL)</a> in Massachusetts.
 These library websites coordinate with additional solutions that provide integrated library systems and other electronic resource services.
@@ -4390,9 +4402,9 @@ The announcement describes how various plugins were used to offer patrons additi
 describes other basic changes that come with the new site.
 The plugins they added display business hours and help manage events and event attendees.</p>
 <p>Plugins are often used with WordPress sites to offer all sorts of additional capabilities.
-Currently, there are nearly <a href="https://wordpress.org/plugins/">60 thousand plugins</a> available for WordPress, but
+Currently, there are <a href="https://wordpress.org/plugins/">tens of thousands of plugins</a> available for WordPress, but
 some are of higher quality and utility than others.
-In addition to the thousands of available plugins, there are nearly <a href="https://wordpress.org/themes/">12 thousand free themes</a> for WordPress sites.
+In addition to the plugin ecosystem, there are <a href="https://wordpress.org/themes/">thousands of free themes</a> for WordPress sites.
 Plus, many businesses offer paid themes or can create customized themes based on customer needs.
 These themes can drastically alter the appearance and usability of a WordPress site or cater a site for a specific clientele,
 such as a library.</p>
@@ -4424,18 +4436,17 @@ However, since WordPress is much more complicated software than our bare bones O
 This means that when we plan to download software outside of the <code>apt</code> ecosystem,
 we need to make sure that our systems meet the requirements for our installation.
 The <a href="https://wordpress.org/about/requirements/">WordPress.org Requirements</a> page states that the WordPress installation requires
-at least PHP version 7.4 and MySQL version 8.0 or greater.
+PHP version 8.3 or greater, MySQL version 8.0 or greater (or MariaDB version 10.6 or greater), and HTTPS support.
 We can check that our systems meet these requirements with the following commands.
 To check our installed version of PHP:</p>
 <pre><code>php --version
 </code></pre>
-<p>To check our installed version of MySQL:</p>
+<p>To check our installed version of MySQL or MariaDB:</p>
 <pre><code>mysql --version
 </code></pre>
-<p>The output from <code>php --version</code> shows that my systems have PHP 8.1.2, which is greater than PHP 7.4.
-The output from <code>mysql --version</code> show that our systems have MySQL 8.0.41, which is greater than MySQL 8.0.
-This should be the same for you if you're running the Ubuntu 22.04.5 LTS Linux distribution.
-You can check that with the following command:</p>
+<p>The output from <code>php --version</code> and <code>mysql --version</code> should confirm that your software meets or exceeds those recommendations.
+Your exact versions may differ based on your Ubuntu release and package updates.
+You can check your Ubuntu release with the following command:</p>
 <pre><code>cat /etc/issue.net
 </code></pre>
 <p>Since the system meets the PHP and MySQL requirements, it means I can proceed.</p>
@@ -4466,7 +4477,7 @@ sudo wget https://wordpress.org/latest.zip
 sudo unzip latest.zip
 </code></pre>
 <p>As noted in the WordPress documentation, this will create a directory called <code>wordpress</code> in the same directory.
-Therefore the full path of your installation will located at <code>/var/www/html/wordpress</code>.</p>
+Therefore, the full path of your installation will be located at <code>/var/www/html/wordpress</code>.</p>
 <h3 id="step-3-create-the-database-and-a-user"><a class="header" href="#step-3-create-the-database-and-a-user">Step 3: Create the Database and a User</a></h3>
 <p>The WordPress documentation describes how to use <code>phpMyAdmin</code> to create the database and a user for WordPress.
 <code>phpMyAdmin</code> is a graphical front end to the MySQL relational database that you would access through the browser.
@@ -4477,14 +4488,12 @@ Therefore, we are going to create the WordPress database and a database user usi
 to create a database and user for our bare bones ILS.
 You already know this, but the general instructions are:</p>
 <ol>
-<li>Switch to the root Linux user</li>
-<li>Login as the MySQL root user</li>
+<li>Log in as the MySQL root user with <code>sudo</code></li>
 </ol>
 <p>Specifically, we do the following on the command line:</p>
-<pre><code>sudo su
-mysql -u root
+<pre><code>sudo mysql -u root
 </code></pre>
-<p>The <code>mysql -u root</code> command places us in the MySQL command prompt.
+<p>The <code>sudo mysql -u root</code> command places us in the MySQL command prompt.
 The next general instructions are to:</p>
 <ol>
 <li>Create a new user for the WordPress database</li>
@@ -4494,7 +4503,7 @@ The next general instructions are to:</p>
 <li>Examine the output</li>
 <li>Exit the MySQL prompt</li>
 </ol>
-<p>Specifically, this means the following (be sure to replaces the <code>X</code>s with a unique and strong password of your own):</p>
+<p>Specifically, this means the following (be sure to replace the <code>X</code>s with a unique and strong password of your own):</p>
 <pre><code>create user 'wordpress'@'localhost' identified by 'XXXXXXXXX';
 create database wordpress;
 grant all privileges on wordpress.* to 'wordpress'@'localhost';
@@ -4524,10 +4533,13 @@ sudo nano wp-config.php
 </code></pre>
 <p>Using <code>nano</code>, add your database name, user, and password in the appropriate fields,
 just like we did with our <code>login.php</code> file for our bare bones OPAC.</p>
-<p>Additionally, we want to disable FTP uploads to the site for security reasons.
-To do that, navigate to the end of the file and add the following line:</p>
+<p>For this short-lived lab install, updating the database fields is sufficient.
+If you later create a long-term or production install, also generate and set unique WordPress authentication keys and salts per the WordPress documentation.</p>
+<p>If WordPress cannot write files due to permissions in this lab environment, add the following line at the end of <code>wp-config.php</code>:</p>
 <pre><code>define('FS_METHOD','direct');
 </code></pre>
+<p>This tells WordPress to write files directly through the local filesystem.
+For permanent installs, only use this after reviewing file ownership and security implications.</p>
 <h3 id="step-5-optional"><a class="header" href="#step-5-optional">Step 5: <strong>Optional</strong></a></h3>
 <p>The WordPress files are now installed at <code>/var/www/html/wordpress</code>.
 This means that your site would be located at a URL like:</p>
@@ -4536,7 +4548,7 @@ This means that your site would be located at a URL like:</p>
 <p>If you want to, you can rename your <code>wordpress</code> directory to something else.
 The WordPress documentation uses <code>blog</code> as an example.
 But it could be something else, like the name of a fictional library that you might be using WordPress for to build a site.
-If you decide to change it, be sure to keep the name lowercase and one word (no spaces and only alphabetic characters).
+If you decide to change it, keep the name lowercase and URL-friendly (letters, numbers, and hyphens; no spaces).
 For example, if I want to change mine to <code>library</code>, then:</p>
 <pre><code>sudo mv /var/www/html/wordpress /var/www/html/library
 </code></pre>
@@ -4546,6 +4558,8 @@ Assuming you are still in your base directory, run the following command, which 
 <code>/var/www/html/wordpress</code>:</p>
 <pre><code>sudo chown -R www-data:www-data /var/www/html/wordpress
 </code></pre>
+<p>For this course, where the install is temporary, this broad ownership change is acceptable.
+For a permanent install, use stricter ownership and limit writable locations where possible.</p>
 <h3 id="step-7-run-the-install-script"><a class="header" href="#step-7-run-the-install-script">Step 7: Run the Install Script</a></h3>
 <p>The next part of the process takes place in the browser.
 The location (URL) that you visit in the browser depends on your specific IP address and also
@@ -4583,8 +4597,8 @@ Use free themes and free plugins to alter the look of the site, its usability, a
 Try to create a nice looking website.
 Generally, your goal for the next week is to create an attractive, yet fictional, <em>front entrance</em> for a library website.
 It's also a break from the command line!</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="install-omeka"><a class="header" href="#install-omeka">Install Omeka</a></h1>
-<p><a href="https://omeka.org/">Omeka</a> is an <q>Open-source web publishing platforms for sharing digital collections and creating media-rich online exhibits.</q>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="install-omeka-classic"><a class="header" href="#install-omeka-classic">Install Omeka Classic</a></h1>
+<p><a href="https://omeka.org/classic/">Omeka Classic</a> is an open source web publishing platform for sharing digital collections and creating media-rich online exhibits.
 Most if not all of you have already used Omeka in a prior course.
 Here our task is not to practice information/knowledge organization, but to learn how to administer the Omeka digital library platform.</p>
 <h2 id="the-task"><a class="header" href="#the-task">The Task</a></h2>
@@ -4599,14 +4613,14 @@ bare bones OPAC/ILS and WordPress assignments, and apply them to the Omeka insta
 Below are some additional <strong>prerequisites</strong> that you should complete first.
 After you've completed them, move on to the <strong>General Steps</strong> section to
 remind yourself of the overall process.</p>
-<p>You can do it!</p>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
 <p>When we installed WordPress, we installed most of the prerequisites that Omeka needs, but
 there are a couple of additional things we need to do.</p>
 <p>Some prerequisites:</p>
 <ul>
 <li>Make sure your system is fully updated first: <code>sudo apt update</code> etc.</li>
-<li>Check that you installed versions of PHP and MySQL meet <a href="https://omeka.org/classic/docs/Installation/System_Requirements/">Omeka's system requirements</a>.</li>
+<li>Check that your installed versions of PHP and MySQL meet <a href="https://omeka.org/classic/docs/Installation/System_Requirements/">Omeka's system requirements</a>.</li>
+<li>Check that required PHP extensions (especially <code>mysqli</code> and <code>exif</code>) are installed and enabled.</li>
 <li>Install <a href="https://imagemagick.org/index.php">ImageMagick</a>: this is a suite of utilities to work with photo files.
 Omeka uses ImageMagick to create thumbnail images of photos uploaded to the digital library.
 Visit the ImageMagick link above for more information.</li>
@@ -4634,11 +4648,11 @@ Use this handbook to remind you of the specific commands.</p>
 <ul>
 <li>Create a new user and a new database in MySQL for the Omeka installation
 (do not re-use the WordPress database, user, etc credentials or names of databases or tables).</li>
-<li>Use <code>wget</code> from your server to download Omeka Classic as a Zip file and extract it in <code>/var/www/html</code>:
+<li>Use <code>wget</code> from your server to download the latest Omeka Classic release as a Zip file and extract it in <code>/var/www/html</code>:
 <ul>
-<li>https://github.com/omeka/Omeka/releases/download/v3.1.2/omeka-3.1.2.zip</li>
+<li>Download page: <a href="https://omeka.org/classic/download/">https://omeka.org/classic/download/</a></li>
 <li>Unzip it with the <code>unzip</code> command, which you might have to install with the <code>apt</code> command.</li>
-<li>The extracted directory will be named <code>omeka-3.1.2</code>.</li>
+<li>The extracted directory will include the release version in its name.</li>
 <li>You want to <strong>rename</strong> it simply <code>omeka</code> or something else of your choosing (like <code>digital_library</code>).
 Remember that names of files and directories should not have spaces in them.</li>
 </ul>
@@ -4647,8 +4661,8 @@ Remember that names of files and directories should not have spaces in them.</li
 Replace all values containing <code>XXXXXX</code> with the appropriate information.
 This is the same thing we did with the <code>login.php</code> file for our bare bones ILS and the <code>wp-config.php</code> file for WordPress.</li>
 <li>Use the <code>chown</code> command like we did with WordPress on the <code>files</code> directory in the <code>omeka</code> directory.
-However, the <strong>user AND owner</strong> should be owned by <code>www-data</code>. <strong>NOTE: This is necessary!!!</strong></li>
-<li>Restart Apache2 and MySQL.</li>
+On Ubuntu, one option is to set ownership to <code>www-data:www-data</code>, but the key requirement is that the web server can write to <code>omeka/files</code>.</li>
+<li>Restart Apache2. Restart MySQL only if you run into connection or service issues.</li>
 <li>In your web browser, go to <code>http://your-ip-address/omeka/</code> and complete the setup via the web form, just like you did with WordPress.</li>
 </ul>
 <h2 id="helpful-links"><a class="header" href="#helpful-links">Helpful Links</a></h2>
@@ -4728,7 +4742,7 @@ we first interact with a normal website that might be built on
 WordPress, <a href="https://www.drupal.org/">Drupal</a>, or some other content management system.
 These websites will link to the public facing components of an ILS or LSP, as well as other services,
 such as bibliographic databases, journal publishers, ebook services, and more.
-It may therefore be the systems librarians job to help build and connect these services.
+It may therefore be the systems librarian's job to help build and connect these services.
 In this demo, we will continue that work by installing, configuring, and setting up the Koha ILS.</p>
 <h2 id="google-cloud-setup"><a class="header" href="#google-cloud-setup">Google Cloud Setup</a></h2>
 <p>Before we begin to install Koha, we need to create a new virtual machine instance
@@ -4746,21 +4760,22 @@ we will use for the <strong>Series</strong> an <strong>E2</strong> and set
 the <strong>Machine Type</strong> to <strong>2 vCPU, 4 GB memory</strong>, and up the disk size to 20GB.
 Under <strong>Networking</strong>, click on <strong>Allow HTTP traffic</strong>.
 In the <strong>Network tags</strong> box, add the following tag name: <code>koha-8080</code>.</p>
-<p>All else, including the operating system (Ubuntu 22.04), should remain the same.
+<p>All else, including the operating system (Ubuntu 24.04 LTS), should remain the same.
 Note that this is a more expensive setup.
-Therefore, feel free to delete this instance at the end of the semester to avoid incurring extra costs.</p>
+Therefore, feel free to delete this instance when you are done with this project to avoid incurring extra costs.</p>
 <h3 id="google-cloud-firewall"><a class="header" href="#google-cloud-firewall">Google Cloud firewall</a></h3>
 <p>Later, after we install Koha, we will need to access the staff interface on a special port for HTTP data.
 All internet traffic to a server contains metadata that identifies itself by port numbers.
 The default port for HTTP is 80, and the default port for HTTPS (encrypted) is 443.
 Since we do not have encryption enabled, this means we will only use port 80, but
-the staff interface will be identified by port 8080.</p>
+the staff interface will be identified by port 8080.
+This HTTP-only setup is for short-lived lab use; in any long-term deployment, protect staff traffic with HTTPS.</p>
 <blockquote>
 <p>How does a server know where to send internet traffic?
 Internet data is <em>packaged</em> in many forms.
 One of the most common forms are TCP packets.
 These packets contain <em>header</em> information that names the source IP, destination IP, source port, and destination port.
-When TCP packets arrive at a destination server,the operating system inspects the packet header for the port number.
+When TCP packets arrive at a destination server, the operating system inspects the packet header for the port number.
 The OS looks up the port number in a table that contains a mapping of ports to applications.
 When the OS makes the match, it sends the TCP packets to the application.
 In its default setup, the Apache2 web server handles traffic on port 80.</p>
@@ -4780,13 +4795,14 @@ We will use port 8080 to access the Koha staff interface.</p>
 <li>Click on <strong>Firewall</strong>.</li>
 <li>At the top of the page, choose <strong>Create a firewall rule</strong> (Do not choose <strong>Create a firewall policy</strong>):
 <ul>
-<li>Add name: <code>koha-opac</code></li>
-<li>Add description: <strong>Open port 8080 for the OPAC</strong></li>
+<li>Add name: <code>koha-staff-8080</code></li>
+<li>Add description: <strong>Open port 8080 for the Koha staff interface</strong></li>
 </ul>
 </li>
 <li>Next to <strong>Targets</strong>, click on <strong>Specified target tags</strong>.</li>
 <li>In <strong>Target tags</strong>, add our tag name: <code>koha-8080</code>.</li>
-<li>In the <strong>Source IPv4 ranges</strong>, add <strong>0.0.0.0/0</strong></li>
+<li>In the <strong>Source IPv4 ranges</strong>, add your current public IP in CIDR form (for example, <code>203.0.113.10/32</code>).
+Use <code>0.0.0.0/0</code> only for short-term testing if needed, and remove it afterward.</li>
 <li>Click on <strong>Specified protocols and ports</strong>
 <ul>
 <li>Click on TCP</li>
@@ -4801,7 +4817,7 @@ We will use port 8080 to access the Koha staff interface.</p>
 <p>First we need to update our local repositories:</p>
 <pre><code>sudo apt update
 </code></pre>
-<p>And then upgrade our servers:</p>
+<p>And then upgrade the server:</p>
 <pre><code>sudo apt upgrade
 </code></pre>
 <p>The next two commands help save disk space.
@@ -4812,9 +4828,9 @@ The <code>apt clean</code> command <q>clears out the local repository of retriev
 In the following example, I combine both commands on one line:</p>
 <pre><code>sudo apt autoremove -y &amp;&amp; sudo apt clean
 </code></pre>
-<p>Next we need to install <code>gnupg2</code> and <code>apt-transport-https</code>.
+<p>Next we need to install <code>gnupg2</code>.
 <code>gnupg2</code> is used to create digital signatures, encrypt data, and aid in secure communication.</p>
-<pre><code>sudo apt install gnupg2 apt-transport-https
+<pre><code>sudo apt install gnupg2
 </code></pre>
 <p>At the time of this demo, the update above downloaded a new Linux kernel.
 Using the new kernel requires a reboot.
@@ -4832,11 +4848,8 @@ The remote repositories are also used to retrieve software.</p>
 To add the special Koha repository to our system, we use the following command:</p>
 <blockquote>
 <p>Most of the following commands require administrator access.
-Therefore, I will login as the <code>root</code> user to make it a bit easier.
-If you do not want to log in as the root user, be sure to use the <code>sudo</code> command.</p>
+We will run them with <code>sudo &lt;command&gt;</code> instead of logging in as <code>root</code>.</p>
 </blockquote>
-<pre><code>sudo su
-</code></pre>
 <p>Add the Koha repository to our server:</p>
 <pre><code>echo 'deb http://debian.koha-community.org/koha stable main' | sudo tee /etc/apt/sources.list.d/koha.list
 </code></pre>
@@ -4844,29 +4857,29 @@ If you do not want to log in as the root user, be sure to use the <code>sudo</co
 <pre><code>wget -qO- https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/koha.gpg &gt; /dev/null
 </code></pre>
 <p>You can inspect the key and make sure it was signed by the relevant people:</p>
-<pre><code>gpg --show-keys /etc/apt/trusted.gpg.d/koha.gpg
+<pre><code>gpg --show-keys --fingerprint /etc/apt/trusted.gpg.d/koha.gpg
 </code></pre>
-<p>The output should include an email from the <code>koha-community.org</code>.</p>
+<p>Compare the fingerprint in the output to the fingerprint published in the Koha Debian packaging documentation before continuing.</p>
 <h2 id="install-koha"><a class="header" href="#install-koha">Install Koha</a></h2>
 <p>Next we need to update/sync the new repository with the Koha remote repository.
 This just means that we use <code>apt update</code> again.</p>
-<pre><code>apt update
+<pre><code>sudo apt update
 </code></pre>
 <p>Now we view the package information for Koha:</p>
 <pre><code>apt show koha-common
 </code></pre>
 <p>And install it:</p>
-<pre><code>apt install koha-common
+<pre><code>sudo apt install koha-common
 </code></pre>
 <p>The above command will download and install a lot of additional software, and therefore the process will take several minutes.</p>
 <h3 id="configure-koha"><a class="header" href="#configure-koha">Configure Koha</a></h3>
 <p>Next we need to edit some configuration files for Koha.
 First, create a backup of the default configuration file:</p>
 <pre><code>cd /etc/koha/
-cp koha-sites.conf koha-sites.conf.backup
+sudo cp koha-sites.conf koha-sites.conf.backup
 </code></pre>
 <p>Now open the configuration file in <code>nano</code> or your preferred text editor:</p>
-<pre><code>nano /etc/koha/koha-sites.conf
+<pre><code>sudo nano /etc/koha/koha-sites.conf
 </code></pre>
 <p>In the <code>koha-sites.conf</code> file, change the line that contains the following information:</p>
 <pre><code>INTRAPORT="80"
@@ -4874,50 +4887,48 @@ cp koha-sites.conf koha-sites.conf.backup
 <p>To:</p>
 <pre><code>INTRAPORT="8080"
 </code></pre>
-<p>Next install and setup <code>mysql-server</code>:</p>
-<pre><code>apt install mysql-server
+<p>Next install <code>mysql-server</code> if it is not already installed:</p>
+<pre><code>sudo apt install mysql-server
 </code></pre>
-<p>Next we set the root MySQL password.
-Replace <code>X</code>s with your password:</p>
-<pre><code>mysqladmin -u root password XXXXXXXX
-</code></pre>
+<p>On Ubuntu, MySQL root access often uses system authentication (<code>sudo mysql</code>) by default.
+For this Koha setup, you do not need to set a separate MySQL root password with <code>mysqladmin</code>.</p>
 <p>When we installed Koha, the Apache2 web server was installed with it as a prerequisite.
 We need to enable URL rewriting and <a href="https://en.wikipedia.org/wiki/Common_Gateway_Interface">CGI</a> functionality.</p>
-<pre><code>a2enmod rewrite
-a2enmod cgi 
+<pre><code>sudo a2enmod rewrite
+sudo a2enmod cgi 
 </code></pre>
 <p>Now we need to restart Apache2 in the normal way:</p>
-<pre><code>systemctl restart apache2
+<pre><code>sudo systemctl restart apache2
 </code></pre>
 <p>Next we create a database for Koha:</p>
-<pre><code>koha-create --create-db bibliolib
+<pre><code>sudo koha-create --create-db bibliolib
 </code></pre>
 <p>We need to tell Apache2 to listen on port 8080:</p>
-<pre><code>nano /etc/apache2/ports.conf 
+<pre><code>sudo nano /etc/apache2/ports.conf 
 </code></pre>
 <p>And under the <code>Listen 80</code> line, add:</p>
 <pre><code>Listen 8080
 </code></pre>
 <p>Make sure Apache configuration changes are valid:</p>
-<pre><code>apachectl configtest
+<pre><code>sudo apachectl configtest
 </code></pre>
 <p>If you get an error message, trace the error in the file and line listed.</p>
 <p>Let's restart Apache2.</p>
-<pre><code>systemctl restart apache2
+<pre><code>sudo systemctl restart apache2
 </code></pre>
 <p>We'll disable the default Apache2 setup, enable traffic compression using <code>deflate</code>,
 enable the <strong>bibliolib</strong> site, and then reload Apache2's configurations and restart again:</p>
-<pre><code>a2dissite 000-default
-a2enmod deflate
-a2ensite bibliolib
-systemctl reload apache2
-systemctl restart apache2
+<pre><code>sudo a2dissite 000-default
+sudo a2enmod deflate
+sudo a2ensite bibliolib
+sudo systemctl reload apache2
+sudo systemctl restart apache2
 </code></pre>
 <h3 id="koha-web-installer"><a class="header" href="#koha-web-installer">Koha Web Installer</a></h3>
 <p>All the back end work is complete, and like we did with WordPress and Omeka,
 we can complete the installation through a web installer.</p>
 <p>First, get Koha username and password in the following file:</p>
-<pre><code>nano /etc/koha/sites/bibliolib/koha-conf.xml
+<pre><code>sudo nano /etc/koha/sites/bibliolib/koha-conf.xml
 </code></pre>
 <p>Look for the <code>&lt;config&gt;</code> stanza (line number 252) and
 the line beginning with <code>&lt;user&gt;</code> (line number 257).
@@ -4926,6 +4937,7 @@ You will need this info to login to the Koha web interface.</p>
 <p>Make sure your URL begins with <code>http</code> and not <code>https</code>, and visit the web installer at:</p>
 <pre><code>http://IP-ADDRESS:8080
 </code></pre>
+<p>This URL exposes the staff interface over HTTP, so keep the firewall source range restricted while working through the installer.</p>
 <p>The documentation for the web installer is helpful.
 Enter the username and password from the <code>koha-conf.xml</code> file.
 Note that it might take a while to step through the installer.</p>
@@ -4934,7 +4946,7 @@ More generally, be sure to follow instructions as you click through each step.
 Add lots of samples to play around with after the install completes.</p>
 <p>When you are on the last page of the install, create an <strong>Administrator identity</strong>, and
 be sure to save this information.</p>
-<p><a href="https://koha-community.org/manual//22.11/en/html/installation.html">Introduction to the Koha installation process</a></p>
+<p><a href="https://koha-community.org/manual/latest/en/html/installation.html">Introduction to the Koha installation process</a></p>
 <h2 id="public-opac"><a class="header" href="#public-opac">Public OPAC</a></h2>
 <p>When the install and setup are complete, you can login with your admin credentials, and
 you will have access to the staff interface.
@@ -4973,18 +4985,31 @@ to your Koha-based OPAC.</p>
 <li><a href="https://www.youtube.com/watch?v=mzUop9R4sKc">Install Koha on Google Cloud Platform</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="conclusion-17"><a class="header" href="#conclusion-17">Conclusion</a></h1>
-<p>Hopefully this textbook helped you build a strong foundation in server-side systems administration and web development for libraries.
-The skills covered here are applicable to all library types, including academic, public, school, special, and more.</p>
-<p>To summarize, we began by learning how to navigate the Google Cloud console and use it to set up an Ubuntu Linux server.
-From there, we developed fluency with the Linux command line and explored tools like command line text editors,
-search utilities like <code>grep</code>, and package managers for updating, installing, and managing software.</p>
-<p>We gained experience using Git and GitHub for version control and documentation.
-Then we moved into hands-on projects by building a basic LAMP server and creating a bare bones library system.
-This led us to develop more complicated library systems using three major platforms—WordPress, Omeka, and Koha—and
-connecting them to form a unified web presence that mirrors library practice.</p>
-<p>As you wrap up your work, don't forget to stop and delete all of your virtual machines in your Google Cloud project to avoid ongoing billing.
-But I hope you continue to explore how to use virtual machines on Google Cloud or other cloud hosting solutions for library purposes.</p>
-<p>&amp;mdashSean Burns</p>
+<p>You have completed a full systems librarianship pathway, from foundational concepts to production-style platform installs.</p>
+<p>You began by studying the history and purpose of Unix/Linux, systems administration, and systems librarianship.
+Then you moved into project-oriented operations work: creating cloud virtual machines, learning the command line,
+editing files with <code>nano</code>, and documenting technical work with Git, GitHub, and Markdown.</p>
+<p>From there, you developed practical Linux administration skills by searching and processing text, managing software, and
+applying command-line workflows to library-oriented tasks.
+You then built a complete LAMP stack by installing and configuring Apache, PHP, and MySQL.</p>
+<p>With that stack in place, you built a basic integrated library system model from scratch:
+you worked with relational databases, created a bare bones OPAC, and created a cataloging module for data entry.
+After that, you expanded from custom code to major library web platforms by installing WordPress,
+applying the same setup logic to Omeka Classic, and completing a more specialized Koha installation process.</p>
+<p>Taken together, this work mirrors real library systems practice:
+integrating multiple services, managing infrastructure, handling security tradeoffs, and maintaining documentation.
+You now have a strong base for deeper work in systems librarianship and related technical roles.</p>
+<p>Even if your future role does not require daily command-line work, or if your environment is not Linux-based,
+the core principles from this book still apply: understanding systems dependencies, using structured troubleshooting,
+managing change carefully, and documenting decisions clearly.
+One of the most important outcomes from this work is learning to pay close attention to details.
+That habit will serve you well across systems, teams, and platforms.</p>
+<p>As you finish, remember to stop and delete cloud resources that you no longer need to avoid ongoing costs.
+If you continue experimenting after this book, keep building in small steps and document each change as you go.
+To keep moving forward, explore other ILS and LSP platforms, follow implementation and migration case studies,
+and get involved with professional communities through associations, listservs, and user groups.
+Those networks will help you keep learning, compare practices, and connect with colleagues doing similar work.</p>
+<p>—Sean Burns</p>
 
                     </main>
 

@@ -232,7 +232,8 @@ We will respond with a <strong>Y</strong> to the first question on validating pa
 select <strong>LOW</strong> when prompted for the password validation policy.
 This will enforce a weak password policy for testing, but note that in real-world scenarios,
 we might want to select a more secure policy.
-In the output below, I show how to respond to each question:</p>
+The exact prompts can vary by MySQL version and package defaults; on MariaDB or other Linux distributions, they may differ further.
+In the example output below, I show one common set of responses:</p>
 <pre><code>Validate passwords: Y
 Password validation policy: 0 (zero) for LOW
 Remove anonymous users: Y
@@ -351,20 +352,20 @@ In the following code, I create and define a new table for our <code>opacdb</cod
 The table will be called <code>books</code> that will contain data describing, er, some books.
 We will keep this table very simple and use only four fields: <code>id</code>, <code>author</code>, <code>title</code>, and <code>copyright</code>.
 The <code>id</code> field will function as a primary key (second to last line in the command below).
-This key is used as a unique identifier for a record in the field.
+This key is used as a unique identifier for a record in the table.
 When we create this key as a field called <code>id</code>, we state that it should be an integer <code>id</code> (or whole number),
 that it should only be a positive number <code>unsigned</code>,
 that it should not be empty <code>not null</code>, and
 that with each record, it should increment by a single integer <code>auto_increment</code>.
 When we create the <code>author</code> and <code>title</code> fields,
 we say that these fields can have a maximum length of 150 characters and should not be empty.
-When we create the <code>copyright</code> field, we limit it to the <code>year</code> data type,
-which means it has to adhere to a specific syntax <code>YYYY</code>, and should not be empty.</p>
+When we create the <code>copyright</code> field, we limit it to the <code>YEAR</code> data type,
+which stores four-digit years in <code>YYYY</code> format, and should not be empty.</p>
 <pre><code>mysql&gt; create table books (
         id int unsigned not null auto_increment,
         author varchar(150) not null,
         title varchar(150) not null,
-        copyright year(4) not null,
+        copyright year not null,
         primary key (ID)
 );
 </code></pre>
@@ -423,15 +424,15 @@ mysql&gt; select author, title from books where title not like '%e';
 mysql&gt; select * from books;
 mysql&gt; alter table books add publisher varchar(75) after title;
 mysql&gt; describe books;
-mysql&gt; update books set publisher='Simon \&amp; Schuster' where id='1';
+mysql&gt; update books set publisher='Simon &amp; Schuster' where id='1';
 mysql&gt; update books set publisher='Penguin Random House' where id='2';
-mysql&gt; update books set publisher='W. W. Norton \&amp; Company' where id='3';
+mysql&gt; update books set publisher='W. W. Norton &amp; Company' where id='3';
 mysql&gt; update books set publisher='Knopf' where id='4';
 mysql&gt; select * from books;
 mysql&gt; delete from books where author='Julia Phillips';
 mysql&gt; insert into books
        (author, title, publisher, copyright) values
-       ('Emma Donoghue', 'Room', 'Little, Brown \&amp; Company', '2010'),
+       ('Emma Donoghue', 'Room', 'Little, Brown &amp; Company', '2010'),
        ('Zadie Smith', 'White Teeth', 'Hamish Hamilton', '2000');
 mysql&gt; select * from books;
 mysql&gt; select author, publisher from books where copyright &lt; '2011';
@@ -484,7 +485,7 @@ The <code>chown :www-data login.php</code> command changes the group ownership t
 The <code>www-data</code> user is the Apache user.</p>
 <p>Many services, like Apache, have corresponding users on the system.
 Files placed in our document root <code>/var/www/html</code> will be served on the web.
-Therefore, those files must have read access for <strong>other/world</strong>.
+Therefore, those files must be readable by the Apache user or group (often <code>www-data</code>).
 But we don't want the <code>login.php</code> file to be accessible to the world since it contains login information for our MySQL user.
 Thus, in addition to modifying file ownership and permissions, we also place it in the parent directory <code>/var/www</code>.</p>
 </blockquote>
@@ -576,7 +577,7 @@ If all is well with the second command, HTML should be outputted:</p>
 <pre><code>sudo php -f /var/www/login.php
 sudo php -f /var/www/html/opac.php
 </code></pre>
-<p>Now view the site by opening the public IP address for your server in your browser.
+<p>Now view the site from a browser on your local machine (outside the VM) by opening the public IP address for your server.
 If all goes well, you should see the data in your <code>opacdb</code> database and <code>books</code> table rendered in your webpage.</p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>Congratulations! If you've reached this far, you have successfully created a LAMP stack.

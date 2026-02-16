@@ -227,12 +227,12 @@ sudo nano info.php
 phpinfo();
 ?&gt;
 </code></pre>
-<p>Now visit that file using the public IP address for your server.
+<p>Now visit that file from a browser on your local machine (outside the VM) using your server's public IP address.
 If the public IP address for my virtual machine is <code>203.0.113.10</code>, then in Firefox, Chrome, etc, I would open:</p>
 <pre><code>http://203.0.113.10/info.php
 </code></pre>
 <blockquote>
-<p>Again, be sure to replace the IP below with the IP address of your server and
+<p>Again, be sure to replace the sample IP above with the IP address of your server and
 be sure to use <strong>http</strong> and not <strong>https</strong>.</p>
 </blockquote>
 <p>You should see a page that provides system information about PHP, Apache, and the server.
@@ -256,7 +256,8 @@ Thus, <code>http://example.com/</code> actually resolves to <code>http://example
 However, if our plan is to provide PHP,
 we want Apache to default to a file titled <code>index.php</code> instead of the <code>index.html</code> file.
 In these cases, <code>http://example.com/</code> would actually resolve to <code>http://example.com/index.php</code>.</p>
-<p>To configure that, we need to edit the <code>dir.conf</code> file in the <code>/etc/apache2/mods-enabled/</code> directory.
+<p>To configure that, we edit the <code>dir.conf</code> file in the <code>/etc/apache2/mods-available/</code> directory.
+Apache enables this configuration through a symlink in <code>/etc/apache2/mods-enabled/</code>.
 In that file there is a line that starts with <code>DirectoryIndex</code> followed by a list of files.
 The first file listed in that line is <code>index.html</code>,
 and then there are a series of other files that Apache looks for in the order listed.
@@ -265,7 +266,7 @@ If any of those files exist in the document root, then Apache serves those befor
 We want Apache to prioritize the <code>index.php</code> file first and <code>index.html</code> second.
 Before modifying this file, it's good practice to create a backup of the original.
 So we will use the <code>cp</code> command to create a copy with a new name, and then we will use <code>nano</code> to edit the file.</p>
-<pre><code>cd /etc/apache2/mods-enabled/
+<pre><code>cd /etc/apache2/mods-available/
 sudo cp dir.conf dir.conf.bak
 sudo nano dir.conf
 </code></pre>
@@ -275,9 +276,8 @@ sudo nano dir.conf
 <p>Whenever we make a configuration change, we should use the <code>apachectl</code> command to check our configuration:</p>
 <pre><code>apachectl configtest
 </code></pre>
-<p>If we get a <code>Syntax Ok</code> message, we can reload the Apache configuration, restart the service, and check its status:</p>
+<p>If we get a <code>Syntax Ok</code> message, we can reload the Apache configuration and check its status:</p>
 <pre><code>sudo systemctl reload apache2
-sudo systemctl restart apache2
 systemctl status apache2
 </code></pre>
 <h2 id="create-an-indexphp-file"><a class="header" href="#create-an-indexphp-file">Create an index.php File</a></h2>
@@ -304,7 +304,7 @@ Add the following code:</p>
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
     // Browser Detection
-    if (stripos($user_agent, 'Edge') !== false) {
+    if (stripos($user_agent, 'Edg') !== false || stripos($user_agent, 'Edge') !== false) {
         $browser = 'Microsoft Edge';
     } elseif (stripos($user_agent, 'Firefox') !== false) {
         $browser = 'Mozilla Firefox';
@@ -325,14 +325,14 @@ Add the following code:</p>
     // OS Detection
     if (stripos($user_agent, 'Windows') !== false) {
         $os = 'Windows';
-    } elseif (stripos($user_agent, 'Mac') !== false || stripos($user_agent, 'Macintosh') !== false) {
-        $os = 'Mac';
-    } elseif (stripos($user_agent, 'Linux') !== false) {
-        $os = 'Linux';
     } elseif (stripos($user_agent, 'iOS') !== false || stripos($user_agent, 'iPhone') !== false || stripos($user_agent, 'iPad') !== false) {
         $os = 'iOS';
     } elseif (stripos($user_agent, 'Android') !== false) {
         $os = 'Android';
+    } elseif (stripos($user_agent, 'Mac') !== false || stripos($user_agent, 'Macintosh') !== false) {
+        $os = 'Mac';
+    } elseif (stripos($user_agent, 'Linux') !== false) {
+        $os = 'Linux';
     } else {
         $os = 'Unknown OS';
     }
@@ -345,7 +345,7 @@ Add the following code:</p>
 &lt;/html&gt;
 </code></pre>
 <p>Next, save the file and exit <code>nano</code>.
-In your browser, visit your site at its public IP address (again, replace your server's IP address):</p>
+From a browser on your local machine (outside the VM), visit your site at its public IP address (again, replace your server's IP address):</p>
 <pre><code>http://55.333.55.333/
 </code></pre>
 <p>Although your <code>index.html</code> file still exists in your document root, Apache now returns the <code>index.php</code> file instead.

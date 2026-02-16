@@ -178,7 +178,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="introduction-to-relational-databases"><a class="header" href="#introduction-to-relational-databases">Introduction to Relational Databases</a></h2>
+                        <h1 id="introduction-to-relational-databases"><a class="header" href="#introduction-to-relational-databases">Introduction to Relational Databases</a></h1>
 <p>In the last section, we installed, configured, and setup a Linux, Apache, MySQL, and PHP (LAMP) stack.
 While setting up MySQL, we created a basic <code>opacdb</code> database containing a <code>books</code> table.
 Then we learned a few queries to get a feel for how querying a relational database, like MySQL, works.</p>
@@ -253,7 +253,7 @@ The table has four values:</p>
 </ul>
 <pre><code>create table Ingredients (
     ingredient_id int auto_increment primary key,
-    meal_id int,
+    meal_id int not null,
     ingredient_name varchar(100) not null,
     quantity varchar(50),
     foreign key (meal_id) references Meals(meal_id) on delete cascade
@@ -285,9 +285,8 @@ Therefore, <code>1</code> refers to <strong>Spaghetti Bolognese</strong>, <code>
     (4, 'Mushrooms', '1 cup'),
     (4, 'Parmesan Cheese', '1/2 cup');
 </code></pre>
-<pre><code>In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
-This would result in better [database normalization][db_normalization_wiki].
-</code></pre>
+<p>In practice, we might want to create an additional column that would contain units for the quantities (e.g., cups, grams, etc).
+This would result in better <a href="https://en.wikipedia.org/wiki/Database_normalization">database normalization</a>.</p>
 <h2 id="querying-data"><a class="header" href="#querying-data">Querying Data</a></h2>
 <p>Now that we have created our tables and added records to them, we can begin to query them.
 The next command is a simple <code>SELECT</code> statement that returns the entire contents of the <code>Meals</code> table:</p>
@@ -356,7 +355,7 @@ To do so, we first log back in as the root MySQL user:</p>
 <pre><code>mysql&gt; revoke all privileges on DinnerDB.* from 'opacuser'@'localhost';
 </code></pre>
 <p>To confirm, we can re-run the <code>show grants</code> command.</p>
-<p>If we want to track other users in with accounts in the MySQL server,
+<p>If we want to view other user accounts on the MySQL server,
 the following command queries the <code>user</code> table in the <code>mysql</code> database and will return all user accounts:</p>
 <pre><code>select user, host from mysql.user;
 </code></pre>
@@ -375,7 +374,7 @@ inserted data, and performed various queries to retrieve information efficiently
 <ul>
 <li><strong>Normalization</strong>: Breaking data into multiple tables reduces redundancy and improves consistency.</li>
 <li><strong>Relationships</strong>: Using foreign keys, we linked meals with their ingredients. This allows for more meaningful data retrieval.</li>
-<li><strong>Querying</strong>: We practiced <code>SELECT</code>, <code>JOIN</code>, <code>WHERE</code>, <code>ORDER_BY</code>, and <code>GROUP_BY</code> to manipulate and filter data results.</li>
+<li><strong>Querying</strong>: We practiced <code>SELECT</code>, <code>JOIN</code>, <code>WHERE</code>, <code>ORDER BY</code>, and <code>GROUP BY</code> to manipulate and filter data results.</li>
 <li><strong>Management</strong>: We reviewed how to create a database, grant privileges to the database to a specific user, remove those privileges, and delete the database.</li>
 </ul>
 <p>This tutorial is only a start.
@@ -386,7 +385,7 @@ If you understand SQL and its logic, it will help you in other domains, too!
 So go play!</p>
 <p>And if interested, I encourage you to learn other SQL implementation, like <a href="https://www.sqlite.org/">SQLite</a>,
 which you can download and install on your personal machines fairly easily.
-SQLite is probably the most popular SQL application, but it uses <a href="https://www.sqlite.org/cli.html">a slightly different command syntax</a>.</p>
+SQLite is a widely used relational database engine, but it uses <a href="https://www.sqlite.org/cli.html">a slightly different command syntax</a>.</p>
 
                     </main>
 

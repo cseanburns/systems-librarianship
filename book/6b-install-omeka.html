@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Install Omeka - Systems Librarianship</title>
+        <title>Install Omeka Classic - Systems Librarianship</title>
 
 
         <!-- Custom HTML head -->
@@ -178,8 +178,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="install-omeka"><a class="header" href="#install-omeka">Install Omeka</a></h1>
-<p><a href="https://omeka.org/">Omeka</a> is an <q>Open-source web publishing platforms for sharing digital collections and creating media-rich online exhibits.</q>
+                        <h1 id="install-omeka-classic"><a class="header" href="#install-omeka-classic">Install Omeka Classic</a></h1>
+<p><a href="https://omeka.org/classic/">Omeka Classic</a> is an open source web publishing platform for sharing digital collections and creating media-rich online exhibits.
 Most if not all of you have already used Omeka in a prior course.
 Here our task is not to practice information/knowledge organization, but to learn how to administer the Omeka digital library platform.</p>
 <h2 id="the-task"><a class="header" href="#the-task">The Task</a></h2>
@@ -194,14 +194,14 @@ bare bones OPAC/ILS and WordPress assignments, and apply them to the Omeka insta
 Below are some additional <strong>prerequisites</strong> that you should complete first.
 After you've completed them, move on to the <strong>General Steps</strong> section to
 remind yourself of the overall process.</p>
-<p>You can do it!</p>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
 <p>When we installed WordPress, we installed most of the prerequisites that Omeka needs, but
 there are a couple of additional things we need to do.</p>
 <p>Some prerequisites:</p>
 <ul>
 <li>Make sure your system is fully updated first: <code>sudo apt update</code> etc.</li>
-<li>Check that you installed versions of PHP and MySQL meet <a href="https://omeka.org/classic/docs/Installation/System_Requirements/">Omeka's system requirements</a>.</li>
+<li>Check that your installed versions of PHP and MySQL meet <a href="https://omeka.org/classic/docs/Installation/System_Requirements/">Omeka's system requirements</a>.</li>
+<li>Check that required PHP extensions (especially <code>mysqli</code> and <code>exif</code>) are installed and enabled.</li>
 <li>Install <a href="https://imagemagick.org/index.php">ImageMagick</a>: this is a suite of utilities to work with photo files.
 Omeka uses ImageMagick to create thumbnail images of photos uploaded to the digital library.
 Visit the ImageMagick link above for more information.</li>
@@ -229,11 +229,11 @@ Use this handbook to remind you of the specific commands.</p>
 <ul>
 <li>Create a new user and a new database in MySQL for the Omeka installation
 (do not re-use the WordPress database, user, etc credentials or names of databases or tables).</li>
-<li>Use <code>wget</code> from your server to download Omeka Classic as a Zip file and extract it in <code>/var/www/html</code>:
+<li>Use <code>wget</code> from your server to download the latest Omeka Classic release as a Zip file and extract it in <code>/var/www/html</code>:
 <ul>
-<li>https://github.com/omeka/Omeka/releases/download/v3.1.2/omeka-3.1.2.zip</li>
+<li>Download page: <a href="https://omeka.org/classic/download/">https://omeka.org/classic/download/</a></li>
 <li>Unzip it with the <code>unzip</code> command, which you might have to install with the <code>apt</code> command.</li>
-<li>The extracted directory will be named <code>omeka-3.1.2</code>.</li>
+<li>The extracted directory will include the release version in its name.</li>
 <li>You want to <strong>rename</strong> it simply <code>omeka</code> or something else of your choosing (like <code>digital_library</code>).
 Remember that names of files and directories should not have spaces in them.</li>
 </ul>
@@ -242,8 +242,8 @@ Remember that names of files and directories should not have spaces in them.</li
 Replace all values containing <code>XXXXXX</code> with the appropriate information.
 This is the same thing we did with the <code>login.php</code> file for our bare bones ILS and the <code>wp-config.php</code> file for WordPress.</li>
 <li>Use the <code>chown</code> command like we did with WordPress on the <code>files</code> directory in the <code>omeka</code> directory.
-However, the <strong>user AND owner</strong> should be owned by <code>www-data</code>. <strong>NOTE: This is necessary!!!</strong></li>
-<li>Restart Apache2 and MySQL.</li>
+On Ubuntu, one option is to set ownership to <code>www-data:www-data</code>, but the key requirement is that the web server can write to <code>omeka/files</code>.</li>
+<li>Restart Apache2. Restart MySQL only if you run into connection or service issues.</li>
 <li>In your web browser, go to <code>http://your-ip-address/omeka/</code> and complete the setup via the web form, just like you did with WordPress.</li>
 </ul>
 <h2 id="helpful-links"><a class="header" href="#helpful-links">Helpful Links</a></h2>

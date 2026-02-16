@@ -209,7 +209,7 @@ These elements include:</p>
 </ul>
 <h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
 <p>Before we install Apache, we need to update our systems first.
-This ensures we will be downloading and installing the most recent, secure version of the package.</p>
+This helps ensure we download and install the latest secure version available in our configured Ubuntu repositories.</p>
 <pre><code>sudo apt update
 sudo apt -y upgrade
 </code></pre>
@@ -243,7 +243,7 @@ In particular, look for key lines that show its <strong>Active</strong> and <str
 For example, the output shows that <code>apache2</code> is <strong>enabled</strong>, which is the default for this software.
 The term <strong>enabled</strong> means that the software starts automatically on reboot.
 The output should also state that the software is <strong>active</strong>.
-This means that the <code>apache2</code> is running and live.</p>
+This means that <code>apache2</code> is running.</p>
 <h2 id="creating-a-web-page"><a class="header" href="#creating-a-web-page">Creating a web page</a></h2>
 <p>Since <code>apache2</code> is active, let's look at the default web page.</p>
 <p>There are (at least) two ways we can look at the default web page.
@@ -284,8 +284,8 @@ assuming the private IP address for my local machine is <code>10.128.0.99</code>
 <strong>It works!</strong></p>
 <p>To exit <code>w3m</code> or <code>elinks</code>, press <strong>q</strong> and then <strong>y</strong> to confirm exit.</p>
 <h3 id="graphical-browser"><a class="header" href="#graphical-browser">Graphical Browser</a></h3>
-<p>To view the default web page using a regular web browser,
-like Firefox, Chrome, Safari, Edge, or etc., you need to get your server's
+<p>To view the default web page from a browser on your local machine (outside the VM),
+like Firefox, Chrome, Safari, or Edge, you need to get your server's
 <a href="https://en.wikipedia.org/wiki/IP_address">public IP address</a>.
 To do that, log into the <a href="https://console.cloud.google.com/">Google Cloud Console</a>
 click on the <strong>Compute Engine</strong> link, and then click on <strong>VM instances</strong>.
@@ -318,7 +318,7 @@ This is the <strong>Apache2 Ubuntu Default Page</strong> that we visited above i
 Most web servers look for a file specifically named <code>index.html</code> and serve that as the default.
 Let's rename that <code>index.html</code> file, in order to back it up, and create a new one:</p>
 <pre><code>cd /var/www/html/
-sudo mv index.html index.html.original
+sudo mv index.html index.original.html
 sudo nano index.html
 </code></pre>
 <blockquote>
@@ -348,7 +348,7 @@ I created this site using the Apache HTTP server.&lt;/p&gt;
 Remember that web browsers are, at their most basic, resource viewers.
 So it makes sense that you simply have to specify the name of the file you want to view.
 For example, if your <strong>public IP address</strong> is <code>55.222.55.222</code>, then you'd specify it like so:</p>
-<pre><code>http://55.222.55.222/index.html.original
+<pre><code>http://55.222.55.222/index.original.html
 </code></pre>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>In this section, we learned about the Apache HTTP server.

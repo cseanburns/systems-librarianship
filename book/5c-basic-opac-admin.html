@@ -181,7 +181,7 @@
                         <h1 id="creating-a-bare-bones-cataloging-module"><a class="header" href="#creating-a-bare-bones-cataloging-module">Creating a Bare Bones Cataloging Module</a></h1>
 <p>If you have worked with an integrated library system (ILS) or a more modern library service platform (LSP),
 then you know that an OPAC or discovery system, respectively,
-is simply one <a href="https://cseanburns.github.io/electronic_resource_mgmt/04-erm-ils.html#administration">module out of several that makeup an ILS or LSP</a>.
+is simply one <a href="https://cseanburns.github.io/electronic_resource_mgmt/04-erm-ils.html#administration">module out of several that make up an ILS or LSP</a>.
 Other modules include acquisitions, authority files, circulation, course reserves, patron management, and more.
 In the prior section, we created one of those modules: a bare bones OPAC.
 In this section, we are going to create a bare bones cataloging module in the same kind of way.</p>
@@ -191,7 +191,7 @@ it's unlikely that you would add data to your system via that interface.
 Instead you would use an application via a fancy graphical user interface, i.e., integrated library system.
 The reason we started off with MySQL is not because you would necessarily use this interface on a daily basis.
 Rather, it's because I want you to understand the foundations of these technologies and
-the how they get translated for users when they become web applications.</p>
+how they get translated for users when they become web applications.</p>
 <h2 id="creating-the-html-page-and-a-php-cataloging-page"><a class="header" href="#creating-the-html-page-and-a-php-cataloging-page">Creating the HTML Page and a PHP Cataloging Page</a></h2>
 <p>Like in the last exercise, the first thing we do is create a basic HTML page that
 contains a form for entering our bibliographic data.
@@ -238,7 +238,7 @@ sudo nano index.html
 		&lt;input type="text" name="publisher" id="publisher" required&gt;&lt;br&gt;&lt;br&gt;
 
 		&lt;label for="copyright"&gt;Copyright:&lt;/label&gt;
-		&lt;input type="number" name="copyright" id="copyright" min="1000" max="2300" required&gt;
+		&lt;input type="date" name="copyright" id="copyright" required&gt;
 
 		&lt;input type="submit" value="Submit"&gt;
 	&lt;/form&gt;
@@ -276,24 +276,33 @@ if ($conn-&gt;connect_error) {
     die("Connection failed: " . $conn-&gt;connect_error);
 }
 
-// Prepare and bind SQL statement
-$stmt = $conn-&gt;prepare("INSERT INTO books (author, title, publisher, copyright) VALUES (?, ?, ?, ?)");
-$stmt-&gt;bind_param("ssss", $author, $title, $publisher, $copyright);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $author = trim($_POST["author"] ?? "");
+    $title = trim($_POST["title"] ?? "");
+    $publisher = trim($_POST["publisher"] ?? "");
+    $copyright = $_POST["copyright"] ?? "";
 
-// Set parameters and execute statement
-$author = $_POST["author"];
-$title = $_POST["title"];
-$publisher = $_POST["publisher"];
-$copyright = $_POST["copyright"];
+    if ($author === "" || $title === "" || $publisher === "" || $copyright === "") {
+        echo "All fields are required.";
+    } elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $copyright)) {
+        echo "Copyright date must use YYYY-MM-DD format.";
+    } else {
+        // Prepare and bind SQL statement
+        $stmt = $conn-&gt;prepare("INSERT INTO books (author, title, publisher, copyright) VALUES (?, ?, ?, ?)");
+        $stmt-&gt;bind_param("ssss", $author, $title, $publisher, $copyright);
 
-if ($stmt-&gt;execute() === TRUE) {
-    echo "New record created successfully";
+        if ($stmt-&gt;execute() === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $stmt-&gt;error;
+        }
+        $stmt-&gt;close();
+    }
 } else {
-    echo "Error: " . $stmt-&gt;error;
+    echo "Please submit records using the cataloging form.";
 }
 
-// Close statement and connection
-$stmt-&gt;close();
+// Close connection
 $conn-&gt;close();
 ?&gt;
 
@@ -306,29 +315,27 @@ $conn-&gt;close();
 <p>Since our HTML and PHP files allow us to enter data into our MySQL database from a simple web interface,
 we need to limit access to the module.
 In a real-world situation, modules like these would have a variety of security measures in place to prevent wrongful data entry.
-In our case, we will rely on a simple authorization mechanism provided by the Apache2 server called <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-apache-on-ubuntu-18-04">htpasswd</a>.</p>
+In our case, we will rely on a simple authorization mechanism provided by the Apache2 server called <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-apache-on-ubuntu-18-04">htpasswd</a>.
+Because this tutorial uses HTTP only, remember that Basic Auth credentials are exposed in transit and should be treated as training-only.</p>
 <p>First, we create an authentication file in our <strong>/etc/apache2</strong> directory,
 which is where the <strong>Apache2</strong> web server stores its configuration files.
 The file will contain a <strong>hashed</strong> password and a username we give it.
 In the following command to set the password, I set the username to <strong>libcat</strong>, but it could be anything:</p>
 <pre><code>sudo htpasswd -c /etc/apache2/.htpasswd libcat
 </code></pre>
+<blockquote>
+<p>Use the <code>-c</code> option only the first time to create the file.
+To add additional users later, omit <code>-c</code> so existing accounts are not overwritten.</p>
+</blockquote>
 <p>Next we need to tell the Apache2 web server that we will use the <code>htpasswd</code> to control access to our cataloging module.
 To do that, we use a text editor to open the <strong>apache2.conf</strong> file.</p>
 <pre><code>sudo nano /etc/apache2/apache2.conf
 </code></pre>
-<p>In the <strong>apache2.conf</strong> file, look for the code block / stanza below.
-We are interested in the third line in the stanza, which is line 172 for me, and probably is for you, too.</p>
-<pre><code>&lt;Directory /var/www/&gt;
+<p>In the <strong>apache2.conf</strong> file, add a more specific directory stanza for this module.
+This keeps overrides limited to the cataloging directory rather than enabling them for all of <code>/var/www/</code>.</p>
+<pre><code>&lt;Directory /var/www/html/cataloging/&gt;
   Options Indexes FollowSymLinks
-  AllowOverride None
-  Require all granted
-&lt;/Directory&gt;
-</code></pre>
-<p><strong>Carefully</strong>, we need to change the word <strong>None</strong> to the word <strong>All</strong>:</p>
-<pre><code>&lt;Directory /var/www/&gt;
-  Options Indexes FollowSymLinks
-  AllowOverride All
+  AllowOverride AuthConfig
   Require all granted
 &lt;/Directory&gt;
 </code></pre>
@@ -356,7 +363,7 @@ The account name is <strong>www-data</strong>, and it's account details are stor
 <pre><code>grep "www-data" /etc/passwd
 www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
 </code></pre>
-<p>From the output, we can see that the <strong>www-apache</strong> user's home directory is <strong>/var/www</strong> and
+<p>From the output, we can see that the <strong>www-data</strong> user's home directory is <strong>/var/www</strong> and
 its default shell is <strong>/usr/sbin/nologin</strong>.
 See <code>man nologin</code> for details, but in short, the <code>nologin</code> prevents the <strong>www-data</strong> account to be able to login to a shell.</p>
 <blockquote>
@@ -365,7 +372,7 @@ information that is stored in <strong>/etc/passwd</strong>. Use the following co
 <code>grep $USER /etc/passwd</code> to do so. You'll see, for example, that your home
 directory is listed there as well as your default shell, which is <code>bash</code>.</p>
 </blockquote>
-<p>The benefit with having Apache2 a user is that we can limit file permissions and ownership to this user.</p>
+<p>The benefit of Apache2 having a user is that we can limit file permissions and ownership to this user.</p>
 <p>The general guidelines for this are as follows:</p>
 <ul>
 <li>Static files (like HTML, CSS, JS) might not need to be writable by the Apache
@@ -376,7 +383,7 @@ applications that need write access should be owned by <strong>www-data</strong>
 <li>Configuration files (incl. files like <strong>login.php</strong>) should be readable by
 <strong>www-data</strong> but not writable, to prevent unauthorized modifications.</li>
 </ul>
-<p>We can initiate this guidelines with the <code>chown</code> and <code>chmod</code> commands:</p>
+<p>We can initiate these guidelines with the <code>chown</code> and <code>chmod</code> commands:</p>
 <ol>
 <li>
 <p>Change the group ownership of <strong>/var/www/html</strong> to <strong>www-data</strong>:</p>
@@ -391,7 +398,7 @@ While this ensures that group ownership is inherited, the user ownership of
 new files will still be the user that creates the files. In our case, since
 we use <code>sudo</code> to work in this directory, that means that the user owner for
 subsequent files and directories will be the Linux <strong>root</strong> user.</p>
-<pre><code> sudo chmod -R g+s /var/www/html
+<pre><code> sudo find /var/www/html -type d -exec chmod g+s {} +
 </code></pre>
 </li>
 </ol>
