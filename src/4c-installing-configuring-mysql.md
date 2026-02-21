@@ -165,11 +165,12 @@ mysql> show databases;
 mysql> grant all privileges on opacdb.* to 'opacuser'@'localhost';
 ```
 
-> The term `collate` refers to the rules used to compare and sort strings of text.
-> The character set is set to `utf8mb4`, which supports the full range of Unicode (e.g., includes emojis, and more).
-> The `0900` refers to Unicode 9.0.
-> The `ai` refers to accent insenitive, which means that characters like `é` and `e` are treated the same for searching and sorting.
-> The `ci` refers to case insentivie, which means that a search for "Shakespeare` also finds `shakespeare`.
+> Notes on the `create database` command:  
+> The term `collate` refers to the rules used to compare and sort strings of text.  
+> The character set is set to `utf8mb4`, which supports the full range of Unicode (e.g., includes emojis, and more).  
+> The `0900` refers to Unicode 9.0.  
+> The `ai` refers to accent insenitive, which means that characters like `é` and `e` are treated the same for searching and sorting.  
+> The `ci` refers to case insentivie, which means that a search for `Shakespeare` also finds `shakespeare`.
 
 Other than granting **all privileges**, we could limit the user to specific privileges, including:
 
@@ -180,7 +181,7 @@ Other than granting **all privileges**, we could limit the user to specific priv
 - SELECT
 - UPDATE
 - GRANT OPTION
-  
+
 Such privileges may be called operations or functions.
 They allow MySQL users to use and modify the databases, where appropriate.
 For example, we may want to limit the **opacuser** user account to only be able to use **SELECT** commands.
