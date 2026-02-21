@@ -369,7 +369,7 @@ which stores four-digit years in <code>YYYY</code> format, and should not be emp
         author varchar(150) not null,
         title varchar(150) not null,
         copyright year not null,
-        primary key (ID)
+        primary key (id)
 );
 </code></pre>
 <blockquote>
@@ -525,7 +525,7 @@ I suggest you transcribe it, especially if you're interested in learning a bit o
 
     &lt;?php
     // Load MySQL credentials securely
-    require_once '/var/www/html/login.php';
+    require_once '/var/www/login.php';
 
     // Enable detailed MySQL error reporting
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -577,7 +577,7 @@ I suggest you transcribe it, especially if you're interested in learning a bit o
 If there are any errors in our PHP, these commands will show the line numbers causing errors or leading up to errors.
 Nothing will output if all is well with the first command.
 If all is well with the second command, HTML should be outputted:</p>
-<pre><code>sudo php -f /var/www/html/login.php
+<pre><code>sudo php -f /var/www/login.php
 sudo php -f /var/www/html/opac.php
 </code></pre>
 <p>Now view the site from a browser on your local machine (outside the VM) by opening the public IP address for your server.
