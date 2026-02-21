@@ -290,15 +290,10 @@ then the new user should have been created without any issues.</p>
 We'll call this database <code>opacdb</code> and set the character encoding to UTF-8 to support international characters.
 Then we run the MySQL <code>show</code> command to view the new database.
 Next we grant <code>all privileges</code> on the database to the user account <code>opacuser</code>.</p>
-<pre><code>mysql&gt; create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
+<pre><code>mysql&gt; create database opacdb default character set utf8mb4;
 mysql&gt; show databases;
 mysql&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost';
 </code></pre>
-<blockquote>
-<p>Aside: in <code>create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci</code>,
-<code>opacdb</code> is the database name, <code>default character set utf8mb4</code> sets the encoding,
-and <code>collate utf8mb4_unicode_ci</code> sets the sorting and comparison rules for that encoding.</p>
-</blockquote>
 <p>Other than granting <strong>all privileges</strong>, we could limit the user to specific privileges, including:</p>
 <ul>
 <li>CREATE</li>
@@ -522,7 +517,7 @@ I suggest you transcribe it, especially if you're interested in learning a bit o
 
     &lt;?php
     // Load MySQL credentials securely
-    require_once '/var/www/login.php';
+    require_once '/var/www/html/login.php';
 
     // Enable detailed MySQL error reporting
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -574,7 +569,7 @@ I suggest you transcribe it, especially if you're interested in learning a bit o
 If there are any errors in our PHP, these commands will show the line numbers causing errors or leading up to errors.
 Nothing will output if all is well with the first command.
 If all is well with the second command, HTML should be outputted:</p>
-<pre><code>sudo php -f /var/www/login.php
+<pre><code>sudo php -f /var/www/html/login.php
 sudo php -f /var/www/html/opac.php
 </code></pre>
 <p>Now view the site from a browser on your local machine (outside the VM) by opening the public IP address for your server.
