@@ -25,7 +25,7 @@ sudo apt clean
 ```
 
 > Note that sometimes you will have to reboot your machine, mostly when you get a Linux kernel update.
-> To do so, run `sudo reboot now`.
+> To do so, run `sudo systemctl --no-wall reboot`.
 > This command will disconnect you from your machine.
 > Wait a minute or two, and then reconnect.
 
