@@ -160,14 +160,10 @@ Then we run the MySQL `show` command to view the new database.
 Next we grant `all privileges` on the database to the user account `opacuser`.
 
 ```
-mysql> create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci;
+mysql> create database opacdb default character set utf8mb4;
 mysql> show databases;
 mysql> grant all privileges on opacdb.* to 'opacuser'@'localhost';
 ```
-
-> Aside: in `create database opacdb default character set utf8mb4 collate utf8mb4_unicode_ci`,
-> `opacdb` is the database name, `default character set utf8mb4` sets the encoding,
-> and `collate utf8mb4_unicode_ci` sets the sorting and comparison rules for that encoding.
 
 Other than granting **all privileges**, we could limit the user to specific privileges, including:
 
@@ -454,7 +450,7 @@ I suggest you transcribe it, especially if you're interested in learning a bit o
 
     <?php
     // Load MySQL credentials securely
-    require_once '/var/www/login.php';
+    require_once '/var/www/html/login.php';
 
     // Enable detailed MySQL error reporting
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -511,7 +507,7 @@ Nothing will output if all is well with the first command.
 If all is well with the second command, HTML should be outputted:
 
 ```
-sudo php -f /var/www/login.php
+sudo php -f /var/www/html/login.php
 sudo php -f /var/www/html/opac.php
 ```
 
