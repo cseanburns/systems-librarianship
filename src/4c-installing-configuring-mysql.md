@@ -260,7 +260,7 @@ mysql> create table books (
         author varchar(150) not null,
         title varchar(150) not null,
         copyright year not null,
-        primary key (ID)
+        primary key (id)
 );
 ```
 
@@ -457,7 +457,7 @@ I suggest you transcribe it, especially if you're interested in learning a bit o
 
     <?php
     // Load MySQL credentials securely
-    require_once '/var/www/html/login.php';
+    require_once '/var/www/login.php';
 
     // Enable detailed MySQL error reporting
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -514,7 +514,7 @@ Nothing will output if all is well with the first command.
 If all is well with the second command, HTML should be outputted:
 
 ```
-sudo php -f /var/www/html/login.php
+sudo php -f /var/www/login.php
 sudo php -f /var/www/html/opac.php
 ```
 
