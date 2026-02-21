@@ -290,10 +290,17 @@ then the new user should have been created without any issues.</p>
 We'll call this database <code>opacdb</code> and set the character encoding to UTF-8 to support international characters.
 Then we run the MySQL <code>show</code> command to view the new database.
 Next we grant <code>all privileges</code> on the database to the user account <code>opacuser</code>.</p>
-<pre><code>mysql&gt; create database opacdb default character set utf8mb4;
+<pre><code>mysql&gt; create database opacdb default character set utf8mb4 collate utf8mb4_0900_ai_ci;
 mysql&gt; show databases;
 mysql&gt; grant all privileges on opacdb.* to 'opacuser'@'localhost';
 </code></pre>
+<blockquote>
+<p>The term <code>collate</code> refers to the rules used to compare and sort strings of text.
+The character set is set to <code>utf8mb4</code>, which supports the full range of Unicode (e.g., includes emojis, and more).
+The <code>0900</code> refers to Unicode 9.0.
+The <code>ai</code> refers to accent insenitive, which means that characters like <code>é</code> and <code>e</code> are treated the same for searching and sorting.
+The <code>ci</code> refers to case insentivie, which means that a search for "Shakespeare<code>also finds</code>shakespeare`.</p>
+</blockquote>
 <p>Other than granting <strong>all privileges</strong>, we could limit the user to specific privileges, including:</p>
 <ul>
 <li>CREATE</li>
