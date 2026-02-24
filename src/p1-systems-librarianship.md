@@ -1,7 +1,7 @@
 # Systems Librarianship
 
 Author: C. Sean Burns  
-[Date, version 3: 2025-05-08](https://github.com/cseanburns/systems-librarianship/releases/tag/V3)
+[Date, version 3: 2025-05-08](https://github.com/cseanburns/systems-librarianship/releases/tag/V3)  
 Email: [sean.burns@uky.edu](mailto:sean.burns@uky.edu)  
 Website: [cseanburns.net](https://cseanburns.net)  
 GitHub: [@cseanburns](https://github.com/cseanburns)  
