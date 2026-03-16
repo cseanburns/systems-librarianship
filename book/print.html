@@ -3422,7 +3422,11 @@ To do so, open your <code>~/.bashrc</code> file:</p>
 <p>As a reminder, we've created a new MySQL user named <code>opacuser</code> and a new database for <code>opacuser</code> that is called <code>opacdb</code>.
 When we run the <code>show databases</code> command as the <code>opacuser</code> user, we should see the <code>opacdb</code> database.
 Note below that I use the <code>-p</code> option when logging back into MySQL as the <code>opacuser</code>.
-This instructs MySQL to request the password for this user, it is required.</p>
+This instructs MySQL to request the password for this user.</p>
+<p><strong>NOTE:</strong> When prompoted to enter your MySQL user password,
+nothing will appear on the screen as you type (no characters, dots, or asterisks), but
+your keystrokes are still begin recorded.
+Just type the password and press Enter.</p>
 <pre><code>mysql -u opacuser -p
 </code></pre>
 <p>From the MySQL prompt, list the available databases and use the <code>use</code> command to switch to the new <code>opacdb</code> database:</p>
