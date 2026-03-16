@@ -226,7 +226,12 @@ source ~/.bashrc
 As a reminder, we've created a new MySQL user named `opacuser` and a new database for `opacuser` that is called `opacdb`.
 When we run the `show databases` command as the `opacuser` user, we should see the `opacdb` database.
 Note below that I use the `-p` option when logging back into MySQL as the `opacuser`.
-This instructs MySQL to request the password for this user, it is required.
+This instructs MySQL to request the password for this user.
+
+**NOTE:** When prompoted to enter your MySQL user password,
+nothing will appear on the screen as you type (no characters, dots, or asterisks), but
+your keystrokes are still begin recorded.
+Just type the password and press Enter.
 
 ```
 mysql -u opacuser -p
