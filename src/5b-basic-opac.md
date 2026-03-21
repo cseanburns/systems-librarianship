@@ -209,6 +209,12 @@ First connect to the MySQL server:
 mysql -u opacuser -p
 ```
 
+Then select the correct database;
+
+```
+use opacdb;
+```
+
 Then run the `insert` command with the data for the new records:
 
 ```
