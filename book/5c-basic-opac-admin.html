@@ -332,6 +332,7 @@ To do that, we use a text editor to open the <strong>apache2.conf</strong> file.
 <pre><code>sudo nano /etc/apache2/apache2.conf
 </code></pre>
 <p>In the <strong>apache2.conf</strong> file, add a more specific directory stanza for this module.
+Place this stanza directly below the existing <code>&lt;Directory /var/www/&gt;</code> block.
 This keeps overrides limited to the cataloging directory rather than enabling them for all of <code>/var/www/</code>.</p>
 <pre><code>&lt;Directory /var/www/html/cataloging/&gt;
   Options Indexes FollowSymLinks
@@ -350,12 +351,17 @@ AuthName "Authorization Required"
 AuthUserFile /etc/apache2/.htpasswd
 Require valid-user
 </code></pre>
+<p>This <strong>.htaccess</strong> file applies to web requests for everything in the
+<strong>/var/www/html/cataloging/</strong> directory, including <strong>index.html</strong> and
+<strong>insert.php</strong>.
+It does <strong>not</strong> prompt for a username and password if you open <strong>insert.php</strong>
+locally with a text editor such as <code>nano</code> or display it with commands like <code>cat</code>.</p>
 <p>Check that the configuration file is okay:</p>
-<pre><code>apachectl configtest
+<pre><code>sudo apachectl configtest
 </code></pre>
 <p>If you get a <strong>Syntax OK</strong> message, then restart Apache2 and check its status:</p>
 <pre><code>sudo systemctl restart apache2
-systemctl status apache2
+sudo systemctl status apache2
 </code></pre>
 <h3 id="permissions-and-ownership"><a class="header" href="#permissions-and-ownership">Permissions and Ownership</a></h3>
 <p>The Apache2 web server has a user account on your Linux server.
@@ -403,8 +409,26 @@ subsequent files and directories will be the Linux <strong>root</strong> user.</
 </li>
 </ol>
 <h2 id="get-cataloging"><a class="header" href="#get-cataloging">Get Cataloging!</a></h2>
-<p>Now visit your cataloging module.
-You should be required to enter the username and password that you created with <code>htpasswd</code>.</p>
+<p>Now visit your cataloging module in a web browser using your server's IP address:</p>
+<pre><code class="language-text">http://IP_ADDRESS/cataloging/index.html
+</code></pre>
+<p>You can also test the PHP page directly:</p>
+<pre><code class="language-text">http://IP_ADDRESS/cataloging/insert.php
+</code></pre>
+<p>In both cases, Apache2 should require the username and password that you created
+with <code>htpasswd</code>.</p>
+<p>If no prompt appears, double-check the following:</p>
+<ul>
+<li>the file is named exactly <strong>.htaccess</strong></li>
+<li>the <code>&lt;Directory /var/www/html/cataloging/&gt;</code> stanza was added to <strong>apache2.conf</strong> below the existing <code>&lt;Directory /var/www/&gt;</code> block</li>
+<li>Apache2 was restarted after the configuration change</li>
+<li>the <strong>AuthUserFile</strong> path matches <strong>/etc/apache2/.htpasswd</strong></li>
+</ul>
+<p>You can also verify that Apache2 is challenging requests from the command line:</p>
+<pre><code class="language-bash">curl -I http://IP_ADDRESS/cataloging/index.html
+</code></pre>
+<p>If <code>htpasswd</code> is working correctly, Apache2 should respond with <strong>401 Unauthorized</strong>
+until valid credentials are provided.</p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>In the last lesson, we created a very bare bones OPAC that would allow patrons to search our catalog.
 In this lesson, we learned how to create a bare bones cataloging module that would allow librarians
