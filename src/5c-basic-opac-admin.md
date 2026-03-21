@@ -179,6 +179,7 @@ sudo nano /etc/apache2/apache2.conf
 ```
 
 In the **apache2.conf** file, add a more specific directory stanza for this module.
+Place this stanza directly below the existing `<Directory /var/www/>` block.
 This keeps overrides limited to the cataloging directory rather than enabling them for all of `/var/www/`.
 
 ```
@@ -206,17 +207,23 @@ AuthUserFile /etc/apache2/.htpasswd
 Require valid-user
 ```
 
+This **.htaccess** file applies to web requests for everything in the
+**/var/www/html/cataloging/** directory, including **index.html** and
+**insert.php**.
+It does **not** prompt for a username and password if you open **insert.php**
+locally with a text editor such as `nano` or display it with commands like `cat`.
+
 Check that the configuration file is okay:
 
 ```
-apachectl configtest
+sudo apachectl configtest
 ```
 
 If you get a **Syntax OK** message, then restart Apache2 and check its status:
 
 ```
 sudo systemctl restart apache2
-systemctl status apache2
+sudo systemctl status apache2
 ```
 
 ### Permissions and Ownership
@@ -268,8 +275,36 @@ We can initiate these guidelines with the `chown` and `chmod` commands:
 
 ## Get Cataloging!
 
-Now visit your cataloging module.
-You should be required to enter the username and password that you created with `htpasswd`.
+Now visit your cataloging module in a web browser using your server's IP address:
+
+```text
+http://IP_ADDRESS/cataloging/index.html
+```
+
+You can also test the PHP page directly:
+
+```text
+http://IP_ADDRESS/cataloging/insert.php
+```
+
+In both cases, Apache2 should require the username and password that you created
+with `htpasswd`.
+
+If no prompt appears, double-check the following:
+
+- the file is named exactly **.htaccess**
+- the `<Directory /var/www/html/cataloging/>` stanza was added to **apache2.conf** below the existing `<Directory /var/www/>` block
+- Apache2 was restarted after the configuration change
+- the **AuthUserFile** path matches **/etc/apache2/.htpasswd**
+
+You can also verify that Apache2 is challenging requests from the command line:
+
+```bash
+curl -I http://IP_ADDRESS/cataloging/index.html
+```
+
+If `htpasswd` is working correctly, Apache2 should respond with **401 Unauthorized**
+until valid credentials are provided.
 
 ## Conclusion
 
