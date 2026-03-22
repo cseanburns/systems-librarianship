@@ -383,15 +383,21 @@ If you decide to change it, keep the name lowercase and URL-friendly (letters, n
 For example, if I want to change mine to <code>library</code>, then:</p>
 <pre><code>sudo mv /var/www/html/wordpress /var/www/html/library
 </code></pre>
-<h3 id="step-6-change-file-ownership"><a class="header" href="#step-6-change-file-ownership">Step 6: Change File Ownership</a></h3>
-<p>WordPress will need to write to files in the base directory.
+<!--
+### Step 6: Change File Ownership
+
+WordPress will need to write to files in the base directory.
 Assuming you are still in your base directory, run the following command, which assumes that my directory is still named
-<code>/var/www/html/wordpress</code>:</p>
-<pre><code>sudo chown -R www-data:www-data /var/www/html/wordpress
-</code></pre>
-<p>For this course, where the install is temporary, this broad ownership change is acceptable.
-For a permanent install, use stricter ownership and limit writable locations where possible.</p>
-<h3 id="step-7-run-the-install-script"><a class="header" href="#step-7-run-the-install-script">Step 7: Run the Install Script</a></h3>
+`/var/www/html/wordpress`:
+
+```
+sudo chown -R www-data:www-data /var/www/html/wordpress
+```
+
+For this course, where the install is temporary, this broad ownership change is acceptable.
+For a permanent install, use stricter ownership and limit writable locations where possible.
+-->
+<h3 id="step-6-run-the-install-script"><a class="header" href="#step-6-run-the-install-script">Step 6: Run the Install Script</a></h3>
 <p>The next part of the process takes place in the browser.
 The location (URL) that you visit in the browser depends on your specific IP address and also
 includes the name of the directory in <code>/var/www/html</code> that we extracted WordPress to or that you renamed if you followed <strong>Step 5</strong>.
