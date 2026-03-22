@@ -74,10 +74,11 @@ In short, you are going to complete the following steps:
 - In the extracted directory, find the `db.ini` file and add your new database credentials.
   Replace all values containing `XXXXXX` with the appropriate information.
   This is the same thing we did with the `login.php` file for our bare bones ILS and the `wp-config.php` file for WordPress.
-- Use the `chown` command like we did with WordPress on the `files` directory in the `omeka` directory.
-  On Ubuntu, one option is to set ownership to `www-data:www-data`, but the key requirement is that the web server can write to `omeka/files`.
+- Use the `chown` command to give Apache group write access on all files. Assume your directory name for the Omeka download is called `omeka`, then run these commands:
+    - `cd /var/www/html/omeka`
+    - `sudo chmod -R g+w *`
 - Restart Apache2. Restart MySQL only if you run into connection or service issues.
-- In your web browser, go to `http://your-ip-address/omeka/` and complete the setup via the web form, just like you did with WordPress.
+- In your web browser, go to `http://your-ip-address/omeka/` (or whatever your directory name is) and complete the setup via the web form, just like you did with WordPress.
 
 ## Helpful Links
 

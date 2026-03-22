@@ -264,6 +264,7 @@ For example, if I want to change mine to `library`, then:
 sudo mv /var/www/html/wordpress /var/www/html/library
 ```
 
+<!--
 ### Step 6: Change File Ownership
 
 WordPress will need to write to files in the base directory.
@@ -276,8 +277,9 @@ sudo chown -R www-data:www-data /var/www/html/wordpress
 
 For this course, where the install is temporary, this broad ownership change is acceptable.
 For a permanent install, use stricter ownership and limit writable locations where possible.
+-->
 
-### Step 7: Run the Install Script
+### Step 6: Run the Install Script
 
 The next part of the process takes place in the browser.
 The location (URL) that you visit in the browser depends on your specific IP address and also
