@@ -4814,8 +4814,9 @@ In our new VMs, we'll use the following parameters:</p>
 </ul>
 </li>
 </ul>
-<p>Make sure your virtual machine includes those above two network tags:
-<strong>koha-staff-8080</strong> and <strong>koha-staff-8081</strong>.
+<p>These tags must match the firewall rules below or your site will not load.
+Thus, make sure your virtual machine includes the above two network tags:
+<strong>koha-staff-8080</strong> and <strong>koha-opac-8081</strong>.
 Otherwise, your site will not load in your browser.</p>
 <p>All else, including the operating system (Ubuntu 24.04 LTS), should remain the same.
 Note that this is a more expensive setup.
@@ -4825,7 +4826,7 @@ Therefore, feel free to delete this instance when you are done with this project
 on special ports for HTTP data.
 All internet traffic to a server contains metadata that identifies itself by port numbers.
 The default port for HTTP is 80, and the default port for HTTPS (encrypted) is 443.
-Since we do not have encryption enabled, this means we will not use port 443.
+Since we are not using HTTPS in this setup, we will not use port 443.
 Instead, we will configure the firewall to access the staff interface through port 8080 and
 the public interface through port 8081.
 This HTTP-only setup is for short-lived lab use;
@@ -4873,7 +4874,7 @@ Follow these steps to create two firewall rules:</p>
 </li>
 <li>Click on Create</li>
 </ul>
-<h4 id="firewall-rule-1-port-8081"><a class="header" href="#firewall-rule-1-port-8081">Firewall Rule 1: Port 8081</a></h4>
+<h4 id="firewall-rule-2-port-8081"><a class="header" href="#firewall-rule-2-port-8081">Firewall Rule 2: Port 8081</a></h4>
 <ul>
 <li>Create a second firewall rule
 <ul>
@@ -4883,7 +4884,7 @@ Follow these steps to create two firewall rules:</p>
 </li>
 <li>Next to Targets, click on Specified target tags.</li>
 <li>In Target tags, add our tag name: koha-opac-8081.</li>
-<li>In the Source IPv4 ranges, we allow access from anywhere (0.0.0.0/0) to simplify setup. In a real deployment, you may or may not want to restrict public access to port 8080 to specific IP addresses.</li>
+<li>In the Source IPv4 ranges, we allow access from anywhere (0.0.0.0/0) to simplify setup. In a real deployment, you may or may not want to restrict public access to port 8081 to specific IP addresses.</li>
 <li>Click on Specified protocols and ports
 <ul>
 <li>Click on TCP</li>
@@ -4892,7 +4893,13 @@ Follow these steps to create two firewall rules:</p>
 </li>
 <li>Click on Create</li>
 </ul>
-<p><strong>These firewall rules must match the ports we configure below in Koha and Apache.</strong></p>
+<p><strong>These firewall rules must match the ports we configure below in Koha and Apache.</strong>
+If your site does not load later, the most common causes are:</p>
+<ul>
+<li>missing network tags</li>
+<li>incorrect firewall rules</li>
+<li>Apache not listening on the correct ports</li>
+</ul>
 <h2 id="install-koha-repo"><a class="header" href="#install-koha-repo">Install Koha Repo</a></h2>
 <p>After you've created your virtual machine, set up the firewall rules, but before we begin to install Koha,
 connect to your machine and start <code>tmux</code>.
@@ -4994,7 +5001,7 @@ This is where <code>tmux</code> may come in handy, in case you lose your connect
 The staff interface provides access to its modules, including cataloging,
 patron management, and so forth.
 The public interface provides access to Koha's OPAC.
-We wil configure Koha to use different <a href="https://en.wikipedia.org/wiki/Port_(computer_networking)">ports</a> for the staff and public interfaces.
+We will explicitly configure Koha and Apache to use different <a href="https://en.wikipedia.org/wiki/Port_(computer_networking)">ports</a> for the staff and public interfaces.
 Specifically, we will configure Koha to access the staff interface through port 8080 and
 the public interface through port 8081.</p>
 <p>We are going to edit the file at <code>/etc/koha/koha-sites.conf</code>.
@@ -5016,7 +5023,7 @@ sudo systemctl restart apache2
 <p>We've already configured Koha to listen on ports 8080 and 8081, but
 we also need to configure Apache2 to do so also.
 Again, since this is an important configuration file, make a copy:</p>
-<pre><code>cp /etc/apache2/ports.conf /etc/apache2/ports.conf.backup
+<pre><code>sudo cp /etc/apache2/ports.conf /etc/apache2/ports.conf.backup
 </code></pre>
 <p>Then use your text editor to open <code>/etc/apache2/ports.conf</code>.
 Under <code>Listen 80</code> at the top of the file, add the following two lines:</p>
@@ -5068,9 +5075,8 @@ I would visit the site using the staff port:</p>
 <pre><code>http://123.12.123.12:8080
 </code></pre>
 <p>You should see a welcome screen with an onboarding process.
-Follow the steps, and be sure to complete the forms and select the default options
-unless you want to change them.
-Just be sure to read through what is offered.</p>
+Follow the steps, and be sure to complete the forms and accept the default options, but
+read through each step to understand what is being configured.</p>
 <p>The documentation for the web installer is helpful.
 Enter the username and password from the <code>sudo koha-passwd bibliolib</code> command.
 Note that it might take a while to step through the installer.</p>
@@ -5079,7 +5085,7 @@ More generally, be sure to follow instructions as you click through each step.
 Add lots of samples to play around with after the install completes.</p>
 <p>When you are on the last page of the install, create an <strong>Administrator identity</strong>, and
 be sure to save this information.</p>
-<p><a href="https://koha-community.org/manual/latest/en/html/installation.html">Introduction to the Koha installation process</a></p>
+<p><a href="https://koha-community.org/manual/latest/en/html/installation.html#web-installer">Web Installer Instructions</a></p>
 <h2 id="public-opac"><a class="header" href="#public-opac">Public OPAC</a></h2>
 <p>Once you've complete the install and onboarding process,
 you can visit your public OPAC at:</p>
