@@ -189,8 +189,7 @@ The process of installing and using Koha is more complicated
 than the processes we used to install and use WordPress and Omeka.
 This is because Koha, like other ILS software,
 is a complex project that must provide a lot of different functionality for a library and its patrons.
-Fortunately, the documentation makes the process pretty straightforward.
-We will rely on that documentation and other resources to install Koha and complete our library's interconnected web presence.</p>
+Fortunately, the <a href="https://wiki.koha-community.org/wiki/Koha_on_Debian_and_Ubuntu">Koha documentation</a> makes the process pretty straightforward.</p>
 <h2 id="koha-ils"><a class="header" href="#koha-ils">Koha ILS</a></h2>
 <p>Koha is an open source <q>library management system</q>,
 otherwise called an <a href="https://en.wikipedia.org/wiki/Integrated_library_system">integrated library system (ILS)</a>.
@@ -208,8 +207,8 @@ Koha's modules include:</p>
 <li>Reports</li>
 <li>OPAC</li>
 </ul>
-<p>According to <a href="https://librarytechnology.org/product/koha">Library Technology Guides</a> (April 2025),
-<q>Koha has been installed in 4,484 libraries [around the world], spanning 6,273 facilities or branches.</q>
+<p>According to <a href="https://librarytechnology.org/product/koha">Library Technology Guides</a> (March 2026),
+<q>Koha has been installed in 4,783 libraries [around the world], spanning 6,273 facilities or branches.</q>
 Most installations are in medium sized or small libraries.
 Koha is well represented in academic libraries, but the majority of installations are in public libraries.</p>
 <p>Although Koha is an open source ILS and free to download, install, and administer without external support,
@@ -222,19 +221,19 @@ such as open source discovery systems and electronic resource management systems
 According to <a href="https://librarytechnology.org/product/evergreen-equinox">Library Technology Guides</a>, Evergreen is primarily installed at small and medium
 size public libraries, and most installations are in the U.S. and Canada.</p>
 <p>There is currently a migration to what has been called <em>library service platforms (LSP)</em> in recent years.
-The LSP is a next generation ILS designed from the start to integrate electronic resources.
-For example, the ILS has an OPAC that was designed to search a library's print collections.
-Modern OPACs have been adapted for electronic resources,
-but they are still limited because of the older design model.
+LSPs are a next generation ILS designed from the start to integrate electronic resources.
+For example, the ILS has an OPAC that was designed originally to search a library's print collections.
+While modern OPACs have been adapted for electronic resources,
+they are still limited because of the older design model.
 LSPs use a <em>discovery service</em> instead of an OPAC.
-Discovery services are designed to search a library's entire collection, including the content in third party databases and journals.
-Example LSPs include Ex Libris Primo (used by UK Libraries),
-OCLC's WorldCat Discovery Service, and open source solutions
-like <a href="https://bywatersolutions.com/products/aspen-discovery">Aspen Discovery</a> and <a href="https://vufind.org/vufind/">VuFind</a>.</p>
+Discovery services are designed to search a library's entire collection,
+including the content in third party databases and journals.
+Example LSPs include Ex Libris Primo, OCLC's WorldCat Discovery Service, and
+open source solutions like <a href="https://bywatersolutions.com/products/aspen-discovery">Aspen Discovery</a> and <a href="https://vufind.org/vufind/">VuFind</a>.</p>
 <p>The integration of library systems like the ILS and the LSP is a major aspect of library services.
 When we visit a library's website,
 we first interact with a normal website that might be built on
-WordPress, <a href="https://www.drupal.org/">Drupal</a>, or some other content management system.
+WordPress, <a href="https://www.drupal.org/">Drupal</a>, or another content management system.
 These websites will link to the public facing components of an ILS or LSP, as well as other services,
 such as bibliographic databases, journal publishers, ebook services, and more.
 It may therefore be the systems librarian's job to help build and connect these services.
@@ -246,25 +245,42 @@ and configure the Google firewall to allow HTTP traffic to our Koha install.</p>
 <p>The virtual instances we have been using do not meet the memory (RAM) needs
 required by the Koha integrated library system.
 We therefore need to create a new virtual instance that has more RAM.
-I will also use a bigger disk, to be sure, since Koha takes up more disk space.
+We will also need a bigger disk since Koha takes up more disk space.
 Check <a href="https://koha-community.org/download-koha/">Koha System Requirements</a> for details.</p>
 <p>As a refresher for creating a VM,
 see the section titled <strong>gcloud VM Instance</strong> at <a href="2a-using-gcloud-virtual-machines.html">Using gcloud Virtual Machines</a>.
-In this lesson,
-we will use for the <strong>Series</strong> an <strong>E2</strong> and set
-the <strong>Machine Type</strong> to <strong>2 vCPU, 4 GB memory</strong>, and up the disk size to 20GB.
-Under <strong>Networking</strong>, click on <strong>Allow HTTP traffic</strong>.
-In the <strong>Network tags</strong> box, add the following tag name: <code>koha-8080</code>.</p>
+In our new VMs, we'll use the following parameters:</p>
+<ul>
+<li>Machine Configuration: e2-medium (2 vCPU, 1 core, 4 GB memory)</li>
+<li>OS and storage: Ubuntu 24.04 LTS, 20GB Hard Disk</li>
+<li>Networking:
+<ul>
+<li>Allow HTTP traffic</li>
+</ul>
+</li>
+<li>Network Tag:
+<ul>
+<li>koha-staff-8080</li>
+<li>koha-opac-8081</li>
+</ul>
+</li>
+</ul>
+<p>Make sure your virtual machine includes those above two network tags:
+<strong>koha-staff-8080</strong> and <strong>koha-staff-8081</strong>.
+Otherwise, your site will not load in your browser.</p>
 <p>All else, including the operating system (Ubuntu 24.04 LTS), should remain the same.
 Note that this is a more expensive setup.
 Therefore, feel free to delete this instance when you are done with this project to avoid incurring extra costs.</p>
 <h3 id="google-cloud-firewall"><a class="header" href="#google-cloud-firewall">Google Cloud firewall</a></h3>
-<p>Later, after we install Koha, we will need to access the staff interface on a special port for HTTP data.
+<p>Later, after we install Koha, we will need to access the staff and public interfaces
+on special ports for HTTP data.
 All internet traffic to a server contains metadata that identifies itself by port numbers.
 The default port for HTTP is 80, and the default port for HTTPS (encrypted) is 443.
-Since we do not have encryption enabled, this means we will only use port 80, but
-the staff interface will be identified by port 8080.
-This HTTP-only setup is for short-lived lab use; in any long-term deployment, protect staff traffic with HTTPS.</p>
+Since we do not have encryption enabled, this means we will not use port 443.
+Instead, we will configure the firewall to access the staff interface through port 8080 and
+the public interface through port 8081.
+This HTTP-only setup is for short-lived lab use;
+in any long-term deployment, we would protect staff and public traffic with HTTPS.</p>
 <blockquote>
 <p>How does a server know where to send internet traffic?
 Internet data is <em>packaged</em> in many forms.
@@ -278,35 +294,73 @@ In its default setup, the Apache2 web server handles traffic on port 80.</p>
 <p>Firewalls are used to control incoming and outgoing traffic via ports.
 We selected <strong>Allow HTTP traffic</strong> when we created our virtual instance on Google Cloud,
 and we instructed the Google Console firewall to allow traffic through port 80.
-We need to add a firewall rule to allow web traffic through port 8080.
-We will use port 8080 to access the Koha staff interface.</p>
+We need to add a firewall rule to allow web traffic through port 8080 and port 8081.</p>
 <blockquote>
 <p>Please take a moment to read more about ports: <a href="https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/">What is a computer port? | Ports in networking</a>.</p>
 </blockquote>
-<p>To create a firewall rule to allow traffic to port 8080, go to the Google Cloud Console:</p>
+<p>To create the firewall rules, go to the Google Cloud Console:</p>
+<p>We'll add two firewall rules to open traffic on two ports.
+Opening these ports will allow us to connect to Koha's staff and public interfaces.
+Follow these steps to create two firewall rules:</p>
+<h4 id="firewall-rule-1-port-8080"><a class="header" href="#firewall-rule-1-port-8080">Firewall Rule 1: Port 8080</a></h4>
 <ul>
-<li>Click on the <em>hamburger</em> icon.</li>
-<li>Click on <strong>VPN Network</strong>.</li>
-<li>Click on <strong>Firewall</strong>.</li>
-<li>At the top of the page, choose <strong>Create a firewall rule</strong> (Do not choose <strong>Create a firewall policy</strong>):
+<li>Click on the hamburger icon.</li>
+<li>Click on VPN Network.</li>
+<li>Click on Firewall.</li>
+<li>At the top of the page, choose Create a firewall rule (Do not choose Create a firewall policy):
 <ul>
-<li>Add name: <code>koha-staff-8080</code></li>
-<li>Add description: <strong>Open port 8080 for the Koha staff interface</strong></li>
+<li>Add name: koha-staff-8080</li>
+<li>Add description: Open port 8080 for the Koha staff interface</li>
 </ul>
 </li>
-<li>Next to <strong>Targets</strong>, click on <strong>Specified target tags</strong>.</li>
-<li>In <strong>Target tags</strong>, add our tag name: <code>koha-8080</code>.</li>
-<li>In the <strong>Source IPv4 ranges</strong>, add your current public IP in CIDR form (for example, <code>203.0.113.10/32</code>).
-Use <code>0.0.0.0/0</code> only for short-term testing if needed, and remove it afterward.</li>
-<li>Click on <strong>Specified protocols and ports</strong>
+<li>Next to Targets, click on Specified target tags.</li>
+<li>In Target tags, add our tag name: koha-staff-8080.</li>
+<li>In the Source IPv4 ranges, we allow access from anywhere (0.0.0.0/0) to simplify setup. In a real deployment, you might want to restrict administrative access to port 8080 to specific IP addresses.</li>
+<li>Click on Specified protocols and ports
 <ul>
 <li>Click on TCP</li>
-<li>Add <strong>8080</strong> in the <strong>Ports</strong> box</li>
+<li>Add 8080 in the Ports box</li>
 </ul>
 </li>
-<li>Click on <strong>Create</strong></li>
+<li>Click on Create</li>
 </ul>
+<h4 id="firewall-rule-1-port-8081"><a class="header" href="#firewall-rule-1-port-8081">Firewall Rule 1: Port 8081</a></h4>
+<ul>
+<li>Create a second firewall rule
+<ul>
+<li>Add name: koha-opac-8081</li>
+<li>Add description: Open port 8081 for the Koha opac interface</li>
+</ul>
+</li>
+<li>Next to Targets, click on Specified target tags.</li>
+<li>In Target tags, add our tag name: koha-opac-8081.</li>
+<li>In the Source IPv4 ranges, we allow access from anywhere (0.0.0.0/0) to simplify setup. In a real deployment, you may or may not want to restrict public access to port 8080 to specific IP addresses.</li>
+<li>Click on Specified protocols and ports
+<ul>
+<li>Click on TCP</li>
+<li>Add 8081 in the Ports box</li>
+</ul>
+</li>
+<li>Click on Create</li>
+</ul>
+<p><strong>These firewall rules must match the ports we configure below in Koha and Apache.</strong></p>
 <h2 id="install-koha-repo"><a class="header" href="#install-koha-repo">Install Koha Repo</a></h2>
+<p>After you've created your virtual machine, set up the firewall rules, but before we begin to install Koha,
+connect to your machine and start <code>tmux</code>.
+Using tmux will be useful in in case you get disconnected:</p>
+<pre><code>tmux
+</code></pre>
+<p><code>tmux</code> is a <a href="https://en.wikipedia.org/wiki/Tmux">terminal multiplexer</a>.
+If you are disconnected while you are working,
+re-establish your connection to your virtual machine, and run the following command to re-open your session:</p>
+<pre><code>tmux attach
+</code></pre>
+<blockquote>
+<p>If <code>tmux</code> is not installed, then install it with <code>sudo apt install tmux</code>.
+See <code>man tmux</code> for more information on how to use <code>tmux</code>, if interested,
+or search the web for other tutorials.
+It's a powerful program and can do a lot more than re-attach from disconnected sessions.</p>
+</blockquote>
 <h3 id="server-setup"><a class="header" href="#server-setup">Server setup</a></h3>
 <p>Now let's log onto our new server and prepare it for the Koha installation.</p>
 <p>First we need to update our local repositories:</p>
@@ -317,21 +371,13 @@ Use <code>0.0.0.0/0</code> only for short-term testing if needed, and remove it 
 </code></pre>
 <p>The next two commands help save disk space.
 As a reminder, the <code>apt autoremove</code> command
-<q>is used to remove packages that were automatically installed to satisfy dependencies for other packages and
-are now no longer needed as dependencies changed or the package(s) needing them were removed in the meantime</q> (see <code>man apt</code>).
-The <code>apt clean</code> command <q>clears out the local repository of retrieved package files</q> (see <code>man apt-get</code>).
+<q>is used to remove packages that were automatically installed to satisfy
+dependencies for other packages and are now no longer needed as dependencies changed or the package(s)
+needing them were removed in the meantime</q> (see <code>man apt</code>).
+The <code>apt clean</code> command <q>clears out the local repository of retrieved package files</q>
+(see <code>man apt-get</code>).
 In the following example, I combine both commands on one line:</p>
 <pre><code>sudo apt autoremove -y &amp;&amp; sudo apt clean
-</code></pre>
-<p>Next we need to install <code>gnupg2</code>.
-<code>gnupg2</code> is used to create digital signatures, encrypt data, and aid in secure communication.</p>
-<pre><code>sudo apt install gnupg2
-</code></pre>
-<p>At the time of this demo, the update above downloaded a new Linux kernel.
-Using the new kernel requires a reboot.
-The reboot command will disconnect you from the server.
-If you need to reboot your server, use the command below, then wait a minute or so and re-connect.</p>
-<pre><code>sudo reboot now
 </code></pre>
 <h3 id="add-koha-repository"><a class="header" href="#add-koha-repository">Add Koha Repository</a></h3>
 <p>When you run the <code>sudo apt update</code> command,
@@ -340,101 +386,144 @@ These remote repositories contain metadata about the packages they contain.
 The syncing process identifies if any new software updates are available.
 The remote repositories are also used to retrieve software.</p>
 <p>We can add repositories to sync with and to use to download software, and this includes the Koha ILS.
-To add the special Koha repository to our system, we use the following command:</p>
+First, we use the following three commands set up the signing keys to ensure
+that we're downloading the authentic software.</p>
+<pre><code>sudo apt install apt-transport-https ca-certificates curl
+sudo mkdir -p --mode=0755 /etc/apt/keyrings
+sudo curl -fsSL https://debian.koha-community.org/koha/gpg.asc -o /etc/apt/keyrings/koha.asc
+</code></pre>
+<p>Next, become the <code>root</code> user with the following command:</p>
+<pre><code>sudo su
+</code></pre>
+<p>And paste the following into your terminal.
+Be careful about getting this correctly copied and pasted:</p>
+<pre><code>tee /etc/apt/sources.list.d/koha.sources &lt;&lt;EOF
+Types: deb
+URIs: https://debian.koha-community.org/koha/
+Suites: 25.05
+Components: main
+Signed-By: /etc/apt/keyrings/koha.asc
+EOF
+</code></pre>
+<p>Use <code>cat /etc/apt/sources.list.d/koha.sources</code> to view and verify that the contents
+match the input above.</p>
+<p>Then <code>exit</code> the root Linux user account and return to your regular user account:</p>
+<pre><code>exit
+</code></pre>
 <blockquote>
-<p>Most of the following commands require administrator access.
-We will run them with <code>sudo &lt;command&gt;</code> instead of logging in as <code>root</code>.</p>
+<p>Explanation of the above command:
+The <code>tee</code> command reads input and directs output both to a file and to the screen.
+<code>&lt;&lt;EOF</code> represents a <a href="https://en.wikipedia.org/wiki/Here_document">Here document</a> or <code>heredoc</code>,
+where <code>EOF</code> represents the <strong>delimiting identifier</strong>.
+The <code>heredoc</code> ends with <code>EOF</code> on a line of its own.</p>
 </blockquote>
-<p>Add the Koha repository to our server:</p>
-<pre><code>echo 'deb http://debian.koha-community.org/koha stable main' | sudo tee /etc/apt/sources.list.d/koha.list
+<h2 id="install-mariadb"><a class="header" href="#install-mariadb">Install MariaDB</a></h2>
+<p>The Koha ILS can use either the MySQL relational database or <a href="https://mariadb.com/">MariaDB</a>.
+The latter is a <a href="https://en.wikipedia.org/wiki/Fork_(software_development)">fork</a> of the MySQL relational database, and for most uses,
+it works exactly the same as MySQL.</p>
+<p>Since Koha defaults to MariaDB, we'll use that.
+We'll install it first in case it helps to let Koha know, so to speak,
+that it's using MariaDB as Koha is installed.</p>
+<pre><code>sudo apt update
+sudo apt install mariadb-server
 </code></pre>
-<p>Now, download and install the GPG key in the <code>trusted.gpg.d</code> directory:</p>
-<pre><code>wget -qO- https://debian.koha-community.org/koha/gpg.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/koha.gpg &gt; /dev/null
-</code></pre>
-<p>You can inspect the key and make sure it was signed by the relevant people:</p>
-<pre><code>gpg --show-keys --fingerprint /etc/apt/trusted.gpg.d/koha.gpg
-</code></pre>
-<p>Compare the fingerprint in the output to the fingerprint published in the Koha Debian packaging documentation before continuing.</p>
 <h2 id="install-koha"><a class="header" href="#install-koha">Install Koha</a></h2>
 <p>Next we need to update/sync the new repository with the Koha remote repository.
 This just means that we use <code>apt update</code> again.</p>
 <pre><code>sudo apt update
 </code></pre>
-<p>Now we view the package information for Koha:</p>
+<p>Now we review the package information for Koha:</p>
 <pre><code>apt show koha-common
 </code></pre>
-<p>And install it:</p>
+<p>Then we install the Koha integrated library system.
+This is a large metapackage, and it will take several minutes to download and install.
+This is where <code>tmux</code> may come in handy, in case you lose your connection to your server.</p>
 <pre><code>sudo apt install koha-common
 </code></pre>
-<p>The above command will download and install a lot of additional software, and therefore the process will take several minutes.</p>
-<h3 id="configure-koha"><a class="header" href="#configure-koha">Configure Koha</a></h3>
-<p>Next we need to edit some configuration files for Koha.
-First, create a backup of the default configuration file:</p>
-<pre><code>cd /etc/koha/
-sudo cp koha-sites.conf koha-sites.conf.backup
+<h3 id="opening-ports"><a class="header" href="#opening-ports">Opening Ports</a></h3>
+<p>Like all integrated library systems, Koha has a staff interface and a public interface.
+The staff interface provides access to its modules, including cataloging,
+patron management, and so forth.
+The public interface provides access to Koha's OPAC.
+We wil configure Koha to use different <a href="https://en.wikipedia.org/wiki/Port_(computer_networking)">ports</a> for the staff and public interfaces.
+Specifically, we will configure Koha to access the staff interface through port 8080 and
+the public interface through port 8081.</p>
+<p>We are going to edit the file at <code>/etc/koha/koha-sites.conf</code>.
+Since this is an important configuration file, we should make a copy of it first:</p>
+<pre><code>sudo cp /etc/koha/koha-sites.conf /etc/koha/koha-sites.conf.backup
 </code></pre>
-<p>Now open the configuration file in <code>nano</code> or your preferred text editor:</p>
-<pre><code>sudo nano /etc/koha/koha-sites.conf
-</code></pre>
-<p>In the <code>koha-sites.conf</code> file, change the line that contains the following information:</p>
-<pre><code>INTRAPORT="80"
-</code></pre>
-<p>To:</p>
+<p>Next, use your text editor to open <code>/etc/koha/koha-sites.conf</code>.
+At the end of the <code>INTRAPORT=</code> line, add <code>8080</code>.
+At the end of the <code>OPACPORT=</code> line, add <code>8081</code>:</p>
 <pre><code>INTRAPORT="8080"
+OPACPORT="8081"
 </code></pre>
-<p>Next install <code>mysql-server</code> if it is not already installed:</p>
-<pre><code>sudo apt install mysql-server
+<h2 id="apache2-setup"><a class="header" href="#apache2-setup">Apache2 Setup</a></h2>
+<p>The Apache2 web server software was installed when we installed Koha, but
+Koha requires that we enable a few Apache modules with the <code>a2enmod</code> command.</p>
+<pre><code>sudo a2enmod rewrite cgi headers proxy_http
+sudo systemctl restart apache2
 </code></pre>
-<p>On Ubuntu, MySQL root access often uses system authentication (<code>sudo mysql</code>) by default.
-For this Koha setup, you do not need to set a separate MySQL root password with <code>mysqladmin</code>.</p>
-<p>When we installed Koha, the Apache2 web server was installed with it as a prerequisite.
-We need to enable URL rewriting and <a href="https://en.wikipedia.org/wiki/Common_Gateway_Interface">CGI</a> functionality.</p>
-<pre><code>sudo a2enmod rewrite
-sudo a2enmod cgi 
+<p>We've already configured Koha to listen on ports 8080 and 8081, but
+we also need to configure Apache2 to do so also.
+Again, since this is an important configuration file, make a copy:</p>
+<pre><code>cp /etc/apache2/ports.conf /etc/apache2/ports.conf.backup
 </code></pre>
-<p>Now we need to restart Apache2 in the normal way:</p>
-<pre><code>sudo systemctl restart apache2
-</code></pre>
-<p>Next we create a database for Koha:</p>
-<pre><code>sudo koha-create --create-db bibliolib
-</code></pre>
-<p>We need to tell Apache2 to listen on port 8080:</p>
-<pre><code>sudo nano /etc/apache2/ports.conf 
-</code></pre>
-<p>And under the <code>Listen 80</code> line, add:</p>
+<p>Then use your text editor to open <code>/etc/apache2/ports.conf</code>.
+Under <code>Listen 80</code> at the top of the file, add the following two lines:</p>
 <pre><code>Listen 8080
+Listen 8081
 </code></pre>
-<p>Make sure Apache configuration changes are valid:</p>
-<pre><code>sudo apachectl configtest
+<h2 id="create-koha-instance"><a class="header" href="#create-koha-instance">Create Koha Instance</a></h2>
+<p>Koha comes with several commands to create and initiate the install.
+In the following command, we'll use the <code>koha-create</code> command to create a Koha library called <code>bibliolib</code>.
+Feel free to use an alternate name, but
+be sure it's a single word with no spaces or non-alpha characters.
+Use lowerspace characters, too.
+Then we'll restart Apache2.</p>
+<pre><code>sudo koha-create --create-db bibliolib
+sudo systemctl restart apache2
 </code></pre>
-<p>If you get an error message, trace the error in the file and line listed.</p>
-<p>Let's restart Apache2.</p>
-<pre><code>sudo systemctl restart apache2
-</code></pre>
-<p>We'll disable the default Apache2 setup, enable traffic compression using <code>deflate</code>,
-enable the <strong>bibliolib</strong> site, and then reload Apache2's configurations and restart again:</p>
+<h2 id="additional-apache2-configurations"><a class="header" href="#additional-apache2-configurations">Additional Apache2 Configurations</a></h2>
+<p>The following commands configure Apache2 a bit more.
+As we've learned, the <code>/var/www/html</code> directory normally serves as the
+web document root on fresh Apache2 installs.
+The <code>a2dissite 000-default</code> command below turns this off.
+The <code>a2enmod deflate</code> command turns on <a href="https://httpd.apache.org/docs/current/mod/mod_deflate.html">network compression</a>.
+This means that data from the Koha server is compressed before it's sent to a client machine.
+The <code>a2ensite bibliolib</code> enables the new bibliolib library, which has already been configured by Koha.</p>
 <pre><code>sudo a2dissite 000-default
 sudo a2enmod deflate
 sudo a2ensite bibliolib
-sudo systemctl reload apache2
+</code></pre>
+<p>Next we reload Apache2's new configurations and restart it:</p>
+<pre><code>sudo systemctl reload apache2
 sudo systemctl restart apache2
 </code></pre>
-<h3 id="koha-web-installer"><a class="header" href="#koha-web-installer">Koha Web Installer</a></h3>
+<h2 id="koha-web-installer"><a class="header" href="#koha-web-installer">Koha Web Installer</a></h2>
 <p>All the back end work is complete, and like we did with WordPress and Omeka,
-we can complete the installation through a web installer.</p>
-<p>First, get Koha username and password in the following file:</p>
-<pre><code>sudo nano /etc/koha/sites/bibliolib/koha-conf.xml
+we can complete the installation through a web installer.
+First, we get the user name and password using the <code>koha-passwd</code> command.
+Be sure to save this info:</p>
+<pre><code>sudo koha-passwd bibliolib
 </code></pre>
-<p>Look for the <code>&lt;config&gt;</code> stanza (line number 252) and
-the line beginning with <code>&lt;user&gt;</code> (line number 257).
-The password is on the line after (line number 258).
-You will need this info to login to the Koha web interface.</p>
-<p>Make sure your URL begins with <code>http</code> and not <code>https</code>, and visit the web installer at:</p>
-<pre><code>http://IP-ADDRESS:8080
+<p>Example output:</p>
+<pre><code>Username for bibliolib: koha_bibliolib
+Password for bibliolib: M(x_d40k.{;_=;zG
+Press enter to clear the screen...
 </code></pre>
-<p>This URL exposes the staff interface over HTTP, so keep the firewall source range restricted while working through the installer.</p>
+<p>Next, get the public IP address for our machine in order to visit the Koha site
+and complete the installation.
+If the public IP address for my machine is <code>123.12.123.12</code>, then
+I would visit the site using the staff port:</p>
+<pre><code>http://123.12.123.12:8080
+</code></pre>
+<p>You should see a welcome screen with an onboarding process.
+Follow the steps, and be sure to complete the forms and select the default options
+unless you want to change them.
+Just be sure to read through what is offered.</p>
 <p>The documentation for the web installer is helpful.
-Enter the username and password from the <code>koha-conf.xml</code> file.
+Enter the username and password from the <code>sudo koha-passwd bibliolib</code> command.
 Note that it might take a while to step through the installer.</p>
 <p>One thing to do is to add sample libraries and sample patrons during the install.
 More generally, be sure to follow instructions as you click through each step.
@@ -443,10 +532,15 @@ Add lots of samples to play around with after the install completes.</p>
 be sure to save this information.</p>
 <p><a href="https://koha-community.org/manual/latest/en/html/installation.html">Introduction to the Koha installation process</a></p>
 <h2 id="public-opac"><a class="header" href="#public-opac">Public OPAC</a></h2>
-<p>When the install and setup are complete, you can login with your admin credentials, and
-you will have access to the staff interface.
-To view the public facing OPAC, you need to make a setting change.
-In Koha:</p>
+<p>Once you've complete the install and onboarding process,
+you can visit your public OPAC at:</p>
+<pre><code>http://123.12.123.12:8081
+</code></pre>
+<p>When the install and setup are complete, you can login with the admin credentials
+that you created during the web installer process, and
+you will have access to the staff interface.</p>
+<p>It may help later to make a setting change in the admin site.
+In Koha staff view:</p>
 <ul>
 <li>Click on <strong>More</strong> in the top drop down box</li>
 <li>Click on <strong>Administration</strong></li>
@@ -456,13 +550,12 @@ In Koha:</p>
 <li>Enter the IP address of your server: <code>http://IP-ADDRESS</code></li>
 <li>Click on <strong>Save all OPAC Preferences</strong></li>
 </ul>
-<p>Once you save these preferences, you should be able to visit your public facing OPAC at the server IP address.</p>
 <h2 id="additional-tasks"><a class="header" href="#additional-tasks">Additional Tasks</a></h2>
 <p>Once you've installed and setup Koha, begin to learn the system.
 Try the following:</p>
 <ul>
-<li>Create patron accounts</li>
-<li>Create bibliographic records</li>
+<li>Import or create patron accounts</li>
+<li>Import or create bibliographic records</li>
 <li>Check out books to patrons</li>
 <li>Delete patron circulation history</li>
 </ul>
@@ -477,7 +570,6 @@ to your Koha-based OPAC.</p>
 <ul>
 <li><a href="https://koha-community.org/">Koha ILS</a> documentation.</li>
 <li><a href="https://wiki.koha-community.org/wiki/Koha_on_Debian">Koha on Debian</a></li>
-<li><a href="https://www.youtube.com/watch?v=mzUop9R4sKc">Install Koha on Google Cloud Platform</a></li>
 </ul>
 
                     </main>
