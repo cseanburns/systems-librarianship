@@ -93,8 +93,9 @@ In our new VMs, we'll use the following parameters:
     - koha-staff-8080
     - koha-opac-8081
 
-Make sure your virtual machine includes those above two network tags:
-**koha-staff-8080** and **koha-staff-8081**.
+These tags must match the firewall rules below or your site will not load.
+Thus, make sure your virtual machine includes the above two network tags:
+**koha-staff-8080** and **koha-opac-8081**.
 Otherwise, your site will not load in your browser.
 
 All else, including the operating system (Ubuntu 24.04 LTS), should remain the same.
@@ -107,7 +108,7 @@ Later, after we install Koha, we will need to access the staff and public interf
 on special ports for HTTP data.
 All internet traffic to a server contains metadata that identifies itself by port numbers.
 The default port for HTTP is 80, and the default port for HTTPS (encrypted) is 443.
-Since we do not have encryption enabled, this means we will not use port 443.
+Since we are not using HTTPS in this setup, we will not use port 443.
 Instead, we will configure the firewall to access the staff interface through port 8080 and
 the public interface through port 8081.
 This HTTP-only setup is for short-lived lab use;
@@ -151,20 +152,25 @@ Follow these steps to create two firewall rules:
     - Add 8080 in the Ports box
 - Click on Create
 
-#### Firewall Rule 1: Port 8081
+#### Firewall Rule 2: Port 8081
 
 - Create a second firewall rule
     - Add name: koha-opac-8081
     - Add description: Open port 8081 for the Koha opac interface
 - Next to Targets, click on Specified target tags.
 - In Target tags, add our tag name: koha-opac-8081.
-- In the Source IPv4 ranges, we allow access from anywhere (0.0.0.0/0) to simplify setup. In a real deployment, you may or may not want to restrict public access to port 8080 to specific IP addresses.
+- In the Source IPv4 ranges, we allow access from anywhere (0.0.0.0/0) to simplify setup. In a real deployment, you may or may not want to restrict public access to port 8081 to specific IP addresses.
 - Click on Specified protocols and ports
     - Click on TCP
     - Add 8081 in the Ports box
 - Click on Create
 
 **These firewall rules must match the ports we configure below in Koha and Apache.**
+If your site does not load later, the most common causes are:
+
+- missing network tags
+- incorrect firewall rules
+- Apache not listening on the correct ports
 
 ## Install Koha Repo
 
@@ -314,7 +320,7 @@ Like all integrated library systems, Koha has a staff interface and a public int
 The staff interface provides access to its modules, including cataloging,
 patron management, and so forth.
 The public interface provides access to Koha's OPAC.
-We wil configure Koha to use different [ports][ports_wiki] for the staff and public interfaces.
+We will explicitly configure Koha and Apache to use different [ports][ports_wiki] for the staff and public interfaces.
 Specifically, we will configure Koha to access the staff interface through port 8080 and
 the public interface through port 8081.
 
@@ -349,7 +355,7 @@ we also need to configure Apache2 to do so also.
 Again, since this is an important configuration file, make a copy:
 
 ```
-cp /etc/apache2/ports.conf /etc/apache2/ports.conf.backup
+sudo cp /etc/apache2/ports.conf /etc/apache2/ports.conf.backup
 ```
 
 Then use your text editor to open `/etc/apache2/ports.conf`.
@@ -426,9 +432,8 @@ http://123.12.123.12:8080
 ```
 
 You should see a welcome screen with an onboarding process.
-Follow the steps, and be sure to complete the forms and select the default options
-unless you want to change them.
-Just be sure to read through what is offered.
+Follow the steps, and be sure to complete the forms and accept the default options, but
+read through each step to understand what is being configured.
 
 The documentation for the web installer is helpful.
 Enter the username and password from the `sudo koha-passwd bibliolib` command.
@@ -441,7 +446,7 @@ Add lots of samples to play around with after the install completes.
 When you are on the last page of the install, create an **Administrator identity**, and
 be sure to save this information.
 
-[Introduction to the Koha installation process][koha_web_installer]
+[Web Installer Instructions][koha_web_installer]
 
 ## Public OPAC
 
@@ -506,7 +511,7 @@ Helpful documentation and demos:
 [koha_docs]:https://wiki.koha-community.org/wiki/Koha_on_Debian_and_Ubuntu
 [koha_ils]:https://koha-community.org/
 [koha_ltg]:https://librarytechnology.org/product/koha
-[koha_web_installer]:https://koha-community.org/manual/latest/en/html/installation.html
+[koha_web_installer]:https://koha-community.org/manual/latest/en/html/installation.html#web-installer
 [mariadb]:https://mariadb.com/
 [mod_deflate]:https://httpd.apache.org/docs/current/mod/mod_deflate.html
 [ports]:https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/
