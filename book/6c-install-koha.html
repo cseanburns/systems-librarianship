@@ -290,15 +290,13 @@ These packets contain <em>header</em> information that names the source IP, dest
 When TCP packets arrive at a destination server, the operating system inspects the packet header for the port number.
 The OS looks up the port number in a table that contains a mapping of ports to applications.
 When the OS makes the match, it sends the TCP packets to the application.
-In its default setup, the Apache2 web server handles traffic on port 80.</p>
+In its default setup, the Apache2 web server handles traffic on port 80.<br />
+Please take a moment to read more about ports: <a href="https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/">What is a computer port? | Ports in networking</a>.</p>
 </blockquote>
 <p>Firewalls are used to control incoming and outgoing traffic via ports.
 We selected <strong>Allow HTTP traffic</strong> when we created our virtual instance on Google Cloud,
 and we instructed the Google Console firewall to allow traffic through port 80.
 We need to add a firewall rule to allow web traffic through port 8080 and port 8081.</p>
-<blockquote>
-<p>Please take a moment to read more about ports: <a href="https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/">What is a computer port? | Ports in networking</a>.</p>
-</blockquote>
 <p>To create the firewall rules, go to the Google Cloud Console:</p>
 <p>We'll add two firewall rules to open traffic on two ports.
 Opening these ports will allow us to connect to Koha's staff and public interfaces.
@@ -316,7 +314,7 @@ Follow these steps to create two firewall rules:</p>
 </li>
 <li>Next to Targets, click on Specified target tags.</li>
 <li>In Target tags, add our tag name: koha-staff-8080.</li>
-<li>In the Source IPv4 ranges, we allow access from anywhere (0.0.0.0/0) to simplify setup. In a real deployment, you might want to restrict administrative access to port 8080 to specific IP addresses.</li>
+<li>In the Source IPv4 ranges, we allow access from anywhere (0.0.0.0/0) to simplify setup. In a real deployment, we might want to restrict administrative access to port 8080 to specific IP addresses.</li>
 <li>Click on Specified protocols and ports
 <ul>
 <li>Click on TCP</li>
@@ -335,7 +333,7 @@ Follow these steps to create two firewall rules:</p>
 </li>
 <li>Next to Targets, click on Specified target tags.</li>
 <li>In Target tags, add our tag name: koha-opac-8081.</li>
-<li>In the Source IPv4 ranges, we allow access from anywhere (0.0.0.0/0) to simplify setup. In a real deployment, you may or may not want to restrict public access to port 8081 to specific IP addresses.</li>
+<li>In the Source IPv4 ranges, we allow access from anywhere (0.0.0.0/0) to simplify setup. In a real deployment, we may or may not want to restrict public access to port 8081 to specific IP addresses.</li>
 <li>Click on Specified protocols and ports
 <ul>
 <li>Click on TCP</li>
@@ -366,7 +364,8 @@ re-establish your connection to your virtual machine, and run the following comm
 <p>If <code>tmux</code> is not installed, then install it with <code>sudo apt install tmux</code>.
 See <code>man tmux</code> for more information on how to use <code>tmux</code>, if interested,
 or search the web for other tutorials.
-It's a powerful program and can do a lot more than re-attach from disconnected sessions.</p>
+It's a powerful program and can do a lot more than re-attach from disconnected sessions.
+Note that <code>tmux</code> sessions can be re-opened if we lose our connection to the servers, they do not last after reboots.</p>
 </blockquote>
 <h3 id="server-setup"><a class="header" href="#server-setup">Server setup</a></h3>
 <p>Now let's log onto our new server and prepare it for the Koha installation.</p>
@@ -393,7 +392,7 @@ These remote repositories contain metadata about the packages they contain.
 The syncing process identifies if any new software updates are available.
 The remote repositories are also used to retrieve software.</p>
 <p>We can add repositories to sync with and to use to download software, and this includes the Koha ILS.
-First, we use the following three commands set up the signing keys to ensure
+First, we use the following three commands to set up the signing keys to ensure
 that we're downloading the authentic software.</p>
 <pre><code>sudo apt install apt-transport-https ca-certificates curl
 sudo mkdir -p --mode=0755 /etc/apt/keyrings
@@ -422,7 +421,7 @@ match the input above.</p>
 The <code>tee</code> command reads input and directs output both to a file and to the screen.
 <code>&lt;&lt;EOF</code> represents a <a href="https://en.wikipedia.org/wiki/Here_document">Here document</a> or <code>heredoc</code>,
 where <code>EOF</code> represents the <strong>delimiting identifier</strong>.
-The <code>heredoc</code> ends with <code>EOF</code> on a line of its own.</p>
+The <code>heredoc</code> ends with the delimitiing identifier, <code>EOF</code>, on a line of its own.</p>
 </blockquote>
 <h2 id="install-mariadb"><a class="header" href="#install-mariadb">Install MariaDB</a></h2>
 <p>The Koha ILS can use either the MySQL relational database or <a href="https://mariadb.com/">MariaDB</a>.
@@ -444,18 +443,20 @@ This just means that we use <code>apt update</code> again.</p>
 </code></pre>
 <p>Then we install the Koha integrated library system.
 This is a large metapackage, and it will take several minutes to download and install.
-This is where <code>tmux</code> may come in handy, in case you lose your connection to your server.</p>
+This is where <code>tmux</code> may come in handy.
+In case you lose your connection to your server, if you are running the commands below within a <code>tmux</code> session,
+they'll continue to run even if your connection drops.</p>
 <pre><code>sudo apt install koha-common
 </code></pre>
 <h3 id="opening-ports"><a class="header" href="#opening-ports">Opening Ports</a></h3>
 <p>Like all integrated library systems, Koha has a staff interface and a public interface.
-The staff interface provides access to its modules, including cataloging,
-patron management, and so forth.
+The staff interface provides access to its modules, including cataloging, patron management, and so forth.
 The public interface provides access to Koha's OPAC.
 We will explicitly configure Koha and Apache to use different <a href="https://en.wikipedia.org/wiki/Port_(computer_networking)">ports</a> for the staff and public interfaces.
 Specifically, we will configure Koha to access the staff interface through port 8080 and
-the public interface through port 8081.</p>
-<p>We are going to edit the file at <code>/etc/koha/koha-sites.conf</code>.
+the public interface through port 8081.
+These match the firewall rules we set up earlier.</p>
+<p>To do this, we edit the file at <code>/etc/koha/koha-sites.conf</code>.
 Since this is an important configuration file, we should make a copy of it first:</p>
 <pre><code>sudo cp /etc/koha/koha-sites.conf /etc/koha/koha-sites.conf.backup
 </code></pre>
@@ -526,20 +527,18 @@ I would visit the site using the staff port:</p>
 <pre><code>http://123.12.123.12:8080
 </code></pre>
 <p>You should see a welcome screen with an onboarding process.
+Enter the username and password from the <code>sudo koha-passwd bibliolib</code> command to begin.</p>
+<p>It will take a few minutes to step through the installer.
+The documentation for the web installer is helpful (see link below).
 Follow the steps, and be sure to complete the forms and accept the default options, but
-read through each step to understand what is being configured.</p>
-<p>The documentation for the web installer is helpful.
-Enter the username and password from the <code>sudo koha-passwd bibliolib</code> command.
-Note that it might take a while to step through the installer.</p>
-<p>One thing to do is to add sample libraries and sample patrons during the install.
-More generally, be sure to follow instructions as you click through each step.
-Add lots of samples to play around with after the install completes.</p>
+read through each step and refer to the documentation to understand what is being configured.
+For example, you can add sample libraries and sample patrons during the install.</p>
 <p>When you are on the last page of the install, create an <strong>Administrator identity</strong>, and
 be sure to save this information.</p>
 <p><a href="https://koha-community.org/manual/latest/en/html/installation.html#web-installer">Web Installer Instructions</a></p>
 <h2 id="public-opac"><a class="header" href="#public-opac">Public OPAC</a></h2>
-<p>Once you've complete the install and onboarding process,
-you can visit your public OPAC at:</p>
+<p>Once you've complete the install and onboarding process, you can visit your public OPAC.
+Note we add the the OPAC port at the end of our IP address this time:</p>
 <pre><code>http://123.12.123.12:8081
 </code></pre>
 <p>When the install and setup are complete, you can login with the admin credentials
