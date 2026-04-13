@@ -138,7 +138,7 @@ Follow these steps to create two firewall rules:
 #### Firewall Rule 1: Port 8080
 
 - Click on the hamburger icon.
-- Click on VPN Network.
+- Click on VPC Network.
 - Click on Firewall.
 - At the top of the page, choose Create a firewall rule (Do not choose Create a firewall policy):
     - Add name: koha-staff-8080
