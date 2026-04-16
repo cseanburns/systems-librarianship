@@ -168,7 +168,40 @@ sudo unzip latest.zip
 As noted in the WordPress documentation, this will create a directory called `wordpress` in the same directory.
 Therefore, the full path of your installation will be located at `/var/www/html/wordpress`.
 
-### Step 3: Create the Database and a User
+### Step 3: Permissions
+
+WordPress needs the web server user, `www-data`, to be able to read the installation files and write to specific directories (such as uploads).
+
+First, change ownership of the WordPress directory so that `www-data` owns the files:
+
+```
+sudo chown -R www-data:www-data /var/www/html/wordpress/
+```
+
+Next, set standard permissions for directories and files.
+
+Directories need execute permissions in order to be traversed:
+
+```
+sudo find /var/www/html/wordpress/ -type d -exec chmod 755 {} \;
+```
+
+Files should be readable but not executable:
+
+```
+sudo find /var/www/html/wordpress/ -type f -exec chmod 644 {} \;
+```
+
+Finally, allow WordPress to upload media by granting write access to the uploads directory:
+
+```
+sudo chmod -R 775 /var/www/html/wordpress/wp-content/uploads
+```
+
+For this course, where the install is temporary, this setup is acceptable.
+For a permanent install, permissions should be more restrictive and limited only to the directories that require write access.
+
+### Step 4: Create the Database and a User
 
 The WordPress documentation describes how to use `phpMyAdmin` to create the database and a user for WordPress.
 `phpMyAdmin` is a graphical front end to the MySQL relational database that you would access through the browser.
@@ -207,7 +240,7 @@ show databases;
 \q
 ```
 
-### Step 4: Set up `wp-config.php`
+### Step 5: Set up `wp-config.php`
 
 When we created our bare bones ILS, we created a file called `login.php` that contained the name of the database (e.g., `opacdb`),
 the name of the database user (e.g., `opacuser`), and the user's password.
@@ -245,7 +278,7 @@ define('FS_METHOD','direct');
 This tells WordPress to write files directly through the local filesystem.
 For permanent installs, only use this after reviewing file ownership and security implications.
 
-### Step 5: **Optional**
+### Step 6: **Optional**
 
 The WordPress files are now installed at `/var/www/html/wordpress`.
 This means that your site would be located at a URL like:
@@ -264,22 +297,7 @@ For example, if I want to change mine to `library`, then:
 sudo mv /var/www/html/wordpress /var/www/html/library
 ```
 
-<!--
-### Step 6: Change File Ownership
-
-WordPress will need to write to files in the base directory.
-Assuming you are still in your base directory, run the following command, which assumes that my directory is still named
-`/var/www/html/wordpress`:
-
-```
-sudo chown -R www-data:www-data /var/www/html/wordpress
-```
-
-For this course, where the install is temporary, this broad ownership change is acceptable.
-For a permanent install, use stricter ownership and limit writable locations where possible.
--->
-
-### Step 6: Run the Install Script
+### Step 7: Run the Install Script
 
 The next part of the process takes place in the browser.
 The location (URL) that you visit in the browser depends on your specific IP address and also

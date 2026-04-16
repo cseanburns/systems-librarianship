@@ -74,10 +74,31 @@ In short, you are going to complete the following steps:
 - In the extracted directory, find the `db.ini` file and add your new database credentials.
   Replace all values containing `XXXXXX` with the appropriate information.
   This is the same thing we did with the `login.php` file for our bare bones ILS and the `wp-config.php` file for WordPress.
-- Use the `chown` command to give Apache group write access on all files. Assume your directory name for the Omeka download is called `omeka`, then run these commands:
-    - `cd /var/www/html/omeka`
-    - `sudo chmod -R g+w *`
-- Restart Apache2. Restart MySQL only if you run into connection or service issues.
+
+Omeka has the same basic permissions and ownership requirements as WordPress:
+
+- the web server (`www-data`) must be able to read the application files
+- and write to specific directories used for uploads and derivatives
+
+You have already solved this problem with your WordPress installation
+(see the `chown` and `chmod` permission section in the previous section on WordPress).
+Apply the same logic here but modify for the new Omeka directories.
+A few tips:
+
+- Check ownership and permissions of your Omeka directory (tip: compare output to `/var/www/html/wordpress`):
+    ```
+    ls -ld /var/www/html/omeka
+    ```
+- Make sure the web server user can read the installation files and traverse the directories.
+- Identify which directory Omeka uses to store uploaded and generated files.
+    - Hint: look for a directory named `files/`
+- That directory (and subdirectories) must be writable by the server
+- Avoid overly broad permissions
+
+Finally:
+
+- Restart Apache2.
+- Restart MySQL only if you run into connection or service issues.
 - In your web browser, go to `http://your-ip-address/omeka/` (or whatever your directory name is) and complete the setup via the web form, just like you did with WordPress.
 
 ## Helpful Links
