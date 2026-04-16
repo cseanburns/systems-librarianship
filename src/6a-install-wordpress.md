@@ -198,7 +198,16 @@ Finally, allow WordPress to upload media by granting write access to the uploads
 sudo chmod -R 775 /var/www/html/wordpress/wp-content/uploads
 ```
 
-For this course, where the install is temporary, this setup is acceptable.
+If the directory doesn't exist, then create it before running the above command:
+
+```
+sudo mkdir /var/www/html/wordpress/wp-content/uploads
+```
+
+The `wp-content/` directory pre-contains `plugins/` and `themes/` directories.
+If you attempt to add plugins or new themes, then modify the `chmod` command appropriately.
+
+Note: for this course, the install is temporary, and thus this setup is acceptable.
 For a permanent install, permissions should be more restrictive and limited only to the directories that require write access.
 
 ### Step 4: Create the Database and a User
