@@ -4527,7 +4527,12 @@ Therefore, the full path of your installation will be located at <code>/var/www/
 <p>Finally, allow WordPress to upload media by granting write access to the uploads directory:</p>
 <pre><code>sudo chmod -R 775 /var/www/html/wordpress/wp-content/uploads
 </code></pre>
-<p>For this course, where the install is temporary, this setup is acceptable.
+<p>If the directory doesn't exist, then create it before running the above command:</p>
+<pre><code>sudo mkdir /var/www/html/wordpress/wp-content/uploads
+</code></pre>
+<p>The <code>wp-content/</code> directory pre-contains <code>plugins/</code> and <code>themes/</code> directories.
+If you attempt to add plugins or new themes, then modify the <code>chmod</code> command appropriately.</p>
+<p>Note: for this course, the install is temporary, and thus this setup is acceptable.
 For a permanent install, permissions should be more restrictive and limited only to the directories that require write access.</p>
 <h3 id="step-4-create-the-database-and-a-user"><a class="header" href="#step-4-create-the-database-and-a-user">Step 4: Create the Database and a User</a></h3>
 <p>The WordPress documentation describes how to use <code>phpMyAdmin</code> to create the database and a user for WordPress.
