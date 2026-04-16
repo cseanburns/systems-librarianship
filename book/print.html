@@ -4512,7 +4512,24 @@ sudo unzip latest.zip
 </code></pre>
 <p>As noted in the WordPress documentation, this will create a directory called <code>wordpress</code> in the same directory.
 Therefore, the full path of your installation will be located at <code>/var/www/html/wordpress</code>.</p>
-<h3 id="step-3-create-the-database-and-a-user"><a class="header" href="#step-3-create-the-database-and-a-user">Step 3: Create the Database and a User</a></h3>
+<h3 id="step-3-permissions"><a class="header" href="#step-3-permissions">Step 3: Permissions</a></h3>
+<p>WordPress needs the web server user, <code>www-data</code>, to be able to read the installation files and write to specific directories (such as uploads).</p>
+<p>First, change ownership of the WordPress directory so that <code>www-data</code> owns the files:</p>
+<pre><code>sudo chown -R www-data:www-data /var/www/html/wordpress/
+</code></pre>
+<p>Next, set standard permissions for directories and files.</p>
+<p>Directories need execute permissions in order to be traversed:</p>
+<pre><code>sudo find /var/www/html/wordpress/ -type d -exec chmod 755 {} \;
+</code></pre>
+<p>Files should be readable but not executable:</p>
+<pre><code>sudo find /var/www/html/wordpress/ -type f -exec chmod 644 {} \;
+</code></pre>
+<p>Finally, allow WordPress to upload media by granting write access to the uploads directory:</p>
+<pre><code>sudo chmod -R 775 /var/www/html/wordpress/wp-content/uploads
+</code></pre>
+<p>For this course, where the install is temporary, this setup is acceptable.
+For a permanent install, permissions should be more restrictive and limited only to the directories that require write access.</p>
+<h3 id="step-4-create-the-database-and-a-user"><a class="header" href="#step-4-create-the-database-and-a-user">Step 4: Create the Database and a User</a></h3>
 <p>The WordPress documentation describes how to use <code>phpMyAdmin</code> to create the database and a user for WordPress.
 <code>phpMyAdmin</code> is a graphical front end to the MySQL relational database that you would access through the browser.
 We are not going to install that because I like to minimize the software that we install
@@ -4544,7 +4561,7 @@ grant all privileges on wordpress.* to 'wordpress'@'localhost';
 show databases;
 \q
 </code></pre>
-<h3 id="step-4-set-up-wp-configphp"><a class="header" href="#step-4-set-up-wp-configphp">Step 4: Set up <code>wp-config.php</code></a></h3>
+<h3 id="step-5-set-up-wp-configphp"><a class="header" href="#step-5-set-up-wp-configphp">Step 5: Set up <code>wp-config.php</code></a></h3>
 <p>When we created our bare bones ILS, we created a file called <code>login.php</code> that contained the name of the database (e.g., <code>opacdb</code>),
 the name of the database user (e.g., <code>opacuser</code>), and the user's password.
 WordPress follows a similar process, but instead of <code>login.php</code>, it uses a file called <code>wp-config.php</code>.</p>
@@ -4574,7 +4591,7 @@ If you later create a long-term or production install, also generate and set uni
 </code></pre>
 <p>This tells WordPress to write files directly through the local filesystem.
 For permanent installs, only use this after reviewing file ownership and security implications.</p>
-<h3 id="step-5-optional"><a class="header" href="#step-5-optional">Step 5: <strong>Optional</strong></a></h3>
+<h3 id="step-6-optional"><a class="header" href="#step-6-optional">Step 6: <strong>Optional</strong></a></h3>
 <p>The WordPress files are now installed at <code>/var/www/html/wordpress</code>.
 This means that your site would be located at a URL like:</p>
 <pre><code>http://11.111.111.11/wordpress
@@ -4586,21 +4603,7 @@ If you decide to change it, keep the name lowercase and URL-friendly (letters, n
 For example, if I want to change mine to <code>library</code>, then:</p>
 <pre><code>sudo mv /var/www/html/wordpress /var/www/html/library
 </code></pre>
-<!--
-### Step 6: Change File Ownership
-
-WordPress will need to write to files in the base directory.
-Assuming you are still in your base directory, run the following command, which assumes that my directory is still named
-`/var/www/html/wordpress`:
-
-```
-sudo chown -R www-data:www-data /var/www/html/wordpress
-```
-
-For this course, where the install is temporary, this broad ownership change is acceptable.
-For a permanent install, use stricter ownership and limit writable locations where possible.
--->
-<h3 id="step-6-run-the-install-script"><a class="header" href="#step-6-run-the-install-script">Step 6: Run the Install Script</a></h3>
+<h3 id="step-7-run-the-install-script"><a class="header" href="#step-7-run-the-install-script">Step 7: Run the Install Script</a></h3>
 <p>The next part of the process takes place in the browser.
 The location (URL) that you visit in the browser depends on your specific IP address and also
 includes the name of the directory in <code>/var/www/html</code> that we extracted WordPress to or that you renamed if you followed <strong>Step 5</strong>.
@@ -4700,13 +4703,34 @@ Remember that names of files and directories should not have spaces in them.</li
 <li>In the extracted directory, find the <code>db.ini</code> file and add your new database credentials.
 Replace all values containing <code>XXXXXX</code> with the appropriate information.
 This is the same thing we did with the <code>login.php</code> file for our bare bones ILS and the <code>wp-config.php</code> file for WordPress.</li>
-<li>Use the <code>chown</code> command to give Apache group write access on all files. Assume your directory name for the Omeka download is called <code>omeka</code>, then run these commands:
+</ul>
+<p>Omeka has the same basic permissions and ownership requirements as WordPress:</p>
 <ul>
-<li><code>cd /var/www/html/omeka</code></li>
-<li><code>sudo chmod -R g+w *</code></li>
+<li>the web server (<code>www-data</code>) must be able to read the application files</li>
+<li>and write to specific directories used for uploads and derivatives</li>
+</ul>
+<p>You have already solved this problem with your WordPress installation
+(see the <code>chown</code> and <code>chmod</code> permission section in the previous section on WordPress).
+Apply the same logic here but modify for the new Omeka directories.
+A few tips:</p>
+<ul>
+<li>Check ownership and permissions of your Omeka directory (tip: compare output to <code>/var/www/html/wordpress</code>):
+<pre><code>ls -ld /var/www/html/omeka
+</code></pre>
+</li>
+<li>Make sure the web server user can read the installation files and traverse the directories.</li>
+<li>Identify which directory Omeka uses to store uploaded and generated files.
+<ul>
+<li>Hint: look for a directory named <code>files/</code></li>
 </ul>
 </li>
-<li>Restart Apache2. Restart MySQL only if you run into connection or service issues.</li>
+<li>That directory (and subdirectories) must be writable by the server</li>
+<li>Avoid overly broad permissions</li>
+</ul>
+<p>Finally:</p>
+<ul>
+<li>Restart Apache2.</li>
+<li>Restart MySQL only if you run into connection or service issues.</li>
 <li>In your web browser, go to <code>http://your-ip-address/omeka/</code> (or whatever your directory name is) and complete the setup via the web form, just like you did with WordPress.</li>
 </ul>
 <h2 id="helpful-links"><a class="header" href="#helpful-links">Helpful Links</a></h2>

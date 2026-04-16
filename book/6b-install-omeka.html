@@ -241,13 +241,34 @@ Remember that names of files and directories should not have spaces in them.</li
 <li>In the extracted directory, find the <code>db.ini</code> file and add your new database credentials.
 Replace all values containing <code>XXXXXX</code> with the appropriate information.
 This is the same thing we did with the <code>login.php</code> file for our bare bones ILS and the <code>wp-config.php</code> file for WordPress.</li>
-<li>Use the <code>chown</code> command to give Apache group write access on all files. Assume your directory name for the Omeka download is called <code>omeka</code>, then run these commands:
+</ul>
+<p>Omeka has the same basic permissions and ownership requirements as WordPress:</p>
 <ul>
-<li><code>cd /var/www/html/omeka</code></li>
-<li><code>sudo chmod -R g+w *</code></li>
+<li>the web server (<code>www-data</code>) must be able to read the application files</li>
+<li>and write to specific directories used for uploads and derivatives</li>
+</ul>
+<p>You have already solved this problem with your WordPress installation
+(see the <code>chown</code> and <code>chmod</code> permission section in the previous section on WordPress).
+Apply the same logic here but modify for the new Omeka directories.
+A few tips:</p>
+<ul>
+<li>Check ownership and permissions of your Omeka directory (tip: compare output to <code>/var/www/html/wordpress</code>):
+<pre><code>ls -ld /var/www/html/omeka
+</code></pre>
+</li>
+<li>Make sure the web server user can read the installation files and traverse the directories.</li>
+<li>Identify which directory Omeka uses to store uploaded and generated files.
+<ul>
+<li>Hint: look for a directory named <code>files/</code></li>
 </ul>
 </li>
-<li>Restart Apache2. Restart MySQL only if you run into connection or service issues.</li>
+<li>That directory (and subdirectories) must be writable by the server</li>
+<li>Avoid overly broad permissions</li>
+</ul>
+<p>Finally:</p>
+<ul>
+<li>Restart Apache2.</li>
+<li>Restart MySQL only if you run into connection or service issues.</li>
 <li>In your web browser, go to <code>http://your-ip-address/omeka/</code> (or whatever your directory name is) and complete the setup via the web form, just like you did with WordPress.</li>
 </ul>
 <h2 id="helpful-links"><a class="header" href="#helpful-links">Helpful Links</a></h2>
