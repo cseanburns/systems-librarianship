@@ -130,6 +130,38 @@ Next, click on the **Networking** link in the left hand navigation section.
 > You can see a list of versions, code names, release dates, and
 > more on Ubuntu's [Releases][ubuntu_releases] page.
 
+### Budget Management
+
+While the costs of running our minimal virtual machines will be low, we should set up a Google Cloud Budget.
+Doing so will alert us to any unexpected costs, and then if something unexpected happens, we could take the necessary action.
+
+To set up a Budget, visit:
+
+- [Open Budgets &amp; alerts][gcloud_budgets]
+- Click on [Create budget]
+- Provide a name for the budget. For example, I name mine "Maximum".
+- Select the following:
+    - Time range: Monthly
+    - Projects: All projects
+    - Services: All services
+- Amount:
+    - Budget type: Specified amount
+    - Target amount: $10
+
+Under the **Actions** section, I use the following:
+
+ | Percent of budget 1   | Amount 1   | Trigger 1   |
+ | --------------------- | ---------- | ----------- |
+ | 50%                   | $5         | Actual      |
+ | 90%                   | $9         | Actual      |
+ | 100%                  | $10        | Actual      |
+
+ Finally, under **Manage notifications**, choose:
+
+ - **Email alerts to billing admins and users**
+ 
+ Now, as your costs approach the above numbers, you'll receive an email notification.
+
 ## Install the `gcloud` CLI
 
 In this section, we install the `gcloud` CLI software to connect to our virtual machines on Google Cloud.
@@ -341,6 +373,7 @@ This is a lot!
 After this course is completed, you will be able to fire up a virtual machine on short notice and deploy websites and more.
 
 [distrowatch]:https://distrowatch.com/
+[gcloud_budgets]:https://console.cloud.google.com/billing/budgets
 [gcloud_console]:https://console.cloud.google.com/
 [gcloud_install]:https://cloud.google.com/sdk/docs/install-sdk
 [gcloud_interactive]:https://cloud.google.com/sdk/docs/downloads-interactive#linux-mac
