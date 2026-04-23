@@ -150,11 +150,11 @@ To set up a Budget, visit:
 
 Under the **Actions** section, I use the following:
 
- | Percent of budget 1   | Amount 1   | Trigger 1   |
- | --------------------- | ---------- | ----------- |
- | 50%                   | $5         | Actual      |
- | 90%                   | $9         | Actual      |
- | 100%                  | $10        | Actual      |
+| Percent of budget     | Amount     | Trigger     |
+| --------------------- | ---------- | ----------- |
+| 50%                   | $5         | Actual      |
+| 90%                   | $9         | Actual      |
+| 100%                  | $10        | Actual      |
 
  Finally, under **Manage notifications**, choose:
 
