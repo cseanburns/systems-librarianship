@@ -215,7 +215,15 @@ Omeka uses this to create user friendly URLs for items and collections in its di
 </ul>
 <pre><code>sudo a2enmod rewrite
 </code></pre>
-<p>You should be instructed to restart Apache after enabling <code>mod_rewrite</code>:</p>
+<p>Edit <code>/etc/apache2/apache2.conf</code> and add the following at line 176:</p>
+<pre><code>&lt;Directory /var/www/html/omeka&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride ALL
+        Require all granted
+&lt;/Directory&gt;
+</code></pre>
+<p>You should have been instructed to restart Apache after enabling <code>mod_rewrite</code>.
+To do so:</p>
 <pre><code>sudo systemctl restart apache2
 </code></pre>
 <h2 id="general-steps"><a class="header" href="#general-steps">General Steps</a></h2>
@@ -238,6 +246,7 @@ Use this handbook to remind you of the specific commands.</p>
 Remember that names of files and directories should not have spaces in them.</li>
 </ul>
 </li>
+<li>Adjust the <code>find</code> commands that use chmod<code>and</code>chown<code>for the</code>/var/www/html/omeka` directory.</li>
 <li>In the extracted directory, find the <code>db.ini</code> file and add your new database credentials.
 Replace all values containing <code>XXXXXX</code> with the appropriate information.
 This is the same thing we did with the <code>login.php</code> file for our bare bones ILS and the <code>wp-config.php</code> file for WordPress.</li>

@@ -309,6 +309,40 @@ Ubuntu 24.04 LTS has the code name <strong>Noble Numbat</strong>.
 You can see a list of versions, code names, release dates, and
 more on Ubuntu's <a href="https://wiki.ubuntu.com/Releases">Releases</a> page.</p>
 </blockquote>
+<h3 id="budget-management"><a class="header" href="#budget-management">Budget Management</a></h3>
+<p>While the costs of running our minimal virtual machines will be low, we should set up a Google Cloud Budget.
+Doing so will alert us to any unexpected costs, and then if something unexpected happens, we could take the necessary action.</p>
+<p>To set up a Budget, visit:</p>
+<ul>
+<li><a href="https://console.cloud.google.com/billing/budgets">Open Budgets &amp; alerts</a></li>
+<li>Click on [Create budget]</li>
+<li>Provide a name for the budget. For example, I name mine "Maximum".</li>
+<li>Select the following:
+<ul>
+<li>Time range: Monthly</li>
+<li>Projects: All projects</li>
+<li>Services: All services</li>
+</ul>
+</li>
+<li>Amount:
+<ul>
+<li>Budget type: Specified amount</li>
+<li>Target amount: $10</li>
+</ul>
+</li>
+</ul>
+<p>Under the <strong>Actions</strong> section, I use the following:</p>
+<div class="table-wrapper"><table><thead><tr><th>Percent of budget 1</th><th>Amount 1</th><th>Trigger 1</th></tr></thead><tbody>
+<tr><td>50%</td><td>$5</td><td>Actual</td></tr>
+<tr><td>90%</td><td>$9</td><td>Actual</td></tr>
+<tr><td>100%</td><td>$10</td><td>Actual</td></tr>
+</tbody></table>
+</div>
+<p>Finally, under <strong>Manage notifications</strong>, choose:</p>
+<ul>
+<li><strong>Email alerts to billing admins and users</strong></li>
+</ul>
+<p>Now, as your costs approach the above numbers, you'll receive an email notification.</p>
 <h2 id="install-the-gcloud-cli"><a class="header" href="#install-the-gcloud-cli">Install the <code>gcloud</code> CLI</a></h2>
 <p>In this section, we install the <code>gcloud</code> CLI software to connect to our virtual machines on Google Cloud.
 You have two ways to connect to your VM:</p>

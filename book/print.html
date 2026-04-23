@@ -905,6 +905,40 @@ Ubuntu 24.04 LTS has the code name <strong>Noble Numbat</strong>.
 You can see a list of versions, code names, release dates, and
 more on Ubuntu's <a href="https://wiki.ubuntu.com/Releases">Releases</a> page.</p>
 </blockquote>
+<h3 id="budget-management"><a class="header" href="#budget-management">Budget Management</a></h3>
+<p>While the costs of running our minimal virtual machines will be low, we should set up a Google Cloud Budget.
+Doing so will alert us to any unexpected costs, and then if something unexpected happens, we could take the necessary action.</p>
+<p>To set up a Budget, visit:</p>
+<ul>
+<li><a href="https://console.cloud.google.com/billing/budgets">Open Budgets &amp; alerts</a></li>
+<li>Click on [Create budget]</li>
+<li>Provide a name for the budget. For example, I name mine "Maximum".</li>
+<li>Select the following:
+<ul>
+<li>Time range: Monthly</li>
+<li>Projects: All projects</li>
+<li>Services: All services</li>
+</ul>
+</li>
+<li>Amount:
+<ul>
+<li>Budget type: Specified amount</li>
+<li>Target amount: $10</li>
+</ul>
+</li>
+</ul>
+<p>Under the <strong>Actions</strong> section, I use the following:</p>
+<div class="table-wrapper"><table><thead><tr><th>Percent of budget 1</th><th>Amount 1</th><th>Trigger 1</th></tr></thead><tbody>
+<tr><td>50%</td><td>$5</td><td>Actual</td></tr>
+<tr><td>90%</td><td>$9</td><td>Actual</td></tr>
+<tr><td>100%</td><td>$10</td><td>Actual</td></tr>
+</tbody></table>
+</div>
+<p>Finally, under <strong>Manage notifications</strong>, choose:</p>
+<ul>
+<li><strong>Email alerts to billing admins and users</strong></li>
+</ul>
+<p>Now, as your costs approach the above numbers, you'll receive an email notification.</p>
 <h2 id="install-the-gcloud-cli"><a class="header" href="#install-the-gcloud-cli">Install the <code>gcloud</code> CLI</a></h2>
 <p>In this section, we install the <code>gcloud</code> CLI software to connect to our virtual machines on Google Cloud.
 You have two ways to connect to your VM:</p>
@@ -4442,6 +4476,35 @@ In addition to the plugin ecosystem, there are <a href="https://wordpress.org/th
 Plus, many businesses offer paid themes or can create customized themes based on customer needs.
 These themes can drastically alter the appearance and usability of a WordPress site or cater a site for a specific clientele,
 such as a library.</p>
+<h2 id="preparation"><a class="header" href="#preparation">Preparation</a></h2>
+<p>Before we begin, we need to create a new virtual machine that gives us slightly more power (in CPUs) and memory (in RAM).
+As a refresher for creating a VM, see the section titled <strong>gcloud VM Instance</strong> at <a href="2a-using-gcloud-virtual-machines.html">Using gcloud Virtual Machines</a>.</p>
+<p>First, be sure you're working within the same Google Cloud Project as you have been.
+Next, for our new VMs, use the following parameters:</p>
+<ul>
+<li>Machine Configuration: e2-small (2 vCPU, 1 core, 2 GB memory)</li>
+<li>OS and storage: Ubuntu 24.04 LTS, 20GB Hard Disk</li>
+<li>Data protection: No backups
+<ul>
+<li>You may choose the Snapshot schedules option if you want to restore your machine from a prior version in case of an error. But note that snapshots entail extra storage and thus extra costs.</li>
+</ul>
+</li>
+<li>Networking:
+<ul>
+<li>Allow HTTP traffic</li>
+</ul>
+</li>
+</ul>
+<h2 id="setup-lamp-stack"><a class="header" href="#setup-lamp-stack">Setup LAMP Stack</a></h2>
+<p>Since we're working with a new virtual machine, we need to install the LAMP stack again.
+In our prior sections on the Apache Web Server, PHP, and MySQL, we installed the necessary packages as we worked through each technology.
+Here we'll install it all in one go:</p>
+<pre><code>sudo apt install apache2 php libapache2-mod-php mysql-server php-mysql
+</code></pre>
+<p>Then run the following to setup the MySQL server.
+As a reminder of the steps in this process, see how to respond to the prompts from this command in the <a href="4c-installing-configuring-mysql.html#install-and-set-up-mysql">Install and Set Up MySQL</a> section:</p>
+<pre><code>sudo mysql_secure_installation
+</code></pre>
 <h2 id="installation-2"><a class="header" href="#installation-2">Installation</a></h2>
 <p>So far I have shown you how to install software using two methods:</p>
 <ul>
@@ -4515,7 +4578,7 @@ Therefore, the full path of your installation will be located at <code>/var/www/
 <h3 id="step-3-permissions"><a class="header" href="#step-3-permissions">Step 3: Permissions</a></h3>
 <p>WordPress needs the web server user, <code>www-data</code>, to be able to read the installation files and write to specific directories (such as uploads).</p>
 <p>First, change ownership of the WordPress directory so that <code>www-data</code> owns the files:</p>
-<pre><code>sudo chown -R www-data:www-data /var/www/html/wordpress/
+<pre><code>sudo chown -R $USER:www-data /var/www/html/wordpress/
 </code></pre>
 <p>Next, set standard permissions for directories and files.</p>
 <p>Directories need execute permissions in order to be traversed:</p>
@@ -4525,10 +4588,8 @@ Therefore, the full path of your installation will be located at <code>/var/www/
 <pre><code>sudo find /var/www/html/wordpress/ -type f -exec chmod 644 {} \;
 </code></pre>
 <p>Finally, allow WordPress to upload media by granting write access to the uploads directory:</p>
-<pre><code>sudo chmod -R 775 /var/www/html/wordpress/wp-content/uploads
-</code></pre>
-<p>If the directory doesn't exist, then create it before running the above command:</p>
 <pre><code>sudo mkdir /var/www/html/wordpress/wp-content/uploads
+sudo chmod -R 775 /var/www/html/wordpress/wp-content/uploads
 </code></pre>
 <p>The <code>wp-content/</code> directory pre-contains <code>plugins/</code> and <code>themes/</code> directories.
 If you attempt to add plugins or new themes, then modify the <code>chmod</code> command appropriately.</p>
@@ -4591,9 +4652,13 @@ sudo nano wp-config.php
 just like we did with our <code>login.php</code> file for our bare bones OPAC.</p>
 <p>For this short-lived lab install, updating the database fields is sufficient.
 If you later create a long-term or production install, also generate and set unique WordPress authentication keys and salts per the WordPress documentation.</p>
-<p>If WordPress cannot write files due to permissions in this lab environment, add the following line at the end of <code>wp-config.php</code>:</p>
-<pre><code>define('FS_METHOD','direct');
-</code></pre>
+<!--
+If WordPress cannot write files due to permissions in this lab environment, add the following line at the end of `wp-config.php`:
+
+```
+define('FS_METHOD','direct');
+```
+-->
 <p>This tells WordPress to write files directly through the local filesystem.
 For permanent installs, only use this after reviewing file ownership and security implications.</p>
 <h3 id="step-6-optional"><a class="header" href="#step-6-optional">Step 6: <strong>Optional</strong></a></h3>
@@ -4682,7 +4747,15 @@ Omeka uses this to create user friendly URLs for items and collections in its di
 </ul>
 <pre><code>sudo a2enmod rewrite
 </code></pre>
-<p>You should be instructed to restart Apache after enabling <code>mod_rewrite</code>:</p>
+<p>Edit <code>/etc/apache2/apache2.conf</code> and add the following at line 176:</p>
+<pre><code>&lt;Directory /var/www/html/omeka&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride ALL
+        Require all granted
+&lt;/Directory&gt;
+</code></pre>
+<p>You should have been instructed to restart Apache after enabling <code>mod_rewrite</code>.
+To do so:</p>
 <pre><code>sudo systemctl restart apache2
 </code></pre>
 <h2 id="general-steps"><a class="header" href="#general-steps">General Steps</a></h2>
@@ -4705,6 +4778,7 @@ Use this handbook to remind you of the specific commands.</p>
 Remember that names of files and directories should not have spaces in them.</li>
 </ul>
 </li>
+<li>Adjust the <code>find</code> commands that use chmod<code>and</code>chown<code>for the</code>/var/www/html/omeka` directory.</li>
 <li>In the extracted directory, find the <code>db.ini</code> file and add your new database credentials.
 Replace all values containing <code>XXXXXX</code> with the appropriate information.
 This is the same thing we did with the <code>login.php</code> file for our bare bones ILS and the <code>wp-config.php</code> file for WordPress.</li>
