@@ -69,6 +69,38 @@ Plus, many businesses offer paid themes or can create customized themes based on
 These themes can drastically alter the appearance and usability of a WordPress site or cater a site for a specific clientele,
 such as a library.
 
+## Preparation
+
+Before we begin, we need to create a new virtual machine that gives us slightly more power (in CPUs) and memory (in RAM).
+As a refresher for creating a VM, see the section titled **gcloud VM Instance** at [Using gcloud Virtual Machines][using_gcloud].
+
+First, be sure you're working within the same Google Cloud Project as you have been.
+Next, for our new VMs, use the following parameters:
+
+- Machine Configuration: e2-small (2 vCPU, 1 core, 2 GB memory)
+- OS and storage: Ubuntu 24.04 LTS, 20GB Hard Disk
+- Data protection: No backups
+    - You may choose the Snapshot schedules option if you want to restore your machine from a prior version in case of an error. But note that snapshots entail extra storage and thus extra costs.
+- Networking:
+    - Allow HTTP traffic
+
+## Setup LAMP Stack
+
+Since we're working with a new virtual machine, we need to install the LAMP stack again.
+In our prior sections on the Apache Web Server, PHP, and MySQL, we installed the necessary packages as we worked through each technology.
+Here we'll install it all in one go:
+
+```
+sudo apt install apache2 php libapache2-mod-php mysql-server php-mysql
+```
+
+Then run the following to setup the MySQL server.
+As a reminder of the steps in this process, see how to respond to the prompts from this command in the [Install and Set Up MySQL][install_mysql] section:
+
+```
+sudo mysql_secure_installation
+```
+
 ## Installation
 
 So far I have shown you how to install software using two methods:
@@ -175,7 +207,7 @@ WordPress needs the web server user, `www-data`, to be able to read the installa
 First, change ownership of the WordPress directory so that `www-data` owns the files:
 
 ```
-sudo chown -R www-data:www-data /var/www/html/wordpress/
+sudo chown -R $USER:www-data /var/www/html/wordpress/
 ```
 
 Next, set standard permissions for directories and files.
@@ -195,13 +227,8 @@ sudo find /var/www/html/wordpress/ -type f -exec chmod 644 {} \;
 Finally, allow WordPress to upload media by granting write access to the uploads directory:
 
 ```
-sudo chmod -R 775 /var/www/html/wordpress/wp-content/uploads
-```
-
-If the directory doesn't exist, then create it before running the above command:
-
-```
 sudo mkdir /var/www/html/wordpress/wp-content/uploads
+sudo chmod -R 775 /var/www/html/wordpress/wp-content/uploads
 ```
 
 The `wp-content/` directory pre-contains `plugins/` and `themes/` directories.
@@ -278,11 +305,13 @@ just like we did with our `login.php` file for our bare bones OPAC.
 For this short-lived lab install, updating the database fields is sufficient.
 If you later create a long-term or production install, also generate and set unique WordPress authentication keys and salts per the WordPress documentation.
 
+<!--
 If WordPress cannot write files due to permissions in this lab environment, add the following line at the end of `wp-config.php`:
 
 ```
 define('FS_METHOD','direct');
 ```
+-->
 
 This tells WordPress to write files directly through the local filesystem.
 For permanent installs, only use this after reviewing file ownership and security implications.
@@ -366,9 +395,11 @@ It's also a break from the command line!
 [erm_cseanburns]:https://cseanburns.github.io/electronic_resource_mgmt/
 [evergreen_ils]:https://evergreen-ils.org/
 [install_wordpress]:https://wordpress.org/documentation/article/how-to-install-wordpress/
+[install_mysql]:4c-installing-configuring-mysql.html#install-and-set-up-mysql
 [rpl_launch]:https://web.archive.org/web/20230927082116/https://www.bartlettinteractive.com/blog/libraries-using-wordpress
 [rpl_wp]:https://readingpl.org/
 [updating_wp]:https://wordpress.org/documentation/article/updating-wordpress/
+[using_gcloud]:2a-using-gcloud-virtual-machines.html
 [wp_com]:https://wordpress.com
 [wp_foundation]:https://wordpressfoundation.org/
 [wp_org]:https://wordpress.org
