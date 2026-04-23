@@ -45,7 +45,18 @@ sudo apt install imagemagick
 sudo a2enmod rewrite
 ```
 
-You should be instructed to restart Apache after enabling `mod_rewrite`:
+Edit `/etc/apache2/apache2.conf` and add the following at line 176:
+
+```
+<Directory /var/www/html/omeka>
+        Options Indexes FollowSymLinks
+        AllowOverride ALL
+        Require all granted
+</Directory>
+```
+
+You should have been instructed to restart Apache after enabling `mod_rewrite`.
+To do so:
 
 ```
 sudo systemctl restart apache2
@@ -71,6 +82,7 @@ In short, you are going to complete the following steps:
     - The extracted directory will include the release version in its name.
     - You want to **rename** it simply `omeka` or something else of your choosing (like `digital_library`).
       Remember that names of files and directories should not have spaces in them.
+- Adjust the `find` commands that use chmod` and `chown` for the `/var/www/html/omeka` directory.
 - In the extracted directory, find the `db.ini` file and add your new database credentials.
   Replace all values containing `XXXXXX` with the appropriate information.
   This is the same thing we did with the `login.php` file for our bare bones ILS and the `wp-config.php` file for WordPress.
