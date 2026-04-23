@@ -113,6 +113,13 @@ Finally:
 - Restart MySQL only if you run into connection or service issues.
 - In your web browser, go to `http://your-ip-address/omeka/` (or whatever your directory name is) and complete the setup via the web form, just like you did with WordPress.
 
+Note: Just like with WordPress, since we're using IP-address based resolution instead of domain-name based resolution to access our installs,
+do not turn off or reboot this system.
+Omeka hardcodes the IP address of the server in its MySQL database, and
+Google Cloud will assign your server a new IP address if your server is restarted.
+The MySQL database will not get updated with the new IP address when this happens.
+Thus, if you restart your server, and it receives a new IP address, you will have to login to MySQL and update the database with the server's new IP address.
+
 ## Helpful Links
 
 **Note**: The user manual below is helpful, but it does not provide explicit instructions.

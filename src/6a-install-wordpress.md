@@ -382,6 +382,13 @@ Make sure that the URL is set to `http` and that it's not trying to access `http
 Setting up an `https` site also generally requires a domain name, but we are not doing that here.
 So if there are any problems accessing your site in the browser, be sure to check that the URL starts off with `http`.
 
+Third, since we're using IP-address based resolution instead of domain-name based resolution to access our installs,
+do not turn off or reboot this system.
+WordPress unfortunately hardcodes the IP address of the server in its MySQL database, and
+Google Cloud will assign your server a new IP address if your server is restarted.
+The MySQL database will not get updated with the new IP address when this happens.
+Thus, if you restart your server, and it receives a new IP address, you will have to login to MySQL and update the database with the server's new IP address.
+
 ## Conclusion
 
 Congrats on setting up your WordPress library site.
