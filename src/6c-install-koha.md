@@ -334,8 +334,8 @@ sudo cp /etc/koha/koha-sites.conf /etc/koha/koha-sites.conf.backup
 ```
 
 Next, use your text editor to open `/etc/koha/koha-sites.conf`.
-At the end of the `INTRAPORT=` line, add `8080`.
-At the end of the `OPACPORT=` line, add `8081`:
+At the end of the `INTRAPORT=` line, change `80` to `8080`.
+At the end of the `OPACPORT=` line, change `80` to `8081`:
 
 ```
 INTRAPORT="8080"
