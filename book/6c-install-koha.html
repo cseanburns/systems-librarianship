@@ -461,8 +461,8 @@ Since this is an important configuration file, we should make a copy of it first
 <pre><code>sudo cp /etc/koha/koha-sites.conf /etc/koha/koha-sites.conf.backup
 </code></pre>
 <p>Next, use your text editor to open <code>/etc/koha/koha-sites.conf</code>.
-At the end of the <code>INTRAPORT=</code> line, add <code>8080</code>.
-At the end of the <code>OPACPORT=</code> line, add <code>8081</code>:</p>
+At the end of the <code>INTRAPORT=</code> line, change <code>80</code> to <code>8080</code>.
+At the end of the <code>OPACPORT=</code> line, change <code>80</code> to <code>8081</code>:</p>
 <pre><code>INTRAPORT="8080"
 OPACPORT="8081"
 </code></pre>
