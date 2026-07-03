@@ -86,7 +86,7 @@ Systems administrators manage computer systems that contain a lot of data about 
 which is why some have created code of ethics statements.
 Both LOPSA and NPA have created such statements that are well worth reviewing and discussing.
 
-- LOPSA: [Code of Ethics][coeLOPSA]
+
 - NPA: [Code of Ethics][coeNPA]
 
 ## Keeping Up
