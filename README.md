@@ -16,10 +16,8 @@ The resulting output is hosted at:
 
 ## Contributions
 
-I accept revisions to this work.
-I will review minor revisions.
-Major revisions, including re-organization of the material or new content, would require a discussion first.
-Feel free to fork this work.
+I do not accept unsolicited revisions of this work, but you are free to fork this repository and make modifications on your own.
+Note that this work is licensed under a CreativeCommons Attribution-NonCommercial-ShareAlike 4.0 International license.
 
 [mdbook]:https://github.com/rust-lang/mdBook
 [src_syslib]:https://github.com/cseanburns/systems-librarianship/tree/main/src
