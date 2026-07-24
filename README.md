@@ -1,12 +1,8 @@
 # Systems Librarianship
 
-This repo contains materials for a course on systems librarianship that started in the Spring 2023 semester.
+This repo is forked from Dr. Sean Burns' ([Systems Librarianship](https://cseanburns.github.io/systems-librarianship/)) book, version 3, first taught in Spring of 2023. It contains some modifications to account for updates to *nix and dependency versions, as well as explanations and instructions, contributed by Dr. Laura Ridenour for ISLT 7301: Library and Information Technology.
 
-New versions of this work will be released at the end of each semester I teach the corresponding course:
-
-- [Version 3][version_3]: Spring 2025 semester
-- [Version 2][version_2]: Spring 2024 semester
-- [Version 1][version_1]: Spring 2023 semester
+Similar to Dr. Burns' version, I intend to update it as needed.
 
 The [`src/`][src_syslib] directory contains the markdown files.
 These files are converted into a book format using [mdBook][mdbook].
